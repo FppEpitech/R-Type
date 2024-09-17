@@ -30,6 +30,8 @@
 *.exe
 *.out
 *.app
+r-type_server
+r-type_client
 
 # Build Folder
 build
