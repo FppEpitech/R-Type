@@ -40,3 +40,26 @@ Optional commit body, providing additional information about the changes made. I
 - Commit messages should be written in English to ensure consistency for all contributors.
 
 By following this commit convention, we can have a clear and informative history, making it easier to understand the changes made in the project.
+
+### Issue Convention
+
+For issues, we follow the following format (conventional commits):
+
+**`<type>: <description>`**
+
+- `<type>`: Indicates the nature of the issue. It can be one of the following types:
+  - `FEAT`: Addition of a new feature.
+  - `FIX`: Fixing a bug or an error.
+  - `DOCS`: Documentation-related changes.
+  - `STYLE`: Code style changes (indentation, spaces, etc.) that do not affect the meaning of the code.
+  - `REFACTOR`: Code changes that do not fix a bug or add a feature.
+  - `TEST`: Addition or modification of tests.
+  - `CHORE`: Project maintenance tasks, dependency updates, etc.
+
+- `<description>`: Concise description of the issue. It should be written in the imperative present tense, start with a capital letter, and not end with a period.
+- Examples of issue descriptions:
+  - FEAT: Add email login feature.
+  - FIX: Fix bug related to data encoding.
+  - DOCS: Update installation documentation.
+
+By following this issue convention, we can have a clear and informative list of issues, making it easier to track and manage the project's progress.
