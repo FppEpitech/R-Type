@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(EXE r-type_server)
-project(${EXE})
 
 set(EXE_SRC_PATH "src")
 set(EXE_INCLUDE_PATH "include")
