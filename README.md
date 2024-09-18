@@ -19,3 +19,5 @@ And the client:
 ```
 ./r-type_client
 ```
+# Documentation
+Here the project documentation: [SlimWiki](https://slimwiki.com/6fvu0f5pu/getting-started-nqdxve9qg-/welcome)
