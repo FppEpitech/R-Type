@@ -1,0 +1,56 @@
+name: release
+on:
+  workflow_dispatch: # Allows manual triggering
+  schedule:
+    - cron: '0 18 * * 5'  # Runs every Friday at 6pm UTC
+  workflow_run:
+    workflows: ["cmake"]
+    types:
+      - completed
+
+jobs:
+  create-release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event_name == 'schedule' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout project
+        uses: actions/checkout@v4
+
+      - name: download r-type_client (Linux)
+        uses: actions/download-artifact@v3
+        with:
+          name: r-type_client-ubuntu-latest
+          path: ./artifacts
+
+      - name: download r-type_client (Windows)
+        uses: actions/download-artifact@v3
+        with:
+          name: r-type_client-windows-latest
+          path: ./artifacts
+
+      - name: download r-type_server (Linux)
+        uses: actions/download-artifact@v3
+        with:
+          name: r-type_server-ubuntu-latest
+          path: ./artifacts
+
+      - name: download r-type_server (Windows)
+        uses: actions/download-artifact@v3
+        with:
+          name: r-type_server-windows-latest
+          path: ./artifacts
+
+      - name: create release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: v0.{{ github.run_number }} | Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+          assets: |
+            ./artifacts/r-type_client-ubuntu-latest
+            ./artifacts/r-type_client-windows-latest
+            ./artifacts/r-type_server-ubuntu-latest
+            ./artifacts/r-type_server-windows-latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
