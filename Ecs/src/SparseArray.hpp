@@ -236,9 +236,8 @@ class SparseArray {
          */
         reference_type insert_at(size_type pos, Component const &component)
         {
-            if (pos >= _data.size()) {
+            if (pos >= _data.size())
                 _data.resize(pos + 1);
-            }
             _data[pos] = component;
             return _data[pos];
         }
@@ -252,9 +251,8 @@ class SparseArray {
          */
         reference_type insert_at(size_type pos, Component &&component)
         {
-            if (pos >= _data.size()) {
+            if (pos >= _data.size())
                 _data.resize(pos + 1);
-            }
             _data[pos] = component;
             return _data[pos];
         };
@@ -270,9 +268,8 @@ class SparseArray {
         template <class... Params>
         reference_type emplace_at(size_type pos, Params&&... params)
         {
-            if (pos >= _data.size()) {
+            if (pos >= _data.size())
                 _data.resize(pos + 1);
-            }
             _data[pos] = Component(std::forward<Params>(params)...);
             return _data[pos];
         }

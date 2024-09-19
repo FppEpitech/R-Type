@@ -19,16 +19,14 @@ entity_t Registry::spawn_entity() {
 }
 
 entity_t Registry::entity_from_index(std::size_t idx) {
-    if (idx < _entities.size()) {
+    if (idx < _entities.size())
         return _entities[idx];
-    }
     throw std::runtime_error("Entity index out of bounds.");
 }
 
 void Registry::kill_entity(entity_t const& entity) {
-    for (auto& [typeIdx, remove_func] : _remove_functions) {
+    for (auto& [typeIdx, remove_func] : _remove_functions)
         remove_func(*this, entity);
-    }
     _dead_entities.push_back(entity);
     for (entity_t i = 0; i < _entities.size(); i++) {
         if (_entities[i] == entity)
@@ -37,7 +35,6 @@ void Registry::kill_entity(entity_t const& entity) {
 }
 
 void Registry::run_systems() {
-    for (auto& system : _systems) {
+    for (auto& system : _systems)
         system();
-    }
 }

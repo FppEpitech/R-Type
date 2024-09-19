@@ -65,9 +65,8 @@ class Registry {
         {
             std::type_index typeIdx(typeid(Component));
             auto it = _components_arrays.find(typeIdx);
-            if (it == _components_arrays.end()) {
+            if (it == _components_arrays.end())
                 throw std::runtime_error("Component type not registered.");
-            }
             return std::any_cast<SparseArray<Component>&>(it->second);
         };
 
@@ -84,9 +83,8 @@ class Registry {
         {
             std::type_index typeIdx(typeid(Component));
             auto it = _components_arrays.find(typeIdx);
-            if (it == _components_arrays.end()) {
+            if (it == _components_arrays.end())
                 throw std::runtime_error("Component type not registered.");
-            }
             return std::any_cast<const SparseArray<Component>&>(it->second);
         };
 
