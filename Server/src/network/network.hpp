@@ -35,12 +35,12 @@ class Network::Server
          * @param tcp_port The port number for the TCP acceptor.
          * @param udp_port The port number for the UDP socket.
          */
-        Server(asio::io_context& io_context, int tcp_port, int udp_port);
+        Server(int tcp_port, int udp_port);
 
         /**
          * @brief Starts the server.
          */
-        void start(void);
+        void start(MessageHandler callback);
 
         /**
          * @brief Sends a message to a specific UDP endpoint.
@@ -49,13 +49,6 @@ class Network::Server
          * @param endpoint The UDP endpoint to which the message is sent.
          */
         void sendMessage(const std::string& message, const asio::ip::udp::endpoint& endpoint);
-
-        /**
-         * @brief Sets the message handler callback function.
-         *
-         * @param callback A callback function that takes a message and a UDP endpoint as parameters.
-         */
-        void setMessageHandler(MessageHandler callback);
 
     private:
 
@@ -78,9 +71,9 @@ class Network::Server
          */
         void _startReceive(void);
 
-        asio::io_context&                                   _io_context;
-        asio::ip::tcp::acceptor                             _tcp_acceptor;
-        asio::ip::udp::socket                               _udp_socket;
+        std::shared_ptr<asio::io_context>                   _io_context;
+        std::shared_ptr<asio::ip::tcp::acceptor>            _tcp_acceptor;
+        std::shared_ptr<asio::ip::udp::socket>              _udp_socket;
         asio::ip::udp::endpoint                             _remote_endpoint;
         std::array<char, 1024>                              _recv_buffer;
         std::string                                         _read_buffer;

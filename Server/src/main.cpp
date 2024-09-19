@@ -16,18 +16,8 @@ void handle_message(const std::string& message, const asio::ip::udp::endpoint& e
 
 int main() {
     try {
-        asio::io_context io_context;
-
-        Network::Server server(io_context, 4444, 4445);
-
-        std::cout << "Server running on TCP port 4444 and UDP port 4445..." << std::endl;
-
-        server.setMessageHandler(handle_message);
-        server.start();
-
-        std::thread server_thread([&io_context]() { io_context.run(); });
-
-        server_thread.join();
+        Network::Server server(4444, 4445);
+        server.start(handle_message);
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
