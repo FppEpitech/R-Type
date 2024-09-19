@@ -29,8 +29,8 @@ jobs:
           cd build
           cmake ..
           cmake --build . --config Release
-          cp r-type_server /tmp/r-type_server_linux  # Copy executable to a known location
-          cp r-type_client /tmp/r-type_client_linux  # Copy executable to a known location
+          cp Server/r-type_server /tmp/r-type_server_linux  # Copy executable to a known location
+          cp Client/r-type_client /tmp/r-type_client_linux  # Copy executable to a known location
 
       - name: Set Output Path
         id: build
@@ -51,9 +51,10 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -G "Visual Studio 16 2019"
+          cmake -B . -G "Ninja"
           cmake --build . --config Release
-          copy my_executable.exe C:\temp\my_executable_windows.exe  # Copy executable to a known location
+          copy Server/r-type_server.exe C:\temp\r-type_server_windows.exe
+          copy Client/r-type_client.exe C:\temp\r-type_client_windows.exe
 
       - name: Set Output Path
         id: build
