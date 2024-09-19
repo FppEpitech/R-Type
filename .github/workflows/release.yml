@@ -30,12 +30,6 @@ jobs:
           cmake ..
           cmake --build . --config Release
           ls
-          echo "\n"
-          ls Server
-          echo "\n"
-          ls Client
-          echo "\n"
-          ls /home/runner/work/R-Type/R-Type
           cp /home/runner/work/R-Type/R-Type/r-type_server /tmp/r-type_server_linux
           cp /home/runner/work/R-Type/R-Type/r-type_client /tmp/r-type_client_linux
 
