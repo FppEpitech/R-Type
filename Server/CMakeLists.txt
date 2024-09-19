@@ -6,11 +6,7 @@ set(EXE_SRC_PATH "src")
 set(EXE_INCLUDE_PATH "include")
 
 set(SRC_EXE
-        ./src/main.cpp
-	)
-
-target_link_libraries(
-    r-type_ecs
+    ./src/main.cpp
 )
 
 include_directories(
@@ -20,3 +16,8 @@ include_directories(
 add_executable(${EXE} ${SRC_EXE})
 
 target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
+
+target_link_libraries(
+    ${EXE}
+    r-type_ecs
+)

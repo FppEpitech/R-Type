@@ -10,3 +10,5 @@ set(SRC_LIB
 	)
 
 add_library(${LIB} STATIC ${SRC_LIB})
+
+target_include_directories(${LIB} PUBLIC ${INCLUDE_EXE})
