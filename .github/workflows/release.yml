@@ -51,9 +51,17 @@ jobs:
       - name: Configure and Build on Windows
         run: |
           mkdir build
+          echo "first ls\n"
+          ls
           cd build
+          echo "second ls\n"
+          ls
           cmake -B . -G "Ninja"
+          echo "third ls\n"
+          ls
           cmake --build . --config Release
+          echo "fourth ls\n"
+          ls
           copy Server/r-type_server.exe C:\temp\r-type_server_windows.exe
           copy Client/r-type_client.exe C:\temp\r-type_client_windows.exe
 
