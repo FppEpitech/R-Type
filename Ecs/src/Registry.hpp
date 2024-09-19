@@ -15,8 +15,18 @@
 #include <functional>
 #include <unordered_map>
 
+/**
+ * @brief Index type for an Entity in a registry.
+ *
+ */
 using entity_t = std::size_t;
 
+
+/**
+ * @brief Registry class, main class of an ECS
+ * You can add component, entities and systems to a registry.
+ *
+ */
 class Registry {
 
     public :
@@ -196,5 +206,5 @@ class Registry {
         std::vector<entity_t>                                   _dead_entities;             // Array of dead Entities indexes.
         entity_t                                                _next_entity = 0;           // Index for the next Entity to create.
 
-        std::vector<std::function<void()>> _systems;
+        std::vector<std::function<void()>>                      _systems;                   // Array of systems.
 };

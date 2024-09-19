@@ -11,17 +11,57 @@
 #include <vector>
 #include <memory>
 
+/**
+ * @brief Container of component.
+ *
+ * @tparam Component type of the container.
+ */
 template <typename Component>
 class SparseArray {
 
     public :
+
+        /**
+         * @brief Type of a Component in the vector.
+         *
+         */
         using value_type = std::optional<Component>;
+
+        /**
+         * @brief Type for the value reference.
+         *
+         */
         using reference_type = value_type &;
+
+        /**
+         * @brief Type for the const value reference.
+         *
+         */
         using const_reference_type = value_type const &;
+
+        /**
+         * @brief Type for the vector of type component.
+         *
+         */
         using container_t = std::vector<value_type>;
-        using size_type = typename container_t::size_type ;
-        using iterator = typename container_t::iterator ;
-        using const_iterator = typename container_t::const_iterator ;
+
+        /**
+         * @brief Type for the size of the vector.
+         *
+         */
+        using size_type = typename container_t::size_type;
+
+        /**
+         * @brief Iterator type of the vector.
+         *
+         */
+        using iterator = typename container_t::iterator;
+
+        /**
+         * @brief Const iterator type of the vector.
+         *
+         */
+        using const_iterator = typename container_t::const_iterator;
 
     public :
 
