@@ -1,0 +1,117 @@
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: x64-linux
+Multi-Arch: same
+Abi: f9b6936277d42b1d5c5b4f0ef1abc569d5be112ac24bafddf53e71daf7e87166
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2024-04-23
+Architecture: x64-linux
+Multi-Arch: same
+Abi: 337986494fc651eb907096c9b10453d2b4221f8f9c2867fd36e985ef379635bc
+Status: install ok installed
+
+Package: asio
+Version: 1.31.0
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-linux
+Multi-Arch: same
+Abi: 08f3170d08ddf8593131b3fa67d0b2b183d4cbe9b36174827f6fec54625f40e6
+Description: Asio is a cross-platform C++ library for network and low-level I/O programming that provides developers with a consistent asynchronous model using a modern C++ approach.
+Status: install ok installed
+
+Package: stb
+Version: 2024-07-29
+Port-Version: 1
+Architecture: x64-linux
+Multi-Arch: same
+Abi: 32345cab8ccb82b62b7b31767f2a1821c7a7c20e2940be5a04fadb09927dfdff
+Description: public domain header-only libraries
+Status: install ok installed
+
+Package: qoi
+Version: 2023-08-10
+Architecture: x64-linux
+Multi-Arch: same
+Abi: 5055a00ea955535b9dc543261cb4eedc0e8e40a22a6d002fda10680fd439fe9a
+Description: The Quite OK Image Format for fast, lossless image compression
+Status: install ok installed
+
+Package: nanosvg
+Version: 2023-12-29
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-linux
+Multi-Arch: same
+Abi: c858f5562155826413f143b02de4e8a2c1bc2862a6e8cbdcae1a93e3c3b8de1f
+Description: NanoSVG is a simple stupid single-header-file SVG parser. It is accompanied by a simple SVG rasterizer.
+Status: install ok installed
+
+Package: mmx
+Version: 2022-03-27
+Architecture: x64-linux
+Multi-Arch: same
+Abi: 9861f72e67ce2f26224f7b878fde7645c5ed263351162340f9d56461ccea82c9
+Description: Single header libraries for C/C++
+Status: install ok installed
+
+Package: miniaudio
+Version: 0.11.21
+Architecture: x64-linux
+Multi-Arch: same
+Abi: ce5655fba5f35aa0d000ee4044607294bd069c1f95a7e0df8d47e4357fa50c1c
+Description: Audio playback and capture library written in C, in a single source file
+Status: install ok installed
+
+Package: glfw3
+Version: 3.4
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-linux
+Multi-Arch: same
+Abi: de41eb6bcf56b6dd11f5542c7675f766a0406fbbd0a76c40deca9d3d9612037b
+Description: GLFW is a free, Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan application development. It provides a simple, platform-independent API for creating windows, contexts and surfaces, reading input, handling events, etc.
+Status: install ok installed
+
+Package: drlibs
+Version: 2023-08-16
+Architecture: x64-linux
+Multi-Arch: same
+Abi: f8058ff9778fc31b2f6fbefb00ba29b8b373da61a6fdbd18a9f27a2a344e7ddf
+Description: Single-file audio decoding libraries for C/C++
+Status: install ok installed
+
+Package: dirent
+Version: 1.24
+Architecture: x64-linux
+Multi-Arch: same
+Abi: e59482f572121b52c5352bf2f9e8b2bc974f7413db055be1c02c863a3606c314
+Description: Dirent is a C/C++ programming interface that allows programmers to retrieve information about files and directories under Linux/UNIX. This project provides Linux compatible Dirent interface for Microsoft Windows.
+Status: install ok installed
+
+Package: cgltf
+Version: 1.14
+Architecture: x64-linux
+Multi-Arch: same
+Abi: a61e45a78ee2b4bb44346e67eec3d34fa109694febb1db071ed9c51a7b0e5e59
+Description: Single-file glTF 2.0 loader and writer written in C99
+Status: install ok installed
+
+Package: raylib
+Version: 5.0
+Port-Version: 1
+Depends: cgltf, dirent, drlibs, glfw3, miniaudio, mmx, nanosvg, qoi, stb, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-linux
+Multi-Arch: same
+Abi: 93bb34779c59d487fe15a09468d951283e1169f67428e951efdd4f6e7d6f4e3c
+Description: A simple and easy-to-use library to enjoy videogames programming
+Default-Features: use-audio
+Status: install ok installed
+
+Package: raylib
+Feature: use-audio
+Architecture: x64-linux
+Multi-Arch: same
+Description: Build raylib with audio module
+Status: install ok installed
+

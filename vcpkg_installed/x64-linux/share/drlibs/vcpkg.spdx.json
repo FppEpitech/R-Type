@@ -1,0 +1,110 @@
+{
+  "$schema": "https://raw.githubusercontent.com/spdx/spdx-spec/v2.2.1/schemas/spdx-schema.json",
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "documentNamespace": "https://spdx.org/spdxdocs/drlibs-x64-linux-2023-08-16-71802c22-b980-45a9-90d3-61ebf717debd",
+  "name": "drlibs:x64-linux@2023-08-16 f8058ff9778fc31b2f6fbefb00ba29b8b373da61a6fdbd18a9f27a2a344e7ddf",
+  "creationInfo": {
+    "creators": [
+      "Tool: vcpkg-2024-08-01-fd884a0d390d12783076341bd43d77c3a6a15658"
+    ],
+    "created": "2024-09-19T15:07:40Z"
+  },
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "GENERATES",
+      "relatedSpdxElement": "SPDXRef-binary"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-0"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-1"
+    },
+    {
+      "spdxElementId": "SPDXRef-binary",
+      "relationshipType": "GENERATED_FROM",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-0",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    }
+  ],
+  "packages": [
+    {
+      "name": "drlibs",
+      "SPDXID": "SPDXRef-port",
+      "versionInfo": "2023-08-16",
+      "downloadLocation": "NOASSERTION",
+      "homepage": "https://github.com/mackron/dr_libs",
+      "licenseConcluded": "Unlicense OR MIT-0",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "description": "Single-file audio decoding libraries for C/C++",
+      "comment": "This is the port (recipe) consumed by vcpkg."
+    },
+    {
+      "name": "drlibs:x64-linux",
+      "SPDXID": "SPDXRef-binary",
+      "versionInfo": "f8058ff9778fc31b2f6fbefb00ba29b8b373da61a6fdbd18a9f27a2a344e7ddf",
+      "downloadLocation": "NONE",
+      "licenseConcluded": "Unlicense OR MIT-0",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": "This is a binary package built by vcpkg."
+    },
+    {
+      "SPDXID": "SPDXRef-resource-1",
+      "name": "mackron/dr_libs",
+      "downloadLocation": "git+https://github.com/mackron/dr_libs@d35a3bc5efd02455d98cbe12b94647136f09b42d",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "34126c8eb65f0735b77f058db9f1618b3c4e820698804b47f7a629c47df571e9cbbeefd4cce193409ebd715d37ed5faf1c3c27a7240e0f5418089cffe853f1ea"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": ".//home/tjerome-rocher/Desktop/tek3/R-Type/vcpkg/ports/drlibs/portfile.cmake",
+      "SPDXID": "SPDXRef-file-0",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "410c4939118fe34c62477d42f9f137636672d9339c34667223efb039ee250c2a"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//home/tjerome-rocher/Desktop/tek3/R-Type/vcpkg/ports/drlibs/vcpkg.json",
+      "SPDXID": "SPDXRef-file-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4accb4a426d84cc26bb277751273d6fccfd7a299ecae76f82622e96b1358f7f4"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ]
+}

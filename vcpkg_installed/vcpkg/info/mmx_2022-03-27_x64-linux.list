@@ -1,0 +1,13 @@
+x64-linux/
+x64-linux/include/
+x64-linux/include/mmx/
+x64-linux/include/mmx/json.h
+x64-linux/include/mmx/sched.h
+x64-linux/include/mmx/sdefl.h
+x64-linux/include/mmx/sinfl.h
+x64-linux/include/mmx/web.h
+x64-linux/share/
+x64-linux/share/mmx/
+x64-linux/share/mmx/copyright
+x64-linux/share/mmx/vcpkg.spdx.json
+x64-linux/share/mmx/vcpkg_abi_info.txt

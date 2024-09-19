@@ -1,0 +1,10 @@
+x64-linux/
+x64-linux/include/
+x64-linux/include/dr_flac.h
+x64-linux/include/dr_mp3.h
+x64-linux/include/dr_wav.h
+x64-linux/share/
+x64-linux/share/drlibs/
+x64-linux/share/drlibs/copyright
+x64-linux/share/drlibs/vcpkg.spdx.json
+x64-linux/share/drlibs/vcpkg_abi_info.txt

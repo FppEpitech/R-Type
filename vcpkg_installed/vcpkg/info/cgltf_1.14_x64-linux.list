@@ -1,0 +1,9 @@
+x64-linux/
+x64-linux/include/
+x64-linux/include/cgltf.h
+x64-linux/include/cgltf_write.h
+x64-linux/share/
+x64-linux/share/cgltf/
+x64-linux/share/cgltf/copyright
+x64-linux/share/cgltf/vcpkg.spdx.json
+x64-linux/share/cgltf/vcpkg_abi_info.txt

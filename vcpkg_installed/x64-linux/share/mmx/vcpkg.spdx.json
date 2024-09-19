@@ -1,0 +1,132 @@
+{
+  "$schema": "https://raw.githubusercontent.com/spdx/spdx-spec/v2.2.1/schemas/spdx-schema.json",
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "documentNamespace": "https://spdx.org/spdxdocs/mmx-x64-linux-2022-03-27-66e20d06-5f2c-437b-b30a-7e6d8c30ede0",
+  "name": "mmx:x64-linux@2022-03-27 9861f72e67ce2f26224f7b878fde7645c5ed263351162340f9d56461ccea82c9",
+  "creationInfo": {
+    "creators": [
+      "Tool: vcpkg-2024-08-01-fd884a0d390d12783076341bd43d77c3a6a15658"
+    ],
+    "created": "2024-09-19T15:07:36Z"
+  },
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "GENERATES",
+      "relatedSpdxElement": "SPDXRef-binary"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-0"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-1"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-2"
+    },
+    {
+      "spdxElementId": "SPDXRef-binary",
+      "relationshipType": "GENERATED_FROM",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-0",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-2",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    }
+  ],
+  "packages": [
+    {
+      "name": "mmx",
+      "SPDXID": "SPDXRef-port",
+      "versionInfo": "2022-03-27",
+      "downloadLocation": "NOASSERTION",
+      "homepage": "https://github.com/vurtun/mmx",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "description": "Single header libraries for C/C++",
+      "comment": "This is the port (recipe) consumed by vcpkg."
+    },
+    {
+      "name": "mmx:x64-linux",
+      "SPDXID": "SPDXRef-binary",
+      "versionInfo": "9861f72e67ce2f26224f7b878fde7645c5ed263351162340f9d56461ccea82c9",
+      "downloadLocation": "NONE",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": "This is a binary package built by vcpkg."
+    },
+    {
+      "SPDXID": "SPDXRef-resource-1",
+      "name": "vurtun/mmx",
+      "downloadLocation": "git+https://github.com/vurtun/mmx@71382a1d14dad58219e7f6634d2381fa30dab175",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "d29b6a7e276612f0cbea84a90a4af7b3947a6f434e171a180b24eb0b5b74d714011fcda9e2ebe3f39d01bdb64f648d31c68a4cf7ef5f104320fe8155212fe1e0"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": ".//home/tjerome-rocher/Desktop/tek3/R-Type/vcpkg/ports/mmx/portfile.cmake",
+      "SPDXID": "SPDXRef-file-0",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b1b89ecab8ac15e0daa68211f7cbb6bb2b467a6580ca68abc432a4c97f71a430"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//home/tjerome-rocher/Desktop/tek3/R-Type/vcpkg/ports/mmx/copyright",
+      "SPDXID": "SPDXRef-file-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0a384a5efcfd8ae1a4ab8f5bfc810d4d5539ac05bbbe1fd7e4cb2b8e1096a1f3"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//home/tjerome-rocher/Desktop/tek3/R-Type/vcpkg/ports/mmx/vcpkg.json",
+      "SPDXID": "SPDXRef-file-2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4755dd1c688dc1525bf151ab742489e83c52284e07420c94584c86b4397fadd5"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ]
+}

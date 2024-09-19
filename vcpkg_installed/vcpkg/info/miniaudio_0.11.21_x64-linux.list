@@ -1,0 +1,8 @@
+x64-linux/
+x64-linux/include/
+x64-linux/include/miniaudio.h
+x64-linux/share/
+x64-linux/share/miniaudio/
+x64-linux/share/miniaudio/copyright
+x64-linux/share/miniaudio/vcpkg.spdx.json
+x64-linux/share/miniaudio/vcpkg_abi_info.txt
