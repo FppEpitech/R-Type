@@ -10,60 +10,96 @@ on:
   schedule:
     - cron: '0 18 * * 5'  # Runs every Friday at 6pm UTC
 
+name: Create Release
+
 jobs:
-  create-release:
+  build-linux:
     runs-on: ubuntu-latest
-
+    outputs:
+      executable-path: ${{ steps.build.outputs.executable-path }}
     steps:
-      - name: Checkout project
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
+      - name: Set up CMake
+        uses: actions/setup-cmake@v3
         with:
-          name: artifacts
-          path: ./artifacts
+          cmake-version: '3.5'  # Replace with your required CMake version
 
-      - name: Create release
+      - name: Configure and Build on Linux
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . --config Release
+          cp r-type_server /tmp/r-type_server_linux  # Copy executable to a known location
+          cp r-type_client /tmp/r-type_client_linux  # Copy executable to a known location
+
+      - name: Set Output Path
+        id: build
+        run: echo "::set-output name=executable-path::/tmp/my_executable_linux"
+
+  build-windows:
+    runs-on: windows-latest
+    outputs:
+      executable-path: ${{ steps.build.outputs.executable-path }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        uses: actions/setup-cmake@v3
+        with:
+          cmake-version: '3.5'  # Replace with your required CMake version
+
+      - name: Configure and Build on Windows
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G "Visual Studio 16 2019"
+          cmake --build . --config Release
+          copy my_executable.exe C:\temp\my_executable_windows.exe  # Copy executable to a known location
+
+      - name: Set Output Path
+        id: build
+        run: echo "::set-output name=executable-path::C:\\temp\\my_executable_windows.exe"
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [build-linux, build-windows]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Release
         id: create_release
         uses: actions/create-release@v1
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: v0.${{ github.run_number }} | Release ${{ github.ref }}
-          draft: false
-          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
 
-      - name: Upload assets
+      - name: Upload Linux Executable
+        id: upload-linux
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r-type_client-ubuntu-latest
-          asset_name: r-type_client-ubuntu-latest
+          asset_path: ${{ needs.build-linux.outputs.executable-path }}
+          asset_name: my_executable_linux
           asset_content_type: application/octet-stream
 
-      - name: Upload assets
+      - name: Upload Windows Executable
+        id: upload-windows
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r-type_client-windows-latest
-          asset_name: r-type_client-windows-latest
+          asset_path: ${{ needs.build-windows.outputs.executable-path }}
+          asset_name: my_executable_windows.exe
           asset_content_type: application/octet-stream
-
-      - name: Upload assets
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r-type_server-ubuntu-latest
-          asset_name: r-type_server-ubuntu-latest
-          asset_content_type: application/octet-stream
-
-      - name: Upload assets
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r-type_server-windows-latest
-          asset_name: r-type_server-windows-latest
-          asset_content_type: application/octet-stream
-
