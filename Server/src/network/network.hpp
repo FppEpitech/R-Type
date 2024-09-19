@@ -58,8 +58,8 @@ class Network::Server {
          */
         void receive();
 
-        asio::ip::udp::socket socket_;
-        asio::ip::udp::endpoint remote_endpoint_;
-        std::array<char, 1024> recv_buffer_;
-        MessageHandler messageHandler_;
+        asio::ip::udp::socket       _socket;
+        asio::ip::udp::endpoint     _remote_endpoint;
+        std::array<char, 1024>      _recv_buffer;
+        MessageHandler              _messageHandler;
 };
