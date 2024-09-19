@@ -6,7 +6,7 @@
 */
 
 #include <iostream>
-
+#include <thread>
 #include "network/network.hpp"
 
 void handle_message(const std::string& message, const asio::ip::udp::endpoint& endpoint)
@@ -18,11 +18,12 @@ int main() {
     try {
         asio::io_context io_context;
 
-        Network::Server server(io_context, 12345);
+        Network::Server server(io_context, 4444, 4445);
+
+        std::cout << "Server running on TCP port 4444 and UDP port 4445..." << std::endl;
 
         server.setMessageHandler(handle_message);
-
-        std::cout << "Server running on UDP port 12345..." << std::endl;
+        server.start();
 
         std::thread server_thread([&io_context]() { io_context.run(); });
 
