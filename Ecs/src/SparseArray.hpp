@@ -79,7 +79,7 @@ class SparseArray {
          */
         SparseArray (SparseArray const &other)
         {
-            this->_data = other._data;
+            _data = other._data;
         };
 
         /**
@@ -90,7 +90,7 @@ class SparseArray {
          */
         SparseArray (SparseArray &&other) noexcept
         {
-            this->_data = other._data;
+            _data = other._data;
         };
 
         /**
@@ -131,7 +131,7 @@ class SparseArray {
          */
         reference_type operator[](size_t idx)
         {
-            return this->_data[idx];
+            return _data[idx];
         };
 
         /**
@@ -142,7 +142,7 @@ class SparseArray {
          */
         const_reference_type operator[](size_t idx) const
         {
-            return this->_data[idx];
+            return _data[idx];
         };
 
         /**
@@ -154,7 +154,7 @@ class SparseArray {
          */
         iterator begin()
         {
-            return this->_data.begin();
+            return _data.begin();
         };
 
         /**
@@ -166,7 +166,7 @@ class SparseArray {
          */
         const_iterator begin() const
         {
-            return this->_data.begin();
+            return _data.begin();
         };
 
         /**
@@ -178,7 +178,7 @@ class SparseArray {
          */
         const_iterator cbegin() const
         {
-            return this->_data.cbegin();
+            return _data.cbegin();
         };
 
         /**
@@ -190,7 +190,7 @@ class SparseArray {
          */
         iterator end()
         {
-            return this->_data.end();
+            return _data.end();
         };
 
         /**
@@ -202,7 +202,7 @@ class SparseArray {
          */
         const_iterator end() const
         {
-            return this->_data.end();
+            return _data.end();
         };
 
         /**
@@ -214,7 +214,7 @@ class SparseArray {
          */
         const_iterator cend() const
         {
-            return this->_data.cend();
+            return _data.cend();
         };
 
         /**
@@ -224,7 +224,7 @@ class SparseArray {
          */
         size_type size() const
         {
-            return this->_data.size();
+            return _data.size();
         };
 
         /**
@@ -284,7 +284,7 @@ class SparseArray {
          */
         void erase(size_type pos)
         {
-            this->_data.erase(this->_data.begin() + pos);
+            _data.erase(_data.begin() + pos);
         };
 
         /**
@@ -295,8 +295,8 @@ class SparseArray {
          */
         size_type get_index(value_type const &value) const
         {
-            for (size_type i = 0; i < this->_data.size(); ++i) {
-                if (this->_data[i] == value)
+            for (size_type i = 0; i < _data.size(); ++i) {
+                if (_data[i] == value)
                     return i;
             }
             return -1;

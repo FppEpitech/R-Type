@@ -125,7 +125,7 @@ class Registry {
          */
         template <typename Component>
         typename SparseArray<Component>::reference_type add_component(entity_t const& entity, Component&& component) {
-            auto& components = get_components<Component>();
+            auto& components = this->get_components<Component>();
             return components.insert_at(entity, std::forward<Component>(component));
         }
 
@@ -140,7 +140,7 @@ class Registry {
          */
         template <typename Component, typename... Params>
         typename SparseArray<Component>::reference_type emplace_component(entity_t const& entity, Params&&... params) {
-            auto& components = get_components<Component>();
+            auto& components = this->get_components<Component>();
             return components.emplace_at(entity, std::forward<Params>(params)...);
         }
 
