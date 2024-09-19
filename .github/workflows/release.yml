@@ -56,7 +56,7 @@ jobs:
           cd build
           echo "second ls\n"
           ls
-          cmake -B . -G "Ninja"
+          cmake -B .. -G "Ninja"
           echo "third ls\n"
           ls
           cmake --build . --config Release
