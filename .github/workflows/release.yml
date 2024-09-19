@@ -29,7 +29,7 @@ jobs:
           cd build
           cmake ..
           cmake --build . --config Release
-          ls
+          cp Server/r-type_server /tmp/r-type_server_linux
           cp /home/runner/work/R-Type/R-Type/r-type_server /tmp/r-type_server_linux
           cp /home/runner/work/R-Type/R-Type/r-type_client /tmp/r-type_client_linux
 
