@@ -18,12 +18,10 @@ jobs:
       executable-path: ${{ steps.build.outputs.executable-path }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set up CMake
-        uses: actions/setup-cmake@v3
-        with:
-          cmake-version: '3.5'  # Replace with your required CMake version
+      - name: Get latest CMake and Ninja
+        uses: lukka/get-cmake@latest
 
       - name: Configure and Build on Linux
         run: |
@@ -44,12 +42,10 @@ jobs:
       executable-path: ${{ steps.build.outputs.executable-path }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set up CMake
-        uses: actions/setup-cmake@v3
-        with:
-          cmake-version: '3.5'  # Replace with your required CMake version
+      - name: Get latest CMake and Ninja
+        uses: lukka/get-cmake@latest
 
       - name: Configure and Build on Windows
         run: |
@@ -68,7 +64,7 @@ jobs:
     needs: [build-linux, build-windows]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Create Release
         id: create_release
