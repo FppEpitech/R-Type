@@ -29,6 +29,7 @@ jobs:
           cd build
           cmake ..
           cmake --build . --config Release
+          ls
           cp Server/r-type_server /tmp/r-type_server_linux  # Copy executable to a known location
           cp Client/r-type_client /tmp/r-type_client_linux  # Copy executable to a known location
 
