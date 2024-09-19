@@ -1,4 +1,4 @@
-name: release
+name: Release
 
 on:
   workflow_dispatch:
@@ -9,8 +9,6 @@ on:
         default: 'v1.0.0'
   schedule:
     - cron: '0 18 * * 5'  # Runs every Friday at 6pm UTC
-
-name: Create Release
 
 jobs:
   build-linux:
