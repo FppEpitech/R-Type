@@ -234,7 +234,6 @@ class SparseArray {
                 _data.resize(pos + 1);
             }
             _data[pos] = Component(std::forward<Params>(params)...);
-            _data.emplace
             return _data[pos];
         }
 

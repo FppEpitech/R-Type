@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2024
+** R-Type Server
+** File description:
+** Registry
+*/
+
 #pragma once
 
 #include "SparseArray.hpp"
@@ -28,8 +35,8 @@ class Registry {
             if (_components_arrays.find(typeIdx) == _components_arrays.end()) {
                 _components_arrays[typeIdx] = SparseArray<Component>();
 
-                _remove_functions[typeIdx] = [](Registry& register, entity_t const& entity) {
-                    register.remove_component<Component>(e);
+                _remove_functions[typeIdx] = [](Registry& reg, entity_t const& entity) {
+                    reg.remove_component<Component>(entity);
                 };
             }
             return std::any_cast<SparseArray<Component>&>(_components_arrays[typeIdx]);
@@ -78,16 +85,7 @@ class Registry {
          *
          * @return entity_t Index of the entity created.
          */
-        entity_t spawn_entity() {
-            if (!_dead_entities.empty()) {
-                entity_t reused_entity = _dead_entities.back();
-                _dead_entities.pop_back();
-                _entities.push_back(reused_entity);
-                return reused_entity;
-            }
-            _entities.push_back(_next_entity);
-            return _next_entity++;
-        }
+        entity_t spawn_entity();
 
         /**
          * @brief Get entity from index.
@@ -97,12 +95,7 @@ class Registry {
          * @param idx Index of the index.
          * @return entity_t Entity get by index.
          */
-        entity_t entity_from_index(std::size_t idx) {
-            if (idx < _entities.size()) {
-                return _entities[idx];
-            }
-            throw std::runtime_error("Entity index out of bounds.");
-        }
+        entity_t entity_from_index(std::size_t idx);
 
         /**
          * @brief Kill an entity of the register.
@@ -110,16 +103,7 @@ class Registry {
          *
          * @param entity Enity to kill.
          */
-        void kill_entity(entity_t const& entity) {
-            for (auto& [typeIdx, remove_func] : _remove_functions) {
-                remove_func(*this, entity);
-            }
-            _dead_entities.push_back(entity);
-            for (entity_t i = 0; i < _entities.size(); i++) {
-                if (_entities[i] == entity)
-                    _entities.erase(_entities.begin() + i);
-            }
-        }
+        void kill_entity(entity_t const& entity);
 
         /**
          * @brief Add a component to an Entity.
@@ -163,6 +147,42 @@ class Registry {
             components.erase(from);
         }
 
+        /**
+         * @brief Add a system to the registry.
+         *
+         * @tparam Components Type of components used in the registry.
+         * @tparam Function Type of the function system.
+         * @param function of the system to add.
+         */
+        template <typename... Components, typename Function>
+        void add_system(Function&& function) {
+            _systems.emplace_back(
+                [this, function = std::forward<Function>(function)]() {
+                    function(*this, SparseArray<Components>()...);
+                });
+        }
+
+        /**
+         * @brief Add a system to the registry.
+         *
+         * @tparam Components Type of components used in the registry.
+         * @tparam Function Type of the function system.
+         * @param function of the system to add.
+         */
+        template <typename... Components, typename Function>
+        void add_system(Function const & function) {
+            _systems.emplace_back(
+                [this, function = std::forward<Function>(function)]() {
+                    function(*this, SparseArray<Components>()...);
+                });
+        }
+
+        /**
+         * @brief Run all registry's systems.
+         *
+         */
+        void run_systems();
+
         using remove_func_t = std::function<void(Registry&, entity_t const&)>;
 
     private:
@@ -175,4 +195,16 @@ class Registry {
         std::vector<entity_t>                                   _entities;                  // Array of Entities indexes.
         std::vector<entity_t>                                   _dead_entities;             // Array of dead Entities indexes.
         entity_t                                                _next_entity = 0;           // Index for the next Entity to create.
+
+        std::vector<std::function<void()>> _systems;
+
+        template <typename Component>
+        SparseArray<Component>& SparseArrays() {
+            return get_components<Component>();
+        }
+
+        template <typename Component>
+        SparseArray<Component> const& SparseArrays() const {
+            return get_components<Component>();
+        }
 };
