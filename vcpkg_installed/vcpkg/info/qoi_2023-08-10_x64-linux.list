@@ -1,8 +1,0 @@
-x64-linux/
-x64-linux/include/
-x64-linux/include/qoi.h
-x64-linux/share/
-x64-linux/share/qoi/
-x64-linux/share/qoi/copyright
-x64-linux/share/qoi/vcpkg.spdx.json
-x64-linux/share/qoi/vcpkg_abi_info.txt
