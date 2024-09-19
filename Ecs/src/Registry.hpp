@@ -158,7 +158,7 @@ class Registry {
         void add_system(Function&& function) {
             _systems.emplace_back(
                 [this, function = std::forward<Function>(function)]() {
-                    function(*this, SparseArray<Components>()...);
+                    function(*this, get_components<Components>()...);
                 });
         }
 
@@ -173,7 +173,7 @@ class Registry {
         void add_system(Function const & function) {
             _systems.emplace_back(
                 [this, function = std::forward<Function>(function)]() {
-                    function(*this, SparseArray<Components>()...);
+                    function(*this, get_components<Components>()...);
                 });
         }
 
@@ -197,14 +197,4 @@ class Registry {
         entity_t                                                _next_entity = 0;           // Index for the next Entity to create.
 
         std::vector<std::function<void()>> _systems;
-
-        template <typename Component>
-        SparseArray<Component>& SparseArrays() {
-            return get_components<Component>();
-        }
-
-        template <typename Component>
-        SparseArray<Component> const& SparseArrays() const {
-            return get_components<Component>();
-        }
 };
