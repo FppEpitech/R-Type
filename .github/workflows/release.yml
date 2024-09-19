@@ -35,8 +35,9 @@ jobs:
           echo "\n"
           ls Client
           echo "\n"
-          cp Server/r-type_server /tmp/r-type_server_linux  # Copy executable to a known location
-          cp Client/r-type_client /tmp/r-type_client_linux  # Copy executable to a known location
+          ls /home/runner/work/R-Type/R-Type
+          cp /home/runner/work/R-Type/R-Type/r-type_server /tmp/r-type_server_linux
+          cp /home/runner/work/R-Type/R-Type/r-type_client /tmp/r-type_client_linux
 
       - name: Set Output Path
         id: build
