@@ -7,8 +7,6 @@ set(EXE_INCLUDE_PATH "include")
 
 set(SRC_EXE
     ./src/main.cpp
-
-    ./src/GameEngine/DLLoader/DLLoader.cpp
 )
 
 include_directories(
