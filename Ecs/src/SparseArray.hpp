@@ -7,143 +7,103 @@
 
 #pragma once
 
-#include <optional>
 #include <vector>
 #include <memory>
 
 /**
- * @brief Container of component.
+ * @brief Container of components.
  *
- * @tparam Component type of the container.
+ * @tparam Component Type of the component to store.
  */
 template <typename Component>
 class SparseArray {
 
-    public :
-
+    public:
         /**
          * @brief Type of a Component in the vector.
-         *
          */
-        using value_type = std::optional<Component>;
+        using value_type = std::shared_ptr<Component>;
 
         /**
          * @brief Type for the value reference.
-         *
          */
-        using reference_type = value_type &;
+        using reference_type = value_type&;
 
         /**
          * @brief Type for the const value reference.
-         *
          */
-        using const_reference_type = value_type const &;
+        using const_reference_type = const value_type&;
 
         /**
-         * @brief Type for the vector of type component.
-         *
+         * @brief Type for the vector of components.
          */
         using container_t = std::vector<value_type>;
 
         /**
          * @brief Type for the size of the vector.
-         *
          */
         using size_type = typename container_t::size_type;
 
         /**
-         * @brief Iterator type of the vector.
-         *
+         * @brief Iterator type for the vector.
          */
         using iterator = typename container_t::iterator;
 
         /**
-         * @brief Const iterator type of the vector.
-         *
+         * @brief Const iterator type for the vector.
          */
         using const_iterator = typename container_t::const_iterator;
 
-    public :
-
+    public:
         /**
          * @brief Construct a new SparseArray object.
-         *
          */
-        SparseArray (){};
+        SparseArray() = default;
 
         /**
-         * @brief Construct a new SparseArray object.
-         * It's a copy constructor.
-         *
-         * @param other SparseArray to copy.
+         * @brief Copy constructor.
          */
-        SparseArray (SparseArray const &other)
-        {
-            _data = other._data;
-        };
+        SparseArray(const SparseArray &other) = default;
 
         /**
-         * @brief Construct a new SparseArray object.
-         * It's a move constructor.
-         *
-         * @param other SparseArray to move.
+         * @brief Move constructor.
          */
-        SparseArray (SparseArray &&other) noexcept
-        {
-            _data = other._data;
-        };
+        SparseArray(SparseArray &&other) noexcept = default;
 
         /**
          * @brief Destroy the SparseArray object.
-         *
          */
-        ~SparseArray(){};
+        ~SparseArray() = default;
 
         /**
          * @brief Copy assignment operator.
-         *
-         * @param other SparseArray to copy.
-         * @return SparseArray& this
          */
-        SparseArray &operator=(SparseArray const &other)
-        {
-            _data = other.data;
-            return *this;
-        };
+        SparseArray& operator=(const SparseArray &other) = default;
 
         /**
          * @brief Move assignment operator.
-         *
-         * @param other SparseArray to move.
-         * @return SparseArray& this
          */
-        SparseArray & operator=( SparseArray &&other) noexcept
-        {
-            _data = other._data;
-            return *this;
-        };
+        SparseArray& operator=(SparseArray &&other) noexcept = default;
 
         /**
-         * @brief Get the reference of a value store in the sparseArray.
+         * @brief Get the reference of a value stored in the SparseArray.
          *
-         * @param idx in the sparseArray.
-         * @return reference_type to the value store at the index.
+         * @param idx Index in the SparseArray.
+         * @return reference_type Reference to the value stored at the index.
          */
-        reference_type operator[](size_t idx)
-        {
+        reference_type operator[](size_type idx) {
             return _data[idx];
-        };
+        }
 
         /**
-         * @brief Get the const reference of a value store in the sparseArray.
+         * @brief Get the const reference of a value stored in the SparseArray.
          *
-         * @param idx in the sparseArray.
-         * @return const_reference_type to the value store at the index.
+         * @param idx Index in the SparseArray.
+         * @return const_reference_type Const reference to the value stored at the index.
          */
-        const_reference_type operator[](size_t idx) const
-        {
+        const_reference_type operator[](size_type idx) const {
             return _data[idx];
-        };
+        }
 
         /**
          * @brief Returns a read/write iterator that points to the first
@@ -152,10 +112,9 @@ class SparseArray {
          *
          * @return iterator.
          */
-        iterator begin()
-        {
+        iterator begin() {
             return _data.begin();
-        };
+        }
 
         /**
          * @brief Returns a read/write iterator that points to the first
@@ -164,10 +123,9 @@ class SparseArray {
          *
          * @return const_iterator.
          */
-        const_iterator begin() const
-        {
+        const_iterator begin() const {
             return _data.begin();
-        };
+        }
 
         /**
          * @brief Returns a read-only (constant) iterator that points to the
@@ -176,10 +134,9 @@ class SparseArray {
          *
          * @return const_iterator.
          */
-        const_iterator cbegin() const
-        {
+        const_iterator cbegin() const {
             return _data.cbegin();
-        };
+        }
 
         /**
          * @brief Returns a read/write iterator that points one past the last
@@ -188,10 +145,9 @@ class SparseArray {
          *
          * @return iterator.
          */
-        iterator end()
-        {
+        iterator end() {
             return _data.end();
-        };
+        }
 
         /**
          * @brief Returns a read/write iterator that points one past the last
@@ -200,10 +156,9 @@ class SparseArray {
          *
          * @return const_iterator.
          */
-        const_iterator end() const
-        {
+        const_iterator end() const {
             return _data.end();
-        };
+        }
 
         /**
          * @brief Returns a read-only (constant) iterator that points one past
@@ -212,94 +167,74 @@ class SparseArray {
          *
          * @return const_iterator.
          */
-        const_iterator cend() const
-        {
+        const_iterator cend() const {
             return _data.cend();
-        };
+        }
 
         /**
          * @brief Returns the number of elements in the sparseArray.
          *
          * @return size_type of the sparseArray.
          */
-        size_type size() const
-        {
+        size_type size() const {
             return _data.size();
-        };
+        }
 
         /**
-         * @brief Inserts given value into sparseArray at the specified position.
+         * @brief Inserts a shared_ptr to the component at the specified index.
          *
          * @param pos Index to insert element.
-         * @param component Component to insert.
-         * @return reference_type of the new component.
+         * @param component Shared pointer to the component to insert.
+         * @return reference_type Reference to the new component.
          */
-        reference_type insert_at(size_type pos, Component const &component)
-        {
-            if (pos >= _data.size())
+        reference_type insert_at(size_type pos, value_type component) {
+            if (pos >= _data.size()) {
                 _data.resize(pos + 1);
-            _data[pos] = component;
+            }
+            _data[pos] = std::move(component);
             return _data[pos];
         }
 
         /**
-         * @brief Inserts given value into sparseArray at the specified position.
+         * @brief Emplaces a new component at the specified index.
          *
          * @param pos Index to insert element.
-         * @param component Component to insert.
-         * @return reference_type of the new component.
-         */
-        reference_type insert_at(size_type pos, Component &&component)
-        {
-            if (pos >= _data.size())
-                _data.resize(pos + 1);
-            _data[pos] = component;
-            return _data[pos];
-        };
-
-        /**
-         * @brief Inserts an object in sparseArray before specified iterator.
-         *
-         * @tparam Params for component to create and insert.
-         * @param pos Index to insert element.
-         * @param params Component to insert.
-         * @return reference_type of the new component.
+         * @tparam Params Parameters to pass to the component's constructor.
+         * @return reference_type Reference to the new component.
          */
         template <class... Params>
-        reference_type emplace_at(size_type pos, Params&&... params)
-        {
-            if (pos >= _data.size())
+        reference_type emplace_at(size_type pos, Params&&... params) {
+            if (pos >= _data.size()) {
                 _data.resize(pos + 1);
-            _data[pos] = Component(std::forward<Params>(params)...);
+            }
+            _data[pos] = std::make_shared<Component>(std::forward<Params>(params)...);
             return _data[pos];
         }
 
         /**
-         * @brief Erase a row in the sparseArray.
-         *
-         * @param pos Index of the element to erase.
+         * @brief Erases the element at the specified index.
          */
-        void erase(size_type pos)
-        {
-            _data.erase(_data.begin() + pos);
-        };
+        void erase(size_type pos) {
+            if (pos < _data.size()) {
+                _data.erase(_data.begin() + pos);
+            }
+        }
 
         /**
-         * @brief Get the index of an object.
+         * @brief Finds the index of the given component.
          *
-         * @param value of the object.
-         * @return size_type Index of the object.
+         * @param value The shared pointer to search for.
+         * @return size_type Index of the component, or -1 if not found.
          */
-        size_type get_index(value_type const &value) const
-        {
+        size_type get_index(const value_type& value) const {
             for (size_type i = 0; i < _data.size(); ++i) {
-                if (_data[i] == value)
+                if (_data[i] == value) {
                     return i;
+                }
             }
-            return -1;
-        };
+            return static_cast<size_type>(-1);
+        }
 
-    private :
-
-        container_t     _data; // Vector of type std::vector<Component>
+    private:
+        container_t _data;  // Vector of shared pointers to components.
 };

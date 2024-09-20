@@ -38,15 +38,13 @@ class Registry {
          * @return SparseArray<Component>&
          */
         template <class Component>
-        SparseArray<Component> &register_component()
+        SparseArray<Component> &register_component(std::string typeIdx)
         {
-            std::type_index typeIdx(typeid(Component));
-
             if (_components_arrays.find(typeIdx) == _components_arrays.end()) {
                 _components_arrays[typeIdx] = SparseArray<Component>();
 
-                _remove_functions[typeIdx] = [](Registry& reg, entity_t const& entity) {
-                    reg.remove_component<Component>(entity);
+                _remove_functions[typeIdx] = [typeIdx](Registry& reg, entity_t const& entity) {
+                    reg.remove_component<Component>(entity, typeIdx);
                 };
             }
             return std::any_cast<SparseArray<Component>&>(_components_arrays[typeIdx]);
@@ -61,9 +59,8 @@ class Registry {
          * @return SparseArray<Component>& Component get.
          */
         template <class Component>
-        SparseArray<Component> &get_components()
+        SparseArray<Component> &get_components(std::string typeIdx)
         {
-            std::type_index typeIdx(typeid(Component));
             auto it = _components_arrays.find(typeIdx);
             if (it == _components_arrays.end())
                 throw std::runtime_error("Component type not registered.");
@@ -79,9 +76,8 @@ class Registry {
          * @return SparseArray<Component> const& Component get.
          */
         template <class Component>
-        SparseArray<Component> const &get_components() const
+        SparseArray<Component> const &get_components(std::string typeIdx) const
         {
-            std::type_index typeIdx(typeid(Component));
             auto it = _components_arrays.find(typeIdx);
             if (it == _components_arrays.end())
                 throw std::runtime_error("Component type not registered.");
@@ -122,9 +118,9 @@ class Registry {
          * @return SparseArray<Component>::reference_type Reference of the component.
          */
         template <typename Component>
-        typename SparseArray<Component>::reference_type add_component(entity_t const& entity, Component&& component) {
-            auto& components = this->get_components<Component>();
-            return components.insert_at(entity, std::forward<Component>(component));
+        typename SparseArray<Component>::reference_type add_component(entity_t const& entity, std::shared_ptr<Component> component, std::string typeIdx) {
+            auto& components = this->get_components<Component>(typeIdx);
+            return components.insert_at(entity, component);
         }
 
         /**
@@ -137,8 +133,8 @@ class Registry {
          * @return SparseArray<Component>::reference_type Reference of the component.
          */
         template <typename Component, typename... Params>
-        typename SparseArray<Component>::reference_type emplace_component(entity_t const& entity, Params&&... params) {
-            auto& components = this->get_components<Component>();
+        typename SparseArray<Component>::reference_type emplace_component(entity_t const& entity, std::string typeIdx, Params&&... params) {
+            auto& components = this->get_components<Component>(typeIdx);
             return components.emplace_at(entity, std::forward<Params>(params)...);
         }
 
@@ -149,9 +145,9 @@ class Registry {
          * @param from Entity.
          */
         template <typename Component>
-        void remove_component(entity_t const& from)
+        void remove_component(entity_t const& from, std::string typeIdx)
         {
-            auto& components = get_components<Component>();
+            auto& components = get_components<Component>(typeIdx);
             components.erase(from);
         }
 
@@ -196,8 +192,8 @@ class Registry {
     private:
 
         //Arrays
-        std::unordered_map<std::type_index, std::any>           _components_arrays;         // Array of components.
-        std::unordered_map<std::type_index, remove_func_t>      _remove_functions;          // Array of functions to remove components.
+        std::unordered_map<std::string, std::any>               _components_arrays;         // Array of components.
+        std::unordered_map<std::string, remove_func_t>          _remove_functions;          // Array of functions to remove components.
 
         // Entities
         std::vector<entity_t>                                   _entities;                  // Array of Entities indexes.
