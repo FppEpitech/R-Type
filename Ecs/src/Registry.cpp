@@ -36,5 +36,5 @@ void Registry::kill_entity(entity_t const& entity) {
 
 void Registry::run_systems() {
     for (auto& system : _systems)
-        system();
+        system(*this);
 }

@@ -124,21 +124,6 @@ class Registry {
         }
 
         /**
-         * @brief Add a component to an Entity.
-         *
-         * @tparam Component type to add.
-         * @tparam Params type to create the component.
-         * @param entity Entity.
-         * @param params Params to create the component.
-         * @return SparseArray<Component>::reference_type Reference of the component.
-         */
-        template <typename Component, typename... Params>
-        typename SparseArray<Component>::reference_type emplace_component(entity_t const& entity, std::string typeIdx, Params&&... params) {
-            auto& components = this->get_components<Component>(typeIdx);
-            return components.emplace_at(entity, std::forward<Params>(params)...);
-        }
-
-        /**
          * @brief Remove a component from an Entity.
          *
          * @tparam Component type to remove.
@@ -158,27 +143,13 @@ class Registry {
          * @tparam Function Type of the function system.
          * @param function of the system to add.
          */
-        template <typename... Components, typename Function>
-        void add_system(Function&& function) {
+        template<typename Function>
+        void add_system(Function const& function) {
             _systems.emplace_back(
-                [this, function = std::forward<Function>(function)]() {
-                    function(*this, get_components<Components>()...);
-                });
-        }
-
-        /**
-         * @brief Add a system to the registry.
-         *
-         * @tparam Components Type of components used in the registry.
-         * @tparam Function Type of the function system.
-         * @param function of the system to add.
-         */
-        template <typename... Components, typename Function>
-        void add_system(Function const & function) {
-            _systems.emplace_back(
-                [this, function = std::forward<Function>(function)]() {
-                    function(*this, get_components<Components>()...);
-                });
+                [this, function](Registry& reg) {
+                    function(*this);
+                }
+            );
         }
 
         /**
@@ -200,5 +171,5 @@ class Registry {
         std::vector<entity_t>                                   _dead_entities;             // Array of dead Entities indexes.
         entity_t                                                _next_entity = 0;           // Index for the next Entity to create.
 
-        std::vector<std::function<void()>>                      _systems;                   // Array of systems.
+        std::vector<std::function<void(Registry&)>>             _systems;                   // Array of systems.
 };
