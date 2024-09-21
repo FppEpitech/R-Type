@@ -1,0 +1,37 @@
+/*
+** EPITECH PROJECT, 2024
+** R-Type Server
+** File description:
+** ISystem
+*/
+
+#pragma once
+
+#include <string>
+#include <functional>
+
+#include "Registry.hpp"
+#include "SparseArray.hpp"
+
+/**
+ * @brief Interface class for ECS systems.
+ *
+ */
+class ISystem {
+
+    public:
+
+        /**
+         * @brief Get the Type object
+         *
+         * @return const std::string&
+         */
+        virtual const std::string &getType() = 0;
+
+        /**
+         * @brief Get the Function of the System.
+         *
+         * @return std::function<void(Registry& reg)> System's function.
+         */
+        virtual std::function<void(Registry& reg)> getFunction() = 0;
+};
