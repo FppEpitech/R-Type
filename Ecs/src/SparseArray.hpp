@@ -11,6 +11,12 @@
 #include <memory>
 
 /**
+ * @brief Manage ECS
+ *
+ */
+namespace ECS {
+
+/**
  * @brief Container of components.
  *
  * @tparam Component Type of the component to store.
@@ -238,3 +244,5 @@ class SparseArray {
     private:
         container_t _data;  // Vector of shared pointers to components.
 };
+
+} // namespace ECS

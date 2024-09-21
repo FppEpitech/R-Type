@@ -16,6 +16,12 @@
 #include <unordered_map>
 
 /**
+ * @brief Manage ECS
+ *
+ */
+namespace ECS {
+
+/**
  * @brief Index type for an Entity in a registry.
  *
  */
@@ -173,3 +179,5 @@ class Registry {
 
         std::vector<std::function<void(Registry&)>>             _systems;                   // Array of systems.
 };
+
+} // namespace ECS
