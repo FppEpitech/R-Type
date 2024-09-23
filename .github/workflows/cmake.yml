@@ -1,0 +1,17 @@
+name: cmake
+on: [check_run, pull_request]
+jobs:
+  cmake-build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: checkout project
+        uses: actions/checkout@v4
+
+      - name: build project
+        uses: threeal/cmake-action@v2.0.0
