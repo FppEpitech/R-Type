@@ -5,6 +5,8 @@ set(EXE r-type_server)
 set(EXE_SRC_PATH "src")
 set(EXE_INCLUDE_PATH "include")
 
+set(CMAKE_CXX_STANDARD 20)
+
 set(SRC_EXE
     ./src/main.cpp
 )

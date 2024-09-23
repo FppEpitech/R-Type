@@ -5,6 +5,8 @@ set(LIB r-type_ecs)
 set(LIB_SRC_PATH "src")
 set(LIB_INCLUDE_PATH "include")
 
+set(CMAKE_CXX_STANDARD 20)
+
 set(SRC_LIB
         ${LIB_SRC_PATH}/Registry.cpp
 	)
