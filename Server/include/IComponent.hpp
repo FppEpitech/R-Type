@@ -24,7 +24,7 @@ class IComponent {
         virtual ~IComponent() = default;
 
         /**
-         * @brief Get the Type object
+         * @brief Get the Type object.
          *
          * @return const std::string&
          */

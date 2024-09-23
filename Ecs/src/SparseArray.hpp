@@ -11,7 +11,7 @@
 #include <memory>
 
 /**
- * @brief Manage ECS
+ * @brief Entity component system namespace.
  *
  */
 namespace ECS {

@@ -27,7 +27,7 @@ class ISystem {
         virtual ~ISystem() = default;
 
         /**
-         * @brief Get the Type object
+         * @brief Get the Type object.
          *
          * @return const std::string&
          */

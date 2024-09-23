@@ -16,7 +16,7 @@
 #include <unordered_map>
 
 /**
- * @brief Manage ECS
+ * @brief Entity component system namespace.
  *
  */
 namespace ECS {
@@ -29,7 +29,7 @@ using entity_t = std::size_t;
 
 
 /**
- * @brief Registry class, main class of an ECS
+ * @brief Registry class, main class of an ECS.
  * You can add component, entities and systems to a registry.
  *
  */
