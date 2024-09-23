@@ -1,4 +1,4 @@
-name: cmake-linux
+name: linux
 on: [check_run, pull_request]
 jobs:
   cmake-build:
