@@ -23,7 +23,7 @@ git clone git@github.com:FppEpitech/R-Type.git
 cmake -B build
 cmake --build build/
 ```
-Then, go to the buld/tests/ folder and run:
+Then, go to the **build/tests/** folder and run:
 ```
 ctest
 ```
