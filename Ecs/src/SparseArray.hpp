@@ -67,14 +67,26 @@ class SparseArray {
         SparseArray() = default;
 
         /**
-         * @brief Copy constructor.
+         * @brief Construct a new SparseArray object.
+         * It's a copy constructor.
+         *
+         * @param other SparseArray to copy.
          */
-        SparseArray(const SparseArray &other) = default;
+        SparseArray (SparseArray const &other)
+        {
+            _data = other._data;
+        };
 
         /**
-         * @brief Move constructor.
+         * @brief Construct a new SparseArray object.
+         * It's a move constructor.
+         *
+         * @param other SparseArray to move.
          */
-        SparseArray(SparseArray &&other) noexcept = default;
+        SparseArray (SparseArray &&other) noexcept
+        {
+            _data = other._data;
+        };
 
         /**
          * @brief Destroy the SparseArray object.
@@ -83,13 +95,27 @@ class SparseArray {
 
         /**
          * @brief Copy assignment operator.
+         *
+         * @param other SparseArray to copy.
+         * @return SparseArray& this
          */
-        SparseArray& operator=(const SparseArray &other) = default;
+        SparseArray &operator=(SparseArray const &other)
+        {
+            _data = other.data;
+            return *this;
+        };
 
         /**
          * @brief Move assignment operator.
+         *
+         * @param other SparseArray to move.
+         * @return SparseArray& this
          */
-        SparseArray& operator=(SparseArray &&other) noexcept = default;
+        SparseArray & operator=( SparseArray &&other) noexcept
+        {
+            _data = other._data;
+            return *this;
+        };
 
         /**
          * @brief Get the reference of a value stored in the SparseArray.
@@ -194,9 +220,8 @@ class SparseArray {
          * @return reference_type Reference to the new component.
          */
         reference_type insert_at(size_type pos, value_type component) {
-            if (pos >= _data.size()) {
+            if (pos >= _data.size())
                 _data.resize(pos + 1);
-            }
             _data[pos] = std::move(component);
             return _data[pos];
         }
@@ -210,9 +235,8 @@ class SparseArray {
          */
         template <class... Params>
         reference_type emplace_at(size_type pos, Params&&... params) {
-            if (pos >= _data.size()) {
+            if (pos >= _data.size())
                 _data.resize(pos + 1);
-            }
             _data[pos] = std::make_shared<Component>(std::forward<Params>(params)...);
             return _data[pos];
         }
@@ -221,9 +245,8 @@ class SparseArray {
          * @brief Erases the element at the specified index.
          */
         void erase(size_type pos) {
-            if (pos < _data.size()) {
+            if (pos < _data.size())
                 _data.erase(_data.begin() + pos);
-            }
         }
 
         /**
@@ -234,9 +257,8 @@ class SparseArray {
          */
         size_type get_index(const value_type& value) const {
             for (size_type i = 0; i < _data.size(); ++i) {
-                if (_data[i] == value) {
+                if (_data[i] == value)
                     return i;
-                }
             }
             return static_cast<size_type>(-1);
         }

@@ -10,7 +10,7 @@
 #include <string>
 
 /**
- * @brief
+ * @brief Interface class for ECS components.
  *
  */
 class IComponent {

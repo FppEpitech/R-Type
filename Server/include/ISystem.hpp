@@ -21,6 +21,12 @@ class ISystem {
     public:
 
         /**
+         * @brief Destroy the ISystem object.
+         *
+         */
+        virtual ~ISystem() = default;
+
+        /**
          * @brief Get the Type object
          *
          * @return const std::string&
