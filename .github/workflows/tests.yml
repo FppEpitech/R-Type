@@ -1,0 +1,43 @@
+name: tests_check
+on: [pull_request]
+
+jobs:
+  cmake-build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies on Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y libcriterion-dev
+
+      - name: Install dependencies on macOS
+        if: matrix.os == 'macos-latest'
+        run: brew install criterion
+
+      - name: Install MSYS2 and Criterion on Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install -y msys2
+          set MSYS=winsymlinks:nativestrict
+          ridk install 3
+          pacman --noconfirm -Syu mingw-w64-x86_64-toolchain mingw-w64-x86_64-criterion
+
+      - name: Build project
+        uses: threeal/cmake-action@v2.0.0
+        with:
+          directory: .
+          build-directory: build
+          options: '-DCMAKE_BUILD_TYPE=Release'
+
+      - name: Run tests with ctest
+        run: |
+          cd build/tests/
+          ctest --output-on-failure --test-dir build

@@ -8,3 +8,6 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 add_subdirectory(Ecs)
 add_subdirectory(Server)
 add_subdirectory(Client)
+
+# tests
+add_subdirectory(tests)
