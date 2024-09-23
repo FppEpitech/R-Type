@@ -116,15 +116,15 @@ class Registry {
         void kill_entity(entity_t const& entity);
 
         /**
-         * @brief Add a component to an Entity.
+         * @brief Set a component to an Entity.
          *
-         * @tparam Component type to add.
+         * @tparam Component type to set.
          * @param entity Entity.
-         * @param component Component to add.
+         * @param component Component to set.
          * @return SparseArray<Component>::reference_type Reference of the component.
          */
         template <typename Component>
-        typename SparseArray<Component>::reference_type add_component(entity_t const& entity, std::shared_ptr<Component> component, std::string typeIdx) {
+        typename SparseArray<Component>::reference_type set_component(entity_t const& entity, std::shared_ptr<Component> component, std::string typeIdx) {
             auto& components = this->get_components<Component>(typeIdx);
             return components.insert_at(entity, component);
         }
