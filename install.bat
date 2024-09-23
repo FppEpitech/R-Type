@@ -26,7 +26,7 @@ vcpkg install
 :: Download Visual Studio Build Tools
 echo Downloading Visual Studio Build Tools...
 Invoke-WebRequest -Uri https://aka.ms/vs/16/release/vs_buildtools.exe -OutFile .\vs_buildtools.exe
- 
+
 :: Install Visual Studio Build Tools with MSVC
 echo Installing Visual Studio Build Tools with MSVC...
 .\vs_buildtools.exe --quiet --wait --norestart --includeRecommended --add Microsoft.VisualStudio.Workload.VCTools

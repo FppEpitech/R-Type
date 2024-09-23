@@ -13,7 +13,11 @@ cd vcpkg
 
 ./bootstrap-vcpkg.sh
 
-export PATH=$PATH:$(pwd)
+if ! grep -q 'export PATH=.*vcpkg' ~/.bashrc; then
+    echo 'export PATH="$PATH:'$(pwd)'"' >> ~/.bashrc
+fi
+
+source ~/.bashrc
 
 cd ..
 
