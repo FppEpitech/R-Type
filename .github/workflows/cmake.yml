@@ -1,5 +1,5 @@
 name: cmake
-on: [check_run, push, pull_request]
+on: [check_run, pull_request]
 jobs:
   cmake-build:
     runs-on: ${{ matrix.os }}
