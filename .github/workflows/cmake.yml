@@ -3,6 +3,7 @@ on: [check_run, pull_request]
 jobs:
   cmake-build:
     runs-on: ${{ matrix.os }}
+    container: epitechcontent/epitest-docker
 
     strategy:
       fail-fast: false
