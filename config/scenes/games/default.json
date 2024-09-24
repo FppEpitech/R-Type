@@ -1,0 +1,25 @@
+{
+    "keyBinds": {
+        "z": "moveUp",
+        "q": "moveLeft",
+        "s": "moveDown",
+        "d": "moveRight",
+        "ArrowUp": "moveUp",
+        "ArrowLeft": "moveLeft",
+        "ArrowDown": "moveDown",
+        "ArrowRight": "moveRight",
+        " ": "shoot",
+        "Escape": "../menus/pauseMenu.json"
+    },
+    "assets": [
+        {
+            "id": 0,
+            "path": "assets/test.png",
+            "startingPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            }
+        }
+    ]
+}
