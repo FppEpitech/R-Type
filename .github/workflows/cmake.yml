@@ -3,7 +3,6 @@ on: [check_run, pull_request]
 jobs:
   cmake-build:
     runs-on: ${{ matrix.os }}
-    container: epitechcontent/epitest-docker
 
     strategy:
       fail-fast: false
@@ -13,6 +12,14 @@ jobs:
     steps:
       - name: checkout project
         uses: actions/checkout@v4
+
+      - name: Install dependencies on Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y libcriterion-dev
+
+      - name: Install dependencies on macOS
+        if: matrix.os == 'macos-latest'
+        run: brew install criterion
 
       - name: build project
         uses: threeal/cmake-action@v2.0.0
