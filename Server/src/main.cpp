@@ -11,7 +11,7 @@
 
 void handle_message(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint)
 {
-    std::cout << "Messages received from " << endpoint << ": " << "TEST SUCEEDD" << std::endl;
+    std::cout << "Messages received from " << endpoint << ": [" << "..." << "]" << std::endl;
 }
 
 int main()
