@@ -23,6 +23,8 @@ void Network::Client::connect(MessageHandler callback) {
         asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(_server_ip, std::to_string(_tcp_port));
         asio::connect(*_tcp_socket, endpoints);
 
+        std::cout << "Debug 1" << std::endl;
+
         asio::streambuf buf;
         asio::read_until(*_tcp_socket, buf, '\n');
         std::istream is(&buf);
