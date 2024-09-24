@@ -21,8 +21,8 @@ jobs:
         if: matrix.os == 'windows-latest'
         uses: threeal/cmake-action@v2.0.0
         with:
-          cmakeArgs: |
-            -DBUILD_TESTS=OFF
+          options: |
+            BUILD_TESTS=OFF
           configureOnly: false
 
       - name: build project Windows
