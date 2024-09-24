@@ -2,34 +2,20 @@
 ** EPITECH PROJECT, 2024
 ** R-Type Server
 ** File description:
-** I
+** NetworkServer
 */
 
-#include <thread>
-#include <iostream>
-#include <asio.hpp>
-#include <unordered_map>
-
-/**
- * @namespace Network
- * @brief Network-related classes and functions
- */
-namespace Network {
-
-    /**
-     * @brief Server class to Network (Init server, receive data and send data)
-     */
-    class Server;
-
-    using MessageHandler = std::function<void(const std::string&, const asio::ip::udp::endpoint&)>;
-};
+#include "../Network.hpp"
+#include "../packet/NetworkPacket.hpp"
 
 class Network::Server
 {
+    using MessageHandler = std::function<void(Network::UDPPacket packet, const asio::ip::udp::endpoint&)>;
+
     public:
 
         /**
-         * @brief Construct a new Server object
+         * @brief Construct a new Server object.
          *
          * @param io_context The IO context to be used for asynchronous operations.
          * @param tcp_port The port number for the TCP acceptor.
@@ -64,21 +50,26 @@ class Network::Server
          * @param socket A shared pointer to the TCP socket from which data is being read.
          * @param client_id The ID of the client associated with the socket.
          */
-        void _startRead(std::shared_ptr<asio::ip::tcp::socket> socket, int client_id);
+        void _startRead(std::shared_ptr<asio::ip::tcp::socket> socket, uint32_t client_token);
 
         /**
          * @brief Starts receiving UDP messages.
          */
         void _startReceive(void);
 
-        std::shared_ptr<asio::io_context>                   _io_context;
-        std::shared_ptr<asio::ip::tcp::acceptor>            _tcp_acceptor;
-        std::shared_ptr<asio::ip::udp::socket>              _udp_socket;
-        asio::ip::udp::endpoint                             _remote_endpoint;
-        std::array<char, 1024>                              _recv_buffer;
-        std::string                                         _read_buffer;
-        std::unordered_map<int, asio::ip::udp::endpoint>    _clients;
-        MessageHandler                                      _messageHandler;
-        int                                                 _nextClientId;
-};
+        /**
+         * @brief Generate a token for the user connection.
+         *
+         * @return uint32_t Token generate.
+         */
+        uint32_t _generateToken(void);
 
+        std::shared_ptr<asio::io_context>                           _io_context;
+        std::shared_ptr<asio::ip::tcp::acceptor>                    _tcp_acceptor;
+        std::shared_ptr<asio::ip::udp::socket>                      _udp_socket;
+        asio::ip::udp::endpoint                                     _remote_endpoint;
+        std::array<char, 1024>                                      _recv_buffer;
+        std::string                                                 _read_buffer;
+        std::unordered_map<uint32_t, asio::ip::udp::endpoint>       _clients;
+        MessageHandler                                              _messageHandler;
+};

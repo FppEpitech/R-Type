@@ -7,20 +7,20 @@
 
 #include <iostream>
 #include <thread>
-#include "network/network.hpp"
+#include "network/server/NetworkServer.hpp"
 
-void handle_message(const std::string& message, const asio::ip::udp::endpoint& endpoint)
+void handle_message(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint)
 {
-    std::cout << "Messages received from " << endpoint << ": " << message << std::endl;
+    std::cout << "Messages received from " << endpoint << ": " << "TEST SUCEEDD" << std::endl;
 }
 
-int main() {
+int main()
+{
     try {
         Network::Server server(4444, 4445);
         server.start(handle_message);
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
-
     return 0;
 }

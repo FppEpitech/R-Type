@@ -7,7 +7,8 @@ set(EXE_INCLUDE_PATH "include")
 
 set(SRC_EXE
     ${EXE_SRC_PATH}/main.cpp
-    ${EXE_SRC_PATH}/network/network.cpp
+    ${EXE_SRC_PATH}/network/packet/NetworkPacket.cpp
+    ${EXE_SRC_PATH}/network/server/NetworkServer.cpp
 )
 
 add_executable(${EXE} ${SRC_EXE})
