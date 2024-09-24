@@ -11,7 +11,8 @@
 
 /**
  * @brief Interface class for ECS components.
- *
+ *  A component is a modular piece of data that defines
+ *  specific attributes or behaviors of an entity.
  */
 class IComponent {
 
