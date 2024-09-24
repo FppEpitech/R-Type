@@ -71,5 +71,5 @@ class Network::Server
         std::array<char, 1024>                                      _recv_buffer;       // Receive buffer to store data received via UDP.
         std::string                                                 _read_buffer;       // Read buffer to accumulate data received via TCP connection.
         std::unordered_map<uint32_t, asio::ip::udp::endpoint>       _clients;           // Hash table associating a unique identifier to the UDP endpoint of a connected client.
-        MessageHandler                                              _messageHandler;    // Message Manager to process incoming messages.
+        MessageHandler                                              _messageHandler;    // Message Manager to process messages.
 };
