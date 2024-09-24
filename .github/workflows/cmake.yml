@@ -7,19 +7,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: checkout project
         uses: actions/checkout@v4
 
+      - name: Set up vcpkg
+        if: matrix.os == 'windows-latest'
+        uses: microsoft/vcpkg-action@v3
+        with:
+          install: true
+
+      # Install Criterion
+      - name: Install Criterion
+        if: matrix.os == 'windows-latest'
+        run: |
+          .\vcpkg\vcpkg.exe install criterion
+
       - name: Install dependencies on Ubuntu
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get update && sudo apt-get install -y libcriterion-dev
-
-      - name: Install dependencies on macOS
-        if: matrix.os == 'macos-latest'
-        run: brew install snaipe/soft/criterion
 
       - name: build project
         uses: threeal/cmake-action@v2.0.0
