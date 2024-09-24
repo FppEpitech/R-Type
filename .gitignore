@@ -38,3 +38,7 @@ client_test
 
 # Build Folder
 build
+
+# Editor config Folder
+idea/
+.vscode/
