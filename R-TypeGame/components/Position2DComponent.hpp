@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type game
 ** File description:
-** PositionComponent
+** Position2DComponent
 */
 
 #pragma once
@@ -10,25 +10,23 @@
 #include "IComponent.hpp"
 
 /**
- * @brief Component Position for R-Type Game.
+ * @brief Component Position 2D for R-Type Game.
  *
  */
-class PositionComponent : public IComponent {
+class Position2DComponent : public IComponent {
 
     public:
 
         int x;  // Position x.
         int y;  // Position y.
-        int z;  // Position z.
 
         /**
-         * @brief Construct a new Position Component object.
+         * @brief Construct a new Position 2D Component object.
          *
          * @param x Position x.
          * @param y Position y.
-         * @param z Position z.
          */
-        PositionComponent(int x = 0, int y = 0, int z = 0);
+        Position2DComponent(int x = 0, int y = 0);
 
         /**
          * @brief Get the Type object.

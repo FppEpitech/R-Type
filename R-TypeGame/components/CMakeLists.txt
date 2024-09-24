@@ -8,4 +8,5 @@ include_directories(
     ../../Server/include/
 )
 
-add_library(component_position SHARED PositionComponent.cpp)
+add_library(component_position2D SHARED Position2DComponent.cpp)
+add_library(component_position3D SHARED Position3DComponent.cpp)
