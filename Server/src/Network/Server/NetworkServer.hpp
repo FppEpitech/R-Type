@@ -6,7 +6,7 @@
 */
 
 #include "../Network.hpp"
-#include "../packet/NetworkPacket.hpp"
+#include "../Packet/NetworkPacket.hpp"
 
 class Network::Server
 {

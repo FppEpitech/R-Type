@@ -5,8 +5,8 @@ set(LIB_SRC_PATH "./")
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_LIB
-    ${LIB_SRC_PATH}/packet/NetworkPacket.cpp
-    ${LIB_SRC_PATH}/server/NetworkServer.cpp
+    ${LIB_SRC_PATH}/Packet/NetworkPacket.cpp
+    ${LIB_SRC_PATH}/Server/NetworkServer.cpp
 )
 
 add_library(${LIB} STATIC ${SRC_LIB})

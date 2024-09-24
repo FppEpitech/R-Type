@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <thread>
-#include "network/server/NetworkServer.hpp"
+#include "Network/Server/NetworkServer.hpp"
 
 void handle_message(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint)
 {

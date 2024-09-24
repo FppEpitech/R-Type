@@ -15,7 +15,7 @@ include_directories(
     ../Ecs/src/
 )
 
-add_subdirectory(src/network)
+add_subdirectory(src/Network)
 
 add_executable(${EXE} ${SRC_EXE})
 
