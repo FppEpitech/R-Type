@@ -15,7 +15,7 @@ jobs:
 
       - name: Set up vcpkg
         if: matrix.os == 'windows-latest'
-        uses: microsoft/vcpkg-action@v3
+        uses: johnwason/vcpkg-action@v5
         with:
           install: true
 
