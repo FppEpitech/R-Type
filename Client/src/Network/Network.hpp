@@ -19,7 +19,7 @@
 namespace Network {
 
     /**
-     * @brief CLient class to Network (Connection to server, receive data and send data)
+     * @brief Client class to Network (Connection to server, receive data and send data)
      */
     class Client;
 };

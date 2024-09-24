@@ -7,7 +7,8 @@
 
 #include "../Network.hpp"
 
-class Network::Client {
+class Network::Client
+{
 
     using MessageHandler = std::function<void(std::string message)>;
 
