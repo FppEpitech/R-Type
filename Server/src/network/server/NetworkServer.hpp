@@ -64,12 +64,12 @@ class Network::Server
          */
         uint32_t _generateToken(void);
 
-        std::shared_ptr<asio::io_context>                           _io_context;
-        std::shared_ptr<asio::ip::tcp::acceptor>                    _tcp_acceptor;
-        std::shared_ptr<asio::ip::udp::socket>                      _udp_socket;
-        asio::ip::udp::endpoint                                     _remote_endpoint;
-        std::array<char, 1024>                                      _recv_buffer;
-        std::string                                                 _read_buffer;
-        std::unordered_map<uint32_t, asio::ip::udp::endpoint>       _clients;
-        MessageHandler                                              _messageHandler;
+        std::shared_ptr<asio::io_context>                           _io_context;        // Shared pointer to the io_context object, used to manage asynchronous I/O operations.
+        std::shared_ptr<asio::ip::tcp::acceptor>                    _tcp_acceptor;      // Shared pointer to the TCP acceptor object, used to accept incoming TCP connections.
+        std::shared_ptr<asio::ip::udp::socket>                      _udp_socket;        // Shared pointer to the UDP socket object, used for sending and receiving UDP datagrams.
+        asio::ip::udp::endpoint                                     _remote_endpoint;   // The remote client’s UDP endpoint, representing the client’s IP address and port.
+        std::array<char, 1024>                                      _recv_buffer;       // Receive buffer to store data received via UDP.
+        std::string                                                 _read_buffer;       // Read buffer to accumulate data received via TCP connection.
+        std::unordered_map<uint32_t, asio::ip::udp::endpoint>       _clients;           // Hash table associating a unique identifier to the UDP endpoint of a connected client.
+        MessageHandler                                              _messageHandler;    // Message Manager to process incoming messages.
 };
