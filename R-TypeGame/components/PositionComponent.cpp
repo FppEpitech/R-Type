@@ -7,7 +7,7 @@
 
 #include "PositionComponent.hpp"
 
-PositionComponent::PositionComponent(int x, int y) : x(x), y(y)
+PositionComponent::PositionComponent(int x, int y, int z) : x(x), y(y), z(z)
 {
     _type = "PositionComponent";
 }

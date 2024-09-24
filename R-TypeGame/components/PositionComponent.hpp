@@ -19,14 +19,16 @@ class PositionComponent : public IComponent {
 
         int x;  // Position x.
         int y;  // Position y.
+        int z;  // Position z.
 
         /**
          * @brief Construct a new Position Component object.
          *
          * @param x Position x.
          * @param y Position y.
+         * @param z Position z.
          */
-        PositionComponent(int x = 0, int y = 0);
+        PositionComponent(int x = 0, int y = 0, int z = 0);
 
         /**
          * @brief Get the Type object.
