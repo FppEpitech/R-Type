@@ -17,8 +17,8 @@ class PositionComponent : public IComponent {
 
     public:
 
-        int x = 0;
-        int y = 0;
+        int x;  // Position x.
+        int y;  // Position y.
 
         /**
          * @brief Construct a new Position Component object.
