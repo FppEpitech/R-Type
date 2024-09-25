@@ -65,13 +65,28 @@ class I2DEntity {
         virtual void SetScale(float x, float y) = 0;
 
         /**
+         * @enum ORIGIN
+         * @brief Enumeration for defining the origin points of a rectangle.
+         *
+         * This enumeration defines the possible origin points for a rectangle, which can be used to set the reference point for positioning and transformations.
+         */
+        enum ORIGIN {
+            TOP_LEFT,    /**< Origin at the top-left corner */
+            TOP_RIGHT,   /**< Origin at the top-right corner */
+            BOTTOM_LEFT, /**< Origin at the bottom-left corner */
+            BOTTOM_RIGHT,/**< Origin at the bottom-right corner */
+            CENTER       /**< Origin at the center */
+        };
+
+        /**
          * @brief Set the rectangle of the 2D entity.
          * @param x The x-coordinate of the rectangle.
          * @param y The y-coordinate of the rectangle.
          * @param w The width of the rectangle.
          * @param h The height of the rectangle.
+         * @param origin The origin of the rectangle.
          */
-        virtual void SetRect(float x, float y, float w, float h) = 0;
+        virtual void SetRect(float x, float y, float w, float h, ORIGIN origin) = 0;
 
         /**
          * @brief Set the origin of the 2D entity.
