@@ -20,6 +20,13 @@ jobs:
           sudo apt-get install -y libcriterion-dev
           sudo apt-get install -y libasio-dev
 
+      - name: Install dependencies on Windows (vcpkg)
+        if: matrix.os == 'windows-latest'
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git
+          .\vcpkg\bootstrap-vcpkg.bat
+          .\vcpkg\vcpkg install asio
+
       - name: build project Windows
         if: matrix.os == 'windows-latest'
         uses: threeal/cmake-action@v2.0.0
@@ -28,6 +35,6 @@ jobs:
             BUILD_TESTS=OFF
           configureOnly: false
 
-      - name: build project Windows
+      - name: build project Linux
         if: matrix.os == 'ubuntu-latest'
         uses: threeal/cmake-action@v2.0.0
