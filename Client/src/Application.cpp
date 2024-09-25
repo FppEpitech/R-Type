@@ -12,7 +12,7 @@ Application::Application()
     // Initialize the network and the first scene
 }
 
-void Application::Run()
+void Application::run()
 {
     // Main loop
     // while (true) {
