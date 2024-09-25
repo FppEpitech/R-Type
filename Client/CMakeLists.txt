@@ -9,12 +9,12 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_EXE
     ./src/main.cpp
-    ./src/Application.cpp
+    ./src/Application/Application.cpp
 )
 
 include_directories(
     ../Ecs/src/
-    ./src/Application.hpp
+    ./src/Application/
 )
 
 add_executable(${EXE} ${SRC_EXE})
