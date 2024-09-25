@@ -33,6 +33,7 @@ jobs:
         with:
           options: |
             -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake
+            -DCMAKE_INCLUDE_PATH=${{ github.workspace }}vcpkg_installed/x64-linux/include
             BUILD_TESTS=OFF
           configureOnly: false
 
