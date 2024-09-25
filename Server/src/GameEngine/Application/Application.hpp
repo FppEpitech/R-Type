@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Registry.hpp"
+#include "SceneManager/SceneManager.hpp"
 
 /**
  * @brief GameEngine namespace handle all
@@ -48,7 +49,8 @@ class Application {
 
         //TODO: Network class
 
-        ECS::Registry   _registry;  // registry class for ECS management.
+        std::shared_ptr<std::vector<ECS::Registry>>     _registries;        // vector of registries class for ECS management.
+        std::shared_ptr<GameEngine::SceneManager>       _sceneManager;      // load and handle scene in the ECS.
 };
 
 } // namespace GameEngine

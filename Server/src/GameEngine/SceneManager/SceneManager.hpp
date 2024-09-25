@@ -7,16 +7,27 @@
 
 #pragma once
 
-#define DEFAULT_SCENE_PATH "config/scenes/menus/default.json"
+#define DEFAULT_SCENE_PATH "config/scenes/games/default.json"
+#define LIB_COMPONENTS_PATH "Server/lib/components/"
 
-#include <unordered_map>
+#include "Registry.hpp"
+
 #include <string>
+#include <unordered_map>
+#include "json/json.h"
+
+/**
+ * @brief GameEngine namespace handle all
+ * classes of the GameEngine part of the server.
+ *
+ */
+namespace GameEngine {
 
 class SceneManager {
 
     public:
 
-        SceneManager();
+        SceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries);
         ~SceneManager();
 
         void processInput(const std::string &input);
@@ -31,6 +42,10 @@ class SceneManager {
         void _loadSceneKeys(const std::string &path);
         void _loadScene(const std::string &path);
         void _loadSceneSystems();
-        void _loadSceneComponents();
+        void _loadSceneComponents(Json::Value root);
         void _changeScene(const std::string &sceneName);
+
+        std::shared_ptr<std::vector<ECS::Registry>>     _registries;
 };
+
+}

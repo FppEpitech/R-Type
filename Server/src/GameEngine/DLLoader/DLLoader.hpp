@@ -11,7 +11,14 @@
 #include <string>
 #include <dlfcn.h>
 #include <functional>
+#include <iostream>
 
+/**
+ * @brief GameEngine namespace handle all
+ * classes of the GameEngine part of the server.
+ *
+ */
+namespace GameEngine {
 
 /**
  * @brief Loader class of '.so' files.
@@ -55,3 +62,5 @@ class DLLoader {
             return std::shared_ptr<T>(createComponent());
         }
 };
+
+}
