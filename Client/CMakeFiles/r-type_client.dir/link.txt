@@ -1,1 +1,0 @@
-/usr/bin/c++ "CMakeFiles/r-type_client.dir/src/main.cpp.o" -o ../r-type_client  ../Ecs/libr-type_ecs.a 

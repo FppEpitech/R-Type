@@ -1,2 +1,0 @@
-/usr/bin/ar qc libr-type_ecs.a "CMakeFiles/r-type_ecs.dir/src/Registry.cpp.o"
-/usr/bin/ranlib libr-type_ecs.a
