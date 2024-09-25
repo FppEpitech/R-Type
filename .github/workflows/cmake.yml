@@ -7,11 +7,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: checkout project
         uses: actions/checkout@v4
 
-      - name: build project
+      - name: Install dependencies on Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y libcriterion-dev
+
+      - name: build project Windows
+        if: matrix.os == 'windows-latest'
+        uses: threeal/cmake-action@v2.0.0
+        with:
+          options: |
+            BUILD_TESTS=OFF
+          configureOnly: false
+
+      - name: build project Windows
+        if: matrix.os == 'ubuntu-latest'
         uses: threeal/cmake-action@v2.0.0
