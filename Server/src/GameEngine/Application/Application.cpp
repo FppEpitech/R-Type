@@ -1,0 +1,29 @@
+/*
+** EPITECH PROJECT, 2024
+** R-Type Server
+** File description:
+** Application
+*/
+
+#include "Application.hpp"
+
+void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint)
+{
+    std::cout << "Messages received from " << endpoint << ": [" << "..." << "]" << std::endl;
+}
+
+GameEngine::Application::Application()
+{
+    _server = std::make_shared<Network::Server>(4444, 4445);
+    _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint) {
+        this->_packetHandler(std::move(packet), endpoint);
+    });
+}
+
+void GameEngine::Application::run()
+{
+    // TODO: Start sceneManager
+    while (true) {
+        // TODO: Game loop
+    }
+}

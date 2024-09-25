@@ -5,20 +5,13 @@
 ** main
 */
 
-#include <iostream>
-#include <thread>
-#include "network/server/NetworkServer.hpp"
-
-void handle_message(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint)
-{
-    std::cout << "Messages received from " << endpoint << ": [" << "..." << "]" << std::endl;
-}
+#include "Application.hpp"
 
 int main()
 {
     try {
-        Network::Server server(4444, 4445);
-        server.start(handle_message);
+        GameEngine::Application myApp;
+        myApp.run();
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }

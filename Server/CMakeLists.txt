@@ -8,14 +8,16 @@ set(EXE_INCLUDE_PATH "include")
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_EXE
-    ${EXE_SRC_PATH}/main.cpp
+    ./${EXE_SRC_PATH}/main.cpp
+    ./${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
 )
 
 include_directories(
     ../Ecs/src/
+    ./src/GameEngine/Application/
 )
 
-add_subdirectory(src/network)
+add_subdirectory(src/Network)
 
 add_executable(${EXE} ${SRC_EXE})
 

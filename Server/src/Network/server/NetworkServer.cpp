@@ -21,7 +21,7 @@ void Network::Server::start(MessageHandler callback)
     _startAccept();
     _startReceive();
     std::thread server_thread([this]() { _io_context->run(); });
-    server_thread.join();
+    server_thread.detach();
 }
 
 uint32_t Network::Server::_generateToken(void)
