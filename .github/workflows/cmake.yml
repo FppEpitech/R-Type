@@ -32,8 +32,7 @@ jobs:
         uses: threeal/cmake-action@v2.0.0
         with:
           options: |
-            -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake
-            -DCMAKE_INCLUDE_PATH=${{ github.workspace }}vcpkg_installed/x64-linux/include
+            -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg-master/scripts/buildsystems/vcpkg.cmake
             BUILD_TESTS=OFF
           configureOnly: false
 
