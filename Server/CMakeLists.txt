@@ -5,17 +5,21 @@ set(EXE r-type_server)
 set(EXE_SRC_PATH "src")
 set(EXE_INCLUDE_PATH
     "include"
-    "src"
+    "src/GameEngine"
 )
 
+set(CMAKE_CXX_STANDARD 20)
+
 set(SRC_EXE
-    ./src/main.cpp
-    ./src/SceneManager/SceneManager.cpp
-    ./src/Errors/AError.cpp
+./${EXE_SRC_PATH}/main.cpp
+./${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
+./${EXE_SRC_PATH}/GameEngine/SceneManager/SceneManager.cpp
+./${EXE_SRC_PATH}/GameEngine/Errors/AError.cpp
 )
 
 include_directories(
     ../Ecs/src/
+    ./src/GameEngine/Application/
 )
 
 add_executable(${EXE} ${SRC_EXE})

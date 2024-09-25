@@ -32,6 +32,13 @@
 *.app
 r-type_server
 r-type_client
+ecs_test
+server_test
+client_test
 
 # Build Folder
 build
+
+# Editor config Folder
+.idea/
+.vscode/
