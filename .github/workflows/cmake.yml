@@ -15,7 +15,10 @@ jobs:
 
       - name: Install dependencies on Ubuntu
         if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get update && sudo apt-get install -y libcriterion-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcriterion-dev
+          sudo apt-get install -y libasio-dev
 
       - name: build project Windows
         if: matrix.os == 'windows-latest'
