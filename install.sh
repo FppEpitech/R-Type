@@ -4,12 +4,9 @@ sudo dnf install gcc gcc-c++
 sudo dnf install cmake
 sudo dnf install make
 
-
-
-
-git clone https://github.com/microsoft/vcpkg.git
-
-cd vcpkg
+curl -L https://github.com/microsoft/vcpkg/archive/refs/heads/master.zip -o vcpkg.zip
+unzip vcpkg.zip
+cd vcpkg-master
 
 ./bootstrap-vcpkg.sh
 
