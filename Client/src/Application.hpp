@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "registry.hpp"
+#include "Registry.hpp"
 
 /**
  * @brief Application class
@@ -40,4 +40,4 @@ class Application {
         // TODO: Network class
 
         std::vector<ECS::Registry> _registries; // Registries for each scene
-}
+};
