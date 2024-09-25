@@ -33,7 +33,7 @@ class Application {
          * @brief Run the application
          *
          */
-        void Run();
+        void run();
 
     private:
 
