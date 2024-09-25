@@ -39,6 +39,14 @@ client_test
 # Build Folder
 build
 
+#vpkg
+vcpkg_installed
+vcpkg
+vcpkg.json
+vcpkg-master
+vcpkg.zip
+
 # Editor config Folder
 .idea/
 .vscode/
+
