@@ -9,7 +9,7 @@
 #include "Errors/ServerErrors.hpp"
 
 #include <fstream>
-#include <jsoncpp/json/json.h>
+#include "json/json.h"
 
 SceneManager::SceneManager()
 {
@@ -44,7 +44,7 @@ void SceneManager::_loadSceneKeys(const std::string &path)
     for (auto &keybind : root["keyBinds"]) {
         if (keybind["usage"].asString().find('/') != std::string::npos)
             _sceneKeys[keybind["key"].asString()] = keybind["usage"].asString();
-        changeScene(keybind["usage"].asString());
+        _changeScene(keybind["usage"].asString());
     }
     for (auto &component : root["components"]) {
         _sceneComponents[component["name"].asString()] = component["path"].asString();
@@ -55,5 +55,5 @@ void SceneManager::_loadSceneKeys(const std::string &path)
 void SceneManager::_changeScene(const std::string &sceneName)
 {
     // Clear the register of the scene (need to think about it)
-    // 
+    //
 }

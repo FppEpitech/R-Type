@@ -11,13 +11,12 @@
 
 class ServerErrors : public AError {
     public:
-        ServerErrors(const std::string &message);
+        ServerErrors(const std::string &message) : AError(message){};
         ~ServerErrors() override = default;
 };
 
 class SceneManagerError : public ServerErrors {
     public:
-        SceneManagerError(const std::string &message);
+        SceneManagerError(const std::string &message) : ServerErrors(message){};
         ~SceneManagerError() override = default;
 };
-

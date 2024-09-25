@@ -10,6 +10,7 @@
 #define DEFAULT_SCENE_PATH "config/scenes/menus/default.json"
 
 #include <unordered_map>
+#include <string>
 
 class SceneManager {
 
@@ -25,8 +26,8 @@ class SceneManager {
     private:
 
         std::unordered_map<std::string, std::string> _sceneKeys; // The second string will be a system
-        std::unodered_map<std::string, std::string> _sceneComponents; // The second string will be a component
+        std::unordered_map<std::string, std::string> _sceneComponents; // The second string will be a component
 
-        _loadSceneKeys(const std::string &path);
-        _changeScene(const std::string &sceneName);
+        void _loadSceneKeys(const std::string &path);
+        void _changeScene(const std::string &sceneName);
 };

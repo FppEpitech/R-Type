@@ -9,6 +9,8 @@
 
 #include "IError.hpp"
 
+#include <string>
+
 class AError : public IError {
     public:
         AError(const std::string &message);
