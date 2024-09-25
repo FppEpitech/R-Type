@@ -9,10 +9,10 @@
 
 GameEngine::Application::Application()
 {
-    // init network multithreaded
+    // TODO: init network multithreaded
 }
 
 void GameEngine::Application::run()
 {
-    //Start sceneManager
+    // TODO: Start sceneManager
 }
