@@ -13,6 +13,7 @@ set(SRC_EXE
 
 include_directories(
     ../Ecs/src/
+    ./src/include/
 )
 
 add_executable(${EXE} ${SRC_EXE})
