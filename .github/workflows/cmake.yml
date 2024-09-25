@@ -25,7 +25,7 @@ jobs:
         run: |
           git clone https://github.com/microsoft/vcpkg.git
           .\vcpkg\bootstrap-vcpkg.bat
-          .\vcpkg\vcpkg install asio
+          .\vcpkg\vcpkg install
 
       - name: build project Windows
         if: matrix.os == 'windows-latest'
