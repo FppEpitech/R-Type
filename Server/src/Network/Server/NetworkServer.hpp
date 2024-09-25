@@ -25,6 +25,8 @@ class Network::Server
 
         /**
          * @brief Starts the server.
+         *
+         * @param callback Callback function called when the server receive data.
          */
         void start(MessageHandler callback);
 

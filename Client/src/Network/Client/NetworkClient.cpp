@@ -17,26 +17,22 @@ Network::Client::Client(const std::string& server_ip, int tcp_port, int udp_port
     _udp_socket = std::make_shared<asio::ip::udp::socket>(*_io_context);
 }
 
-void Network::Client::connect(MessageHandler callback) {
+void Network::Client::connect(MessageHandler callback)
+{
     try {
         asio::ip::tcp::resolver resolver(*_io_context);
         asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(_server_ip, std::to_string(_tcp_port));
         asio::connect(*_tcp_socket, endpoints);
 
-        std::cout << "Debug 1" << std::endl;
-
-        asio::streambuf buf;
-        asio::read_until(*_tcp_socket, buf, '\n');
-        std::istream is(&buf);
-        is >> _token;
-
+        asio::error_code ec;
+        asio::read(*_tcp_socket, asio::buffer(&_token, sizeof(_token)), ec);
         std::cout << "Connected to server with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << _token << std::endl;
 
         _udp_socket->open(asio::ip::udp::v4());
         _server_endpoint = asio::ip::udp::endpoint(asio::ip::address::from_string(_server_ip), _udp_port);
 
         this->_messageHandler = std::move(callback);
-        startReceive();
+        _startReceive();
 
         std::thread io_thread([this]() { _io_context->run(); });
         io_thread.detach();
@@ -45,19 +41,31 @@ void Network::Client::connect(MessageHandler callback) {
     }
 }
 
-void Network::Client::sendMessage(const std::string& message) {
-    std::string packet = std::to_string(_token) + message;
+void Network::Client::sendMessage(std::vector<uint8_t>& packet)
+{
+    packet[4] = (_token >> 24) & 0xFF;
+    packet[5] = (_token >> 16) & 0xFF;
+    packet[6] = (_token >> 8) & 0xFF;
+    packet[7] = _token & 0xFF;
     _udp_socket->async_send_to(asio::buffer(packet), _server_endpoint,
         [](const asio::error_code&, std::size_t) {});
 }
 
-void Network::Client::startReceive() {
+void Network::Client::_startReceive()
+{
     _udp_socket->async_receive_from(asio::buffer(_recv_buffer), _server_endpoint,
         [this](const asio::error_code& error, std::size_t bytes_recvd) {
             if (!error && bytes_recvd > 0) {
-                std::string message(_recv_buffer.data(), bytes_recvd);
-                if (this->_messageHandler)
-                    this->_messageHandler(message);
+                try {
+                    std::string message(_recv_buffer.data(), bytes_recvd);
+                    if (this->_messageHandler)
+                        this->_messageHandler(message);
+                } catch (const std::exception& e) {
+                    _startReceive();
+                }
+            } else {
+                std::cerr << "Error receiving message: " << error.message() << std::endl;
             }
+            _startReceive();
         });
 }
