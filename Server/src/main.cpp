@@ -5,11 +5,14 @@
 ** main
 */
 
+#include "Application.hpp"
+
 #include <iostream>
 
 int main()
 {
-    std::cout << "R-Type Server" << std::endl;
+    GameEngine::Application myApp;
 
+    myApp.run();
     return 0;
 }
