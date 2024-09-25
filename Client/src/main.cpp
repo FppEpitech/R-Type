@@ -7,9 +7,12 @@
 
 #include <iostream>
 
+#include "Application.hpp"
+
 int main()
 {
-    std::cout << "R-Type Client" << std::endl;
+    Application app;
 
+    app.Run();
     return 0;
 }
