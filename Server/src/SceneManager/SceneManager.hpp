@@ -29,5 +29,8 @@ class SceneManager {
         std::unordered_map<std::string, std::string> _sceneComponents; // The second string will be a component
 
         void _loadSceneKeys(const std::string &path);
+        void _loadScene(const std::string &path);
+        void _loadSceneSystems();
+        void _loadSceneComponents();
         void _changeScene(const std::string &sceneName);
 };
