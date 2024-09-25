@@ -48,13 +48,13 @@ class I3DEntity {
          * @param path The path to the file containing the 3D entity.
          * @return The loaded 3D entity.
          */
-        virtual I3DEntity Load3DEntity(std::string const &path) = 0;
+        virtual void Load3DEntity(std::string const &path) = 0;
 
         /**
          * @brief Load textures for the 3D entity.
-         * @param textures A vector of pairs containing texture file paths and their corresponding material types.
+         * @param textures A vector of pairs containing texture file paths of texture (in .png for example) and their corresponding material types.
          */
-        virtual void LoadTexture(std::vector<std::pair<std::string, MATERIAL>>) = 0;
+        virtual void LoadTexture(std::vector<std::pair<std::string, MATERIAL>> textures) = 0;
 
         /**
          * @brief Set the position of the 3D entity.
