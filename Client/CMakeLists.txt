@@ -9,10 +9,12 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_EXE
     ./src/main.cpp
+    ./src/SceneManager/SceneManager.cpp
 )
 
 include_directories(
     ../Ecs/src/
+    ./src/SceneManager/
 )
 
 add_executable(${EXE} ${SRC_EXE})
