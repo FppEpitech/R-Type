@@ -12,10 +12,6 @@ add_executable(ecs_test
     ./Server/tests.cpp
 )
 
-target_link_libraries(server_test PRIVATE criterion)
-target_link_libraries(client_test PRIVATE criterion)
-target_link_libraries(ecs_test PRIVATE criterion)
-
 # enable testing functionality
 enable_testing()
 
