@@ -19,9 +19,11 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git
           .\vcpkg\bootstrap-vcpkg.bat
           .\vcpkg\vcpkg install
+
       - name: Install dependencies on Ubuntu (vcpkg)
         if: matrix.os == 'ubuntu-latest'
         run: |
+          apt install xinerama xcursor xorg libglu1-mesa pkg-config
           git clone https://github.com/microsoft/vcpkg.git
           ./vcpkg/bootstrap-vcpkg.sh
           ./vcpkg/vcpkg install
