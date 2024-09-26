@@ -32,3 +32,8 @@ jobs:
         run: |
           cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=ON
           cmake --build build
+      
+      - name: run tests
+        run: |
+          cd build/tests
+          ctest
