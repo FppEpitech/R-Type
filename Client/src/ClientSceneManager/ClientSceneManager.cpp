@@ -52,6 +52,8 @@ void SceneManager::ClientSceneManager::_loadSceneComponents(Json::Value root, st
             if (component) {
                 _registries->at(index).register_component<IComponent>(component->getType());
                 _registries->at(index).set_component(entity, component, component->getType());
+            } else {
+                throw SceneManagerError("Error while loading the component: " + componentList[j].asString());
             }
         }
     }
@@ -65,6 +67,8 @@ void SceneManager::ClientSceneManager::_loadSceneSystems(Json::Value root, std::
         std::shared_ptr<ISystem> system = DLLoader<ISystem>::load(LIB_SYSTEMS_PATH + systems[i].asString(), "loadSystemInstance");
         if (system)
             _registries->at(index).add_system(system->getFunction());
+        else
+            throw SceneManagerError("Error while loading the system: " + systems[i].asString());
     }
 }
 
@@ -89,9 +93,12 @@ void SceneManager::ClientSceneManager::_loadSceneKeys(Json::Value root, std::siz
                     if (stringKeyMap.find(key.asString()) == stringKeyMap.end())
                         throw SceneManagerError("Error while loading the key: " + key.asString());
                     _keysRegistry[index][stringKeyMap.at(key.asString())] = system;
+                } else {
+                    throw SceneManagerError("Error while loading the key: " + key.asString());
                 }
             }
+        } else {
+            throw SceneManagerError("Error while loading the key: " + key.asString());
         }
-        // else, throw error
     }
 }
