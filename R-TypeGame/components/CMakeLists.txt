@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Server/lib/components/)
 
 include_directories(
-    ../../Server/include/
+    ../../Ecs/include/
 )
 
 add_library(component_position2D SHARED Position2DComponent.cpp)

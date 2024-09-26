@@ -14,6 +14,7 @@ set(SRC_EXE
 
 include_directories(
     ../Ecs/src/
+    ./src/include/
     ./src/Application/
 )
 
