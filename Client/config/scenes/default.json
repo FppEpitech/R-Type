@@ -2,21 +2,14 @@
     "keyBinds": [
         {
             "key": "KEY_APOSTROPHE",
-            "path" : "testScene.so"
+            "path" : ""
         }
     ],
     "entities": [
         [
-            "component1.so",
-            "component2.so"
-        ],
-        [
-            "component3.so",
-            "component4.so"
+
         ]
     ],
     "systems": [
-        ".....so",
-        ".......so"
     ]
 }
