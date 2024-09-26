@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Cache vcpkg
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vcpkg
           key: vcpkg-cache-${{ runner.os }}
@@ -26,11 +26,12 @@ jobs:
 
       - name: Install dependencies on Windows (vcpkg)
         if: matrix.os == 'windows-latest'
+        shell: pwsh
         run: |
-          if [ ! -d "vcpkg" ]; then
+          if (-Not (Test-Path "vcpkg")) {
             git clone https://github.com/microsoft/vcpkg.git
             .\vcpkg\bootstrap-vcpkg.bat
-          fi
+          }
           .\vcpkg\vcpkg install
 
       - name: Install dependencies on Ubuntu (vcpkg)
