@@ -17,12 +17,12 @@
 GameEngine::SceneManager::SceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries)
 {
     _registries = registries;
+    _indexRegister = 1;
 
     ECS::Registry reg;
     _registries->push_back(reg);
-
-
-    _loadScene(DEFAULT_SCENE_PATH);
+    _registries->push_back(reg);
+    _loadScene(DEFAULT_SCENE_PATH, _indexRegister);
 }
 
 GameEngine::SceneManager::~SceneManager()
@@ -31,70 +31,69 @@ GameEngine::SceneManager::~SceneManager()
 
 void GameEngine::SceneManager::processInput(const std::string &input)
 {
-    // for (auto &scene : _sceneKeys) {
-    //     if (scene.first == input) {
-    //         // Call the system
-    //     }
-    // }
 }
 
-void GameEngine::SceneManager::_loadScene(const std::string &path)
+void GameEngine::SceneManager::_loadScene(const std::string &path, int idxRegister)
 {
+    std::cout << idxRegister << std::endl;
     std::ifstream file(path);
     Json::Reader reader;
     Json::Value root;
 
     if (!reader.parse(file, root, false))
         throw SceneManagerError("Error while parsing the scene file" + path);
-    _loadSceneKeys(root);
-    _loadSceneComponents(root);
-    _loadSceneSystems(root);
+    _loadSceneComponents(root, idxRegister);
+    _loadSceneSystems(root, idxRegister);
+    _loadSceneKeys(root, idxRegister);
 }
 
-void GameEngine::SceneManager::_loadSceneKeys(Json::Value root)
+void GameEngine::SceneManager::_loadSceneKeys(Json::Value root, int idxRegister)
 {
-    // std::ifstream file(path);
-    // Json::Reader reader;
-    // Json::Value root;
+    const Json::Value& keyBinds = root["keyBinds"];
 
-    // if (!reader.parse(file, root, false))
-    //     throw SceneManagerError("Error while parsing the scene file" + path);
-    // for (auto &keybind : root["keyBinds"]) {
-    //     if (keybind["usage"].asString().find('/') != std::string::npos)
-    //         _sceneKeys[keybind["key"].asString()] = keybind["usage"].asString();
-    //     _changeScene(keybind["usage"].asString());
-    // }
-    // for (auto &component : root["components"]) {
-    //     _sceneComponents[component["name"].asString()] = component["path"].asString();
-    //     // Create a component, and add it to the scene
-    // }
-}
+    for (auto keys : keyBinds) {
 
-void GameEngine::SceneManager::_loadSceneComponents(Json::Value root)
-{
-    const Json::Value& entities = root["entity"];
+        const Json::Value& key = keys["key"];
+        const Json::Value& path = keys["path"];
 
-    for (unsigned int i = 0; i < entities.size(); ++i) {
-        const Json::Value& componentList = entities[i];
-        ECS::entity_t entity = (*_registries)[0].spawn_entity();
-        for (unsigned int j = 0; j < componentList.size(); ++j) {
-            auto component = GameEngine::DLLoader<IComponent>::load(LIB_COMPONENTS_PATH + componentList[j].asString(), "loadComponentInstance");
-            if (component) {
-                (*_registries)[0].register_component<IComponent>(component->getType());
-                (*_registries)[0].set_component(entity, component, component->getType());
+        if (key and path) {
+            _sceneKeys[key.asString()] = path.asString();
+            const std::string suffix = ".json";
+            if (idxRegister == 1 && path.asString().compare(path.asString().size() - suffix.size(), suffix.size(), ".json") == 0) {
+                _indexRegister++;
+                ECS::Registry reg;
+                (*_registries).push_back(reg);
+                _loadScene(path.asString(), _indexRegister);
             }
         }
     }
 }
 
-void GameEngine::SceneManager::_loadSceneSystems(Json::Value root)
+void GameEngine::SceneManager::_loadSceneComponents(Json::Value root, int idxRegister)
+{
+    const Json::Value& entities = root["entity"];
+
+    for (unsigned int i = 0; i < entities.size(); ++i) {
+        const Json::Value& componentList = entities[i];
+        ECS::entity_t entity = (*_registries)[idxRegister].spawn_entity();
+        for (unsigned int j = 0; j < componentList.size(); ++j) {
+            auto component = GameEngine::DLLoader<IComponent>::load(LIB_COMPONENTS_PATH + componentList[j].asString(), "loadComponentInstance");
+            if (component) {
+                (*_registries)[idxRegister].register_component<IComponent>(component->getType());
+                (*_registries)[idxRegister].set_component(entity, component, component->getType());
+            }
+        }
+    }
+}
+
+void GameEngine::SceneManager::_loadSceneSystems(Json::Value root, int idxRegister)
 {
     const Json::Value& systems = root["systems"];
 
     for (unsigned int i = 0; i < systems.size(); ++i) {
         auto system = GameEngine::DLLoader<ISystem>::load(LIB_SYSTEMS_PATH + systems[i].asString(), "loadSystemInstance");
         if (system)
-            (*_registries)[0].add_system(system->getFunction());
+            (*_registries)[idxRegister].add_system(system->getFunction());
     }
 }
 

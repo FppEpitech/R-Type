@@ -38,15 +38,16 @@ class SceneManager {
     private:
 
         std::unordered_map<std::string, std::string> _sceneKeys; // The second string will be a system
-        std::unordered_map<std::string, std::string> _sceneComponents; // The second string will be a component
+        // std::unordered_map<std::string, std::string> _sceneComponents; // The second string will be a component
 
-        void _loadScene(const std::string &path);
-        void _loadSceneKeys(Json::Value root);
-        void _loadSceneComponents(Json::Value root);
-        void _loadSceneSystems(Json::Value root);
+        void _loadScene(const std::string &path, int idxRegister);
+        void _loadSceneKeys(Json::Value root, int idxRegister);
+        void _loadSceneComponents(Json::Value root, int idxRegister);
+        void _loadSceneSystems(Json::Value root, int idxRegister);
         void _changeScene(const std::string &sceneName);
 
         std::shared_ptr<std::vector<ECS::Registry>>     _registries;
+        std::size_t                                     _indexRegister;
 };
 
 }
