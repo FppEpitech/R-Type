@@ -10,30 +10,44 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-      - name: checkout project
+      - name: Checkout project
         uses: actions/checkout@v4
+
+      - name: Cache vcpkg
+        uses: actions/cache@v3
+        with:
+          path: vcpkg
+          key: vcpkg-cache-${{ runner.os }}
+
+      - name: Apt install for Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config
 
       - name: Install dependencies on Windows (vcpkg)
         if: matrix.os == 'windows-latest'
         run: |
-          git clone https://github.com/microsoft/vcpkg.git
-          .\vcpkg\bootstrap-vcpkg.bat
+          if [ ! -d "vcpkg" ]; then
+            git clone https://github.com/microsoft/vcpkg.git
+            .\vcpkg\bootstrap-vcpkg.bat
+          fi
           .\vcpkg\vcpkg install
 
       - name: Install dependencies on Ubuntu (vcpkg)
         if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config
-          git clone https://github.com/microsoft/vcpkg.git
-          ./vcpkg/bootstrap-vcpkg.sh  
+          if [ ! -d "vcpkg" ]; then
+            git clone https://github.com/microsoft/vcpkg.git
+            ./vcpkg/bootstrap-vcpkg.sh  
+          fi
           ./vcpkg/vcpkg install
 
-      - name: build project (windows or ubuntu)
+      - name: Build project (Windows or Ubuntu)
         run: |
           cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
           cmake --build build/ --config Debug
-      
-      - name: run tests
+
+      - name: Run tests
         run: |
           cd build/tests/
           ctest -C Debug
