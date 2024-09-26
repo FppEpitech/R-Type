@@ -33,10 +33,10 @@ jobs:
       - name: build project Windows
         if: matrix.os == 'windows-latest'
         uses: threeal/cmake-action@v2.0.0
-        with:
-          options: |
-            -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg-master/scripts/buildsystems/vcpkg.cmake
-            BUILD_TESTS=OFF
+        # with:
+        #   options: |
+        #     -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg-master/scripts/buildsystems/vcpkg.cmake
+        #     BUILD_TESTS=OFF
           configureOnly: false
 
       # - name: build project Linux
