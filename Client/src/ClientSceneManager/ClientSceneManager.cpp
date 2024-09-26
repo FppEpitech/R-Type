@@ -18,10 +18,10 @@ SceneManager::ClientSceneManager::ClientSceneManager(std::shared_ptr<std::vector
 {
     _registries = registries;
     _registerIndex = SceneManager::RegisterIndex::CURRENT;
-    _keysRegistry = std::vector<std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>>();
 
     ECS::Registry reg;
     _registries->push_back(reg);
+
     _keysRegistry.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
 
     _loadScene(DEFAULT_SCENE, _registerIndex);
