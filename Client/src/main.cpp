@@ -8,11 +8,13 @@
 #include <iostream>
 #include "asio.hpp"
 
+#include "Application.hpp"
+
 int main()
 {
-    std::cout << "R-Type Client" << std::endl;
-
+    Application app;
+    
     asio::io_context io;
-
+    app.run();
     return 0;
 }
