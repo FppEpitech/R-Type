@@ -13,14 +13,16 @@ jobs:
       - name: checkout project
         uses: actions/checkout@v4
 
-      - name: Install dependencies on Ubuntu
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libcriterion-dev
-          git clone https://github.com/microsoft/vcpkg.git
-          ./vcpkg/bootstrap-vcpkg.sh
-          ./vcpkg/vcpkg install
+      # - name: Install dependencies on Ubuntu
+      #   if: matrix.os == 'ubuntu-latest'
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y libcriterion-dev
+      #     git clone https://github.com/microsoft/vcpkg.git
+      #     ./vcpkg/bootstrap-vcpkg.sh
+      #     ./vcpkg/vcpkg install
+      - name: Vcpkg install
+        uses: lukka/run-vcpkg@v11
       # - name: Install dependencies on Windows (vcpkg)
       #   if: matrix.os == 'windows-latest'
       #   run: |
