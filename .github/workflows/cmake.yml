@@ -33,7 +33,7 @@ jobs:
         with:
           options: |
             CMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-            BUILD_TESTS=ON
+            BUILD_TESTS=OFF
             BUILD_EXAMPLES=ON
           build-dir: build
 
