@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest] #, windows-latest]
 
     steps:
       - name: checkout project
@@ -19,6 +19,7 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git
           .\vcpkg\bootstrap-vcpkg.bat
           .\vcpkg\vcpkg install
+          apt install ninja-build
 
       - name: build project Windows
         if: matrix.os == 'windows-latest'
