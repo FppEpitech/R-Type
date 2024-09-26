@@ -7,8 +7,9 @@
 
 #pragma once
 
-#define DEFAULT_SCENE_PATH "config/scenes/games/default.json"
-#define LIB_COMPONENTS_PATH "Server/lib/components/"
+#define DEFAULT_SCENE_PATH      "config/scenes/games/default.json"
+#define LIB_COMPONENTS_PATH     "Server/lib/components/"
+#define LIB_SYSTEMS_PATH        "Server/lib/systems/"
 
 #include "Registry.hpp"
 
@@ -39,10 +40,10 @@ class SceneManager {
         std::unordered_map<std::string, std::string> _sceneKeys; // The second string will be a system
         std::unordered_map<std::string, std::string> _sceneComponents; // The second string will be a component
 
-        void _loadSceneKeys(const std::string &path);
         void _loadScene(const std::string &path);
-        void _loadSceneSystems();
+        void _loadSceneKeys(Json::Value root);
         void _loadSceneComponents(Json::Value root);
+        void _loadSceneSystems(Json::Value root);
         void _changeScene(const std::string &sceneName);
 
         std::shared_ptr<std::vector<ECS::Registry>>     _registries;
