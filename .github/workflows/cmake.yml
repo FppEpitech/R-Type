@@ -7,37 +7,34 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [windows-latest] #[ubuntu-latest, windows-latest]
 
     steps:
       - name: checkout project
         uses: actions/checkout@v4
 
-        # - name: Install dependencies on Ubuntu
-        #   if: matrix.os == 'ubuntu-latest'
-        #   run: |
-        #     sudo apt-get update
-        #     sudo apt-get install -y libcriterion-dev
-        #     git clone https://github.com/microsoft/vcpkg.git
-        #     ./vcpkg/bootstrap-vcpkg.sh
-        #     ./vcpkg/vcpkg install
-      # - name: Vcpkg install
-      #   uses: lukka/run-vcpkg@v11
-    - name: Install dependencies on Windows (vcpkg)
-      if: matrix.os == 'windows-latest'
-      run: |
-        git clone https://github.com/microsoft/vcpkg.git
-        .\vcpkg\bootstrap-vcpkg.bat
-        .\vcpkg\vcpkg install
+      # - name: Install dependencies on Ubuntu
+      #   if: matrix.os == 'ubuntu-latest'
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y libcriterion-dev
+      #     sudo apt-get install -y libasio-dev
 
-    - name: build project Windows
-      if: matrix.os == 'windows-latest'
-      uses: threeal/cmake-action@v2.0.0
+      - name: Install dependencies on Windows (vcpkg)
+        if: matrix.os == 'windows-latest'
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git
+          .\vcpkg\bootstrap-vcpkg.bat
+          .\vcpkg\vcpkg install
+
+      - name: build project Windows
+        if: matrix.os == 'windows-latest'
+        uses: threeal/cmake-action@v2.0.0
         # with:
         #   options: |
         #     -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg-master/scripts/buildsystems/vcpkg.cmake
         #     BUILD_TESTS=OFF
-        # configureOnly: false
+        #   configureOnly: false
 
       # - name: build project Linux
       #   if: matrix.os == 'ubuntu-latest'
