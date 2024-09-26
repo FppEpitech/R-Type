@@ -1,1 +1,1 @@
-export VCPKG_ROOT=/home/tjerome-rocher/Desktop/tek3/R-Type/vcpkg-master && cmake . -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake -B build
+export VCPKG_ROOT=${PWD}/vcpkg-master && cmake . -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake -B build
