@@ -25,10 +25,10 @@ namespace SceneManager {
      * @note The "Next" enum is used to indicate the first index of the next scenes, but all the next indexes till the end of the array are also considered as next scenes.
      */
     enum RegisterIndex {
-        PREVIOUS = 0,
-        CURRENT = 1,
+        CURRENT = 0,
+        PREVIOUS = 1,
         NEXT = 2
-    }
+    };
 
     /**
      * @brief Interface for the scene manager
