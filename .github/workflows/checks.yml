@@ -25,15 +25,15 @@ jobs:
         run: |
           sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config
           git clone https://github.com/microsoft/vcpkg.git
-          ./vcpkg/bootstrap-vcpkg.sh
+          ./vcpkg/bootstrap-vcpkg.sh  
           ./vcpkg/vcpkg install
 
       - name: build project (windows or ubuntu)
         run: |
           cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-          cmake --build build/
+          cmake --build build/ --config Debug
       
       - name: run tests
         run: |
           cd build/tests/
-          ctest -C release
+          ctest -C Debug
