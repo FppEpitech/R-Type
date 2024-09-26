@@ -32,7 +32,7 @@ jobs:
         uses: threeal/cmake-action@v2.0.0
         with:
           options: |
-            CMAKE_TOOLCHAIN_FILE=${PWD}/vcpkg/scripts/buildsystems/vcpkg.cmake
+            CMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
             BUILD_TESTS=ON
             BUILD_EXAMPLES=ON
           build-dir: build
