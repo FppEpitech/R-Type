@@ -9,11 +9,14 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_EXE
     ./src/main.cpp
+    ./src/Application/Application.cpp
     ./src/SceneManager/SceneManager.cpp
 )
 
 include_directories(
     ../Ecs/src/
+    ./src/include/
+    ./src/Application/
     ./src/SceneManager/
 )
 
