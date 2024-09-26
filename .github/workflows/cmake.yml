@@ -19,18 +19,6 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git
           .\vcpkg\bootstrap-vcpkg.bat
           .\vcpkg\vcpkg install
-
-      - name: build project Windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=ON
-        # with:
-        #   options: |
-        #     CMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-        #     BUILD_TESTS=OFF
-        #     BUILD_EXAMPLES=ON
-        #   build-dir: build
-
       - name: Install dependencies on Ubuntu (vcpkg)
         if: matrix.os == 'ubuntu-latest'
         run: |
@@ -38,13 +26,7 @@ jobs:
           ./vcpkg/bootstrap-vcpkg.sh
           ./vcpkg/vcpkg install
 
-
-      - name: build project Ubuntu
-        if: matrix.os == 'ubuntu-latest'
-        uses: threeal/cmake-action@v2.0.0
-        with:
-          options: |
-            CMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-            BUILD_TESTS=OFF
-            BUILD_EXAMPLES=ON
-          build-dir: build
+      - name: build project (windows or ubuntu)
+        run: |
+          cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=ON
+          cmake --build build
