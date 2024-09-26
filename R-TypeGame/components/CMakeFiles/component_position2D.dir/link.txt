@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -shared -Wl,-soname,libcomponent_position2D.so -o ../../Server/lib/components/libcomponent_position2D.so CMakeFiles/component_position2D.dir/Position2DComponent.cpp.o 

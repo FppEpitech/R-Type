@@ -13,6 +13,7 @@ sudo dnf install make
 
 curl -L https://github.com/microsoft/vcpkg/archive/refs/heads/master.zip -o vcpkg.zip
 unzip vcpkg.zip
+rm vcpkg.zip
 cd vcpkg-master
 
 ./bootstrap-vcpkg.sh
@@ -25,4 +26,4 @@ cd vcpkg-master
 
 cd ..
 
-./vcpkg/vcpkg install
+./vcpkg-master/vcpkg install

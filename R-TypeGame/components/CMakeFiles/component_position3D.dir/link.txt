@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -shared -Wl,-soname,libcomponent_position3D.so -o ../../Server/lib/components/libcomponent_position3D.so CMakeFiles/component_position3D.dir/Position3DComponent.cpp.o 

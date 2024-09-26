@@ -1,0 +1,32 @@
+Detecting compiler hash for triplet x64-linux...
+Compiler found: /usr/bin/c++
+All requested packages are currently installed.
+Total install time: 1.47 us
+asio provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(asio CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE asio::asio)
+
+jsoncpp provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(jsoncpp CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE JsonCpp::JsonCpp)
+
+jsoncpp provides pkg-config modules:
+
+  # A C++ library for interacting with JSON
+  jsoncpp
+
+raylib provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(raylib CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE raylib)
+
+raylib provides pkg-config modules:
+
+  # A simple and easy-to-use library to enjoy videogames programming
+  raylib
+

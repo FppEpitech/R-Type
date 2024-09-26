@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/sever_test.dir/Server/tests.cpp.o -o ../sever_test  -lcriterion 
