@@ -1,27 +1,11 @@
 {
     "keyBinds": [
         {
-            "key": "ArrowUp",
-            "path" : "./config.json"
-        },
-        {
-            "key": "ArrowDown",
-            "path" : "moveDown.so"
-        },
-        {
-            "key": "ArrowLeft",
-            "path" : "moveLeft.so"
-        },
-        {
-            "key": "ArrowRight",
-            "path" : "moveRight.so"
-        },
-        {
-            "key": "Enter",
-            "path" : "select.so"
+            "key": "KEY_APOSTROPHE",
+            "path" : "testScene.so"
         }
     ],
-    "entity": [
+    "entities": [
         [
             "component1.so",
             "component2.so"
