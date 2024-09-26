@@ -1,3 +1,10 @@
+##
+## EPITECH PROJECT, 2024
+## R-TYPE
+## File description:
+## Install compilers, cmake, and set up the env vars.
+##
+
 sudo dnf update
 
 sudo dnf install gcc gcc-c++
@@ -10,12 +17,12 @@ cd vcpkg-master
 
 ./bootstrap-vcpkg.sh
 
-if ! grep -q 'export PATH=.*vcpkg' ~/.bashrc; then
-    echo 'export PATH="$PATH:'$(pwd)'"' >> ~/.bashrc
-fi
+# if ! grep -q 'export PATH=.*vcpkg' ~/.bashrc; then
+#     echo 'export PATH="$PATH:'$(pwd)'"' >> ~/.bashrc
+# fi
 
-source ~/.bashrc
+# source ~/.bashrc
 
 cd ..
 
-vcpkg install
+./vcpkg/vcpkg install
