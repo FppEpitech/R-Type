@@ -1,5 +1,6 @@
-# name: tests_check
-# on: [pull_request]
+name: tests_check
+on:
+  workflow_dispatch:
 
 # jobs:
 #   run_tests:
