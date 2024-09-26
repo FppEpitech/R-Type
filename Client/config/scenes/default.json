@@ -1,0 +1,38 @@
+{
+    "keyBinds": [
+        {
+            "key": "ArrowUp",
+            "path" : "./config.json"
+        },
+        {
+            "key": "ArrowDown",
+            "path" : "moveDown.so"
+        },
+        {
+            "key": "ArrowLeft",
+            "path" : "moveLeft.so"
+        },
+        {
+            "key": "ArrowRight",
+            "path" : "moveRight.so"
+        },
+        {
+            "key": "Enter",
+            "path" : "select.so"
+        }
+    ],
+    "entity": [
+        [
+            "component1.so",
+            "component2.so"
+        ],
+        [
+            "component3.so",
+            "component4.so"
+        ]
+    ],
+    "systems": [
+        ".....so",
+        ".......so"
+    ]
+}
