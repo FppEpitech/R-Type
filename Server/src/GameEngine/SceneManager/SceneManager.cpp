@@ -57,13 +57,19 @@ void GameEngine::SceneManager::_loadSceneKeys(Json::Value root, int idxRegister)
         const Json::Value& path = keys["path"];
 
         if (key and path) {
-            _sceneKeys[key.asString()] = path.asString();
+            // _sceneKeys[key.asString()] = path.asString();
+
             const std::string suffix = ".json";
             if (idxRegister == 1 && path.asString().compare(path.asString().size() - suffix.size(), suffix.size(), ".json") == 0) {
                 _indexRegister++;
                 ECS::Registry reg;
                 (*_registries).push_back(reg);
                 _loadScene(path.asString(), _indexRegister);
+            }
+
+            auto system = GameEngine::DLLoader<ISystem>::load(LIB_SYSTEMS_PATH + path.asString(), "loadSystemInstance");
+            if (system) {
+                // _sceneKeys[idxRegister][]
             }
         }
     }
