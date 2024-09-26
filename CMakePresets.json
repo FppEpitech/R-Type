@@ -7,12 +7,7 @@
     "configurePresets": [
       {
         "name": "default",
-        "hidden": false,
-        "binaryDir": "${sourceDir}/build",
-        "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
-        "cacheVariables": {
-          "CMAKE_BUILD_TYPE": "Debug"
-        }
+        "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
       }
     ]
 }
