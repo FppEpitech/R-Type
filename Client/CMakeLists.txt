@@ -19,7 +19,12 @@ add_executable(${EXE} ${SRC_EXE})
 
 target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
 
+find_package(asio CONFIG REQUIRED)
+
+
+
 target_link_libraries(
     ${EXE}
+    PRIVATE asio::asio
     r-type_ecs
 )
