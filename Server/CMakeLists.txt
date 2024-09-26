@@ -24,4 +24,5 @@ target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
 target_link_libraries(
     ${EXE}
     r-type_ecs
+    jsoncpp
 )
