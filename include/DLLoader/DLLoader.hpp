@@ -11,6 +11,7 @@
 #include <string>
 #include <dlfcn.h>
 #include <functional>
+#include <iostream>
 
 
 /**
