@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/ecs_test.dir/Server/tests.cpp.o -o ../ecs_test  -lcriterion 
