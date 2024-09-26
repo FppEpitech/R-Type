@@ -30,11 +30,12 @@ jobs:
       - name: build project Windows
         if: matrix.os == 'windows-latest'
         uses: threeal/cmake-action@v2.0.0
-        # with:
-        #   options: |
-        #     -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg-master/scripts/buildsystems/vcpkg.cmake
-        #     BUILD_TESTS=OFF
-        #   configureOnly: false
+        with:
+          options: |
+            CMAKE_TOOLCHAIN_FILE=${PWD}/vcpkg/scripts/buildsystems/vcpkg.cmake
+            BUILD_TESTS=ON
+            BUILD_EXAMPLES=ON
+          build-dir: build
 
       # - name: build project Linux
       #   if: matrix.os == 'ubuntu-latest'
