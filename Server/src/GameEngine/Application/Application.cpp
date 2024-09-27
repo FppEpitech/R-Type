@@ -17,4 +17,5 @@ GameEngine::Application::Application()
 void GameEngine::Application::run()
 {
     // TODO: Start sceneManager
+    _sceneManager->processInput("ok");
 }

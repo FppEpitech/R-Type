@@ -19,6 +19,8 @@ set(SRC_EXE
 
 include_directories(
     ../Ecs/src/
+    ../Ecs/include/
+    ../include/
     ./src/GameEngine/Application/
 )
 

@@ -12,10 +12,13 @@
 #define LIB_SYSTEMS_PATH        "Server/lib/systems/"
 
 #include "Registry.hpp"
+#include "IComponent.hpp"
+#include "ISystem.hpp"
+#include "StringKeyMap.hpp"
 
 #include <string>
-#include <unordered_map>
 #include "json/json.h"
+#include <unordered_map>
 
 /**
  * @brief GameEngine namespace handle all
@@ -45,9 +48,9 @@ class SceneManager {
         void _loadSceneSystems(Json::Value root, int idxRegister);
         void _changeScene(const std::string &sceneName);
 
-        std::shared_ptr<std::vector<ECS::Registry>>                 _registries;
-        std::vector<std::unordered_map<std::string, ISystem>>       _sceneKeys;
-        std::size_t                                                 _indexRegister;
+        std::shared_ptr<std::vector<ECS::Registry>>                                     _registries;
+        std::vector<std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>>              _sceneKeys;
+        std::size_t                                                                     _indexRegister;
 };
 
 }

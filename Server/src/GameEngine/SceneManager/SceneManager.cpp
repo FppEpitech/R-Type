@@ -6,10 +6,8 @@
 */
 
 #include "SceneManager.hpp"
-#include "Errors/ServerErrors.hpp"
 #include "DLLoader/DLLoader.hpp"
-#include "IComponent.hpp"
-#include "ISystem.hpp"
+#include "Errors/ServerErrors.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -17,11 +15,13 @@
 GameEngine::SceneManager::SceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries)
 {
     _registries = registries;
-    _indexRegister = 1;
+    _indexRegister = 0;
 
     ECS::Registry reg;
     _registries->push_back(reg);
-    _registries->push_back(reg);
+
+    _sceneKeys.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
+
     _loadScene(DEFAULT_SCENE_PATH, _indexRegister);
 }
 
@@ -31,6 +31,7 @@ GameEngine::SceneManager::~SceneManager()
 
 void GameEngine::SceneManager::processInput(const std::string &input)
 {
+    _sceneKeys[0][stringKeyMap.at("KEY_COMMA")]->getFunction()((*_registries)[0]);
 }
 
 void GameEngine::SceneManager::_loadScene(const std::string &path, int idxRegister)
@@ -57,20 +58,23 @@ void GameEngine::SceneManager::_loadSceneKeys(Json::Value root, int idxRegister)
         const Json::Value& path = keys["path"];
 
         if (key and path) {
-            // _sceneKeys[key.asString()] = path.asString();
 
             const std::string suffix = ".json";
-            if (idxRegister == 1 && path.asString().compare(path.asString().size() - suffix.size(), suffix.size(), ".json") == 0) {
+            if (idxRegister == 0 && path.asString().compare(path.asString().size() - suffix.size(), suffix.size(), ".json") == 0) {
                 _indexRegister++;
-                ECS::Registry reg;
-                (*_registries).push_back(reg);
+                (*_registries).push_back(ECS::Registry());
+                _sceneKeys.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
                 _loadScene(path.asString(), _indexRegister);
+            } else {
+                auto system = GameEngine::DLLoader<ISystem>::load(LIB_SYSTEMS_PATH + path.asString(), "loadSystemInstance");
+                if (system) {
+                    if (stringKeyMap.find(key.asString()) == stringKeyMap.end())
+                        throw SceneManagerError("Error while loading the key: " + key.asString());
+                    _sceneKeys[idxRegister][stringKeyMap.at(key.asString())] = system;
+                }
             }
-
-            auto system = GameEngine::DLLoader<ISystem>::load(LIB_SYSTEMS_PATH + path.asString(), "loadSystemInstance");
-            if (system) {
-                // _sceneKeys[idxRegister][]
-            }
+        } else {
+            throw SceneManagerError("Error while parsing the scene file" + path.asString() + "\nNo key or path in KeyBinds list.");
         }
     }
 }
