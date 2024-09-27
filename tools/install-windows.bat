@@ -8,11 +8,10 @@
 @REM MUST BE EXECUTED IN WINDOWS CMD.
 
 winget install cmake
-winget install wget
 
 winget source update
 
-wget --content-disposition --no-check-certificate https://aka.ms/vs/16/release/vs_buildtools.exe -O vs_buildtools.exe
+curl -O -L https://aka.ms/vs/16/release/vs_buildtools.exe
 SET "CURRENT_DIR=%CD%"
 
 
