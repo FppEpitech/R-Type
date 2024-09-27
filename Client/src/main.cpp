@@ -6,7 +6,6 @@
 */
 
 #include <iostream>
-#include "asio.hpp"
 
 #include "Application.hpp"
 
@@ -14,7 +13,6 @@ int main()
 {
     Application app;
     
-    asio::io_context io;
     app.run();
     return 0;
 }
