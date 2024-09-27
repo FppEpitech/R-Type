@@ -10,9 +10,13 @@
 winget install cmake
 winget install wget
 
+winget source update
+
 wget --content-disposition --no-check-certificate https://aka.ms/vs/16/release/vs_buildtools.exe -O vs_buildtools.exe
 SET "CURRENT_DIR=%CD%"
 
+
+@REM winget install -e --id Microsoft.VisualStudio.2022.BuildTools --override "--passive --wait --add Microsoft.VisualStudio.Workload.VCTools;includeRecommended"
 .\vs_buildtools.exe --quiet --wait --norestart --includeRecommended --add Microsoft.VisualStudio.Workload.VCTools
 @REM cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64"
 @REM # setx /M PATH "%PATH%;$(pwd)"
