@@ -44,7 +44,10 @@ class DLLoader {
         static std::shared_ptr<T> load(const std::string& lib, const std::string& symbol) {
 
             #ifdef _WIN32
-                std::string libName = lib.replace(lib.find(".so"), 3, ".dll");
+                std::string libName = lib;
+                size_t pos = libName.find(".dll");
+                if (pos != std::string::npos)
+                    libName.replace(pos, 4, ".so");
                 void* handle = LoadLibrary(libName);
                 if (!handle) {
                     std::cerr << "Failed to load library: " << libName << "on Windows" << std::endl;
@@ -57,8 +60,12 @@ class DLLoader {
                     FreeLibrary(static_cast<HMODULE>handle);
                     return nullptr;
                 }
+                return std::shared_ptr<T>(createComponent());
             #else
-                std::string libName = lib.replace(lib.find(".dll"), 4, ".so");
+                std::string libName = lib;
+                size_t pos = libName.find(".dll");
+                if (pos != std::string::npos)
+                    libName.replace(pos, 4, ".so");
                 void* handle = dlopen(libName.c_str(), RTLD_LAZY);
                 if (!handle) {
                     std::cerr << "Failed to load library: " << libName << "on Linux" << std::endl;
@@ -73,5 +80,6 @@ class DLLoader {
                     return nullptr;
                 }
                 return std::shared_ptr<T>(createComponent());
+            #endif
         }
 };
