@@ -7,6 +7,15 @@
 
 #pragma once
 
+#include <vector>
+#include <memory>
+
+#include "I2dEntities.hpp"
+#include "I3dEntities.hpp"
+#include "IText.hpp"
+#include "IMusic.hpp"
+#include "ISound.hpp"
+#include "IShader.hpp"
 #include "KeyMap.hpp"
 
 /**
@@ -59,6 +68,15 @@ class IGraphic {
         // TEXT
 
         /**
+         * @brief Add a text object to the graphic module.
+         *
+         * This function adds a text object to the graphic module, which will be managed and rendered by the module.
+         *
+         * @param text A shared pointer to an IText object that represents the text to be added.
+         */
+        virtual void AddText(std::shared_ptr<IText> text) = 0;
+
+        /**
          * @brief Draw all texts.
          */
         virtual void DrawTexts() = 0;
@@ -70,6 +88,15 @@ class IGraphic {
         virtual bool HasText() = 0;
 
         // SOUND
+
+        /**
+         * @brief Add a sound object to the graphic module.
+         *
+         * This function adds a sound object to the graphic module, which will be managed and played by the module.
+         *
+         * @param sound A shared pointer to an ISound object that represents the sound to be added.
+         */
+        virtual void AddSound(std::shared_ptr<ISound> sound) = 0;
 
         /**
          * @brief Play all sounds.
@@ -85,6 +112,15 @@ class IGraphic {
         // MUSIC
 
         /**
+         * @brief Add a music object to the graphic module.
+         *
+         * This function adds a music object to the graphic module, which will be managed and played by the module.
+         *
+         * @param music A shared pointer to an IMusic object that represents the music to be added.
+         */
+        virtual void AddMusic(std::shared_ptr<IMusic> music) = 0;
+
+        /**
          * @brief Play all music tracks.
          */
         virtual void PlayMusics() = 0;
@@ -96,6 +132,15 @@ class IGraphic {
         virtual bool HasMusic() = 0;
 
         // 3D ENTITY
+
+        /**
+         * @brief Add a 3D entity object to the graphic module.
+         *
+         * This function adds a 3D entity object to the graphic module, which will be managed and rendered by the module.
+         *
+         * @param entity A shared pointer to an I3DEntity object that represents the 3D entity to be added.
+         */
+        virtual void Add3DEntity(std::shared_ptr<I3DEntity> entity) = 0;
 
         /**
          * @brief Draw all 3D entities.
@@ -111,6 +156,15 @@ class IGraphic {
         // 2D ENTITY
 
         /**
+         * @brief Add a 2D entity object to the graphic module.
+         *
+         * This function adds a 2D entity object to the graphic module, which will be managed and rendered by the module.
+         *
+         * @param entity A shared pointer to an I2DEntity object that represents the 2D entity to be added.
+         */
+        virtual void Add2DEntity(std::shared_ptr<I2DEntity> entity) = 0;
+
+        /**
          * @brief Draw all 2D entities.
          */
         virtual void Draw2DEntities() = 0;
@@ -124,6 +178,15 @@ class IGraphic {
         // TEXTURE
 
         /**
+         * @brief Add a texture object to the graphic module.
+         *
+         * This function adds a texture object to the graphic module, which will be managed and rendered by the module.
+         *
+         * @param texture A shared pointer to an ITexture object that represents the texture to be added.
+         */
+        virtual void AddTexture(std::shared_ptr<ITexture> texture) = 0;
+
+        /**
          * @brief Draw all textures.
          */
         virtual void DrawTextures() = 0;
@@ -135,6 +198,15 @@ class IGraphic {
         virtual bool HasTexture() = 0;
 
         // SHADER
+
+        /**
+         * @brief Add a shader object to the graphic module.
+         *
+         * This function adds a shader object to the graphic module, which will be managed and rendered by the module.
+         *
+         * @param shader A shared pointer to an IShader object that represents the shader to be added.
+         */
+        virtual void AddShader(std::shared_ptr<IShader> shader) = 0;
 
         /**
          * @brief Draw all shaders.
