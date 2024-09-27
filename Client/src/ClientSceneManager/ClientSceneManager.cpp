@@ -21,7 +21,7 @@ SceneManager::ClientSceneManager::ClientSceneManager(std::shared_ptr<std::vector
 
     _keysRegistry.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
 
-    _loadScene(DEFAULT_SCENE, _registerIndex);
+    _loadScene(FIRST_SCENE, _registerIndex);
 }
 
 void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::size_t registerIndex)

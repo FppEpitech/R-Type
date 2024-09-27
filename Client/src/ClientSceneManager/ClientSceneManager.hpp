@@ -14,7 +14,7 @@
 #include "ISystem.hpp"
 #include "StringKeyMap.hpp"
 
-#define DEFAULT_SCENE "default.json"
+#define FIRST_SCENE "firstScene.json"
 #define SCENE_PATH "Client/config/scenes/"
 #define LIB_COMPONENTS_PATH "Client/lib/components/"
 #define LIB_SYSTEMS_PATH "Client/lib/systems/"
