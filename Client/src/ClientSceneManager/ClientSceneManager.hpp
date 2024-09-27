@@ -23,28 +23,28 @@
 #define LIB_SUFFIX ".so"
 
 /**
- * @brief Namespace for the scene manager
+ * @brief Namespace for the scene manager.
  * This namespace contains all the classes or enums that are related to the scene management.
  */
 namespace SceneManager {
 
     /**
-     * @brief Client ClientSceneManager class
-     * It manages the scenes of the game and the transitions between them
+     * @brief Client ClientSceneManager class.
+     * It manages the scenes of the game and the transitions between them.
      */
     class ClientSceneManager {
 
         public:
 
             /**
-             * @brief Construct a new ClientSceneManager object
-             * @param registries Registries for each scene
+             * @brief Construct a new ClientSceneManager object.
+             * @param registries Registries for each scene.
              *
              */
             ClientSceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries);
 
             /**
-             * @brief Destroy the ClientSceneManager object
+             * @brief Destroy the ClientSceneManager object.
              *
              */
             ~ClientSceneManager() = default;
@@ -57,30 +57,30 @@ namespace SceneManager {
             std::size_t _registerIndex; // Index of the current registry
 
             /**
-             * @brief Load a scene from a json file
-             * @param path Path to the json file
-             * @param index Index of the registry to load the scene
+             * @brief Load a scene from a json file.
+             * @param path Path to the json file.
+             * @param index Index of the registry to load the scene.
              */
             void _loadScene(const std::string &path, std::size_t index);
 
             /**
-             * @brief Load the components of a scene
-             * @param root Json root of the scene
-             * @param index Index of the registry to load the scene
+             * @brief Load the components of a scene.
+             * @param root Json root of the scene.
+             * @param index Index of the registry to load the scene.
              */
             void _loadSceneComponents(Json::Value root, std::size_t index);
 
             /**
-             * @brief Load the systems of a scene
-             * @param root Json root of the scene
-             * @param index Index of the registry to load the scene
+             * @brief Load the systems of a scene.
+             * @param root Json root of the scene.
+             * @param index Index of the registry to load the scene.
              */
             void _loadSceneSystems(Json::Value root, std::size_t index);
 
             /**
-             * @brief Load the keys of a scene
-             * @param root Json root of the scene
-             * @param index Index of the registry to load the scene
+             * @brief Load the keys of a scene.
+             * @param root Json root of the scene.
+             * @param index Index of the registry to load the scene.
              */
             void _loadSceneKeys(Json::Value root, std::size_t index);
 
