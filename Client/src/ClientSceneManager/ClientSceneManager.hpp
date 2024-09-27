@@ -9,7 +9,7 @@
 
 #include <unordered_map>
 
-#include <jsoncpp/json/json.h>
+#include <json/json.h>
 
 #include "ISystem.hpp"
 #include "StringKeyMap.hpp"
