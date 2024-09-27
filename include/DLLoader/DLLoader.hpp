@@ -12,7 +12,7 @@
 #else
     #include <dlfcn.h>
 #endif
-    
+
 #include <functional>
 #include <iostream>
 #include <memory>
@@ -41,23 +41,37 @@ class DLLoader {
          * @param symbol Symbol of the function to call.
          * @return std::shared_ptr<T> Return value of the function symbol.
          */
-        static std::shared_ptr<T> load(const std::string& libSo, const std::string& symbol) {
+        static std::shared_ptr<T> load(const std::string& lib, const std::string& symbol) {
 
-            void* handle = dlopen(libSo.c_str(), RTLD_LAZY);
+            #ifdef _WIN32
+                std::string libName = lib.replace(lib.find(".so"), 3, ".dll");
+                void* handle = LoadLibrary(libName);
+                if (!handle) {
+                    std::cerr << "Failed to load library: " << libName << "on Windows" << std::endl;
+                    return nullptr;
+                }
+                CreateComponentFunc createComponent = (CreateComponentFunc) GetProcAddress(static_cast<HMODULE>handle, symbol.c_str());
 
-            if (!handle) {
-                std::cerr << "Cannot load library: " << dlerror() << std::endl;
-                return nullptr;
-            }
+                if (!createComponent) {
+                    std::cerr << "Cannot load symbol " << symbol << std::endl;
+                    FreeLibrary(static_cast<HMODULE>handle);
+                    return nullptr;
+                }
+            #else
+                std::string libName = lib.replace(lib.find(".dll"), 4, ".so");
+                void* handle = dlopen(libName.c_str(), RTLD_LAZY);
+                if (!handle) {
+                    std::cerr << "Failed to load library: " << libName << "on Linux" << std::endl;
+                    return nullptr;
+                }
+                CreateComponentFunc createComponent = (CreateComponentFunc) dlsym(handle, symbol.c_str());
 
-            CreateComponentFunc createComponent = (CreateComponentFunc) dlsym(handle, symbol.c_str());
-
-            const char* dlsym_error = dlerror();
-            if (dlsym_error) {
-                std::cerr << "Cannot load symbol " << symbol << ": " << dlsym_error << std::endl;
-                dlclose(handle);
-                return nullptr;
-            }
-            return std::shared_ptr<T>(createComponent());
+                const char* dlsym_error = dlerror();
+                if (dlsym_error) {
+                    std::cerr << "Cannot load symbol " << symbol << ": " << dlsym_error << std::endl;
+                    dlclose(handle);
+                    return nullptr;
+                }
+                return std::shared_ptr<T>(createComponent());
         }
 };
