@@ -17,6 +17,8 @@ include_directories(
     ./src/GameEngine/Application/
 )
 
+add_subdirectory(src/Network)
+
 add_executable(${EXE} ${SRC_EXE})
 
 target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
@@ -28,5 +30,6 @@ target_link_libraries(
     ${EXE}
     PRIVATE asio::asio
     r-type_ecs
+    r-type_network_server
     JsonCpp::JsonCpp
 )
