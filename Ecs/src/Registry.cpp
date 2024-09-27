@@ -7,6 +7,8 @@
 
 #include "Registry.hpp"
 
+namespace ECS {
+
 entity_t Registry::spawn_entity() {
     if (!_dead_entities.empty()) {
         entity_t reused_entity = _dead_entities.back();
@@ -36,5 +38,7 @@ void Registry::kill_entity(entity_t const& entity) {
 
 void Registry::run_systems() {
     for (auto& system : _systems)
-        system();
+        system(*this);
 }
+
+} // namespace ECS

@@ -8,18 +8,25 @@ set(EXE_INCLUDE_PATH "include")
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_EXE
-    ./src/main.cpp
+    ./${EXE_SRC_PATH}/main.cpp
+    ./${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
 )
 
 include_directories(
     ../Ecs/src/
+    ./src/GameEngine/Application/
 )
 
 add_executable(${EXE} ${SRC_EXE})
 
 target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
 
+find_package(asio CONFIG REQUIRED)
+find_package(jsoncpp CONFIG REQUIRED)
+
 target_link_libraries(
     ${EXE}
+    PRIVATE asio::asio
     r-type_ecs
+    JsonCpp::JsonCpp
 )
