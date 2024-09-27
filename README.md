@@ -5,8 +5,8 @@ Multi-threaded server and a graphical client for a well-known legacy video game 
 First, download the repository from Github, then compile it with:
 ```
 git clone git@github.com:FppEpitech/R-Type.git
-cmake -B build
-cmake --build build/
+chmod +x ./tools/build.sh
+./tools/build.sh
 ```
 Then to run the server:
 ```
@@ -20,8 +20,7 @@ And the client:
 First, download the repository from Github, then compile it with:
 ```
 git clone git@github.com:FppEpitech/R-Type.git
-cmake -B build
-cmake --build build/
+./tools/build.sh
 ```
 Then, go to the **build/tests/** folder and run:
 ```
