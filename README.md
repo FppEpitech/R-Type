@@ -2,10 +2,14 @@
 
 ![R-Type Game](https://i.imgur.com/DnVU1l5.png)
 
-Multi-threaded server and a graphical client for a well-known legacy video game called R-Type, using a game engine of our own design.
+![Linux](https://github.com/FppEpitech/R-Type/actions/workflows/cmake-linux.yml/badge.svg)
+![Windows](https://github.com/FppEpitech/R-Type/actions/workflows/cmake-windows.yml/badge.svg)
+
+
+Multithreaded server and a graphical client for a well-known legacy video game called R-Type, using a game engine of our own design.
 
 ## How to build ? (Linux)
-First, download the repository from Github, then compile it with:
+First, download the repository from GitHub, then compile it with:
 ```
 git clone git@github.com:FppEpitech/R-Type.git
 cmake -B build
