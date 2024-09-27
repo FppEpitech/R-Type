@@ -9,13 +9,13 @@
 
 VCPKG_ROOT="${PWD}/vcpkg"
 
-if [ -d "build" ]; then
-    rm -rf build/
-fi
+
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "mingw"* ]]; then
     del /q *.exe
+    rmdir /s /q build
 else
     rm -f *.exe
+    rm -rf build/
 fi
 
 mkdir build
