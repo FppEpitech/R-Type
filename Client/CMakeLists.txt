@@ -26,8 +26,15 @@ add_executable(${EXE} ${SRC_EXE})
 
 target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
 
+find_package(asio CONFIG REQUIRED)
+find_package(jsoncpp CONFIG REQUIRED)
+find_package(raylib CONFIG REQUIRED)
+
 target_link_libraries(
     ${EXE}
+    PRIVATE asio::asio 
+    JsonCpp::JsonCpp
+    raylib
     r-type_ecs
     jsoncpp
 )
