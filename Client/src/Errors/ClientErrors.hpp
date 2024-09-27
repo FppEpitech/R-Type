@@ -10,7 +10,7 @@
 #include "IError.hpp"
 
 /**
- * @brief Abstract class for client errors
+ * @brief Abstract class for client errors.
  *
  */
 class ClientError : public AError {
@@ -18,20 +18,20 @@ class ClientError : public AError {
     public:
 
         /**
-         * @brief Construct a new ClientError object
+         * @brief Construct a new ClientError object.
          *
          */
         ClientError(const std::string &message) : AError(message) {}
 
         /**
-         * @brief Destroy the ClientError object
+         * @brief Destroy the ClientError object.
          *
          */
         ~ClientError() = default;
 };
 
 /**
- * @brief Class for ClientSceneManager errors
+ * @brief Class for ClientSceneManager errors.
  *
  */
 class SceneManagerError : public ClientError {
@@ -39,20 +39,20 @@ class SceneManagerError : public ClientError {
     public:
 
         /**
-         * @brief Construct a new SceneManagerError object
+         * @brief Construct a new SceneManagerError object.
          *
          */
         SceneManagerError(const std::string &message) : ClientError(message) {}
 
         /**
-         * @brief Destroy the SceneManagerError object
+         * @brief Destroy the SceneManagerError object.
          *
          */
         ~SceneManagerError() = default;
 };
 
 /**
- * @brief Class for the Client SceneManager json errors
+ * @brief Class for the Client SceneManager json errors.
  *
  */
 class SceneManagerJsonError : public SceneManagerError {
@@ -60,13 +60,13 @@ class SceneManagerJsonError : public SceneManagerError {
     public:
 
         /**
-         * @brief Construct a new SceneManagerJsonError object
+         * @brief Construct a new SceneManagerJsonError object.
          *
          */
         SceneManagerJsonError(const std::string &message) : SceneManagerError(message) {}
 
         /**
-         * @brief Destroy the SceneManagerJsonError object
+         * @brief Destroy the SceneManagerJsonError object.
          *
          */
         ~SceneManagerJsonError() = default;
