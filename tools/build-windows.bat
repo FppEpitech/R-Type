@@ -5,11 +5,11 @@
 @REM ## Builds windows r-type project.
 @REM ##
 
-VCPKG_ROOT="${PWD}/vcpkg"
+@REM MUST BE EXECUTED IN WINDOWS CMD.
 
 del /q *.exe
 rmdir /s /q build
 
 mkdir build
 
-cmake . -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" -B build
+cmake . -DCMAKE_TOOLCHAIN_FILE="%CD%\vcpkg\scripts\buildsystems\vcpkg.cmake" -B build
