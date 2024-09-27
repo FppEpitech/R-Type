@@ -36,5 +36,4 @@ target_link_libraries(
     JsonCpp::JsonCpp
     raylib
     r-type_ecs
-    jsoncpp
 )
