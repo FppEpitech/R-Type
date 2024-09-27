@@ -30,5 +30,6 @@ target_link_libraries(
     ${EXE}
     PRIVATE asio::asio
     r-type_ecs
+    r-type_network_server
     JsonCpp::JsonCpp
 )
