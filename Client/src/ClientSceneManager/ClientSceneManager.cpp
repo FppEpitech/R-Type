@@ -82,6 +82,7 @@ void SceneManager::ClientSceneManager::_loadSceneKeys(Json::Value root, std::siz
                 _registerIndex++;
                 ECS::Registry reg;
                 _registries->push_back(reg);
+                _keysRegistry.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
                 _loadScene(path.asString(), _registerIndex);
             }
             if (path.asString().find(LIB_SUFFIX) != std::string::npos) {
