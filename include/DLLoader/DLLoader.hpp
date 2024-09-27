@@ -7,11 +7,16 @@
 
 #pragma once
 
-#include <memory>
-#include <string>
-#include <dlfcn.h>
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <dlfcn.h>
+#endif
+    
 #include <functional>
 #include <iostream>
+#include <memory>
+#include <string>
 
 
 /**
