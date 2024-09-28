@@ -9,7 +9,7 @@
 
 #include "Registry.hpp"
 #include "ServerSceneManager/ServerSceneManager.hpp"
-#include "../../Network/server/NetworkServer.hpp"
+#include "../../Network/Server/NetworkServer.hpp"
 
 /**
  * @brief GameEngine namespace handle all

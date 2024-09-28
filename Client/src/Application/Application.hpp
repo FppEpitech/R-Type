@@ -7,7 +7,10 @@
 
 #pragma once
 
+#include <iostream>
+
 #include "Registry.hpp"
+#include "../Network/Client/NetworkClient.hpp"
 
 /**
  * @brief Application class
@@ -37,7 +40,13 @@ class Application {
 
     private:
 
-        // TODO: Network class
+        /**
+         * @brief Callback function who handle the packet receive.
+         *
+         * @param message Packet receive by the server
+         */
+        void _packetHandler(std::string message);
 
-        std::shared_ptr<std::vector<ECS::Registry>> _registries; // Registries for each scene
+        std::shared_ptr<std::vector<ECS::Registry>> _registries; // Registries for each scene.
+        std::shared_ptr<Network::Client>            _client;     // Network class for client.
 };
