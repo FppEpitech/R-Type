@@ -7,5 +7,5 @@
 
 #include "ColourComponent.hpp"
 
-ColourComponent::ColourComponent(int r, int g, int b, int a) :
+ColourComponent::ColourComponent(unsigned char r, unsigned char g, unsigned char b, unsigned char a) :
     AComponent("ColourComponent"), r(r), g(g), b(b), a(a) {}
