@@ -8,11 +8,11 @@
 #pragma once
 
 #include <unordered_map>
-
 #include <json/json.h>
 
 #include "ISystem.hpp"
 #include "StringKeyMap.hpp"
+#include "interfaces/ISceneManager.hpp"
 
 #define FIRST_SCENE "firstScene.json"
 #define SCENE_PATH "Client/config/scenes/"
@@ -20,7 +20,12 @@
 #define LIB_SYSTEMS_PATH "Client/lib/systems/"
 
 #define CONFIG_SUFFIX ".json"
-#define LIB_SUFFIX ".so"
+
+#ifdef _WIN32
+    #define LIB_SUFFIX ".dll"
+#else
+    #define LIB_SUFFIX ".so"
+#endif
 
 /**
  * @brief Namespace for the scene manager.
@@ -52,9 +57,10 @@ namespace SceneManager {
         private:
 
             std::shared_ptr<std::vector<ECS::Registry>> _registries; // Registries for each scene
-            std::vector<std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>> _keysRegistry; // Keys of each scene
+            std::vector<std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>> _keysSystems; // Keys to load a system for each scene
+            std::vector<std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>> _keysScenes; // Keys to load a scene for each scene
 
-            std::size_t _registerIndex; // Index of the current registry
+            std::size_t _nextIndex; // Index of the next empty registry
 
             /**
              * @brief Load a scene from a json file.
@@ -62,6 +68,13 @@ namespace SceneManager {
              * @param index Index of the registry to load the scene.
              */
             void _loadScene(const std::string &path, std::size_t index);
+
+            /**
+             * @brief Load the next scenes of a already loaded scene.
+             * @param path Path to the json file.
+             * @param index Index of the registry to load the scene.
+             */
+            void _loadNextScenes(const std::string &path, std::size_t index);
 
             /**
              * @brief Load the components of a scene.
@@ -84,5 +97,11 @@ namespace SceneManager {
              */
             void _loadSceneKeys(Json::Value root, std::size_t index);
 
+            /**
+             * @brief Change the current scene.
+             * @param scene Scene to load.
+             * @param key Key to load the scene.
+             */
+            void _changeScene(std::pair<std::size_t, std::string> scene, KEY_MAP key);
     };
 }

@@ -11,8 +11,6 @@
 Application::Application()
 {
     _registries = std::make_shared<std::vector<ECS::Registry>>();
-    ECS::Registry reg;
-    _registries.get()->push_back(reg);
     SceneManager::ClientSceneManager sceneManager(_registries);
     // Initialize the network and the first scene
 }
