@@ -15,7 +15,6 @@ void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const as
 GameEngine::Application::Application()
 {
     _registries = std::make_shared<std::vector<ECS::Registry>>();
-    _registries.get()->push_back(ECS::Registry());
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
 
     _server = std::make_shared<Network::Server>(4444, 4445);
