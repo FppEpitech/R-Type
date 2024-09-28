@@ -1,3 +1,8 @@
+/**
+ * This file is a System test file to check if SceneManagers work correctly
+ *
+ */
+
 #include "ISystem.hpp"
 #include <iostream>
 
