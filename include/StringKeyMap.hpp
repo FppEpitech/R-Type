@@ -109,7 +109,7 @@ const std::unordered_map<std::string, KEY_MAP> stringKeyMap = {
     {"KEY_RIGHT_CONTROL", KEY_MAP::KEY_RIGHT_CONTROL},   /**< Key: Right Control */
     {"KEY_RIGHT_ALT", KEY_MAP::KEY_RIGHT_ALT},           /**< Key: Right Alt */
     {"KEY_RIGHT_SUPER", KEY_MAP::KEY_RIGHT_SUPER},       /**< Key: Right Super */
-    {"KEY_KB_MENU", KEY_MAP::KEY_KB_MENU},                     /**< Key: Menu */
+    {"KEY_KB_MENU", KEY_MAP::KEY_KB_MENU},               /**< Key: Menu */
     // Keypad keys
     {"KEY_KP_0", KEY_MAP::KEY_KP_0},                     /**< Key: Keypad 0 */
     {"KEY_KP_1", KEY_MAP::KEY_KP_1},                     /**< Key: Keypad 1 */
