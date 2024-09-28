@@ -7,5 +7,5 @@
 
 #include "Size1DComponent.hpp"
 
-Size1DComponent::Size1DComponent(int size) :
+Size1DComponent::Size1DComponent(size_t size) :
     AComponent("Size1DComponent"), size(size) {}

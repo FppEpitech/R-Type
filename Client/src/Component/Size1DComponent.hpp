@@ -21,12 +21,12 @@
 class Size1DComponent : public AComponent {
     public:
 
-        int size; //< The size of the entity in one dimension.
+        size_t size; //< The size of the entity in one dimension.
 
         /**
          * @brief Construct a new Size1DComponent object
          *
          * @param size Initial size of the entity (default is 0).
          */
-        Size1DComponent(int size = 0);
+        Size1DComponent(size_t size = 0);
 };
