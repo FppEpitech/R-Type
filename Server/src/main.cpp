@@ -7,12 +7,13 @@
 
 #include "Application.hpp"
 
-#include <iostream>
-
 int main()
 {
-    GameEngine::Application myApp;
-
-    myApp.run();
+    try {
+        GameEngine::Application myApp;
+        myApp.run();
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
     return 0;
 }

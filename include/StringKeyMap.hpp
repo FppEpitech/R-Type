@@ -8,6 +8,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <string>
 
 #include "KeyMap.hpp"
 
@@ -18,7 +19,7 @@
  * InputManager class to convert key strings (used in json config files) to key codes (used in the code).
  */
 const std::unordered_map<std::string, KEY_MAP> stringKeyMap = {
-    {"KEY_NULL", KEY_NULL},                     /**< Key: NULL, used for no key pressed */
+    {"KEY_NULL", KEY_MAP::KEY_NULL},                     /**< Key: NULL, used for no key pressed */
     // Alphanumeric keys
     {"KEY_APOSTROPHE", KEY_MAP::KEY_APOSTROPHE},         /**< Key: ' */
     {"KEY_COMMA", KEY_MAP::KEY_COMMA},                   /**< Key: , */

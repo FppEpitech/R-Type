@@ -39,5 +39,5 @@ class Application {
 
         // TODO: Network class
 
-        std::vector<ECS::Registry> _registries; // Registries for each scene
+        std::shared_ptr<std::vector<ECS::Registry>> _registries; // Registries for each scene
 };
