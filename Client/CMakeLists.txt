@@ -12,6 +12,7 @@ set(SRC_EXE
     ./src/Application/Application.cpp
     ./src/ClientSceneManager/ClientSceneManager.cpp
     ./src/Component/FontComponent.cpp
+    ./src/Component/Position3DComponent.cpp
     ./src/Component/Position2DComponent.cpp
     ./src/Component/Size1DComponent.cpp
     ./src/Component/TextComponent.cpp
