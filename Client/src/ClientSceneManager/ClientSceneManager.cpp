@@ -41,6 +41,17 @@ void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::
     _loadSceneKeys(root, registerIndex);
 }
 
+void SceneManager::ClientSceneManager::_loadNextScenes(const std::string &path, std::size_t index)
+{
+    std::ifstream file(SCENE_PATH + path);
+    Json::Reader reader;
+    Json::Value root;
+
+    if (!reader.parse(file, root, false))
+        throw SceneManagerError("Error while parsing the scene file: " + path);
+    _loadSceneKeys(root, index);
+}
+
 void SceneManager::ClientSceneManager::_loadSceneComponents(Json::Value root, std::size_t index)
 {
     const Json::Value& entities = root["entities"];
@@ -104,4 +115,25 @@ void SceneManager::ClientSceneManager::_loadSceneKeys(Json::Value root, std::siz
             throw SceneManagerError("Error while loading the key: " + key.asString());
         }
     }
+}
+
+void SceneManager::ClientSceneManager::_changeScene(std::pair <std::size_t, std::string> scene, KEY_MAP key)
+{
+    // Swap the previous scene (deprecated) with the new scene
+    iter_swap(_registries->begin() + PREVIOUS, _registries->begin() + scene.first);
+    iter_swap(_keysSystems.begin() + PREVIOUS, _keysSystems.begin() + scene.first);
+    iter_swap(_keysScenes.begin() + PREVIOUS, _keysScenes.begin() + scene.first);
+
+    // Set the new scene as the current scene and the current scene as the previous scene
+    iter_swap(_registries->begin() + CURRENT, _registries->begin() + PREVIOUS);
+    iter_swap(_keysSystems.begin() + CURRENT, _keysSystems.begin() + PREVIOUS);
+    iter_swap(_keysScenes.begin() + CURRENT, _keysScenes.begin() + PREVIOUS);
+
+    // Erase the deprecated scenes
+    _registries->erase(_registries->begin() + NEXT, _registries->end());
+    _keysSystems.erase(_keysSystems.begin() + NEXT, _keysSystems.end());
+    _keysScenes.erase(_keysScenes.begin() + NEXT, _keysScenes.end());
+
+    _nextIndex = NEXT;
+    _loadScene(scene.second, CURRENT);
 }

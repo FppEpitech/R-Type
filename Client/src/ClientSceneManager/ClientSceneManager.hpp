@@ -70,6 +70,13 @@ namespace SceneManager {
             void _loadScene(const std::string &path, std::size_t index);
 
             /**
+             * @brief Load the next scenes of a already loaded scene.
+             * @param path Path to the json file.
+             * @param index Index of the registry to load the scene.
+             */
+            void _loadNextScenes(const std::string &path, std::size_t index);
+
+            /**
              * @brief Load the components of a scene.
              * @param root Json root of the scene.
              * @param index Index of the registry to load the scene.
@@ -90,5 +97,11 @@ namespace SceneManager {
              */
             void _loadSceneKeys(Json::Value root, std::size_t index);
 
+            /**
+             * @brief Change the current scene.
+             * @param scene Scene to load.
+             * @param key Key to load the scene.
+             */
+            void _changeScene(std::pair<std::size_t, std::string> scene, KEY_MAP key);
     };
 }
