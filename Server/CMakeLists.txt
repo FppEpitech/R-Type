@@ -14,7 +14,6 @@ set(SRC_EXE
 ./${EXE_SRC_PATH}/main.cpp
 ./${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
 ./${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
-./${EXE_SRC_PATH}/GameEngine/Errors/AError.cpp
 )
 
 include_directories(
@@ -23,6 +22,7 @@ include_directories(
     ../include/
     ../include/interfaces/
     ./src/GameEngine/Application/
+    ./src/Errors/
 )
 
 add_subdirectory(src/Network)

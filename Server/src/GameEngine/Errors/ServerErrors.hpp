@@ -7,16 +7,67 @@
 
 #pragma once
 
-#include "AError.hpp"
+#include "IError.hpp"
 
-class ServerErrors : public AError {
+/**
+ * @brief Abstract class for Server errors.
+ *
+ */
+class ServerError : public AError {
+
     public:
-        ServerErrors(const std::string &message) : AError(message){};
-        ~ServerErrors() override = default;
+
+        /**
+         * @brief Construct a new ServerError object.
+         *
+         */
+        ServerError(const std::string &message) : AError(message) {}
+
+        /**
+         * @brief Destroy the ServerError object.
+         *
+         */
+        ~ServerError() = default;
 };
 
-class SceneManagerError : public ServerErrors {
+/**
+ * @brief Class for ServerSceneManager errors.
+ *
+ */
+class SceneManagerError : public ServerError {
+
     public:
-        SceneManagerError(const std::string &message) : ServerErrors(message){};
-        ~SceneManagerError() override = default;
+
+        /**
+         * @brief Construct a new SceneManagerError object.
+         *
+         */
+        SceneManagerError(const std::string &message) : ServerError(message) {}
+
+        /**
+         * @brief Destroy the SceneManagerError object.
+         *
+         */
+        ~SceneManagerError() = default;
+};
+
+/**
+ * @brief Class for the Server SceneManager json errors.
+ *
+ */
+class SceneManagerJsonError : public SceneManagerError {
+
+    public:
+
+        /**
+         * @brief Construct a new SceneManagerJsonError object.
+         *
+         */
+        SceneManagerJsonError(const std::string &message) : SceneManagerError(message) {}
+
+        /**
+         * @brief Destroy the SceneManagerJsonError object.
+         *
+         */
+        ~SceneManagerJsonError() = default;
 };
