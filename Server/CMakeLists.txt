@@ -37,7 +37,7 @@ find_package(jsoncpp CONFIG REQUIRED)
 target_link_libraries(
     ${EXE}
     PRIVATE asio::asio
+    JsonCpp::JsonCpp
     r-type_ecs
     r-type_network_server
-    JsonCpp::JsonCpp
 )

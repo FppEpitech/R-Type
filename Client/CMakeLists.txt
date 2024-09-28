@@ -32,9 +32,8 @@ find_package(raylib CONFIG REQUIRED)
 
 target_link_libraries(
     ${EXE}
-    PRIVATE asio::asio 
+    PRIVATE asio::asio
     JsonCpp::JsonCpp
     raylib
     r-type_ecs
-    jsoncpp
 )
