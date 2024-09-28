@@ -90,28 +90,34 @@ void SceneManager::ASceneManager::_loadSceneKeys(Json::Value root, std::size_t i
         const Json::Value& path = keys["path"];
 
         if (key and path) {
-            if (index == SceneManager::RegisterIndex::CURRENT && path.asString().find(CONFIG_SUFFIX) != std::string::npos) {
-                _registries->push_back(ECS::Registry());
-                _keysSystems.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
-                _keysScenes.push_back(std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>());
-                _keysScenes[index][stringKeyMap.at(key.asString())] = std::make_pair(_nextIndex, path.asString());
-                _loadScene(path.asString(), _nextIndex);
-                _nextIndex++;
-            }
-            if (path.asString().find(LIB_SUFFIX) != std::string::npos) {
-                std::shared_ptr<ISystem> system = DLLoader<ISystem>::load(_getSystemLibPath() + path.asString(), "loadSystemInstance");
-                if (system) {
-                    if (stringKeyMap.find(key.asString()) == stringKeyMap.end())
-                        throw SceneManagerJsonErrors("Error while loading the key: " + key.asString());
-                    _keysSystems[index][stringKeyMap.at(key.asString())] = system;
-                } else {
-                    throw SceneManagerJsonErrors("Error while loading the key: " + key.asString());
-                }
-            }
-        } else {
+            if (index == SceneManager::RegisterIndex::CURRENT && path.asString().find(CONFIG_SUFFIX) != std::string::npos)
+                _loadSceneKeysJson(key.asString(), path.asString(), index);
+            if (path.asString().find(LIB_SUFFIX) != std::string::npos)
+                _loadSceneKeysSystem(key.asString(), path.asString(), index);
+        } else
             throw SceneManagerJsonErrors("Error while loading the key: " + key.asString());
-        }
     }
+}
+
+void SceneManager::ASceneManager::_loadSceneKeysJson(std::string key, std::string path, std::size_t index)
+{
+    _registries->push_back(ECS::Registry());
+    _keysSystems.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
+    _keysScenes.push_back(std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>());
+    _keysScenes[index][stringKeyMap.at(key)] = std::make_pair(_nextIndex, path);
+    _loadScene(path, _nextIndex);
+    _nextIndex++;
+}
+
+void SceneManager::ASceneManager::_loadSceneKeysSystem(std::string key, std::string path, std::size_t index)
+{
+    std::shared_ptr<ISystem> system = DLLoader<ISystem>::load(_getSystemLibPath() + path, "loadSystemInstance");
+    if (system) {
+        if (stringKeyMap.find(key) == stringKeyMap.end())
+            throw SceneManagerJsonErrors("Error while loading the key: " + key);
+        _keysSystems[index][stringKeyMap.at(key)] = system;
+    } else
+        throw SceneManagerJsonErrors("Error while loading the key: " + key);
 }
 
 void SceneManager::ASceneManager::_changeScene(std::pair<std::size_t, std::string> scene)

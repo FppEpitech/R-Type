@@ -114,6 +114,22 @@ namespace SceneManager {
             void _loadSceneKeys(Json::Value root, std::size_t index);
 
             /**
+             * @brief Load the keys of a scene containing a json file.
+             * @param key Key to load the scene.
+             * @param path Path to the json file.
+             * @param index Index of the registry to load the scene.
+             */
+            void _loadSceneKeysJson(std::string key, std::string path, std::size_t index);
+
+            /**
+             * @brief Load the keys of a scene containing a system.
+             * @param key Key to load the scene.
+             * @param system System to load.
+             * @param index Index of the registry to load the scene.
+             */
+            void _loadSceneKeysSystem(std::string key, std::string system, std::size_t index);
+
+            /**
              * @brief Change the current scene.
              * @param scene Scene to load.
              * @param key Key to load the scene.
