@@ -1,15 +1,22 @@
 cmake_minimum_required(VERSION 3.10)
 
 set(LIB r-type_network_server)
+
 set(LIB_SRC_PATH "./")
+
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_LIB
-    ${LIB_SRC_PATH}/Packet/NetworkPacket.cpp
-    ${LIB_SRC_PATH}/Server/NetworkServer.cpp
+    ${LIB_SRC_PATH}/NetworkServer.cpp
 )
 
 add_library(${LIB} STATIC ${SRC_LIB})
 
 find_package(asio CONFIG REQUIRED)
-target_link_libraries(${LIB} PRIVATE asio::asio)
+
+target_link_libraries(
+    ${LIB}
+    PRIVATE asio::asio
+    r-type_packet
+)
+

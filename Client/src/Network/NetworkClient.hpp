@@ -5,12 +5,31 @@
 ** NetworkClient
 */
 
-#include "../Network.hpp"
+#include <array>
+#include <thread>
+#include <string>
+#include <iomanip>
+#include <asio.hpp>
+#include <iostream>
+
+#include "../../../Packet/NetworkPacket.hpp"
+
+/**
+ * @namespace Network
+ * @brief Network-related classes and functions
+ */
+namespace Network {
+
+    /**
+     * @brief Client class to Network (Connection to server, receive data and send data)
+     */
+    class Client;
+};
 
 class Network::Client
 {
 
-    using MessageHandler = std::function<void(std::string message)>;
+    using MessageHandler = std::function<void(Network::UDPPacket packet)>;
 
     public:
         /**

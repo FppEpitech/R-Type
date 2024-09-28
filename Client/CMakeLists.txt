@@ -15,6 +15,7 @@ set(SRC_EXE
 
 include_directories(
     ../Ecs/src/
+    ./src/Network/
     ../include/
     ../include/interfaces/
     ./src/Application/

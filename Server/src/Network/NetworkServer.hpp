@@ -5,8 +5,28 @@
 ** NetworkServer
 */
 
-#include "../Network.hpp"
-#include "../Packet/NetworkPacket.hpp"
+#include <thread>
+#include <random>
+#include <vector>
+#include <cstdint>
+#include <iostream>
+#include <asio.hpp>
+#include <stdexcept>
+#include <unordered_map>
+
+#include "../../../Packet/NetworkPacket.hpp"
+
+/**
+ * @namespace Network
+ * @brief Network-related classes and functions
+ */
+namespace Network {
+
+    /**
+     * @brief Server class to Network (Init server, receive data and send data)
+     */
+    class Server;
+};
 
 class Network::Server
 {

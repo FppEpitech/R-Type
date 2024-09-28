@@ -8,9 +8,9 @@
 #include "Application.hpp"
 #include "ClientSceneManager.hpp"
 
-void Application::_packetHandler(std::string message)
+void Application::_packetHandler(Network::UDPPacket packet)
 {
-    std::cout << "Messages received from server: [" << message << "]" << std::endl;
+    std::cout << "Messages received from server: [...]" << std::endl;
 }
 
 
@@ -22,8 +22,8 @@ Application::Application()
     SceneManager::ClientSceneManager sceneManager(_registries);
 
     _client = std::make_shared<Network::Client>("127.0.0.1", 4444, 4445);
-    _client->connect([this](std::string message) {
-        this->_packetHandler(std::move(message));
+    _client->connect([this](Network::UDPPacket packet) {
+        this->_packetHandler(std::move(packet));
     });
 }
 
