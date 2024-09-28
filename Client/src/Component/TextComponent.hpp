@@ -16,7 +16,6 @@
  *
  * @var text The text content to be managed by this component.
  */
-
 class TextComponent : public AComponent {
     public:
 

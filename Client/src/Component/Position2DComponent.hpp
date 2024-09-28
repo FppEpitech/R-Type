@@ -21,7 +21,6 @@
  * @var y Position on the height of the window.
  *
  */
-
 class Position2DComponent : public AComponent {
 
     public:

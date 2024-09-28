@@ -17,7 +17,6 @@
  *
  * @var fontPath The path to the font file.
  */
-
 class FontComponent : public AComponent {
     public:
 

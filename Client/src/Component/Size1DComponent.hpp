@@ -18,7 +18,6 @@
  *
  * @var size The size of the entity in one dimension.
  */
-
 class Size1DComponent : public AComponent {
     public:
 
