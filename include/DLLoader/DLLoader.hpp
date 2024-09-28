@@ -49,7 +49,7 @@ public:
                     libName.replace(pos, 4, ".so");
                 void* handle = LoadLibrary(libName.c_str());
                 if (!handle) {
-                    std::cerr << "Failed to load library: " << libName << "on Windows" << std::endl;
+                    std::cerr << "Failed to load library: " << libName << " on Windows" << std::endl;
                     return nullptr;
                 }
                 CreateComponentFunc createComponent = (CreateComponentFunc) GetProcAddress(static_cast<HMODULE>(handle), symbol.c_str());
@@ -67,7 +67,7 @@ public:
             libName.replace(pos, 4, ".so");
         void* handle = dlopen(libName.c_str(), RTLD_LAZY);
         if (!handle) {
-            std::cerr << "Failed to load library: " << libName << "on Linux" << std::endl;
+            std::cerr << "Failed to load library: " << libName << " on Linux" << std::endl;
             return nullptr;
         }
         CreateComponentFunc createComponent = (CreateComponentFunc) dlsym(handle, symbol.c_str());

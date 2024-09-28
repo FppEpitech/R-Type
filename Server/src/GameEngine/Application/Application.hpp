@@ -8,6 +8,8 @@
 #pragma once
 
 #include "Registry.hpp"
+#include "ServerSceneManager/ServerSceneManager.hpp"
+#include "../../Network/server/NetworkServer.hpp"
 
 /**
  * @brief GameEngine namespace handle all
@@ -46,9 +48,17 @@ class Application {
 
     private:
 
-        //TODO: Network class
+        /**
+         * @brief Callback function who handle the packet receive.
+         *
+         * @param packet Packet to be handle in this function.
+         * @param endpoint Endpoint of the client who send the packet.
+         */
+        void _packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint);
 
-        ECS::Registry   _registry;  // registry class for ECS management.
+        std::shared_ptr<std::vector<ECS::Registry>>             _registries;        // vector of registries class for ECS management.
+        std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
+        std::shared_ptr<Network::Server>                        _server;            // Network class for server.
 };
 
 } // namespace GameEngine
