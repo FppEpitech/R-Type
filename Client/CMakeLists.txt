@@ -12,6 +12,7 @@ set(SRC_EXE
     ./src/Application/Application.cpp
     ./src/ClientSceneManager/ClientSceneManager.cpp
     ./src/Component/PathComponent.cpp
+    ./src/Component/ScaleComponent.cpp
     ./src/Component/Position3DComponent.cpp
     ./src/Component/Position2DComponent.cpp
     ./src/Component/Size1DComponent.cpp
