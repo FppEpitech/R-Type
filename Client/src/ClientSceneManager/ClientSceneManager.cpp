@@ -6,6 +6,7 @@
 */
 
 #include <fstream>
+#include <algorithm>
 
 #include "ClientSceneManager.hpp"
 #include "ClientErrors.hpp"
@@ -17,11 +18,14 @@
 SceneManager::ClientSceneManager::ClientSceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries)
 {
     _registries = registries;
-    _registerIndex = SceneManager::RegisterIndex::CURRENT;
+    _nextIndex = SceneManager::RegisterIndex::NEXT;
 
-    _keysRegistry.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
-
-    _loadScene(FIRST_SCENE, _registerIndex);
+    for (std::size_t i = CURRENT; i < NEXT; i++) {
+        _registries->push_back(ECS::Registry());
+        _keysSystems.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
+        _keysScenes.push_back(std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>());
+    }
+    _loadScene(FIRST_SCENE, CURRENT);
 }
 
 void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::size_t registerIndex)
@@ -79,17 +83,19 @@ void SceneManager::ClientSceneManager::_loadSceneKeys(Json::Value root, std::siz
 
         if (key and path) {
             if (index == SceneManager::RegisterIndex::CURRENT && path.asString().find(CONFIG_SUFFIX) != std::string::npos) {
-                _registerIndex++;
                 _registries->push_back(ECS::Registry());
-                _keysRegistry.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
-                _loadScene(path.asString(), _registerIndex);
+                _keysSystems.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
+                _keysScenes.push_back(std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>());
+                _keysScenes[index][stringKeyMap.at(key.asString())] = std::make_pair(_nextIndex, path.asString());
+                _loadScene(path.asString(), _nextIndex);
+                _nextIndex++;
             }
             if (path.asString().find(LIB_SUFFIX) != std::string::npos) {
                 std::shared_ptr<ISystem> system = DLLoader<ISystem>::load(LIB_SYSTEMS_PATH + path.asString(), "loadSystemInstance");
                 if (system) {
                     if (stringKeyMap.find(key.asString()) == stringKeyMap.end())
                         throw SceneManagerError("Error while loading the key: " + key.asString());
-                    _keysRegistry[index][stringKeyMap.at(key.asString())] = system;
+                    _keysSystems[index][stringKeyMap.at(key.asString())] = system;
                 } else {
                     throw SceneManagerError("Error while loading the key: " + key.asString());
                 }
