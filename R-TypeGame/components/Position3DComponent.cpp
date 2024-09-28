@@ -7,16 +7,10 @@
 
 #include "Position3DComponent.hpp"
 
-Position3DComponent::Position3DComponent(int x, int y, int z) : x(x), y(y), z(z)
-{
-    _type = "Position3DComponent";
-}
+Position3DComponent::Position3DComponent(int x, int y, int z) :
+    x(x), y(y), z(z), AComponent("Position3DComponent") {}
 
-const std::string &Position3DComponent::getType()
+extern "C" IComponent* loadComponentInstance()
 {
-    return _type;
-}
-
-extern "C" IComponent* loadComponentInstance() {
     return new Position3DComponent();
 }

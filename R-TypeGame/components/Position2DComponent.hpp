@@ -13,7 +13,7 @@
  * @brief Component Position 2D for R-Type Game.
  *
  */
-class Position2DComponent : public IComponent {
+class Position2DComponent : public AComponent {
 
     public:
 
@@ -27,15 +27,4 @@ class Position2DComponent : public IComponent {
          * @param y Position y.
          */
         Position2DComponent(int x = 0, int y = 0);
-
-        /**
-         * @brief Get the Type object.
-         *
-         * @return const std::string& Type of the Component.
-         */
-        const std::string &getType();
-
-    private:
-
-        std::string     _type;  // Type of the Component.
 };
