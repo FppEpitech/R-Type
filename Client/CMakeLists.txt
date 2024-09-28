@@ -4,6 +4,7 @@ set(EXE r-type_client)
 
 set(EXE_SRC_PATH "src")
 set(EXE_INCLUDE_PATH "include")
+set(COMPONENT_PATH "src/Component/")
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -11,12 +12,13 @@ set(SRC_EXE
     ./src/main.cpp
     ./src/Application/Application.cpp
     ./src/ClientSceneManager/ClientSceneManager.cpp
-    ./src/Component/PathComponent.cpp
-    ./src/Component/ScaleComponent.cpp
-    ./src/Component/Position3DComponent.cpp
-    ./src/Component/Position2DComponent.cpp
-    ./src/Component/Size1DComponent.cpp
-    ./src/Component/TextComponent.cpp
+    ${COMPONENT_PATH}PathComponent.cpp
+    ${COMPONENT_PATH}ScaleComponent.cpp
+    ${COMPONENT_PATH}ColourComponent.cpp
+    ${COMPONENT_PATH}Position3DComponent.cpp
+    ${COMPONENT_PATH}Position2DComponent.cpp
+    ${COMPONENT_PATH}Size1DComponent.cpp
+    ${COMPONENT_PATH}TextComponent.cpp
 )
 
 include_directories(
