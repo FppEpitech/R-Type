@@ -11,5 +11,5 @@ set(SRC_LIB
 
 add_library(${LIB} STATIC ${SRC_LIB})
 
-find_package(Threads REQUIRED)
-target_link_libraries(${LIB} PRIVATE Threads::Threads)
+find_package(asio CONFIG REQUIRED)
+target_link_libraries(${LIB} PRIVATE asio::asio)

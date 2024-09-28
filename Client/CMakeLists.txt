@@ -8,11 +8,18 @@ set(EXE_INCLUDE_PATH "include")
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_EXE
-    ${EXE_SRC_PATH}/main.cpp
+    ./src/main.cpp
+    ./src/Application/Application.cpp
+    ./src/ClientSceneManager/ClientSceneManager.cpp
 )
 
 include_directories(
     ../Ecs/src/
+    ../include/
+    ../include/interfaces/
+    ./src/Application/
+    ./src/ClientSceneManager/
+    ./src/Errors/
 )
 
 add_subdirectory(src/Network)
@@ -21,5 +28,15 @@ add_executable(${EXE} ${SRC_EXE})
 
 target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
 
-find_package(Threads REQUIRED)
-target_link_libraries(${EXE} r-type_ecs r-type_network_client)
+find_package(asio CONFIG REQUIRED)
+find_package(jsoncpp CONFIG REQUIRED)
+find_package(raylib CONFIG REQUIRED)
+
+target_link_libraries(
+    ${EXE}
+    PRIVATE asio::asio
+    JsonCpp::JsonCpp
+    raylib
+    r-type_ecs
+    r-type_network_client
+)
