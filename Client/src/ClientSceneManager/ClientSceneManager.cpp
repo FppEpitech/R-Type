@@ -78,10 +78,9 @@ void SceneManager::ClientSceneManager::_loadSceneKeys(Json::Value root, std::siz
         const Json::Value &path = keys["path"];
 
         if (key and path) {
-            if (index == 1 && path.asString().find(CONFIG_SUFFIX) != std::string::npos) {
+            if (index == SceneManager::RegisterIndex::CURRENT && path.asString().find(CONFIG_SUFFIX) != std::string::npos) {
                 _registerIndex++;
-                ECS::Registry reg;
-                _registries->push_back(reg);
+                _registries->push_back(ECS::Registry());
                 _keysRegistry.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
                 _loadScene(path.asString(), _registerIndex);
             }

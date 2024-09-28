@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(SRC_EXE
 ./${EXE_SRC_PATH}/main.cpp
 ./${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
-./${EXE_SRC_PATH}/GameEngine/SceneManager/SceneManager.cpp
+./${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
 ./${EXE_SRC_PATH}/GameEngine/Errors/AError.cpp
 )
 
