@@ -12,6 +12,7 @@ add_subdirectory(R-TypeGame)
 
 #Game Engine
 add_subdirectory(Ecs)
+add_subdirectory(Packet)
 add_subdirectory(Server)
 
 #Client
