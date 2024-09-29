@@ -7,14 +7,9 @@
 
 #include "VelocityComponent.hpp"
 
-VelocityComponent::VelocityComponent(int velocity) : velocity(velocity)
+VelocityComponent::VelocityComponent(int velocity) :
+    velocity(velocity), AComponent("VelocityComponent")
 {
-    _type = "VelocityComponent";
-}
-
-const std::string &VelocityComponent::getType()
-{
-    return _type;
 }
 
 extern "C" IComponent* loadComponentInstance()

@@ -13,7 +13,7 @@
  * @brief Component Velocity for R-Type Game.
  *
  */
-class VelocityComponent : public IComponent {
+class VelocityComponent : public AComponent {
 
     public:
 
@@ -25,15 +25,4 @@ class VelocityComponent : public IComponent {
          * @param velocity Velocity.
          */
         VelocityComponent(int velocity = 1);
-
-        /**
-         * @brief Get the Type object.
-         *
-         * @return const std::string& Type of the Component.
-         */
-        const std::string &getType();
-
-    private:
-
-        std::string     _type;  // Type of the Component.
 };

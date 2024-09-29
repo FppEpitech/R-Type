@@ -13,7 +13,7 @@
  * @brief Component Drawable for R-Type Game.
  *
  */
-class DrawableComponent : public IComponent {
+class DrawableComponent : public AComponent {
 
     public:
 
@@ -27,15 +27,4 @@ class DrawableComponent : public IComponent {
          * @param pathTexture The texture to draw.
          */
         DrawableComponent(bool drawable = false, std::string pathTexture = "None");
-
-        /**
-         * @brief Get the Type object.
-         *
-         * @return const std::string& Type of the Component.
-         */
-        const std::string &getType();
-
-    private:
-
-        std::string     _type;  // Type of the Component.
 };

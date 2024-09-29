@@ -7,14 +7,9 @@
 
 #include "GravityComponent.hpp"
 
-GravityComponent::GravityComponent(int gravity) : gravity(gravity)
+GravityComponent::GravityComponent(int gravity) :
+    gravity(gravity), AComponent("GravityComponent")
 {
-    _type = "GravityComponent";
-}
-
-const std::string &GravityComponent::getType()
-{
-    return _type;
 }
 
 extern "C" IComponent* loadComponentInstance()

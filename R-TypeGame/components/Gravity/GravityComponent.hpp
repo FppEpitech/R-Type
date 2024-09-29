@@ -13,7 +13,7 @@
  * @brief Component Gravity for R-Type Game.
  *
  */
-class GravityComponent : public IComponent {
+class GravityComponent : public AComponent {
 
     public:
 
@@ -25,15 +25,4 @@ class GravityComponent : public IComponent {
          * @param gravity Gravity.
          */
         GravityComponent(int gravity = 1);
-
-        /**
-         * @brief Get the Type object.
-         *
-         * @return const std::string& Type of the Component.
-         */
-        const std::string &getType();
-
-    private:
-
-        std::string     _type;  // Type of the Component.
 };

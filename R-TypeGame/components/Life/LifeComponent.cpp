@@ -7,14 +7,9 @@
 
 #include "LifeComponent.hpp"
 
-LifeComponent::LifeComponent(int life) : life(life)
+LifeComponent::LifeComponent(int life) :
+    life(life), AComponent("LifeComponent")
 {
-    _type = "LifeComponent";
-}
-
-const std::string &LifeComponent::getType()
-{
-    return _type;
 }
 
 extern "C" IComponent* loadComponentInstance()

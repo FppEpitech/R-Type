@@ -7,14 +7,9 @@
 
 #include "ShooterComponent.hpp"
 
-ShooterComponent::ShooterComponent(int bullet, int damage) : bullet(bullet), damage(damage)
+ShooterComponent::ShooterComponent(int bullet, int damage) :
+    bullet(bullet), damage(damage), AComponent("ShooterComponent")
 {
-    _type = "ShooterComponent";
-}
-
-const std::string &ShooterComponent::getType()
-{
-    return _type;
 }
 
 extern "C" IComponent* loadComponentInstance()

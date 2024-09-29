@@ -7,14 +7,9 @@
 
 #include "DrawableComponent.hpp"
 
-DrawableComponent::DrawableComponent(bool drawable, std::string pathTexture) : drawable(drawable), pathTexture(pathTexture)
+DrawableComponent::DrawableComponent(bool drawable, std::string pathTexture) :
+    drawable(drawable), pathTexture(pathTexture), AComponent("DrawableComponent")
 {
-    _type = "DrawableComponent";
-}
-
-const std::string &DrawableComponent::getType()
-{
-    return _type;
 }
 
 extern "C" IComponent* loadComponentInstance()

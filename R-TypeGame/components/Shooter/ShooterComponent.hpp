@@ -13,7 +13,7 @@
  * @brief Component Shooter for R-Type Game.
  *
  */
-class ShooterComponent : public IComponent {
+class ShooterComponent : public AComponent {
 
     public:
 
@@ -27,15 +27,4 @@ class ShooterComponent : public IComponent {
          * @param damage Damage of one bullet.
          */
         ShooterComponent(int bullet = 1, int damage = 20);
-
-        /**
-         * @brief Get the Type object.
-         *
-         * @return const std::string& Type of the Component.
-         */
-        const std::string &getType();
-
-    private:
-
-        std::string     _type;  // Type of the Component.
 };

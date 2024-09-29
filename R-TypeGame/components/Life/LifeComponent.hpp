@@ -13,7 +13,7 @@
  * @brief Component Life for R-Type Game.
  *
  */
-class LifeComponent : public IComponent {
+class LifeComponent : public AComponent {
 
     public:
 
@@ -25,15 +25,4 @@ class LifeComponent : public IComponent {
          * @param life Life.
          */
         LifeComponent(int life = 100);
-
-        /**
-         * @brief Get the Type object.
-         *
-         * @return const std::string& Type of the Component.
-         */
-        const std::string &getType();
-
-    private:
-
-        std::string     _type;  // Type of the Component.
 };
