@@ -13,7 +13,7 @@
  * @brief Component Position 3D for R-Type Game.
  *
  */
-class Position3DComponent : public IComponent {
+class Position3DComponent : public AComponent {
 
     public:
 
@@ -29,15 +29,4 @@ class Position3DComponent : public IComponent {
          * @param z Position z.
          */
         Position3DComponent(int x = 0, int y = 0, int z = 0);
-
-        /**
-         * @brief Get the Type object.
-         *
-         * @return const std::string& Type of the Component.
-         */
-        const std::string &getType();
-
-    private:
-
-        std::string     _type;  // Type of the Component.
 };
