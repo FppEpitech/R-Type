@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(SRC_EXE
     ./src/main.cpp
     ./src/Application/Application.cpp
+    ./src/GraphicalLoad/GraphicalLoad.cpp
     ./src/ClientSceneManager/ClientSceneManager.cpp
     ../SceneManager/ASceneManager.cpp
 )
@@ -21,6 +22,7 @@ include_directories(
     ./src/Application/
     ./src/ClientSceneManager/
     ./src/Errors/
+    ./src/GraphicalLoad/
     ../SceneManager/
 )
 
