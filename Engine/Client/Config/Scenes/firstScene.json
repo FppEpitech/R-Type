@@ -1,0 +1,18 @@
+{
+    "keyBinds": [
+        {
+            "key": "KEY_APOSTROPHE",
+            "path" : "testScene.json"
+        },
+        {
+            "key": "KEY_COMMA",
+            "path" : ""
+        }
+    ],
+    "entities": [
+        [
+        ]
+    ],
+    "systems": [
+    ]
+}
