@@ -7,6 +7,8 @@
 
 #include "Application.hpp"
 #include "ClientSceneManager.hpp"
+#include "GraphicalLoad.hpp"
+#include "ClientErrors.hpp"
 
 Application::Application()
 {
@@ -17,10 +19,12 @@ Application::Application()
 
 void Application::run()
 {
-    // Main loop
-    // while (true) {
-    //     // Update the network
-    //     // Update the current scene
-    //     // Render the current scene
-    // }
+    std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
+    if (!libGraphic)
+        throw ClientError("Failed to load graphic library");
+    libGraphic->Init("From noware");
+
+    while (libGraphic->windowIsOpen()) {
+        libGraphic->clear();
+    }
 }

@@ -11,10 +11,10 @@
 #include "IGraphic.hpp"
 #include "DLLoader/DLLoader.hpp"
 
-#define PATH_GRAPHIC_LIB "Server/lib/components/"
+#define PATH_GRAPHIC_LIB "Client/lib/graphic/"
 
 std::shared_ptr<IGraphic> getGraphicalLibrary()
 {
-    static std::shared_ptr<IGraphic> _libGraphic = DLLoader<IGraphic>::load(std::string(PATH_GRAPHIC_LIB) + "libgraphic.so", "loadGraphicInstance");
+    static std::shared_ptr<IGraphic> _libGraphic = DLLoader<IGraphic>::load(std::string(PATH_GRAPHIC_LIB) + "libgraphic_raylib.so", "loadGraphicInstance");
     return _libGraphic;
 }

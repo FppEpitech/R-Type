@@ -8,7 +8,7 @@
 #pragma once
 
 #include <memory>
-#include "IComponent.hpp"
+#include "IGraphic.hpp"
 
 
-std::shared_ptr<IComponent> getGraphicalLibrary();
+std::shared_ptr<IGraphic> getGraphicalLibrary();

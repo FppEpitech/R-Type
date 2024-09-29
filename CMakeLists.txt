@@ -10,6 +10,9 @@ option(BUILD_TESTS "Build the tests" ON)
 #R-Type Game
 add_subdirectory(R-TypeGame)
 
+#Graphic Library
+add_subdirectory(GraphicLib)
+
 #Game Engine
 add_subdirectory(Ecs)
 add_subdirectory(Server)
