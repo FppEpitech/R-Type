@@ -11,7 +11,14 @@
     ],
     "entities": [
         [
-
+            [
+                "libcomponent_position2D.so",
+                "component_velocity.so",
+                "component_shooter.so",
+                "component_life.so",
+                "component_gravity.so",
+                "component_drawable.so"
+            ]
         ]
     ],
     "systems": [

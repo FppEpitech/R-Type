@@ -17,6 +17,7 @@ const std::string &Position3DComponent::getType()
     return _type;
 }
 
-extern "C" IComponent* loadComponentInstance() {
+extern "C" IComponent* loadComponentInstance()
+{
     return new Position3DComponent();
 }
