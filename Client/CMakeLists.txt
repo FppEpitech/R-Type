@@ -19,6 +19,7 @@ set(SRC_EXE
     ${COMPONENT_PATH}Position2DComponent.cpp
     ${COMPONENT_PATH}Size1DComponent.cpp
     ${COMPONENT_PATH}TextComponent.cpp
+    ${COMPONENT_PATH}MaterialMapComponent.cpp
 )
 
 include_directories(
