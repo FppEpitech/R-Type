@@ -7,7 +7,7 @@
 
 #include "LifeComponent.hpp"
 
-LifeComponent::LifeComponent(int life) :
+LifeComponent::LifeComponent(std::size_t life) :
     life(life), AComponent("LifeComponent")
 {
 }

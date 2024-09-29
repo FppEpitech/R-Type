@@ -17,12 +17,12 @@ class LifeComponent : public AComponent {
 
     public:
 
-        int life;  // Life.
+        std::size_t life;  // Life.
 
         /**
          * @brief Construct a new Life Component object.
          *
          * @param life Life.
          */
-        LifeComponent(int life = 100);
+        LifeComponent(std::size_t life = 100);
 };
