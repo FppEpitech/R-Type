@@ -12,11 +12,6 @@ SceneManager::ServerSceneManager::ServerSceneManager(std::shared_ptr<std::vector
     _loadScene(FIRST_SCENE, CURRENT);
 }
 
-bool SceneManager::ServerSceneManager::processInput(KEY_MAP key)
-{
-    return false;
-}
-
 std::string SceneManager::ServerSceneManager::_getComponentLibPath() const {
     return LIB_COMPONENTS_PATH;
 }
