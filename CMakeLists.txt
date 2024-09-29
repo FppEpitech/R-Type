@@ -11,15 +11,10 @@ option(BUILD_TESTS "Build the tests" ON)
 add_subdirectory(R-TypeGame)
 
 #Graphic Library
-add_subdirectory(GraphicLib)
+add_subdirectory(GraphicLibrary)
 
-#Game Engine
-add_subdirectory(Ecs)
-add_subdirectory(Packet)
-add_subdirectory(Server)
-
-#Client
-add_subdirectory(Client)
+#Engine
+add_subdirectory(Engine)
 
 # tests
 if(BUILD_TESTS)
