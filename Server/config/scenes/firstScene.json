@@ -13,11 +13,11 @@
         [
             [
                 "libcomponent_position2D.so",
-                "component_velocity.so",
-                "component_shooter.so",
-                "component_life.so",
-                "component_gravity.so",
-                "component_drawable.so"
+                "libcomponent_velocity.so",
+                "libcomponent_shooter.so",
+                "libcomponent_life.so",
+                "libcomponent_gravity.so",
+                "libcomponent_drawable.so"
             ]
         ]
     ],
