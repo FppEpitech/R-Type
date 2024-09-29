@@ -41,13 +41,6 @@ namespace SceneManager {
              */
             ~ServerSceneManager() = default;
 
-            /**
-             * @brief Process the input of the scene.
-             * @param key Key to process.
-             * @return true if the input has been processed, false otherwise.
-             */
-            bool processInput(KEY_MAP key) override;
-
         private:
 
             /**
