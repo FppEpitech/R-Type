@@ -1,14 +1,14 @@
 {
-  "keyBinds": [
-    {
-      "key": "KEY_COMMA",
-      "path" : ""
-    }
-  ],
-  "entities": [
-    [
+    "keyBinds": [
+        {
+            "key": "KEY_COMMA",
+            "path" : ""
+        }
+    ],
+    "entities": [
+        [
+        ]
+    ],
+    "systems": [
     ]
-  ],
-  "systems": [
-  ]
 }

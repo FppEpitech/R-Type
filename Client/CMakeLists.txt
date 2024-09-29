@@ -15,17 +15,22 @@ set(SRC_EXE
     ./src/Component/Position2DComponent.cpp
     ./src/Component/Size1DComponent.cpp
     ./src/Component/TextComponent.cpp
+    ../SceneManager/ASceneManager.cpp
 )
 
 include_directories(
     ../Ecs/src/
+    ./src/Network/
     ../include/
     ../include/interfaces/
     ./src/Application/
     ./src/ClientSceneManager/
     ./src/Component/
     ./src/Errors/
+    ../SceneManager/
 )
+
+add_subdirectory(src/Network)
 
 add_executable(${EXE} ${SRC_EXE})
 
@@ -41,4 +46,5 @@ target_link_libraries(
     JsonCpp::JsonCpp
     raylib
     r-type_ecs
+    r-type_network_client
 )

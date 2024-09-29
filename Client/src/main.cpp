@@ -5,14 +5,16 @@
 ** main
 */
 
-#include <iostream>
-
 #include "Application.hpp"
 
 int main()
 {
-    Application app;
-    
-    app.run();
+    try {
+        Application app;
+        app.run();
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
     return 0;
 }
+
