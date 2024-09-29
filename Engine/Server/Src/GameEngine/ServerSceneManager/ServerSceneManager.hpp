@@ -11,9 +11,9 @@
 
 #define FIRST_SCENE "firstScene.json"
 
-#define LIB_COMPONENTS_PATH "Server/lib/components/"
-#define LIB_SYSTEMS_PATH "Server/lib/systems/"
-#define SCENE_PATH "Server/config/scenes/"
+#define LIB_COMPONENTS_PATH "Engine/Server/Lib/Components/"
+#define LIB_SYSTEMS_PATH "Engine/Server/Lib/Systems/"
+#define SCENE_PATH "Engine/Server/Config/Scenes/"
 
 /**
  * @brief Namespace for the scene manager.

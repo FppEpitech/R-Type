@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 set(LIB r-type_network_server)
 
-set(LIB_SRC_PATH "./")
+set(LIB_SRC_PATH ".")
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -20,4 +20,4 @@ target_link_libraries(
     r-type_packet
 )
 
-target_include_directories(${LIB} PUBLIC ../../../Packet)
+target_include_directories(${LIB} PUBLIC ../../../Shared/Network/Packet)
