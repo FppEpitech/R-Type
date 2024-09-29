@@ -14,7 +14,7 @@
 #include <stdexcept>
 #include <unordered_map>
 
-#include "../../../Packet/NetworkPacket.hpp"
+#include "NetworkPacket.hpp"
 
 /**
  * @namespace Network

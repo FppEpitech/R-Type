@@ -13,11 +13,11 @@ set(SRC_LIB
 
 add_library(${LIB} STATIC ${SRC_LIB})
 
+target_include_directories(${LIB} PUBLIC ../../../Packet)
+
 find_package(asio CONFIG REQUIRED)
 target_link_libraries(
     ${LIB}
     PRIVATE asio::asio
     r-type_packet
 )
-
-target_include_directories(${LIB} PUBLIC ${INCLUDE_EXE})

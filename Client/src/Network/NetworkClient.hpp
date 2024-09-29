@@ -12,7 +12,7 @@
 #include <asio.hpp>
 #include <iostream>
 
-#include "../../../Packet/NetworkPacket.hpp"
+#include "NetworkPacket.hpp"
 
 /**
  * @namespace Network

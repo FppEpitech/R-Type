@@ -20,3 +20,4 @@ target_link_libraries(
     r-type_packet
 )
 
+target_include_directories(${LIB} PUBLIC ../../../Packet)
