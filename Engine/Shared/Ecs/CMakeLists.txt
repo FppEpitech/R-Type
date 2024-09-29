@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 set(LIB r-type_ecs)
 
-set(LIB_SRC_PATH "src")
-set(LIB_INCLUDE_PATH "include")
+set(LIB_SRC_PATH "Src")
+set(LIB_INCLUDE_PATH "Include")
 
 set(CMAKE_CXX_STANDARD 20)
 

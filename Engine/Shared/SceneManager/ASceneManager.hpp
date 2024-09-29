@@ -10,8 +10,8 @@
 #include <json/json.h>
 #include <unordered_map>
 
-#include "ISystem.hpp"
-#include "StringKeyMap.hpp"
+#include "../Interface/ISystem.hpp"
+#include "../Enum/StringKeyMap.hpp"
 #include "ISceneManager.hpp"
 
 #define CONFIG_SUFFIX ".json"

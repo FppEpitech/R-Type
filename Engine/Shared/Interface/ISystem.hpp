@@ -10,7 +10,7 @@
 #include <string>
 #include <functional>
 
-#include "../../Ecs/src/Registry.hpp"
+#include "../Ecs/Src/Registry.hpp"
 
 /**
  * @brief Interface class for ECS systems.

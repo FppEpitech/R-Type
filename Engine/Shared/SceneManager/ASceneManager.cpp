@@ -9,9 +9,8 @@
 #include <algorithm>
 
 #include "ASceneManager.hpp"
-#include "DLLoader/DLLoader.hpp"
-#include "IComponent.hpp"
-#include "ISystem.hpp"
+#include "../DLLoader/DLLoader.hpp"
+#include "../Interface/IComponent.hpp"
 
 SceneManager::ASceneManager::ASceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries)
 {
