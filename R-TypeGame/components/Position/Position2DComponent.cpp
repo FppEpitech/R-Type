@@ -8,7 +8,9 @@
 #include "Position2DComponent.hpp"
 
 Position2DComponent::Position2DComponent(int x, int y) :
-    x(x), y(y), AComponent("Position2DComponent") {}
+    x(x), y(y), AComponent("Position2DComponent")
+{
+}
 
 extern "C" IComponent* loadComponentInstance()
 {
