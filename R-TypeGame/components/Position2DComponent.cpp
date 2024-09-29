@@ -7,16 +7,10 @@
 
 #include "Position2DComponent.hpp"
 
-Position2DComponent::Position2DComponent(int x, int y) : x(x), y(y)
-{
-    _type = "Position2DComponent";
-}
+Position2DComponent::Position2DComponent(int x, int y) :
+    x(x), y(y), AComponent("Position2DComponent") {}
 
-const std::string &Position2DComponent::getType()
+extern "C" IComponent* loadComponentInstance()
 {
-    return _type;
-}
-
-extern "C" IComponent* loadComponentInstance() {
     return new Position2DComponent();
 }
