@@ -24,6 +24,19 @@ SceneManager::ASceneManager::ASceneManager(std::shared_ptr<std::vector<ECS::Regi
     }
 }
 
+bool SceneManager::ASceneManager::processInput(KEY_MAP key)
+{
+    if (_keysSystems[CURRENT].find(key) != _keysSystems[CURRENT].end()) {
+        _keysSystems[CURRENT].at(key)->getFunction()(_registries->at(CURRENT));
+        return true;
+    }
+    if (_keysScenes[CURRENT].find(key) != _keysScenes[CURRENT].end()) {
+        _changeScene(_keysScenes[CURRENT].at(key));
+        return true;
+    }
+    return false;
+}
+
 void SceneManager::ASceneManager::_loadScene(const std::string &path, std::size_t index)
 {
     std::ifstream file(_getScenesPath() + path);
