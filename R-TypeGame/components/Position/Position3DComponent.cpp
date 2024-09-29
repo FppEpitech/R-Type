@@ -7,15 +7,8 @@
 
 #include "Position3DComponent.hpp"
 
-Position3DComponent::Position3DComponent(int x, int y, int z) : x(x), y(y), z(z)
-{
-    _type = "Position3DComponent";
-}
-
-const std::string &Position3DComponent::getType()
-{
-    return _type;
-}
+Position3DComponent::Position3DComponent(int x, int y, int z) :
+    x(x), y(y), z(z), AComponent("Position3DComponent") {}
 
 extern "C" IComponent* loadComponentInstance()
 {
