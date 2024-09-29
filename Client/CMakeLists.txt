@@ -11,6 +11,7 @@ set(SRC_EXE
     ./src/main.cpp
     ./src/Application/Application.cpp
     ./src/ClientSceneManager/ClientSceneManager.cpp
+    ../SceneManager/ASceneManager.cpp
 )
 
 include_directories(
@@ -20,6 +21,7 @@ include_directories(
     ./src/Application/
     ./src/ClientSceneManager/
     ./src/Errors/
+    ../SceneManager/
 )
 
 add_executable(${EXE} ${SRC_EXE})
