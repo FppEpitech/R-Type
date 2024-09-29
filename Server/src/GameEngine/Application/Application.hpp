@@ -8,8 +8,8 @@
 #pragma once
 
 #include "Registry.hpp"
+#include "NetworkServer.hpp"
 #include "ServerSceneManager/ServerSceneManager.hpp"
-#include "../../Network/server/NetworkServer.hpp"
 
 /**
  * @brief GameEngine namespace handle all

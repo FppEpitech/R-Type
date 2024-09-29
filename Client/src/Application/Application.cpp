@@ -10,11 +10,21 @@
 #include "GraphicalLoad.hpp"
 #include "ClientErrors.hpp"
 
+void Application::_packetHandler(Network::UDPPacket packet)
+{
+    std::cout << "Messages received from server: [...]" << std::endl;
+}
+
+
 Application::Application()
 {
     _registries = std::make_shared<std::vector<ECS::Registry>>();
     SceneManager::ClientSceneManager sceneManager(_registries);
-    // Initialize the network and the first scene
+
+    _client = std::make_shared<Network::Client>("127.0.0.1", 4444, 4445);
+    _client->connect([this](Network::UDPPacket packet) {
+        this->_packetHandler(std::move(packet));
+    });
 }
 
 void Application::run()

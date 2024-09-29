@@ -5,8 +5,28 @@
 ** NetworkServer
 */
 
-#include "../Network.hpp"
-#include "../packet/NetworkPacket.hpp"
+#include <thread>
+#include <random>
+#include <vector>
+#include <cstdint>
+#include <iostream>
+#include <asio.hpp>
+#include <stdexcept>
+#include <unordered_map>
+
+#include "NetworkPacket.hpp"
+
+/**
+ * @namespace Network
+ * @brief Network-related classes and functions
+ */
+namespace Network {
+
+    /**
+     * @brief Server class to Network (Init server, receive data and send data)
+     */
+    class Server;
+};
 
 class Network::Server
 {
@@ -25,6 +45,8 @@ class Network::Server
 
         /**
          * @brief Starts the server.
+         *
+         * @param callback Callback function called when the server receive data.
          */
         void start(MessageHandler callback);
 
@@ -71,5 +93,5 @@ class Network::Server
         std::array<char, 1024>                                      _recv_buffer;       // Receive buffer to store data received via UDP.
         std::string                                                 _read_buffer;       // Read buffer to accumulate data received via TCP connection.
         std::unordered_map<uint32_t, asio::ip::udp::endpoint>       _clients;           // Hash table associating a unique identifier to the UDP endpoint of a connected client.
-        MessageHandler                                              _messageHandler;    // Message Manager to process incoming messages.
+        MessageHandler                                              _messageHandler;    // Message Manager to process messages.
 };

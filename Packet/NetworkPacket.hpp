@@ -5,9 +5,28 @@
 ** NetworkPacket
 */
 
+#include <thread>
+#include <random>
+#include <vector>
 #include <iomanip>
+#include <cstdint>
+#include <iostream>
+#include <asio.hpp>
+#include <stdexcept>
+#include <unordered_map>
 
-#include "../Network.hpp"
+/**
+ * @namespace Network
+ * @brief Network-related classes and functions
+ */
+namespace Network {
+
+    /**
+     * @brief UDPPacket class who receive the packet and split it!
+     *
+     */
+    class UDPPacket;
+};
 
 class Network::UDPPacket {
 

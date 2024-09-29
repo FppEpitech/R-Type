@@ -50,7 +50,7 @@ namespace SceneManager {
              * @param key Key to process.
              * @return true if the input has been processed, false otherwise.
              */
-            virtual bool processInput(KEY_MAP key) = 0;
+            bool processInput(KEY_MAP key);
 
         protected:
 
@@ -132,7 +132,6 @@ namespace SceneManager {
             /**
              * @brief Change the current scene.
              * @param scene Scene to load.
-             * @param key Key to load the scene.
              */
             void _changeScene(std::pair<std::size_t, std::string> scene);
     };
