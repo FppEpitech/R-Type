@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "IGraphic.hpp"
-#include "raylib.h"
+#include "../../Engine/Shared/Interface/IGraphic.hpp"
+#include "../../build/vcpkg_installed/x64-linux/include/raylib.h"
 
 #include <iostream>
 
@@ -54,4 +54,11 @@ class GraphicLib : public IGraphic {
          *
          */
         void clear();
+
+        /**
+         * @brief Get the Key Input object.
+         *
+         * @return KEY_MAP The key pressed.
+         */
+        std::size_t getKeyInput();
 };

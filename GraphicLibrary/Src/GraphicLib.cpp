@@ -33,3 +33,12 @@ void GraphicLib::clear()
     ClearBackground(BLACK);
     EndDrawing();
 }
+
+std::size_t GraphicLib::getKeyInput() {
+    for (std::size_t i = KEY_NULL; i < KEY_KP_EQUAL; i++) {
+        if (IsKeyDown(i)) {
+            return i;
+        }
+    }
+    return KEY_NULL;
+}
