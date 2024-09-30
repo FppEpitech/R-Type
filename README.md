@@ -1,5 +1,7 @@
-![Linux](https://github.com/FppEpitech/R-Type/actions/workflows/checks.yml/badge.svg?branch=main&event=push&label=Linux&os=ubuntu-latest)
-![Windows](https://github.com/FppEpitech/R-Type/actions/workflows/checks.yml/badge.svg?branch=main&event=push&label=Windows&os=windows-latest)
+![Linux](https://github.com/FppEpitech/R-Type/actions/workflows/checks.yml/badge.svg?event=push&job=cmake-build-linux)
+![Windows](https://github.com/FppEpitech/R-Type/actions/workflows/checks.yml/badge.svg?event=push&job=cmake-build-windows)
+![Linux](https://github.com/FppEpitech/R-Type/actions/workflows/Linux.yml/badge.svg)
+![Windows](https://github.com/FppEpitech/R-Type/actions/workflows/Windows.yml/badge.svg)
 
 # Table of Contents
 
