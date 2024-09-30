@@ -11,7 +11,6 @@
 #include "IGraphic.hpp"
 #include "Registry.hpp"
 
-#include "FontComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "Size1DComponent.hpp"
 #include "TextComponent.hpp"
@@ -55,13 +54,11 @@ class loadGraphicalEcs {
     private:
 
         std::vector<std::reference_wrapper<IComponent>> _components {
-            _fontComponent,
             _position2DComponent,
             _size1DComponent,
             _textComponent
         }; //< List of graphical components.
 
-        FontComponent           _fontComponent;         //< Font component.
         Position2DComponent     _position2DComponent;   //< Position 2D component.
         Size1DComponent         _size1DComponent;       //< Size 1D component.
         TextComponent           _textComponent;         //< Text component.
