@@ -7,5 +7,5 @@
 
 #include "TexturePathComponent.hpp"
 
-TexturePathComponent::TexturePathComponent(std::string Path) :
-    AComponent("TexturePathComponent"), Path(Path) {}
+TexturePathComponent::TexturePathComponent(std::string path) :
+    AComponent("TexturePathComponent"), path(path) {}

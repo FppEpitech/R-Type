@@ -20,7 +20,7 @@
 class MusicVolumeComponent : public AComponent {
 public:
 
-    float Volume; //< The volume of the music.
+    float volume; //< The volume of the music.
 
     /**
      * @brief Construct a new MusicVolumeComponent object

@@ -7,5 +7,5 @@
 
 #include "MusicPitchComponent.hpp"
 
-MusicPitchComponent::MusicPitchComponent(float Pitch)
-    : AComponent("MusicPitchComponent"), Pitch(Pitch) {}
+MusicPitchComponent::MusicPitchComponent(float pitch)
+    : AComponent("MusicPitchComponent"), pitch(pitch) {}

@@ -20,7 +20,7 @@
 class SoundPitchComponent : public AComponent {
 public:
 
-    float Pitch; //< The pitch of the sound.
+    float pitch; //< The pitch of the sound.
 
     /**
      * @brief Construct a new SoundPitchComponent object

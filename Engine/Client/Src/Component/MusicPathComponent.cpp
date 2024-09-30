@@ -7,5 +7,5 @@
 
 #include "MusicPathComponent.hpp"
 
-MusicPathComponent::MusicPathComponent(std::string Path)
-    : AComponent("MusicPathComponent"), Path(Path) {}
+MusicPathComponent::MusicPathComponent(std::string path)
+    : AComponent("MusicPathComponent"), path(path) {}

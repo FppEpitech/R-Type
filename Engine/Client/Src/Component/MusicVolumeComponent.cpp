@@ -7,5 +7,5 @@
 
 #include "MusicVolumeComponent.hpp"
 
-MusicVolumeComponent::MusicVolumeComponent(float Volume)
-    : AComponent("MusicVolumeComponent"), Volume(Volume) {}
+MusicVolumeComponent::MusicVolumeComponent(float volume)
+    : AComponent("MusicVolumeComponent"), volume(volume) {}
