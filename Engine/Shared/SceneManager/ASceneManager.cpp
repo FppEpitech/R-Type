@@ -45,7 +45,7 @@ void SceneManager::ASceneManager::_loadScene(const std::string &path, std::size_
 
     if (!reader.parse(file, root, false))
         throw SceneManagerErrors("Error while parsing the scene file: " + path);
-    _loadSceneComponents(root, index);
+    _loadSceneEntities(root, index);
     _loadSceneSystems(root, index);
     _loadSceneKeys(root, index);
 }
@@ -61,22 +61,17 @@ void SceneManager::ASceneManager::_loadNextScenes(const std::string &path, std::
     _loadSceneKeys(root, index);
 }
 
-void SceneManager::ASceneManager::_loadSceneComponents(Json::Value root, std::size_t index)
+void SceneManager::ASceneManager::_loadSceneEntities(Json::Value root, std::size_t index)
 {
     const Json::Value& entities = root["entities"];
 
     for (unsigned int i = 0; i < entities.size(); ++i) {
-        const Json::Value& componentList = entities[i];
-        ECS::entity_t entity = _registries->at(index).spawn_entity();
-        for (unsigned int j = 0; j < componentList.size(); ++j) {
-            std::shared_ptr<IComponent> component = DLLoader<IComponent>::load(_getComponentLibPath() + componentList[j].asString(), "loadComponentInstance");
-            if (component) {
-                _registries->at(index).register_component<IComponent>(component->getType());
-                _registries->at(index).set_component(entity, component, component->getType());
-            } else {
-                throw SceneManagerErrors("Error while loading the component: " + componentList[j].asString());
-            }
-        }
+        std::shared_ptr<ISystem> system = DLLoader<ISystem>::load(_getSystemLibPath() + entities[i].asString(), "loadSystemInstance");
+        if (system) {
+            ECS::entity_t entity = _registries->at(index).spawn_entity();
+            system->getFunction()(_registries->at(index), entity);
+        } else
+            throw SceneManagerErrors("Error while loading the system: " + entities[i].asString());
     }
 }
 
