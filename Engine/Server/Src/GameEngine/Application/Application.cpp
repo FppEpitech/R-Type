@@ -9,6 +9,7 @@
 
 void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint)
 {
+    this->_registries->
     std::cout << "Messages received from " << endpoint << ": [" << "..." << "]" << std::endl;
 }
 
@@ -27,6 +28,8 @@ void GameEngine::Application::run()
 {
     // TODO: Start sceneManager
     // _sceneManager->processInput("ok");
+    _sceneManager->processInput(KEY_D);
+    //_sceneManager->processInput(KEY_D);
     while (true) {
         // TODO: Game loop
     }

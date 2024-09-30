@@ -178,6 +178,8 @@ class Registry {
         entity_t                                                _next_entity = 0;           // Index for the next Entity to create.
 
         std::vector<std::function<void(Registry&)>>             _systems;                   // Array of systems.
+
+        std::string currentTokenCommand;
 };
 
 } // namespace ECS

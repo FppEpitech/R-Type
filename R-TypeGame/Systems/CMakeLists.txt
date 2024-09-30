@@ -7,6 +7,7 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Engine/Server/Lib/System
 include_directories(
         ../../Engine/Shared/Ecs/Include/
         ../../Engine/Shared/Interface/
+        ../Components/Position/
 )
 
-add_library(system_move SHARED MoveSystem.cpp)
+add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.cpp)

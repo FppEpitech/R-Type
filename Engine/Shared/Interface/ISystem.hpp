@@ -40,3 +40,39 @@ class ISystem {
          */
         virtual std::function<void(ECS::Registry& reg)> getFunction() = 0;
 };
+
+/**
+ * @class ASystem
+ * @brief A basic implementation of the ASystem interface.
+ *
+ * This class provides a basic implementation of the ASystem interface,
+ * firstly for the function getType() which returns the type of the component.
+ * And so who is the same for all components.
+ */
+class ASystem : public ISystem {
+    public:
+        /**
+         * @brief Construct a new ASystem object.
+         *
+         * @param type The type of the component.
+         */
+        ASystem(std::string type) : _type(type) {}
+
+        /**
+         * @brief Destroy the ASystem object.
+         */
+        ~ASystem() = default;
+
+        /**
+         * @brief Get the type of the component.
+         *
+         * @return const std::string& The type of the component.
+         */
+        const std::string &getType() override
+        {
+            return _type;
+        }
+
+    private:
+        std::string _type; //< The type identifier for this component.
+};

@@ -7,18 +7,20 @@
         {
             "key": "KEY_COMMA",
             "path" : "testScene.json"
+        },
+        {
+            "key": "KEY_D",
+            "path" : "libsystem_moveRight.so"
         }
     ],
     "entities": [
         [
-            [
-                "libcomponent_position2D.so",
-                "libcomponent_velocity.so",
-                "libcomponent_shooter.so",
-                "libcomponent_life.so",
-                "libcomponent_gravity.so",
-                "libcomponent_drawable.so"
-            ]
+            "libcomponent_position2D.so",
+            "libcomponent_velocity.so",
+            "libcomponent_shooter.so",
+            "libcomponent_life.so",
+            "libcomponent_gravity.so",
+            "libcomponent_drawable.so"
         ]
     ],
     "systems": [
