@@ -29,7 +29,6 @@ static std::string getPathGraphicalLib()
     }
 
     return "";
-    // std::string(PATH_GRAPHIC_LIB) + "libgraphic_raylib.so"
 }
 
 std::shared_ptr<IGraphic> getGraphicalLibrary()
