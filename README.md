@@ -1,5 +1,3 @@
-![Linux](https://github.com/FppEpitech/R-Type/actions/workflows/checks.yml/badge.svg?event=push&job=cmake-build-linux)
-![Windows](https://github.com/FppEpitech/R-Type/actions/workflows/checks.yml/badge.svg?event=push&job=cmake-build-windows)
 ![Linux](https://github.com/FppEpitech/R-Type/actions/workflows/Linux.yml/badge.svg)
 ![Windows](https://github.com/FppEpitech/R-Type/actions/workflows/Windows.yml/badge.svg)
 
