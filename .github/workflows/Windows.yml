@@ -2,12 +2,7 @@ name: Windows
 on: [check_run, pull_request]
 jobs:
   cmake-build-windows:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-latest]
+    runs-on: windows-latest
 
     steps:
       - name: Checkout project

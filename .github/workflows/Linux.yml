@@ -2,12 +2,7 @@ name: Linux
 on: [check_run, pull_request]
 jobs:
   cmake-build-linux:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout project
