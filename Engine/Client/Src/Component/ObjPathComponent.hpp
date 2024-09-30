@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2024
-** PathComponent.hpp
+** ObjPathComponent.hpp
 ** File description:
 ** DESCRIPTION
 */
@@ -10,22 +10,22 @@
 #include "IComponent.hpp"
 
 /**
- * @class PathComponent
+ * @class ObjPathComponent
  * @brief Component for handling paths in the graphical engine.
  *
- * This component is used to store and manage one path for the graphical engine.
+ * This component is used to store and manage one obj path for the graphical engine.
  *
  * @var Path The path to one file.
  */
-class PathComponent : public AComponent {
+class ObjPathComponent : public AComponent {
     public:
 
         std::string Path; //< The path to one file.
 
         /**
-         * @brief Construct a new PathComponent object
+         * @brief Construct a new ObjPathComponent object
          *
          * @param Path Initial path to the font file (default is an empty string).
          */
-        PathComponent(std::string Path = "");
+        ObjPathComponent(std::string Path = "");
 };

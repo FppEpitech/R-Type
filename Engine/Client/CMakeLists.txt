@@ -12,7 +12,9 @@ set(SRC_EXE
         Src/Application/Application.cpp
         Src/ClientSceneManager/ClientSceneManager.cpp
         ../Shared/SceneManager/ASceneManager.cpp
-        ./Src/Component/PathComponent.cpp
+        ./Src/Component/FontPathComponent.cpp
+        ./Src/Component/ObjPathComponent.cpp
+        ./Src/Component/TexturePathComponent.cpp
         ./Src/Component/ScaleComponent.cpp
         ./Src/Component/ColourComponent.cpp
         ./Src/Component/Position3DComponent.cpp
