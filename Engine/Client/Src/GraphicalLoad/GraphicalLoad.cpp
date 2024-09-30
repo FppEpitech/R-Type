@@ -21,11 +21,8 @@ static std::string getPathGraphicalLib()
 
     for (const auto& file : std::filesystem::directory_iterator(path)) {
         std::string prefix = path + "libgraphic_";
-#ifdef _WIN32
-        std::string suffix = ".dll";
-#else
-        std::string suffix = ".so";
-#endif
+        std::string suffix = LIB_SUFFIX;
+
         if (file.path().string().length() < prefix.size() + suffix.size())
             continue;
         if (file.path().string().find(prefix) == 0 &&

@@ -29,6 +29,12 @@
 #include "TextComponent.hpp"
 #include "TexturePathComponent.hpp"
 
+#ifdef _WIN32
+    #define LIB_SUFFIX ".dll"
+#else
+    #define LIB_SUFFIX ".so"
+#endif
+
 /**
  * @brief Get the Graphical Library object.
  *
