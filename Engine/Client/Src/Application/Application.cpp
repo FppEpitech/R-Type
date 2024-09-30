@@ -7,12 +7,14 @@
 
 #include "Application.hpp"
 #include "../ClientSceneManager/ClientSceneManager.hpp"
+#include "IGraphic.hpp"
+#include "GraphicalLoad.hpp"
+#include "ClientErrors.hpp"
 
 void Application::_packetHandler(Network::UDPPacket packet)
 {
     std::cout << "Messages received from server: [...]" << std::endl;
 }
-
 
 Application::Application()
 {
@@ -27,10 +29,12 @@ Application::Application()
 
 void Application::run()
 {
-    // Main loop
-    while (true) {
-        // Update the network
-        // Update the current scene
-        // Render the current scene
+    std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
+    if (!libGraphic)
+        throw ClientError("Failed to load graphic library");
+    libGraphic->init(WINDOW_TITLE);
+
+    while (libGraphic->windowIsOpen()) {
+        libGraphic->clear();
     }
 }
