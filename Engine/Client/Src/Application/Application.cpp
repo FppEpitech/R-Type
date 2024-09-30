@@ -32,7 +32,7 @@ void Application::run()
     std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
     if (!libGraphic)
         throw ClientError("Failed to load graphic library");
-    libGraphic->Init("From noware");
+    libGraphic->init(WINDOW_TITLE);
 
     while (libGraphic->windowIsOpen()) {
         libGraphic->clear();

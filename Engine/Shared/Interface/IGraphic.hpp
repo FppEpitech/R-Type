@@ -28,7 +28,7 @@ class IGraphic {
         /**
          * @brief Initialize the graphic module.
          */
-        virtual void Init(const std::string &windowName) = 0;
+        virtual void init(const std::string &windowName) = 0;
 
         /**
          * @brief check if the window is open/close.

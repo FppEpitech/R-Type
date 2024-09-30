@@ -8,10 +8,10 @@
 #pragma once
 
 #include <memory>
+#include <vector>
+
 #include "IGraphic.hpp"
 #include "Registry.hpp"
-
-
 #include "ColourComponent.hpp"
 #include "FontPathComponent.hpp"
 #include "MaterialMapComponent.hpp"
@@ -28,8 +28,6 @@
 #include "SoundVolumeComponent.hpp"
 #include "TextComponent.hpp"
 #include "TexturePathComponent.hpp"
-
-#include <vector>
 
 /**
  * @brief Get the Graphical Library object.
@@ -86,20 +84,20 @@ class loadGraphicalEcs {
             _texturePathComponent
         }; //< List of graphical components.
 
-        ColourComponent         _colourComponent;
-        FontPathComponent       _fontPathComponent;
-        MaterialMapComponent    _materialMapComponent;
-        MusicPathComponent      _musicPathComponent;
-        MusicPitchComponent     _musicPitchComponent;
-        MusicVolumeComponent    _musicVolumeComponent;
-        ObjPathComponent        _objPathComponent;
+        ColourComponent         _colourComponent;       //< Colour component.
+        FontPathComponent       _fontPathComponent;     //< Font path component.
+        MaterialMapComponent    _materialMapComponent;  //< Material map component.
+        MusicPathComponent      _musicPathComponent;    //< Music path component.
+        MusicPitchComponent     _musicPitchComponent;   //< Music pitch component.
+        MusicVolumeComponent    _musicVolumeComponent;  //< Music volume component.
+        ObjPathComponent        _objPathComponent;      //< OBJ path component.
         Position2DComponent     _position2DComponent;   //< Position 2D component.
-        Position3DComponent     _position3DComponent;
-        ScaleComponent          _scaleComponent;
+        Position3DComponent     _position3DComponent;   //< Position 3D component.
+        ScaleComponent          _scaleComponent;        //< Scale component.
         Size1DComponent         _size1DComponent;       //< Size 1D component.
-        SoundPathComponent      _soundPathComponent;
-        SoundPitchComponent     _soundPitchComponent;
-        SoundVolumeComponent    _soundVolumeComponent;
+        SoundPathComponent      _soundPathComponent;    //< Sound path component.
+        SoundPitchComponent     _soundPitchComponent;   //< Sound pitch component.
+        SoundVolumeComponent    _soundVolumeComponent;  //< Sound volume component.
         TextComponent           _textComponent;         //< Text component.
-        TexturePathComponent    _texturePathComponent;
+        TexturePathComponent    _texturePathComponent;  //< Texture path component.
 };

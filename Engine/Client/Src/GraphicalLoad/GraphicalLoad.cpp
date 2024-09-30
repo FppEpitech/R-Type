@@ -21,13 +21,17 @@ static std::string getPathGraphicalLib()
 
     for (const auto& file : std::filesystem::directory_iterator(path)) {
         std::string prefix = path + "libgraphic_";
+#ifdef _WIN32
+        std::string suffix = ".dll";
+#else
         std::string suffix = ".so";
+#endif
         if (file.path().string().length() < prefix.size() + suffix.size())
-            continue;;
-        if (std::string(file.path().string()).compare(std::string(file.path().string()).length() - suffix.length(), suffix.length(), suffix) == 0 && std::string(file.path().string()).compare(0, prefix.length(), prefix) == 0)
+            continue;
+        if (file.path().string().find(prefix) == 0 &&
+            file.path().string().find(suffix, file.path().string().length() - 4) != std::string::npos)
             return file.path().string();
     }
-
     return "";
 }
 

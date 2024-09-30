@@ -39,7 +39,7 @@ class GraphicLib : public IGraphic {
          *
          * @param windowName Name of the window.
          */
-        void Init(const std::string &windowName);
+        void init(const std::string &windowName);
 
         /**
          * @brief Check if the window is open.

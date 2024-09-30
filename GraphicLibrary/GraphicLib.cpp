@@ -16,7 +16,7 @@ GraphicLib::~GraphicLib()
     CloseWindow();
 }
 
-void GraphicLib::Init(const std::string &windowName)
+void GraphicLib::init(const std::string &windowName)
 {
     InitWindow(1920, 1080, windowName.c_str());
     SetTargetFPS(140);
