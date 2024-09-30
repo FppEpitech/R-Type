@@ -10,22 +10,22 @@
 #include "IComponent.hpp"
 
 /**
- * @class jSoundPathComponent
+ * @class SoundPathComponent
  * @brief Component for handling font paths in the graphical engine.
  *
  * This component is used to store and manage one path for the graphical engine.
  *
  * @var Path The path to one file.
  */
-class jSoundPathComponent : public AComponent {
+class SoundPathComponent : public AComponent {
 public:
 
     std::string Path; //< The path to one file.
 
     /**
-     * @brief Construct a new jSoundPathComponent object
+     * @brief Construct a new SoundPathComponent object
      *
      * @param Path Initial path to the font file (default is an empty string).
      */
-    jSoundPathComponent(std::string Path = "");
+    SoundPathComponent(std::string Path = "");
 };
