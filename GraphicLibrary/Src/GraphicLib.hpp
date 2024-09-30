@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "../../Engine/Shared/Interface/IGraphic.hpp"
-#include "../../build/vcpkg_installed/x64-linux/include/raylib.h"
+#include "IGraphic.hpp"
+#include "raylib.h"
 
 #include <iostream>
 
