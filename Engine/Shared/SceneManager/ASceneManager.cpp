@@ -24,10 +24,10 @@ SceneManager::ASceneManager::ASceneManager(std::shared_ptr<std::vector<ECS::Regi
     }
 }
 
-bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxEntities)
+bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntities)
 {
     if (_keysSystems[CURRENT].find(key) != _keysSystems[CURRENT].end()) {
-        _keysSystems[CURRENT].at(key)->getFunction()(_registries->at(CURRENT), idxEntities);
+        _keysSystems[CURRENT].at(key)->getFunction()(_registries->at(CURRENT), idxPacketEntities);
         return true;
     }
     if (_keysScenes[CURRENT].find(key) != _keysScenes[CURRENT].end()) {

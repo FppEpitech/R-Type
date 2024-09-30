@@ -152,8 +152,8 @@ class Registry {
         template<typename Function>
         void add_system(Function const& function) {
             _systems.emplace_back(
-                [this, function](Registry& reg, int idxEntities) {
-                    function(*this, idxEntities);
+                [this, function](Registry& reg, int idxPacketEntities) {
+                    function(*this, idxPacketEntities);
                 }
             );
         }
@@ -162,7 +162,7 @@ class Registry {
          * @brief Run all registry's systems.
          *
          */
-        void run_systems(int idxEntities);
+        void run_systems(int idxPacketEntities);
 
         using remove_func_t = std::function<void(Registry&, entity_t const&)>;
 

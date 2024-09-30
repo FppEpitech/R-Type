@@ -48,7 +48,7 @@ namespace SceneManager {
              * @param key Key to process.
              * @return true if the input has been processed, false otherwise.
              */
-            virtual bool processInput(KEY_MAP key, int idxEntities) = 0;
+            virtual bool processInput(KEY_MAP key, int idxPacketEntities) = 0;
     };
 
     /**
