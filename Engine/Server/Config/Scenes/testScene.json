@@ -1,0 +1,14 @@
+{
+  "keyBinds": [
+    {
+      "key": "KEY_COMMA",
+      "path" : "libsystem_move.so"
+    }
+  ],
+  "entities": [
+    [
+    ]
+  ],
+  "systems": [
+  ]
+}
