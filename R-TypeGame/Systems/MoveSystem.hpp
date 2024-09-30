@@ -15,14 +15,14 @@ class MovementSystem : public ISystem {
             return _type;
         }
 
-        std::function<void(ECS::Registry& reg)> getFunction()
+        std::function<void(ECS::Registry& reg, int idxEntities)> getFunction()
         {
-            return [this](ECS::Registry& reg) {
-                updatePosition(reg);
+            return [this](ECS::Registry& reg, int idxEntities) {
+                updatePosition(reg, idxEntities);
             };
         }
 
-        void updatePosition(ECS::Registry& entityManager)
+        void updatePosition(ECS::Registry& entityManager, int idxEntities)
         {
             std::cout << "Hello" << std::endl;
         };

@@ -36,9 +36,9 @@ void Registry::kill_entity(entity_t const& entity) {
     }
 }
 
-void Registry::run_systems() {
+void Registry::run_systems(int idxEntities) {
     for (auto& system : _systems)
-        system(*this);
+        system(*this, idxEntities);
 }
 
 } // namespace ECS
