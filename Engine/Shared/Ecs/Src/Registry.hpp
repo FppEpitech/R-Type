@@ -14,7 +14,7 @@
 #include <unordered_map>
 
 #include "SparseArray.hpp"
-#include "../../Network/Packet/NetworkPacket.hpp"
+#include "NetworkPacket.hpp"
 
 /**
  * @brief Entity component system namespace.

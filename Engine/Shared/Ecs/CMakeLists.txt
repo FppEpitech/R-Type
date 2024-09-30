@@ -7,6 +7,10 @@ set(LIB_INCLUDE_PATH "Include")
 
 set(CMAKE_CXX_STANDARD 20)
 
+include_directories(
+        ../Network/Packet/
+)
+
 set(SRC_LIB
         ${LIB_SRC_PATH}/Registry.cpp
 )
