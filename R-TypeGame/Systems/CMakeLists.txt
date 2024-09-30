@@ -7,6 +7,7 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Engine/Server/Lib/System
 include_directories(
         ../../Engine/Shared/Ecs/Include/
         ../../Engine/Shared/Interface/
+        ../../Engine/Shared/Network/Packet/
 )
 
 add_library(system_move SHARED MoveSystem.cpp)

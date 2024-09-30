@@ -11,6 +11,7 @@
 #include <functional>
 
 #include "../Ecs/Src/Registry.hpp"
+#include "../Network/Packet/NetworkPacket.hpp"
 
 /**
  * @brief Interface class for ECS systems.
@@ -38,5 +39,5 @@ class ISystem {
          *
          * @return std::function<void(Registry& reg)> System's function.
          */
-        virtual std::function<void(ECS::Registry& reg)> getFunction() = 0;
+        virtual std::function<void(ECS::Registry& reg, Network::UDPPacket& packet)> getFunction() = 0;
 };

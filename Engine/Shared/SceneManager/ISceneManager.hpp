@@ -7,8 +7,9 @@
 
 #pragma once
 
-#include "../Enum/StringKeyMap.hpp"
 #include "../Interface/IError.hpp"
+#include "../Enum/StringKeyMap.hpp"
+#include "../Interface/ISystem.hpp"
 
 /**
  * @brief Namespace for the scene manager.
@@ -48,7 +49,7 @@ namespace SceneManager {
              * @param key Key to process.
              * @return true if the input has been processed, false otherwise.
              */
-            virtual bool processInput(KEY_MAP key) = 0;
+            virtual bool processInput(KEY_MAP key, Network::UDPPacket packet) = 0;
     };
 
     /**

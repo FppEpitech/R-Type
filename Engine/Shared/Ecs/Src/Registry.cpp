@@ -36,9 +36,9 @@ void Registry::kill_entity(entity_t const& entity) {
     }
 }
 
-void Registry::run_systems() {
+void Registry::run_systems(Network::UDPPacket& packet) {
     for (auto& system : _systems)
-        system(*this);
+        system(*this, packet);
 }
 
 } // namespace ECS

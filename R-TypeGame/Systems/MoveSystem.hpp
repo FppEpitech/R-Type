@@ -4,6 +4,7 @@
  */
 
 #include "ISystem.hpp"
+
 #include <iostream>
 
 class MovementSystem : public ISystem {
@@ -15,14 +16,14 @@ class MovementSystem : public ISystem {
             return _type;
         }
 
-        std::function<void(ECS::Registry& reg)> getFunction()
+        std::function<void(ECS::Registry& reg, Network::UDPPacket& packet)> getFunction()
         {
-            return [this](ECS::Registry& reg) {
-                updatePosition(reg);
+            return [this](ECS::Registry& reg, Network::UDPPacket& packet) {
+                updatePosition(reg, packet);
             };
         }
 
-        void updatePosition(ECS::Registry& entityManager)
+        void updatePosition(ECS::Registry& entityManager, Network::UDPPacket& packet)
         {
             std::cout << "Hello" << std::endl;
         };

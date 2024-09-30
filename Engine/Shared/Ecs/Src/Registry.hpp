@@ -7,13 +7,14 @@
 
 #pragma once
 
-#include "SparseArray.hpp"
-
 #include <any>
 #include <typeindex>
 #include <stdexcept>
 #include <functional>
 #include <unordered_map>
+
+#include "SparseArray.hpp"
+#include "../../Network/Packet/NetworkPacket.hpp"
 
 /**
  * @brief Entity component system namespace.
@@ -152,8 +153,8 @@ class Registry {
         template<typename Function>
         void add_system(Function const& function) {
             _systems.emplace_back(
-                [this, function](Registry& reg) {
-                    function(*this);
+                [this, function](Registry& reg, Network::UDPPacket& packet) {
+                    function(*this, packet);
                 }
             );
         }
@@ -161,23 +162,24 @@ class Registry {
         /**
          * @brief Run all registry's systems.
          *
+         * @param packet packet to send to the system.
          */
-        void run_systems();
+        void run_systems(Network::UDPPacket& packet);
 
         using remove_func_t = std::function<void(Registry&, entity_t const&)>;
 
     private:
 
         //Arrays
-        std::unordered_map<std::string, std::any>               _components_arrays;         // Array of components.
-        std::unordered_map<std::string, remove_func_t>          _remove_functions;          // Array of functions to remove components.
+        std::unordered_map<std::string, std::any>                           _components_arrays;         // Array of components.
+        std::unordered_map<std::string, remove_func_t>                      _remove_functions;          // Array of functions to remove components.
 
         // Entities
-        std::vector<entity_t>                                   _entities;                  // Array of Entities indexes.
-        std::vector<entity_t>                                   _dead_entities;             // Array of dead Entities indexes.
-        entity_t                                                _next_entity = 0;           // Index for the next Entity to create.
+        std::vector<entity_t>                                               _entities;                  // Array of Entities indexes.
+        std::vector<entity_t>                                               _dead_entities;             // Array of dead Entities indexes.
+        entity_t                                                            _next_entity = 0;           // Index for the next Entity to create.
 
-        std::vector<std::function<void(Registry&)>>             _systems;                   // Array of systems.
+        std::vector<std::function<void(Registry&, Network::UDPPacket&)>>    _systems;                   // Array of systems.
 };
 
 } // namespace ECS

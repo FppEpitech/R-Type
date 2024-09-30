@@ -10,9 +10,8 @@
 #include <json/json.h>
 #include <unordered_map>
 
-#include "../Interface/ISystem.hpp"
-#include "../Enum/StringKeyMap.hpp"
 #include "ISceneManager.hpp"
+#include "../Enum/StringKeyMap.hpp"
 
 #define CONFIG_SUFFIX ".json"
 
@@ -50,7 +49,7 @@ namespace SceneManager {
              * @param key Key to process.
              * @return true if the input has been processed, false otherwise.
              */
-            bool processInput(KEY_MAP key);
+            bool processInput(KEY_MAP key, Network::UDPPacket packet);
 
         protected:
 
