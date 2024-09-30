@@ -1,7 +1,38 @@
-![R-Type Game](https://i.imgur.com/DnVU1l5.png)
-
 ![Linux](https://github.com/FppEpitech/R-Type/actions/workflows/checks.yml/badge.svg?branch=main&event=push&label=Linux&os=ubuntu-latest)
 ![Windows](https://github.com/FppEpitech/R-Type/actions/workflows/checks.yml/badge.svg?branch=main&event=push&label=Windows&os=windows-latest)
+
+# Table of Contents
+
+- [From Noware: The Team Behind the Madness](#from-noware-the-team-behind-the-madness)
+    - [Alban PERALTA](#alban-peralta--master-of-visual-sorcery)
+    - [Mathieu ROBERT](#mathieu-robert--architect-of-reality-or-whats-left-of-it)
+    - [Thomas BOUÉ](#thomas-boue--warden-of-game-structure-and-balance)
+    - [Axel FRADET](#axel-fradet--the-phantom-weaver-of-connections)
+    - [Théophile Jérôme-Rocher](#théophile-jérôme-rocher--the-unseen-arbiter-of-continuous-chaos)
+- [Together, We Are From Noware](#together-we-are-from-noware)
+- [R-Type Game Presentation](#r-type-game-presentation)
+  - [Overview](#overview)
+  - [Game Features](#game-features)
+      - [Engaging Gameplay](#engaging-gameplay)
+      - [Unique Mechanics](#unique-mechanics)
+      - [Stunning Visuals](#stunning-visuals)
+      - [Sound and Music](#sound-and-music)
+- [Technical Details](#technical-details)
+    - [Development Tools](#development-tools)
+- [Building Our Project: Development Mode and Plugin Setup](#building-our-project-development-mode-and-plugin-setup)
+    - [Prerequisites](#prerequisites)
+    - [Steps to Build the Project](#steps-to-build-the-project)
+    - [Clone the Project Repository](#1-clone-the-project-repository)
+    - [Install Dependencies](#2-install-dependencies)
+    - [Build the Project](#3-build-the-project)
+    - [Start Development](#4-start-development)
+- [How to PLAY?](#how-to-play-)
+- [How to launch tests?](#how-to-launch-tests)
+- [Documentation](#documentation)
+
+---
+
+![Team Logo](https://i.imgur.com/DnVU1l5.png)
 
 # From Noware: The Team Behind the Madness
 
@@ -46,6 +77,41 @@ In the twilight between code and chaos, we form the pillars of From Noware, a st
 At From Noware, we embrace the challenge, thrive in the madness, and invite players to face the darkness with us.
 
 Prepare yourself.
+
+***
+
+# R-Type Game Presentation
+
+## Overview
+
+R-Type is a 2D action game that pays homage to classic side-scrolling shooters while introducing innovative gameplay mechanics and visually stunning graphics. Developed using C++ and Raylib, the game showcases the team's commitment to delivering a thrilling gaming experience filled with intense action and captivating visuals.
+
+## Game Features
+
+### Engaging Gameplay
+- **Classic Side-Scrolling Action**: Players navigate through beautifully designed levels, battling enemies and overcoming obstacles in a fast-paced environment.
+- **Challenging Boss Fights**: Each level culminates in an epic boss battle that tests players' skills and strategies, providing a sense of accomplishment upon victory.
+
+### Unique Mechanics
+- **Power-Up System**: Collect various power-ups to enhance weapons and abilities, allowing players to customize their playstyle and adapt to different challenges.
+- **Health and Lives**: Players have a limited number of lives, encouraging strategic play and careful navigation through enemy-infested levels.
+
+### Stunning Visuals
+- **2D Graphics**: The game features vibrant 2D graphics created with Raylib, utilizing a combination of hand-drawn sprites and animations to create an immersive experience.
+- **Dynamic Environments**: Each level is uniquely themed, offering diverse settings and atmospheric backgrounds that enhance gameplay.
+
+### Sound and Music
+- **Original Soundtrack**: An engaging soundtrack complements the action, enhancing immersion and keeping players engaged.
+- **Sound Effects**: Crisp sound effects provide audio feedback for player actions, adding to the overall experience.
+
+And much more! R-Type is a labor of love that combines classic gameplay elements with modern design sensibilities, resulting in a game that is both nostalgic and fresh.
+
+## Technical Details
+
+### Development Tools
+- **Raylib**: R-Type is built using Raylib, a simple and easy-to-use C library for learning game programming. Raylib provides robust graphics rendering capabilities that allow for the creation of visually appealing 2D games.
+- **C++**: The game is developed in C++, leveraging the language's performance and flexibility to create a responsive and efficient gameplay experience.
+- **Entity-Component-System (ECS) Architecture**: The game employs an ECS architecture, facilitating the separation of game logic and entities for easier management and scalability.
 
 ***
 
