@@ -15,7 +15,7 @@
  *
  * This component is used to store the pitch of a music file.
  *
- * @var Volume The pitch of the music.
+ * @var Pitch The pitch of the music.
  */
 class MusicPitchComponent : public AComponent {
 public:
