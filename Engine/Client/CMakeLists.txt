@@ -12,10 +12,14 @@ set(SRC_EXE
         Src/Application/Application.cpp
         Src/ClientSceneManager/ClientSceneManager.cpp
         ../Shared/SceneManager/ASceneManager.cpp
-        ./Src/Component/FontComponent.cpp
+        ./Src/Component/PathComponent.cpp
+        ./Src/Component/ScaleComponent.cpp
+        ./Src/Component/ColourComponent.cpp
+        ./Src/Component/Position3DComponent.cpp
         ./Src/Component/Position2DComponent.cpp
         ./Src/Component/Size1DComponent.cpp
         ./Src/Component/TextComponent.cpp
+        ./Src/Component/MaterialMapComponent.cpp
 )
 
 include_directories(
