@@ -13,7 +13,7 @@
  * @class MusicVolumeComponent
  * @brief Component for the music volume.
  *
- * This component is used to store the path to a music file.
+ * This component is used to store the volume of a music file.
  *
  * @var Volume The volume of the music.
  */
