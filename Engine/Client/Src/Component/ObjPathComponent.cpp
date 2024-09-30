@@ -7,5 +7,5 @@
 
 #include "ObjPathComponent.hpp"
 
-ObjPathComponent::ObjPathComponent(std::string Path) :
-    AComponent("ObjPathComponent"), Path(Path) {}
+ObjPathComponent::ObjPathComponent(std::string path) :
+    AComponent("ObjPathComponent"), path(path) {}

@@ -7,5 +7,5 @@
 
 #include "FontPathComponent.hpp"
 
-FontPathComponent::FontPathComponent(std::string Path) :
-    AComponent("FontPathComponent"), Path(Path) {}
+FontPathComponent::FontPathComponent(std::string path) :
+    AComponent("FontPathComponent"), path(path) {}
