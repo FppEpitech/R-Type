@@ -40,9 +40,9 @@ class MaterialMapComponent : public AComponent {
             MATERIAL_MAP_BRDF          ///< BRDF map
         };
 
-        std::vector<std::string> MaterialPaths; ///< Paths to the material maps.
-        std::vector<size_t> MaterialIndexes;    ///< Indexes of the material maps.
-        std::vector<MaterialType> MaterialTypes; ///< Types of the material maps.
+        std::vector<std::string> materialPaths; ///< Paths to the material maps.
+        std::vector<size_t> materialIndexes;    ///< Indexes of the material maps.
+        std::vector<MaterialType> materialTypes; ///< Types of the material maps.
 
         /**
          * @brief Construct a new MaterialMapComponent object

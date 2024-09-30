@@ -20,7 +20,7 @@
 class TexturePathComponent : public AComponent {
     public:
 
-        std::string Path; //< The path to one file.
+        std::string path; //< The path to one file.
 
         /**
          * @brief Construct a new TexturePathComponent object

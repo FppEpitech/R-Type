@@ -23,6 +23,12 @@ set(SRC_EXE
         ./Src/Component/Size1DComponent.cpp
         ./Src/Component/TextComponent.cpp
         ./Src/Component/MaterialMapComponent.cpp
+        ./Src/Component/MusicPathComponent.cpp
+        ./Src/Component/MusicPitchComponent.cpp
+        ./Src/Component/MusicVolumeComponent.cpp
+        ./Src/Component/SoundPathComponent.cpp
+        ./Src/Component/SoundPitchComponent.cpp
+        ./Src/Component/SoundVolumeComponent.cpp
 )
 
 include_directories(
