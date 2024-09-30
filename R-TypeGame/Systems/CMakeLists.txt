@@ -11,3 +11,7 @@ include_directories(
 )
 
 add_library(system_move SHARED MoveSystem.cpp)
+
+find_package(asio REQUIRED)
+
+target_link_libraries(system_move PRIVATE asio::asio)
