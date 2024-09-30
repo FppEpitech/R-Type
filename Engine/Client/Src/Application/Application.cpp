@@ -16,7 +16,6 @@ void Application::_packetHandler(Network::UDPPacket packet)
     std::cout << "Messages received from server: [...]" << std::endl;
 }
 
-
 Application::Application()
 {
     _registries = std::make_shared<std::vector<ECS::Registry>>();
