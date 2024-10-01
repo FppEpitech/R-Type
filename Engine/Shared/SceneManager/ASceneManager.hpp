@@ -50,7 +50,7 @@ namespace SceneManager {
              * @param key Key to process.
              * @return true if the input has been processed, false otherwise.
              */
-            bool processInput(KEY_MAP key);
+            bool processInput(KEY_MAP key, int idxPacketEntities);
 
         protected:
 
@@ -93,11 +93,11 @@ namespace SceneManager {
             void _loadNextScenes(const std::string &path, std::size_t index);
 
             /**
-             * @brief Load the components of a scene.
+             * @brief Load the entities of a scene.
              * @param root Json root of the scene.
              * @param index Index of the registry to load the scene.
              */
-            void _loadSceneComponents(Json::Value root, std::size_t index);
+            void _loadSceneEntities(Json::Value root, std::size_t index);
 
             /**
              * @brief Load the systems of a scene.
