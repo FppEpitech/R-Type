@@ -20,7 +20,7 @@ static std::string getPathGraphicalLib()
         std::string prefix = path + "libgraphic_";
         std::string suffix = LIB_SUFFIX;
 
-        std::string libPath = file.path().libPathing();
+        std::string libPath = file.path().string();
         if (libPath.length() < prefix.size() + suffix.size())
             continue;
         if (libPath.find(prefix) == 0 && libPath.find(suffix, libPath.length() - 4) != std::string::npos)
