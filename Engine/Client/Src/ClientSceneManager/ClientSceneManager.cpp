@@ -23,4 +23,3 @@ std::string SceneManager::ClientSceneManager::_getSystemLibPath() const {
 std::string SceneManager::ClientSceneManager::_getScenesPath() const {
     return SCENE_PATH;
 }
-

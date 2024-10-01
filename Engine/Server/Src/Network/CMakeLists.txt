@@ -12,6 +12,7 @@ set(SRC_LIB
 
 include_directories(
     ../../../Shared/Ecs/Src/
+    ../../../Shared/Component/Entities/Player/
 )
 
 add_library(${LIB} STATIC ${SRC_LIB})

@@ -43,18 +43,20 @@ class ISystem {
 
 /**
  * @class ASystem
- * @brief A basic implementation of the ASystem interface.
+ * @brief A basic implementation of the ISystem interface.
  *
- * This class provides a basic implementation of the ASystem interface,
+ * This class provides a basic implementation of the ISystem interface,
  * firstly for the function getType() which returns the type of the component.
- * And so who is the same for all components.
+ * And secondly with the getFunction() which returns the system function.
  */
 class ASystem : public ISystem {
+
     public:
+
         /**
          * @brief Construct a new ASystem object.
          *
-         * @param type The type of the component.
+         * @param type The type of the system.
          */
         ASystem(std::string type) : _type(type) {}
 
@@ -64,15 +66,19 @@ class ASystem : public ISystem {
         ~ASystem() = default;
 
         /**
-         * @brief Get the type of the component.
+         * @brief Get the type of the system.
          *
-         * @return const std::string& The type of the component.
+         * @return const std::string& The type of the system.
          */
-        const std::string &getType() override
-        {
-            return _type;
-        }
+        const std::string &getType() override { return _type; }
+
+        /**
+         * @brief Get the Function of the System.
+         *
+         * @return std::function<void(Registry& reg)> System's function.
+         */
+        virtual std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction() = 0;
 
     private:
-        std::string _type; //< The type identifier for this component.
+        std::string _type; //< The type identifier for this system.
 };

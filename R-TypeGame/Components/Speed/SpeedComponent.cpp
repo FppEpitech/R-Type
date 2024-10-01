@@ -11,8 +11,3 @@ SpeedComponent::SpeedComponent(int speedX, int speedY) :
     speedX(speedX), speedY(speedY), AComponent("SpeedComponent")
 {
 }
-
-extern "C" IComponent* loadComponentInstance()
-{
-    return new SpeedComponent();
-}

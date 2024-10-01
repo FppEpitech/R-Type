@@ -48,8 +48,6 @@ GameEngine::Application::Application()
 {
     _registries = std::make_shared<std::vector<ECS::Registry>>();
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
-    _registries->at(SceneManager::RegisterIndex::CURRENT).register_component<IComponent>("PlayerComponent");
-    _registries->at(SceneManager::RegisterIndex::CURRENT).set_component<IComponent>(0, std::make_shared<PlayerComponent>(), "PlayerComponent");
 
     _server = std::make_shared<Network::Server>(4444, 4445);
     _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, ECS::Registry& reg) {

@@ -54,4 +54,11 @@ class GraphicLib : public IGraphic {
          *
          */
         void clear();
+
+        /**
+         * @brief Get the Key Input object.
+         *
+         * @return KEY_MAP The key pressed.
+         */
+        std::size_t getKeyInput();
 };

@@ -8,6 +8,6 @@ include_directories(
     ../Engine/Shared/Interface/
 )
 
-add_library(graphic_raylib SHARED GraphicLib.cpp)
+add_library(graphic_raylib SHARED Src/GraphicLib.cpp)
 
 target_link_libraries(graphic_raylib PRIVATE raylib)
