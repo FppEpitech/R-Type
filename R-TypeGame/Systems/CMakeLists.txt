@@ -14,4 +14,4 @@ add_library(system_initPlayer SHARED
     Players/PlayerInitSystem.cpp
     ../Components/Life/LifeComponent.cpp
     ../../Engine/Shared/Component/Position3DComponent.cpp
-    ../../Engine/Shared/Component/ObjPathComponent.cpp)
+        ../../Engine/Client/Src/Components/ObjPathComponent/ObjPathComponent.cpp)

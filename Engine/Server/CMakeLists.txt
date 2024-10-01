@@ -17,22 +17,22 @@ set(SRC_EXE
     ./${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
     ./${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
     ../Shared/SceneManager/ASceneManager.cpp
-    ../Shared/Component/FontPathComponent.cpp
-    ../Shared/Component/ObjPathComponent.cpp
-    ../Shared/Component/TexturePathComponent.cpp
-    ../Shared/Component/ScaleComponent.cpp
-    ../Shared/Component/ColourComponent.cpp
+        ../Client/Src/Components/FontPathComponent/FontPathComponent.cpp
+        ../Client/Src/Components/ObjPathComponent/ObjPathComponent.cpp
+        ../Client/Src/Components/TexturePathComponent/TexturePathComponent.cpp
+        ../Client/Src/Components/ScaleComponent/ScaleComponent.cpp
+        ../Client/Src/Components/ColourComponent/ColourComponent.cpp
     ../Shared/Component/Position3DComponent.cpp
     ../Shared/Component/Position2DComponent.cpp
-    ../Shared/Component/Size1DComponent.cpp
-    ../Shared/Component/TextComponent.cpp
-    ../Shared/Component/MaterialMapComponent.cpp
-    ../Shared/Component/MusicPathComponent.cpp
-    ../Shared/Component/MusicPitchComponent.cpp
-    ../Shared/Component/MusicVolumeComponent.cpp
-    ../Shared/Component/SoundPathComponent.cpp
-    ../Shared/Component/SoundPitchComponent.cpp
-    ../Shared/Component/SoundVolumeComponent.cpp
+        ../Client/Src/Components/Size1DComponent/Size1DComponent.cpp
+        ../Client/Src/Components/TextComponent/TextComponent.cpp
+        ../Client/Src/Components/MaterialMapComponent/MaterialMapComponent.cpp
+        ../Client/Src/Components/MusicPathComponent/MusicPathComponent.cpp
+        ../Client/Src/Components/MusicPitchComponent/MusicPitchComponent.cpp
+        ../Client/Src/Components/MusicVolumeComponent/MusicVolumeComponent.cpp
+        ../Client/Src/Components/SoundPathComponent/SoundPathComponent.cpp
+        ../Client/Src/Components/SoundPitchComponent/SoundPitchComponent.cpp
+        ../Client/Src/Components/SoundVolumeComponent/SoundVolumeComponent.cpp
 )
 
 include_directories(

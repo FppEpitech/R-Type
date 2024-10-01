@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "IComponent.hpp"
+#include "../../../../Shared/Interface/IComponent.hpp"
 
 #include <vector>
 

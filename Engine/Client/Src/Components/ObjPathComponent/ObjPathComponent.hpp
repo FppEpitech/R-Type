@@ -1,31 +1,31 @@
 /*
 ** EPITECH PROJECT, 2024
-** TexturePathComponent.hpp
+** ObjPathComponent.hpp
 ** File description:
 ** DESCRIPTION
 */
 
 #pragma once
 
-#include "IComponent.hpp"
+#include "../../../../Shared/Interface/IComponent.hpp"
 
 /**
- * @class TexturePathComponent
+ * @class ObjPathComponent
  * @brief Component for handling paths in the graphical engine.
  *
  * This component is used to store and manage one obj path for the graphical engine.
  *
  * @var Path The path to one file.
  */
-class TexturePathComponent : public AComponent {
+class ObjPathComponent : public AComponent {
     public:
 
         std::string path; //< The path to one file.
 
         /**
-         * @brief Construct a new TexturePathComponent object
+         * @brief Construct a new ObjPathComponent object
          *
          * @param Path Initial path to the font file (default is an empty string).
          */
-        TexturePathComponent(std::string Path = "");
+        ObjPathComponent(std::string Path = "");
 };
