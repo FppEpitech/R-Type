@@ -11,8 +11,9 @@ set(SRC_EXE
         Src/main.cpp
         Src/Application/Application.cpp
         Src/ClientSceneManager/ClientSceneManager.cpp
+        Src/GraphicalLibrary/GetGraphicalLibrary.cpp
         ../Shared/SceneManager/ASceneManager.cpp
-        ./Src/GraphicalLoad/GraphicalLoad.cpp
+        ../Shared/GraphicalLoad/GraphicalLoad.cpp
         ./Src/Component/FontPathComponent.cpp
         ./Src/Component/ObjPathComponent.cpp
         ./Src/Component/TexturePathComponent.cpp
@@ -35,8 +36,9 @@ include_directories(
         Src/Network
         Src/Application
         Src/ClientSceneManager
+        Src/GraphicalLibrary
         Src/Errors
-        Src/GraphicalLoad
+        ../Shared/GraphicalLoad
         Src/Component
         ../Shared/Ecs/Src
         ../Shared/Interface

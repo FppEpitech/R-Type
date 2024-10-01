@@ -8,7 +8,7 @@
 #include "Application.hpp"
 #include "../ClientSceneManager/ClientSceneManager.hpp"
 #include "IGraphic.hpp"
-#include "GraphicalLoad.hpp"
+#include "GetGraphicalLibrary.hpp"
 #include "ClientErrors.hpp"
 
 void Application::_packetHandler(Network::UDPPacket packet)

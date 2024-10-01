@@ -1,19 +1,15 @@
 /*
 ** EPITECH PROJECT, 2024
-** R-Type Client
+** R-Type
 ** File description:
-** GraphicalLoad
+** GetGraphicalLibrary.cpp
 */
 
-#include <memory>
-#include <string>
 #include <filesystem>
 
-#include "IGraphic.hpp"
+#include "GetGraphicalLibrary.hpp"
 #include "DLLoader.hpp"
-#include "GraphicalLoad.hpp"
-
-#define PATH_GRAPHIC_LIB "Engine/Client/Lib/Graphic/"
+#include "IGraphic.hpp"
 
 static std::string getPathGraphicalLib()
 {
@@ -25,8 +21,7 @@ static std::string getPathGraphicalLib()
 
         if (file.path().string().length() < prefix.size() + suffix.size())
             continue;
-        if (file.path().string().find(prefix) == 0 &&
-            file.path().string().find(suffix, file.path().string().length() - 4) != std::string::npos)
+        if (file.path().string().find(prefix) == 0 && file.path().string().find(suffix, file.path().string().length() - 4) != std::string::npos)
             return file.path().string();
     }
     return "";
@@ -36,10 +31,4 @@ std::shared_ptr<IGraphic> getGraphicalLibrary()
 {
     static std::shared_ptr<IGraphic> _libGraphic = DLLoader<IGraphic>::load(getPathGraphicalLib(), "loadGraphicInstance");
     return _libGraphic;
-}
-
-void loadGraphicalEcs::loadInRegister(ECS::Registry registry)
-{
-    for (auto& component : _components)
-        registry.register_component<IComponent>(component.get().getType());
 }
