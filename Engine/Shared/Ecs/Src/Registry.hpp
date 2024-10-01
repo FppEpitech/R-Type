@@ -98,6 +98,12 @@ class Registry {
         entity_t spawn_entity();
 
         /**
+         * @brief Get Entity vector
+         *
+         */
+        std::vector<entity_t> getEntities();
+
+        /**
          * @brief Get entity from index.
          * This function throw an error if Entity
          * index out of bounds.

@@ -20,6 +20,11 @@ entity_t Registry::spawn_entity() {
     return _next_entity++;
 }
 
+std::vector<entity_t> Registry::getEntities()
+{
+    return _entities;
+}
+
 entity_t Registry::entity_from_index(std::size_t idx) {
     if (idx < _entities.size())
         return _entities[idx];
