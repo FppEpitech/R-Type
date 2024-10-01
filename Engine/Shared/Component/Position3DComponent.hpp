@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../Interface/IComponent.hpp"
+#include "IComponent.hpp"
 
 /**
  * @class Position3DComponent

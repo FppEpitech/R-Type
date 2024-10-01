@@ -5,7 +5,7 @@
 ** DESCRIPTION
 */
 
-#include "../Interface/IComponent.hpp"
+#include "IComponent.hpp"
 
 /**
  * @class TextComponent
