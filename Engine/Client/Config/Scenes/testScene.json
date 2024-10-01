@@ -5,9 +5,8 @@
             "path" : ""
         }
     ],
+
     "entities": [
-        [
-        ]
     ],
     "systems": [
     ]
