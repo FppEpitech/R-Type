@@ -38,5 +38,5 @@ class ISystem {
          *
          * @return std::function<void(Registry& reg)> System's function.
          */
-        virtual std::function<void(ECS::Registry& reg)> getFunction() = 0;
+        virtual std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction() = 0;
 };

@@ -12,6 +12,8 @@
 #include "Registry.hpp"
 #include "NetworkClient.hpp"
 
+#define WINDOW_TITLE "From noware"
+
 /**
  * @brief Application class
  * It's the main class of the client application
