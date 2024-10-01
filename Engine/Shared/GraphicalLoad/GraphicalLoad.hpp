@@ -10,57 +10,38 @@
 #include <memory>
 #include <vector>
 
-#include "IGraphic.hpp"
-#include "Registry.hpp"
-#include "ColourComponent.hpp"
-#include "FontPathComponent.hpp"
-#include "MaterialMapComponent.hpp"
-#include "MusicPathComponent.hpp"
-#include "MusicPitchComponent.hpp"
-#include "MusicVolumeComponent.hpp"
-#include "ObjPathComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "Position3DComponent.hpp"
-#include "ScaleComponent.hpp"
-#include "Size1DComponent.hpp"
-#include "SoundPathComponent.hpp"
-#include "SoundPitchComponent.hpp"
-#include "SoundVolumeComponent.hpp"
-#include "TextComponent.hpp"
-#include "TexturePathComponent.hpp"
-
-#ifdef _WIN32
-    #define LIB_SUFFIX ".dll"
-#else
-    #define LIB_SUFFIX ".so"
-#endif
-
-/**
- * @brief Get the Graphical Library object.
- *
- * @return std::shared_ptr<IGraphic>
- */
-std::shared_ptr<IGraphic> getGraphicalLibrary();
+#include "../Ecs/Src/Registry.hpp"
+#include "../Interface/IGraphic.hpp"
+#include "../../Client/Src/Component/TextComponent.hpp"
+#include "../../Client/Src/Component/ScaleComponent.hpp"
+#include "../../Client/Src/Component/ColourComponent.hpp"
+#include "../../Client/Src/Component/Size1DComponent.hpp"
+#include "../../Client/Src/Component/ObjPathComponent.hpp"
+#include "../../Client/Src/Component/FontPathComponent.hpp"
+#include "../../Client/Src/Component/MusicPathComponent.hpp"
+#include "../../Client/Src/Component/SoundPathComponent.hpp"
+#include "../../Client/Src/Component/MusicPitchComponent.hpp"
+#include "../../Client/Src/Component/Position2DComponent.hpp"
+#include "../../Client/Src/Component/Position3DComponent.hpp"
+#include "../../Client/Src/Component/SoundPitchComponent.hpp"
+#include "../../Client/Src/Component/MaterialMapComponent.hpp"
+#include "../../Client/Src/Component/MusicVolumeComponent.hpp"
+#include "../../Client/Src/Component/SoundVolumeComponent.hpp"
+#include "../../Client/Src/Component/TexturePathComponent.hpp"
 
 /**
  * @brief This class aim to load graphical systems and components in a register.
  *
  */
-class loadGraphicalEcs {
+class LoadGraphicalEcs {
 
     public:
-
-        /**
-         * @brief Construct a new load Graphical Ecs object.
-         *
-         */
-        loadGraphicalEcs() = default;
 
         /**
          * @brief Destroy the load Graphical Ecs object.
          *
          */
-        ~loadGraphicalEcs() = default;
+        ~LoadGraphicalEcs() = default;
 
         /**
          * @brief Load all graphical systems and components int a register.
