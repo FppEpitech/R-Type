@@ -7,7 +7,7 @@
 
 #include "SpeedComponent.hpp"
 
-SpeedComponent::SpeedComponent(unsigned int speedX, unsigned int speedY) :
+SpeedComponent::SpeedComponent(int speedX, int speedY) :
     speedX(speedX), speedY(speedY), AComponent("SpeedComponent")
 {
 }

@@ -13,3 +13,6 @@ include_directories(
 )
 
 add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.cpp)
+add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)
+add_library(system_moveUp SHARED MoveSystem/MoveSystemUp/MoveSystemUp.cpp)
+add_library(system_moveDown SHARED MoveSystem/MoveSystemDown/MoveSystemDown.cpp)

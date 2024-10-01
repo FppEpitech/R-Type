@@ -27,9 +27,14 @@ void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const as
     if (packet.getMessageType() == static_cast<uint8_t>(MessageType::ArrowKey)) {
         // TODO: ArrowKey Handler
     } else if (packet.getMessageType() == static_cast<uint8_t>(MessageType::AlphaKey)) {
-        if (packet.getPayload()[0] == static_cast<uint8_t>(0x04)) {
+        if (packet.getPayload()[0] == static_cast<uint8_t>(0x04))
             _sceneManager->processInput(KEY_D, idxPlayerPacket);
-        }
+        if (packet.getPayload()[0] == static_cast<uint8_t>(0x11))
+            _sceneManager->processInput(KEY_Q, idxPlayerPacket);
+        if (packet.getPayload()[0] == static_cast<uint8_t>(0x1A))
+            _sceneManager->processInput(KEY_Z, idxPlayerPacket);
+        if (packet.getPayload()[0] == static_cast<uint8_t>(0x13))
+            _sceneManager->processInput(KEY_S, idxPlayerPacket);
     } else if (packet.getMessageType() == static_cast<uint8_t>(MessageType::NumberKey)) {
         // TODO: NumberKey Handler
     } else if (packet.getMessageType() == static_cast<uint8_t>(MessageType::SpecialKey)) {

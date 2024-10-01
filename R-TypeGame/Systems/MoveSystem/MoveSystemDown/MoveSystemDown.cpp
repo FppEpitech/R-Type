@@ -2,24 +2,24 @@
 ** EPITECH PROJECT, 2024
 ** R-Type Server
 ** File description:
-** MoveSystemRight
+** MoveSystemDown
 */
 
-#include "MoveSystemRight.hpp"
+#include "MoveSystemDown.hpp"
 
-MoveSystemRight::MoveSystemRight(void) :
-    ASystem("MovementRightSystem")
+MoveSystemDown::MoveSystemDown(void) :
+    ASystem("MovementUpSystem")
 {
 }
 
-std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemRight::getFunction(void)
+std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemDown::getFunction(void)
 {
     return [this](ECS::Registry& reg, int idxPacketEntities) {
-        updateRightPosition(reg, idxPacketEntities);
+        updateDownPosition(reg, idxPacketEntities);
     };
 }
 
-void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxPacketEntities)
+void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPacketEntities)
 {
     ECS::SparseArray<IComponent> PositionComponentArray = entityManager.get_components<IComponent>("Position2DComponent");
     ECS::SparseArray<IComponent> SpeedComponentArray = entityManager.get_components<IComponent>("SpeedComponent");
@@ -27,10 +27,10 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
     Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
     SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
 
-    position->x += speed->speedX;
+    position->y += speed->speedY;
 }
 
 extern "C" ISystem* loadSystemInstance()
 {
-    return new MoveSystemRight();
+    return new MoveSystemDown();
 }

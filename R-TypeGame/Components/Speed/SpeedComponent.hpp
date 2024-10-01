@@ -17,8 +17,8 @@ class SpeedComponent : public AComponent {
 
     public:
 
-        unsigned int speedX;  // Speed X.
-        unsigned int speedY;  // Speed Y.
+        int speedX;  // Speed X.
+        int speedY;  // Speed Y.
 
         /**
          * @brief Construct a new Speed Component object.
@@ -26,5 +26,5 @@ class SpeedComponent : public AComponent {
          * @param speedX Speed X.
          * @param speedY speed Y.
          */
-        SpeedComponent(unsigned int speedX = 1, unsigned int speedY = 1);
+        SpeedComponent(int speedX = 1, int speedY = 1);
 };

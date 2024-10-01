@@ -63,6 +63,7 @@ void Network::Server::_startAccept(ECS::Registry& reg)
             } else {
                 _clients[token] = asio::ip::udp::endpoint();
                 std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::endl;
+                std::cout << std::dec;
 
                 _startRead(socket, token);
                 asio::write(*socket, asio::buffer(&token, sizeof(token)));
