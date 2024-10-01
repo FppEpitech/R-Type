@@ -17,6 +17,7 @@ set(SRC_EXE
     ./${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
     ./${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
     ../Shared/SceneManager/ASceneManager.cpp
+    ../Shared/Component/Entities/Player/PlayerComponent.cpp
 )
 
 include_directories(
@@ -28,6 +29,7 @@ include_directories(
         ../Shared/Interface
         ../Shared/SceneManager
         ../Shared/Network/Packet
+        ../Shared/Component/Entities/Player/
 )
 
 add_subdirectory(Src/Network)

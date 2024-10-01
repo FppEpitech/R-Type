@@ -21,3 +21,5 @@ add_library(component_life SHARED Life/LifeComponent.cpp)
 add_library(component_gravity SHARED Gravity/GravityComponent.cpp)
 
 add_library(component_drawable SHARED Drawable/DrawableComponent.cpp)
+
+add_library(component_speed SHARED Speed/SpeedComponent.cpp)

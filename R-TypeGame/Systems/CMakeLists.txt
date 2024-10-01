@@ -8,6 +8,8 @@ include_directories(
         ../../Engine/Shared/Ecs/Include/
         ../../Engine/Shared/Interface/
         ../Components/Position/
+        ../Components/Speed/
+        ../../Engine/Shared/Component/Entities/Player/
 )
 
 add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.cpp)

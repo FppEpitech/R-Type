@@ -12,10 +12,23 @@ set(SRC_EXE
         Src/Application/Application.cpp
         Src/ClientSceneManager/ClientSceneManager.cpp
         ../Shared/SceneManager/ASceneManager.cpp
-        ./Src/Component/FontComponent.cpp
+        ./Src/GraphicalLoad/GraphicalLoad.cpp
+        ./Src/Component/FontPathComponent.cpp
+        ./Src/Component/ObjPathComponent.cpp
+        ./Src/Component/TexturePathComponent.cpp
+        ./Src/Component/ScaleComponent.cpp
+        ./Src/Component/ColourComponent.cpp
+        ./Src/Component/Position3DComponent.cpp
         ./Src/Component/Position2DComponent.cpp
         ./Src/Component/Size1DComponent.cpp
         ./Src/Component/TextComponent.cpp
+        ./Src/Component/MaterialMapComponent.cpp
+        ./Src/Component/MusicPathComponent.cpp
+        ./Src/Component/MusicPitchComponent.cpp
+        ./Src/Component/MusicVolumeComponent.cpp
+        ./Src/Component/SoundPathComponent.cpp
+        ./Src/Component/SoundPitchComponent.cpp
+        ./Src/Component/SoundVolumeComponent.cpp
 )
 
 include_directories(
@@ -23,10 +36,12 @@ include_directories(
         Src/Application
         Src/ClientSceneManager
         Src/Errors
+        Src/GraphicalLoad
         Src/Component
         ../Shared/Ecs/Src
         ../Shared/Interface
         ../Shared/SceneManager
+        ../Shared/DLLoader
 )
 
 add_subdirectory(Src/Network)

@@ -8,6 +8,8 @@
 #include <iostream>
 
 #include "ISystem.hpp"
+#include "SpeedComponent.hpp"
+#include "Position2DComponent.hpp"
 
 class MoveSystemRight : public ASystem
 {
@@ -24,12 +26,12 @@ class MoveSystemRight : public ASystem
          *
          * @return std::function<void(ECS::Registry& reg)> the function.
          */
-        std::function<void(ECS::Registry& reg)> getFunction(void);
+        std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction(void);
 
         /**
          * @brief Function who gonna to update the position at right.
          *
          * @param entityManager Class with all entities and component.
          */
-        void updateRightPosition(ECS::Registry& entityManager);
+        void updateRightPosition(ECS::Registry& entityManager, int idxPacketEntities);
 };

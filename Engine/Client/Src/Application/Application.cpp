@@ -7,12 +7,14 @@
 
 #include "Application.hpp"
 #include "../ClientSceneManager/ClientSceneManager.hpp"
+#include "IGraphic.hpp"
+#include "GraphicalLoad.hpp"
+#include "ClientErrors.hpp"
 
 void Application::_packetHandler(Network::UDPPacket packet)
 {
     std::cout << "Messages received from server: [...]" << std::endl;
 }
-
 
 Application::Application()
 {
@@ -27,10 +29,57 @@ Application::Application()
 
 void Application::run()
 {
-    // Main loop
-    while (true) {
-        // Update the network
-        // Update the current scene
-        // Render the current scene
+
+
+
+
+
+    uint16_t messageID = 0x0001;
+    uint32_t token = 0x00000000;
+    uint32_t payloadLength = 1;
+
+    std::vector<uint8_t> packet;
+
+    packet.push_back(0x01);
+    packet.push_back(0x02);
+
+    packet.push_back(static_cast<uint8_t>(messageID >> 8));
+    packet.push_back(static_cast<uint8_t>(messageID & 0xFF));
+
+    packet.push_back(static_cast<uint8_t>(token >> 24));
+    packet.push_back(static_cast<uint8_t>(token >> 16));
+    packet.push_back(static_cast<uint8_t>(token >> 8));
+    packet.push_back(static_cast<uint8_t>(token & 0xFF));
+
+    packet.push_back(static_cast<uint8_t>(payloadLength >> 24));
+    packet.push_back(static_cast<uint8_t>(payloadLength >> 16));
+    packet.push_back(static_cast<uint8_t>(payloadLength >> 8));
+    packet.push_back(static_cast<uint8_t>(payloadLength & 0xFF));
+
+    packet.push_back(0x04);
+
+    uint16_t checksum = 0;
+    for (const auto& byte : packet) {
+        checksum += byte;
+    }
+
+    packet.push_back(static_cast<uint8_t>(checksum >> 8));
+    packet.push_back(static_cast<uint8_t>(checksum & 0xFF));
+
+
+
+
+
+
+
+    this->_client->sendMessage(packet);
+    this->_client->sendMessage(packet);
+    std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
+    if (!libGraphic)
+        throw ClientError("Failed to load graphic library");
+    libGraphic->init(WINDOW_TITLE);
+
+    while (libGraphic->windowIsOpen()) {
+        libGraphic->clear();
     }
 }
