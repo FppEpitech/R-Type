@@ -13,7 +13,8 @@ extern "C" IGraphic* loadGraphicInstance() {
 
 GraphicLib::~GraphicLib()
 {
-    CloseWindow();
+    if (!WindowShouldClose())
+        CloseWindow();
 }
 
 void GraphicLib::init(const std::string &windowName)
