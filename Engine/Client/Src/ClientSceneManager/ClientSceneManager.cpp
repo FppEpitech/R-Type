@@ -23,8 +23,3 @@ std::string SceneManager::ClientSceneManager::_getSystemLibPath() const {
 std::string SceneManager::ClientSceneManager::_getScenesPath() const {
     return SCENE_PATH;
 }
-
-void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::size_t index)
-{
-    ASceneManager::_loadScene(path, index);
-}
