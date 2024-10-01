@@ -205,8 +205,8 @@ For more information on how add mod and pluggin, please refer to the [SlimWiki](
 First, download the repository from GitHub, then compile it with:
 ```
 git clone git@github.com:FppEpitech/R-Type.git
-cmake -B build
-cmake --build build/
+chmod +x ./tools/build.sh
+./tools/build.sh
 ```
 Then to run the server:
 ```
@@ -220,8 +220,7 @@ And the client:
 First, download the repository from Github, then compile it with:
 ```
 git clone git@github.com:FppEpitech/R-Type.git
-cmake -B build
-cmake --build build/
+./tools/build.sh
 ```
 Then, go to the **build/tests/** folder and run:
 ```
