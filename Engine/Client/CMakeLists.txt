@@ -5,6 +5,10 @@ set(EXE r-type_client)
 set(EXE_SRC_PATH "Src")
 set(EXE_INCLUDE_PATH "Include")
 
+set(COMPONENT_SRC_FILE ./Src/Components/ShaderComponent/ShaderPathComponent.cpp)
+
+set(COMPONENT_INCLUDE_DIR ./Include/Components/ShaderComponent)
+
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_EXE
@@ -29,6 +33,7 @@ set(SRC_EXE
         ../Shared/Component/SoundPathComponent.cpp
         ../Shared/Component/SoundPitchComponent.cpp
         ../Shared/Component/SoundVolumeComponent.cpp
+        ${COMPONENT_SRC_FILE}
 )
 
 include_directories(
@@ -43,6 +48,7 @@ include_directories(
         ../Shared/Interface
         ../Shared/SceneManager
         ../Shared/DLLoader
+        ${COMPONENT_INCLUDE_DIR}
 )
 
 add_subdirectory(Src/Network)
