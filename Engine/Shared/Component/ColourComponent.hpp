@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "IComponent.hpp"
+#include "../Interface/IComponent.hpp"
 
 /**
  * @class ColourComponent
@@ -37,5 +37,5 @@ class ColourComponent : public AComponent {
          * @param b Initial blue component of the color.
          * @param a Initial alpha (transparency) component of the color.
          */
-        ColourComponent(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+        ColourComponent(unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255);
 };
