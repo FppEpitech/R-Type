@@ -1,13 +1,8 @@
-name: cmake
+name: Windows
 on: [check_run, pull_request]
 jobs:
-  cmake-build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
+  cmake-build-windows:
+    runs-on: windows-latest
 
     steps:
       - name: Checkout project
@@ -19,13 +14,7 @@ jobs:
           path: vcpkg
           key: vcpkg-cache-${{ runner.os }}
 
-      - name: Apt install for Ubuntu
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config
-
       - name: Install dependencies on Windows (vcpkg)
-        if: matrix.os == 'windows-latest'
         shell: pwsh
         run: |
           if (-Not (Test-Path "vcpkg")) {
@@ -34,16 +23,7 @@ jobs:
           }
           .\vcpkg\vcpkg install
 
-      - name: Install dependencies on Ubuntu (vcpkg)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          if [ ! -d "vcpkg" ]; then
-            git clone https://github.com/microsoft/vcpkg.git
-            ./vcpkg/bootstrap-vcpkg.sh  
-          fi
-          ./vcpkg/vcpkg install
-
-      - name: Build project (Windows or Ubuntu)
+      - name: Build project
         run: |
           cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
           cmake --build build/ --config Debug
