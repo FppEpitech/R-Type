@@ -12,6 +12,7 @@ set(SRC_EXE
         Src/Application/Application.cpp
         Src/ClientSceneManager/ClientSceneManager.cpp
         Src/GraphicalLibrary/GetGraphicalLibrary.cpp
+
         ../Shared/SceneManager/ASceneManager.cpp
         ../Shared/Component/FontPathComponent.cpp
         ../Shared/Component/ObjPathComponent.cpp
@@ -29,6 +30,8 @@ set(SRC_EXE
         ../Shared/Component/SoundPathComponent.cpp
         ../Shared/Component/SoundPitchComponent.cpp
         ../Shared/Component/SoundVolumeComponent.cpp
+
+        Src/Systems/DrawOBJ/DrawOBJSystem.cpp
 )
 
 include_directories(
@@ -37,6 +40,7 @@ include_directories(
         Src/ClientSceneManager
         Src/GraphicalLibrary
         Src/Errors
+        Src/Systems
         ../Shared/GraphicalLoad
         ../Shared/Component
         ../Shared/Ecs/Src
