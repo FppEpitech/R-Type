@@ -7,11 +7,11 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Engine/Client/Lib/System
 include_directories(
         ../../Engine/Shared/Ecs/Include/
         ../../Engine/Shared/Interface/
-        ../../Engine/Client/Src/Component/
+        ../../Engine/Shared/Component/
 )
 
 add_library(system_initPlayer SHARED
     Players/PlayerInitSystem.cpp
     ../Components/Life/LifeComponent.cpp
-    ../../Engine/Client/Src/Component/Position3DComponent.cpp
-    ../../Engine/Client/Src/Component/ObjPathComponent.cpp)
+    ../../Engine/Shared/Component/Position3DComponent.cpp
+    ../../Engine/Shared/Component/ObjPathComponent.cpp)
