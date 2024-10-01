@@ -50,4 +50,25 @@ class IGraphic {
          * @return int The key pressed.
          */
         virtual std::size_t getKeyInput() = 0;
+
+        /**
+         * @brief Draw an OBJ model on the screen.
+         *
+         * @param objPath Path to the OBJ Model to draw.
+         */
+        virtual void drawOBJ(std::string objPath, float posx, float posy, float posz, float scale) = 0;
+
+        /**
+         * @brief Start to draw on the window.
+         * Must be call at the begin of the Game loop.
+         *
+         */
+        virtual void startDraw() = 0;
+
+        /**
+         * @brief End to draw on the window.
+         * Must be call at the end of the Game loop.
+         *
+         */
+        virtual void endDraw() = 0;
 };
