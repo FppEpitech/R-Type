@@ -7,6 +7,7 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Engine/Client/Lib/System
 include_directories(
         ../../Engine/Shared/Ecs/Include/
         ../../Engine/Shared/Interface/
+        ../../Engine/Client/Src/Component/
 )
 
 add_library(system_initPlayer SHARED

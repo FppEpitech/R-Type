@@ -7,8 +7,8 @@
 
 #include "PlayerInitSystem.hpp"
 #include "../../Components/Life/LifeComponent.hpp"
-#include "../../../Engine/Client/Src/Component/Position3DComponent.hpp"
-#include "../../../Engine/Client/Src/Component/ObjPathComponent.hpp"
+#include "Position3DComponent.hpp"
+#include "ObjPathComponent.hpp"
 
 PlayerInitSystem::PlayerInitSystem() :
     ASystem("PlayerInitSystem")

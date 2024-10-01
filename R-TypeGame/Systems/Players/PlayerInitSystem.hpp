@@ -5,8 +5,9 @@
 ** PlayerInitSystem
 */
 
-#include "ISystem.hpp"
 #include <iostream>
+
+#include "ISystem.hpp"
 
 /**
  * @brief Initialize a player entity.
