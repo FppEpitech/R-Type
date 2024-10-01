@@ -22,11 +22,15 @@ void GraphicLib::init(const std::string &windowName)
     InitWindow(1920, 1080, windowName.c_str());
     SetTargetFPS(140);
 
-    _camera.position = (Vector3){ 0.0f, 0.0f, -10.0f };    // Camera position
-    _camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };      // Camera looking at point
-    _camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
-    _camera.fovy = 45.0f;                                // Camera field-of-view Y
-    _camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
+    Vector3 position = {0.0f, 0.0f, -10.0f};
+    Vector3 target = {0.0f, 0.0f, 0.0f};
+    Vector3 up = {0.0f, 1.0f, 0.0f};
+
+    _camera.position = position;                        // Camera position
+    _camera.target = target;                            // Camera looking at point
+    _camera.up = up;                                    // Camera up vector (rotation towards target)
+    _camera.fovy = 45.0f;                               // Camera field-of-view Y
+    _camera.projection = CAMERA_PERSPECTIVE;            // Camera projection type
 }
 
 bool GraphicLib::windowIsOpen()
