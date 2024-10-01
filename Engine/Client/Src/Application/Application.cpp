@@ -35,7 +35,9 @@ void Application::run()
     libGraphic->init(WINDOW_TITLE);
 
     while (libGraphic->windowIsOpen()) {
+        libGraphic->startDraw();
         libGraphic->clear();
         _registries->at(SceneManager::RegisterIndex::CURRENT).run_systems(-1);
+        libGraphic->endDraw();
     }
 }
