@@ -10,7 +10,6 @@
 
 #include "ASceneManager.hpp"
 #include "../DLLoader/DLLoader.hpp"
-#include "../GraphicalLoad/GraphicalLoad.hpp"
 
 SceneManager::ASceneManager::ASceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries)
 {
@@ -45,7 +44,7 @@ void SceneManager::ASceneManager::_loadScene(const std::string &path, std::size_
 
     if (!reader.parse(file, root, false))
         throw SceneManagerErrors("Error while parsing the scene file: " + path);
-    LoadGraphicalEcs::loadInRegister(_registries->at(index));
+    _loadInRegister(_registries->at(index));
     _loadSceneEntities(root, index);
     _loadSceneSystems(root, index);
     _loadSceneKeys(root, index);
@@ -147,4 +146,10 @@ void SceneManager::ASceneManager::_changeScene(std::pair<std::size_t, std::strin
 
     _nextIndex = NEXT;
     _loadScene(scene.second, CURRENT);
+}
+
+void SceneManager::ASceneManager::_loadInRegister(ECS::Registry registry)
+{
+    for (auto& component : _components)
+        registry.register_component<IComponent>(component.get().getType());
 }
