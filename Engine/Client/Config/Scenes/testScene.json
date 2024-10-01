@@ -1,0 +1,12 @@
+{
+    "keyBinds": [
+        {
+            "key": "KEY_COMMA",
+            "path" : ""
+        }
+    ],
+    "entities": [
+    ],
+    "systems": [
+    ]
+}
