@@ -5,6 +5,8 @@
 ** DrawOBJSystem
 */
 
+#pragma once
+
 #include <iostream>
 
 #include "ISystem.hpp"
