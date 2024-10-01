@@ -8,13 +8,32 @@
 #include "ISystem.hpp"
 #include <iostream>
 
+/**
+ * @brief Initialize a player entity.
+ * Set life, position and asset path.
+ *
+ */
 class PlayerInitSystem : public ASystem {
 
     public:
 
+        /**
+         * @brief Construct a new Player Init System object.
+         *
+         */
         PlayerInitSystem();
+
+        /**
+         * @brief Destroy the Player Init System object.
+         *
+         */
         ~PlayerInitSystem() = default;
 
+        /**
+         * @brief Get the Function object.
+         *
+         * @return std::function<void(ECS::Registry& reg, int idxPacketEntities)>
+         */
         std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction()
         {
             return [this](ECS::Registry& reg, int idxPacketEntities) {
@@ -24,5 +43,5 @@ class PlayerInitSystem : public ASystem {
 
     private:
 
-        void _initPlayer(ECS::Registry& reg, int idxPacketEntities);
+        void _initPlayer(ECS::Registry& reg, int idxPacketEntities); //< Function to init the player.
 };

@@ -9,10 +9,11 @@
             "path" : ""
         }
     ],
+
     "entities": [
-        [
-        ]
+        "libsystem_initPlayer.so"
     ],
+
     "systems": [
     ]
 }
