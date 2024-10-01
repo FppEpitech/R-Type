@@ -56,6 +56,16 @@ class IGraphic {
          *
          * @param objPath Path to the OBJ Model to draw.
          */
+
+        /**
+         * @brief Draw an OBJ model on the screen.
+         *
+         * @param objPath Path to the OBJ Model to draw.
+         * @param posx Position x
+         * @param posy Position y
+         * @param posz Position z
+         * @param scale Scale.
+         */
         virtual void drawOBJ(std::string objPath, float posx, float posy, float posz, float scale) = 0;
 
         /**
