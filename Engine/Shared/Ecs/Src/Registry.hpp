@@ -117,7 +117,7 @@ class Registry {
          * @brief Kill an entity of the register.
          *  The index is placed in the dead entities list.
          *
-         * @param entity Enity to kill.
+         * @param entity Entity to kill.
          */
         void kill_entity(entity_t const& entity);
 
@@ -127,6 +127,7 @@ class Registry {
          * @tparam Component type to set.
          * @param entity Entity.
          * @param component Component to set.
+         * @param typeIdx Type index of the component.
          * @return SparseArray<Component>::reference_type Reference of the component.
          */
         template <typename Component>
@@ -171,6 +172,21 @@ class Registry {
         void run_systems(int idxPacketEntities);
 
         using remove_func_t = std::function<void(Registry&, entity_t const&)>;
+
+        /**
+         * @brief Clone the components array of a registry.
+         *
+         * @param registry Registry to clone.
+         */
+        void cloneComponentsArray(Registry &registry);
+
+        /**
+         * @brief Set the components arrays.
+         *
+         * @param componentsArrays Components arrays to set.
+         * @param removeFunctions Remove functions to set.
+         */
+        void setComponentsArrays(std::unordered_map<std::string, std::any> componentsArrays, std::unordered_map<std::string, remove_func_t> removeFunctions);
 
     private:
 
