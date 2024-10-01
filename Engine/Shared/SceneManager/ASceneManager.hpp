@@ -191,6 +191,6 @@ namespace SceneManager {
              * @brief Load the graphical components in a register.
              * @param registry Register to fill with components.
              */
-            void _loadInRegister(ECS::Registry registry);
+            void _loadGraphicComponentsInRegister(ECS::Registry registry);
     };
 }

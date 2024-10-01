@@ -44,7 +44,7 @@ void SceneManager::ASceneManager::_loadScene(const std::string &path, std::size_
 
     if (!reader.parse(file, root, false))
         throw SceneManagerErrors("Error while parsing the scene file: " + path);
-    _loadInRegister(_registries->at(index));
+    _loadGraphicComponentsInRegister(_registries->at(index));
     _loadSceneEntities(root, index);
     _loadSceneSystems(root, index);
     _loadSceneKeys(root, index);
@@ -148,7 +148,7 @@ void SceneManager::ASceneManager::_changeScene(std::pair<std::size_t, std::strin
     _loadScene(scene.second, CURRENT);
 }
 
-void SceneManager::ASceneManager::_loadInRegister(ECS::Registry registry)
+void SceneManager::ASceneManager::_loadGraphicComponentsInRegister(ECS::Registry registry)
 {
     for (auto& component : _components)
         registry.register_component<IComponent>(component.get().getType());
