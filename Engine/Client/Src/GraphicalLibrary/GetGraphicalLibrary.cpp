@@ -7,10 +7,10 @@
 
 #include <filesystem>
 
-#include "GetGraphicalLibrary.hpp"
 #include "DLLoader.hpp"
 #include "IGraphic.hpp"
 #include "ClientErrors.hpp"
+#include "GetGraphicalLibrary.hpp"
 
 static std::string getPathGraphicalLib()
 {

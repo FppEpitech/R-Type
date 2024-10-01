@@ -5,11 +5,11 @@
 ** App
 */
 
-#include "Application.hpp"
-#include "../ClientSceneManager/ClientSceneManager.hpp"
 #include "IGraphic.hpp"
-#include "GetGraphicalLibrary.hpp"
+#include "Application.hpp"
 #include "ClientErrors.hpp"
+#include "ClientSceneManager.hpp"
+#include "GetGraphicalLibrary.hpp"
 
 void Application::_packetHandler(Network::UDPPacket packet)
 {
