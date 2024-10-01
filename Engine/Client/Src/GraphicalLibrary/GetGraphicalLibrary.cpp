@@ -10,6 +10,7 @@
 #include "GetGraphicalLibrary.hpp"
 #include "DLLoader.hpp"
 #include "IGraphic.hpp"
+#include "ClientErrors.hpp"
 
 static std::string getPathGraphicalLib()
 {
@@ -30,5 +31,7 @@ static std::string getPathGraphicalLib()
 std::shared_ptr<IGraphic> getGraphicalLibrary()
 {
     static std::shared_ptr<IGraphic> _libGraphic = DLLoader<IGraphic>::load(getPathGraphicalLib(), "loadGraphicInstance");
+    if (!_libGraphic)
+        throw ClientError("Failed to load graphic library");
     return _libGraphic;
 }
