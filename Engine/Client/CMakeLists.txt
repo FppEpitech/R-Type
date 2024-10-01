@@ -13,23 +13,22 @@ set(SRC_EXE
         Src/ClientSceneManager/ClientSceneManager.cpp
         Src/GraphicalLibrary/GetGraphicalLibrary.cpp
         ../Shared/SceneManager/ASceneManager.cpp
-        ../Shared/GraphicalLoad/GraphicalLoad.cpp
-        ./Src/Component/FontPathComponent.cpp
-        ./Src/Component/ObjPathComponent.cpp
-        ./Src/Component/TexturePathComponent.cpp
-        ./Src/Component/ScaleComponent.cpp
-        ./Src/Component/ColourComponent.cpp
-        ./Src/Component/Position3DComponent.cpp
-        ./Src/Component/Position2DComponent.cpp
-        ./Src/Component/Size1DComponent.cpp
-        ./Src/Component/TextComponent.cpp
-        ./Src/Component/MaterialMapComponent.cpp
-        ./Src/Component/MusicPathComponent.cpp
-        ./Src/Component/MusicPitchComponent.cpp
-        ./Src/Component/MusicVolumeComponent.cpp
-        ./Src/Component/SoundPathComponent.cpp
-        ./Src/Component/SoundPitchComponent.cpp
-        ./Src/Component/SoundVolumeComponent.cpp
+        ../Shared/Component/FontPathComponent.cpp
+        ../Shared/Component/ObjPathComponent.cpp
+        ../Shared/Component/TexturePathComponent.cpp
+        ../Shared/Component/ScaleComponent.cpp
+        ../Shared/Component/ColourComponent.cpp
+        ../Shared/Component/Position3DComponent.cpp
+        ../Shared/Component/Position2DComponent.cpp
+        ../Shared/Component/Size1DComponent.cpp
+        ../Shared/Component/TextComponent.cpp
+        ../Shared/Component/MaterialMapComponent.cpp
+        ../Shared/Component/MusicPathComponent.cpp
+        ../Shared/Component/MusicPitchComponent.cpp
+        ../Shared/Component/MusicVolumeComponent.cpp
+        ../Shared/Component/SoundPathComponent.cpp
+        ../Shared/Component/SoundPitchComponent.cpp
+        ../Shared/Component/SoundVolumeComponent.cpp
 )
 
 include_directories(
@@ -39,7 +38,7 @@ include_directories(
         Src/GraphicalLibrary
         Src/Errors
         ../Shared/GraphicalLoad
-        Src/Component
+        ../Shared/Component
         ../Shared/Ecs/Src
         ../Shared/Interface
         ../Shared/SceneManager
