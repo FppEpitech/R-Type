@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(EXE r-type_client)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/Game)
 
 set(EXE_SRC_PATH "Src")
 set(EXE_INCLUDE_PATH "Include")
@@ -68,4 +69,14 @@ target_link_libraries(
     raylib
     r-type_ecs
     r-type_network_client
+)
+
+add_custom_command(TARGET ${EXE} PRE_BUILD
+        COMMAND mkdir ${CMAKE_SOURCE_DIR}/Game/GameData
+)
+
+add_custom_command(TARGET ${EXE}
+        POST_BUILD
+        COMMAND mkdir -p ${CMAKE_SOURCE_DIR}/Game/GameData
+        COMMAND cp -r ${CMAKE_SOURCE_DIR}/Engine/Server/Config/* ${CMAKE_SOURCE_DIR}/Game/GameData
 )

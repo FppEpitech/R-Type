@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(EXE r-type_server)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/Game)
 
 set(EXE_SRC_PATH "Src")
 set(EXE_INCLUDE_PATH
@@ -62,4 +63,10 @@ target_link_libraries(
     JsonCpp::JsonCpp
     r-type_ecs
     r-type_network_server
+)
+
+add_custom_command(TARGET ${EXE} POST_BUILD
+        COMMAND mkdir -p ${CMAKE_SOURCE_DIR}/Game/GameData
+        COMMAND cp -r ${CMAKE_SOURCE_DIR}/Engine/Server/Config/* ${CMAKE_SOURCE_DIR}/Game/GameData
+        COMMAND mkdir -p ${CMAKE_SOURCE_DIR}/Game/Mods
 )
