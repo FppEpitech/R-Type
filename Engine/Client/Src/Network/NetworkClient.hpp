@@ -13,6 +13,15 @@
 #include <iostream>
 
 #include "NetworkPacket.hpp"
+#include "PlayerComponent.hpp"
+
+#include "IGraphic.hpp"
+#include "ClientErrors.hpp"
+#include "GetGraphicalLibrary.hpp"
+#include "Registry.hpp"
+#include "ClientSceneManager.hpp"
+#include "DrawOBJ/DrawOBJSystem.hpp"
+#include "DrawTexture/DrawTextureSystem.hpp"
 
 /**
  * @namespace Network
@@ -54,6 +63,20 @@ class Network::Client
          * @param packet PAcket to send to the server.
          */
         void sendMessage(std::vector<uint8_t>& packet);
+
+        /**
+         * @brief Get the Token object
+         *
+         * @return uint32_t Token of client.
+         */
+        uint32_t getToken();
+
+        /**
+         * @brief Function who send the packet to server.
+         *
+         * @param key Key entered and sended to the server.
+         */
+        void sendKeyPacket(KEY_MAP key);
 
     private:
 

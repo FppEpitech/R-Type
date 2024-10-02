@@ -69,3 +69,13 @@ void Network::Client::_startReceive()
             _startReceive();
         });
 }
+
+uint32_t Network::Client::getToken()
+{
+    return this->_token;
+}
+
+void Network::Client::sendKeyPacket(KEY_MAP key)
+{
+    return;
+}
