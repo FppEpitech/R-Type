@@ -17,7 +17,6 @@ SceneManager::ASceneManager::ASceneManager(std::shared_ptr<std::vector<ECS::Regi
     _nextIndex = SceneManager::RegisterIndex::NEXT;
 
     _initialiseDefaultComponents();
-
     for (std::size_t i = CURRENT; i < NEXT; i++) {
         _registries->push_back(ECS::Registry());
         _registries->at(i).cloneComponentsArray(_defaultRegistry);
@@ -48,11 +47,8 @@ void SceneManager::ASceneManager::_loadScene(const std::string &path, std::size_
     if (!reader.parse(file, root, false))
         throw SceneManagerErrors("Error while parsing the scene file: " + path);
     _loadSceneEntities(root, index);
-    std::cout << _registries->at(SceneManager::RegisterIndex::CURRENT)._components_arrays.size() << std::endl;
     _loadSceneSystems(root, index);
-    std::cout << _registries->at(SceneManager::RegisterIndex::CURRENT)._components_arrays.size() << std::endl;
     _loadSceneKeys(root, index);
-    std::cout << _registries->at(SceneManager::RegisterIndex::CURRENT)._components_arrays.size() << std::endl;
 }
 
 void SceneManager::ASceneManager::_loadNextScenes(const std::string &path, std::size_t index)
