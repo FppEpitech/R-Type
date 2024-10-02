@@ -7,7 +7,6 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Engine/Client/Lib/System
 include_directories(
         ../../Engine/Shared/Ecs/Include/
         ../../Engine/Shared/Interface/
-        ../Components/Position/
         ../Components/Speed/
         ../../Engine/Shared/Component/Entities/Player/
         ../../Engine/Shared/Component/

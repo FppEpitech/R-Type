@@ -31,8 +31,9 @@ void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const as
             _sceneManager->processInput(KEY_D, idxPlayerPacket);
         if (packet.getPayload()[0] == static_cast<uint8_t>(0x11))
             _sceneManager->processInput(KEY_Q, idxPlayerPacket);
-        if (packet.getPayload()[0] == static_cast<uint8_t>(0x1A))
+        if (packet.getPayload()[0] == static_cast<uint8_t>(0x1A)) {
             _sceneManager->processInput(KEY_Z, idxPlayerPacket);
+        }
         if (packet.getPayload()[0] == static_cast<uint8_t>(0x13))
             _sceneManager->processInput(KEY_S, idxPlayerPacket);
     } else if (packet.getMessageType() == static_cast<uint8_t>(MessageType::NumberKey)) {

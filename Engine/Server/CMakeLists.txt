@@ -17,6 +17,24 @@ set(SRC_EXE
     ./${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
     ./${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
     ../Shared/SceneManager/ASceneManager.cpp
+
+    ../Shared/SceneManager/ASceneManager.cpp
+    ../Shared/Component/FontPathComponent.cpp
+    ../Shared/Component/ObjPathComponent.cpp
+    ../Shared/Component/TexturePathComponent.cpp
+    ../Shared/Component/ScaleComponent.cpp
+    ../Shared/Component/ColourComponent.cpp
+    ../Shared/Component/Position3DComponent.cpp
+    ../Shared/Component/Position2DComponent.cpp
+    ../Shared/Component/Size1DComponent.cpp
+    ../Shared/Component/TextComponent.cpp
+    ../Shared/Component/MaterialMapComponent.cpp
+    ../Shared/Component/MusicPathComponent.cpp
+    ../Shared/Component/MusicPitchComponent.cpp
+    ../Shared/Component/MusicVolumeComponent.cpp
+    ../Shared/Component/SoundPathComponent.cpp
+    ../Shared/Component/SoundPitchComponent.cpp
+    ../Shared/Component/SoundVolumeComponent.cpp
 )
 
 include_directories(

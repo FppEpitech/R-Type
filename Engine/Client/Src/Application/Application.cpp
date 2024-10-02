@@ -29,11 +29,6 @@ Application::Application()
 
 void Application::run()
 {
-
-
-
-
-
     uint16_t messageID = 0x0001;
     uint32_t token = 0x00000000;
     uint32_t payloadLength = 1;
@@ -65,7 +60,6 @@ void Application::run()
 
     packet.push_back(static_cast<uint8_t>(checksum >> 8));
     packet.push_back(static_cast<uint8_t>(checksum & 0xFF));
-
 
 
 
