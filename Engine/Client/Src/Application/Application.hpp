@@ -11,6 +11,7 @@
 
 #include "Registry.hpp"
 #include "NetworkClient.hpp"
+#include "DrawOBJ/DrawOBJSystem.hpp"
 
 #define WINDOW_TITLE "From noware"
 
@@ -49,6 +50,13 @@ class Application {
          */
         void _packetHandler(Network::UDPPacket packet);
 
+        /**
+         * @brief Initialize default graphics systems.
+         *
+         */
+        void _initDefaultGraphicSystems();
+
         std::shared_ptr<std::vector<ECS::Registry>> _registries; // Registries for each scene.
         std::shared_ptr<Network::Client>            _client;     // Network class for client.
+        std::vector<std::function<void(ECS::Registry& reg, int idxPacketEntities)>> _defaultSystems;
 };
