@@ -63,6 +63,8 @@ add_subdirectory(Src/Network)
 
 add_executable(${EXE} ${SRC_EXE})
 
+target_compile_definitions(r-type_client PRIVATE INCLUDE_COMPONENTS)
+
 target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
 
 find_package(asio REQUIRED)
