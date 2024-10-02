@@ -1,10 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-# find_program(CLANG_TIDY_EXE NAMES clang-tidy)
-
 find_program(CLANG_TIDY_EXE NAMES clang-tidy)
 
-if(CLANG_TIDY_EXE)
+if(CLANG_TIDY_EXE AND "$ENV{LINTER}" STREQUAL "on")
     set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-checks=-*,modernize-*;-warnings-as-errors=modernize-*")
 endif()
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

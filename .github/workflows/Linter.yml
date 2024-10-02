@@ -1,0 +1,27 @@
+name: Linux
+on: [check_run, pull_request]
+jobs:
+  lint-clangtidy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Apt install for Ubuntu
+        run: |
+          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config clang-tools-extra
+
+      - name: Install dependencies on Ubuntu (vcpkg)
+        run: |
+          if [ ! -d "vcpkg" ]; then
+            git clone https://github.com/microsoft/vcpkg.git
+            ./vcpkg/bootstrap-vcpkg.sh
+          fi
+          ./vcpkg/vcpkg install
+
+      - name: Build project with linter ON
+        run: |
+          export LINTER=on
+          cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+          cmake --build build/ --config Debug
