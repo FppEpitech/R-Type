@@ -10,23 +10,23 @@
         },
         {
             "key": "KEY_D",
-            "path" : "libsystem_moveRight.so"
+            "path" : "../../../Client/Lib/Systems/libsystem_moveRight.so"
         },
         {
             "key": "KEY_Q",
-            "path" : "libsystem_moveLeft.so"
+            "path" : "../../../Client/Lib/Systems/libsystem_moveLeft.so"
         },
         {
             "key": "KEY_Z",
-            "path" : "libsystem_moveUp.so"
+            "path" : "../../../Client/Lib/Systems/libsystem_moveUp.so"
         },
         {
             "key": "KEY_S",
-            "path" : "libsystem_moveDown.so"
+            "path" : "../../../Client/Lib/Systems/libsystem_moveDown.so"
         }
     ],
     "entities": [
-        "libsystem_initPlayer.so"
+        "../../../Client/Lib/Systems/libsystem_initPlayer.so"
     ],
     "systems": [
     ]
