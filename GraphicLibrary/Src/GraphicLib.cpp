@@ -73,6 +73,11 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
     DrawTextureEx(_textures[texturePath], position, 0, scale, WHITE);
 }
 
+void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize)
+{
+    DrawText(text.c_str(), posx, posy, fontSize, BLACK);
+}
+
 void GraphicLib::startDraw()
 {
     BeginDrawing();

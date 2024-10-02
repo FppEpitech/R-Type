@@ -79,6 +79,16 @@ class IGraphic {
         virtual void drawTexture(std::string texturePath, float posx, float posy, float scale) = 0;
 
         /**
+         * @brief Draw a text on the screen.
+         *
+         * @param text Text to draw.
+         * @param posx Position x.
+         * @param posy Position y.
+         * @param fontSize Font size.
+         */
+        virtual void drawText(std::string text, float posx, float posy, int fontSize) = 0;
+
+        /**
          * @brief Start to draw on the window.
          * Must be call at the begin of the Game loop.
          *
