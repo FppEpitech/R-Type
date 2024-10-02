@@ -16,8 +16,9 @@
 #include "ClientSceneManager.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "DrawOBJ/DrawOBJSystem.hpp"
-#include "DrawTexture/DrawTextureSystem.hpp"
 #include "DrawText/DrawTextSystem.hpp"
+#include "DrawTexture/DrawTextureSystem.hpp"
+#include "DrawTextureRect/DrawTextureRectSystem.hpp"
 
 #define WINDOW_TITLE "From noware"
 

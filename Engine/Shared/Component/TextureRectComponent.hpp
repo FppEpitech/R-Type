@@ -22,10 +22,10 @@ class TextureRectComponent : public AComponent {
     public:
 
         std::string path; //< The path to one file.
-        int left; //< Left coordinate of the rectangle.
-        int top; //< Top coordinate of the rectangle.
-        int width; //< Width of the rectangle.
-        int height; //< Height of the rectangle.
+        float left; //< Left coordinate of the rectangle.
+        float top; //< Top coordinate of the rectangle.
+        float width; //< Width of the rectangle.
+        float height; //< Height of the rectangle.
 
         /**
          * @brief Construct a new TextureRectComponent object
@@ -36,5 +36,5 @@ class TextureRectComponent : public AComponent {
          * @param width Width of the rectangle.
          * @param height Height of the rectangle.
          */
-        TextureRectComponent(std::string Path = "", int left = 0, int top = 0, int width = 0, int height = 0);
+        TextureRectComponent(std::string Path = "", float left = 0, float top = 0, float width = 0, float height = 0);
 };
