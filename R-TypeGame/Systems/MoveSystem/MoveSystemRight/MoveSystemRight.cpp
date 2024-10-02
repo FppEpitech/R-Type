@@ -7,12 +7,12 @@
 
 #include "MoveSystemRight.hpp"
 
-MoveSystemRight::MoveSystemRight(void) :
+MoveSystemRight::MoveSystemRight() :
     ASystem("MovementRightSystem")
 {
 }
 
-std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemRight::getFunction(void)
+std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemRight::getFunction()
 {
     return [this](ECS::Registry& reg, int idxPacketEntities) {
         updateRightPosition(reg, idxPacketEntities);

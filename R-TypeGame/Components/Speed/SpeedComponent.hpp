@@ -17,8 +17,8 @@ class SpeedComponent : public AComponent {
 
     public:
 
-        int speedX;  // Speed X.
-        int speedY;  // Speed Y.
+        std::size_t speedX;  // Speed X.
+        std::size_t speedY;  // Speed Y.
 
         /**
          * @brief Construct a new Speed Component object.
@@ -26,5 +26,5 @@ class SpeedComponent : public AComponent {
          * @param speedX Speed X.
          * @param speedY speed Y.
          */
-        SpeedComponent(int speedX = 1, int speedY = 1);
+        SpeedComponent(std::size_t speedX = 1, std::size_t speedY = 1);
 };

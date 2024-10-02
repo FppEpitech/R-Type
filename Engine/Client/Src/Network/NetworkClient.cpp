@@ -26,8 +26,7 @@ void Network::Client::connect(MessageHandler callback)
 
         asio::error_code ec;
         asio::read(*_tcp_socket, asio::buffer(&_token, sizeof(_token)), ec);
-        std::cout << "Connected to server with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << _token << std::endl;
-        std::cout << std::dec;
+        std::cout << "Connected to server with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << _token << std::dec << std::endl;
 
         _udp_socket->open(asio::ip::udp::v4());
         _server_endpoint = asio::ip::udp::endpoint(asio::ip::address::from_string(_server_ip), _udp_port);

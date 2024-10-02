@@ -41,14 +41,13 @@ void Network::Server::_startAccept(ECS::Registry& reg)
         if (!error) {
 
             uint32_t token = _generateToken();
-            while (_clients.find(token) != _clients.end()) {
+            while (_clients.find(token) != _clients.end())
                 token = _generateToken();
-            }
 
             bool tokenAssigned = false;
 
             ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
-            for (int index = 0; index < PlayerComponentArray.size(); index++) {
+            for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
                 PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
                 if (player->token == 0) {
                     player->token = token;
@@ -62,8 +61,7 @@ void Network::Server::_startAccept(ECS::Registry& reg)
                 socket->close();
             } else {
                 _clients[token] = asio::ip::udp::endpoint();
-                std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::endl;
-                std::cout << std::dec;
+                std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::dec << std::endl;
 
                 _startRead(socket, token);
                 asio::write(*socket, asio::buffer(&token, sizeof(token)));
@@ -79,11 +77,9 @@ void Network::Server::_startRead(std::shared_ptr<asio::ip::tcp::socket> socket, 
         [this, socket, client_token](const asio::error_code& error, std::size_t bytes_transferred) {
             if (error) {
                 if (error == asio::error::eof) {
-                    std::cout << "Client disconnected (EOF) with ID: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << client_token << std::endl;
-                    std::cout << std::dec;
+                    std::cout << "Client disconnected (EOF) with ID: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << client_token << std::dec << std::endl;
                 } else if (error == asio::error::connection_reset) {
-                    std::cout << "Client disconnected (connection reset) with ID: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << client_token << std::endl;
-                    std::cout << std::dec;
+                    std::cout << "Client disconnected (connection reset) with ID: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << client_token << std::dec << std::endl;
                 } else {
                     std::cerr << "Error on receive: " << error.message() << std::endl;
                 }

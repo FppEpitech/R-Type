@@ -64,8 +64,9 @@ class Network::Server
     private:
 
         /**
-         * @brief Starts accepting new TCP connections.
+         * @brief  Starts accepting new TCP connections.
          *
+         * @param reg Registry with all list of component and system.
          */
         void _startAccept(ECS::Registry& reg);
 
@@ -79,6 +80,8 @@ class Network::Server
 
         /**
          * @brief Starts receiving UDP messages.
+         *
+         * @param reg Registry with all list of component and system.
          */
         void _startReceive(ECS::Registry& reg);
 

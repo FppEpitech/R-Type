@@ -7,12 +7,12 @@
 
 #include "MoveSystemUp.hpp"
 
-MoveSystemUp::MoveSystemUp(void) :
+MoveSystemUp::MoveSystemUp() :
     ASystem("MovementUpSystem")
 {
 }
 
-std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemUp::getFunction(void)
+std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemUp::getFunction()
 {
     return [this](ECS::Registry& reg, int idxPacketEntities) {
         updateUpPosition(reg, idxPacketEntities);

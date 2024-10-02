@@ -102,6 +102,5 @@ void Network::UDPPacket::displayPacket(void)
     std::cout << "Payload Length: "<< "0x" << std::hex << std::setw(8) << std::setfill('0') << static_cast<int>(_payloadLength) << std::endl;
     for (uint8_t bytes : _payload)
         std::cout << "Bytes payload: "<< "0x" << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(bytes) << std::endl;
-    std::cout << "Checksum: "<< "0x" << std::hex << std::setw(4) << std::setfill('0') << static_cast<int>(_checksum) << std::endl;
-    std::cout << std::dec;
+    std::cout << "Checksum: "<< "0x" << std::hex << std::setw(4) << std::setfill('0') << static_cast<int>(_checksum) << std::dec << std::endl;
 }

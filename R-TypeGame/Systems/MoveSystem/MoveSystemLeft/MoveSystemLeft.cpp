@@ -7,12 +7,12 @@
 
 #include "MoveSystemLeft.hpp"
 
-MoveSystemLeft::MoveSystemLeft(void) :
+MoveSystemLeft::MoveSystemLeft() :
     ASystem("MovementLeftSystem")
 {
 }
 
-std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemLeft::getFunction(void)
+std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemLeft::getFunction()
 {
     return [this](ECS::Registry& reg, int idxPacketEntities) {
         updateLeftPosition(reg, idxPacketEntities);

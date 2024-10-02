@@ -19,14 +19,14 @@ class MoveSystemUp : public ASystem
          * @brief Construct a new Move System Up object
          *
          */
-        MoveSystemUp(void);
+        MoveSystemUp();
 
         /**
          * @brief Get the function system.
          *
          * @return std::function<void(ECS::Registry& reg)> the function.
          */
-        std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction(void);
+        std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction();
 
         /**
          * @brief Function who gonna to update the position at up.
