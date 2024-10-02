@@ -10,6 +10,11 @@ set(SRC_LIB
     ${LIB_SRC_PATH}/NetworkServer.cpp
 )
 
+include_directories(
+    ../../../Shared/Ecs/Src/
+    ../../../Shared/Component/Entities/Player/
+)
+
 add_library(${LIB} STATIC ${SRC_LIB})
 
 find_package(asio CONFIG REQUIRED)
