@@ -16,7 +16,7 @@
 
 #include "Registry.hpp"
 #include "NetworkPacket.hpp"
-#include "PlayerComponent.hpp"
+#include "Player/PlayerComponent.hpp"
 
 /**
  * @namespace Network
