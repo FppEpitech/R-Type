@@ -11,13 +11,6 @@
 #include "NetworkServer.hpp"
 #include "ServerSceneManager.hpp"
 
-enum class MessageType : uint8_t {
-    ArrowKey    = 0x01,  // Arrow
-    AlphaKey    = 0x02,  // Alpha (A-Z)
-    NumberKey   = 0x03,  // Number (0-9)
-    SpecialKey  = 0x04   // Special (Ctrl, Alt, etc.)
-};
-
 /**
  * @brief GameEngine namespace handle all
  * classes of the GameEngine part of the server.

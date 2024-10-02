@@ -11,6 +11,11 @@ set(SRC_LIB
     ${LIB_SRC_PATH}/NetworkClient.cpp
 )
 
+include_directories(
+    ../../../Shared/Ecs/Src/
+    ../../../Shared/Component/Entities/Player/
+)
+
 add_library(${LIB} STATIC ${SRC_LIB})
 
 target_include_directories(${LIB} PUBLIC ../../../Shared/Network/Packet)

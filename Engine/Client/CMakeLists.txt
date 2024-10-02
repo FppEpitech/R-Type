@@ -64,6 +64,7 @@ include_directories(
     ../Shared/GraphicalLoad
     ../Shared/Component
     ../Shared/Component/Entities
+    ../Shared/Component/Entities/Player
     ../Shared/Ecs/Src
     ../Shared/Interface
     ../Shared/SceneManager
