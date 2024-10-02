@@ -38,8 +38,8 @@ set(COMPONENT_SRC_FILE
 # Define system source files
 set(SYSTEM_SRC_FILE
     ${EXE_SRC_PATH}/Systems/DrawOBJ/DrawOBJSystem.cpp
-    ${EXE_SRC_PATH}/Systems/DrawOBJ/DrawOBJSystem.cpp
     ${EXE_SRC_PATH}/Systems/DrawTexture/DrawTextureSystem.cpp
+    ${EXE_SRC_PATH}/Systems/DrawText/DrawTextSystem.cpp
 )
 
 # Define the main source files for the executable

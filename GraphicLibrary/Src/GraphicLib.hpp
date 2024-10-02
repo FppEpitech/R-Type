@@ -85,6 +85,22 @@ class GraphicLib : public IGraphic {
         void drawTexture(std::string texturePath, float posx, float posy, float scale);
 
         /**
+         * @brief Draw a text on the screen.
+         *
+         * @param text Text to draw.
+         * @param posx Position x.
+         * @param posy Position y.
+         * @param fontSize Font size.
+         * @param fontPath Font path.
+         * @param r Color value r.
+         * @param g Color value g.
+         * @param b Color value b.
+         * @param a Color value a.
+         */
+        void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
+            unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 0);
+
+        /**
          * @brief Start to draw on the window.
          * Must be call at the begin of the Game loop.
          *
@@ -102,5 +118,6 @@ class GraphicLib : public IGraphic {
 
         Camera                                      _camera;        //< Player camera.
         std::unordered_map<std::string, Model>      _models;        //< List of Models loaded.
-        std::unordered_map<std::string, Texture2D>  _textures;      //< List of Models loaded.
+        std::unordered_map<std::string, Texture2D>  _textures;      //< List textures loaded.
+        std::unordered_map<std::string, Font>       _font;          //< List of Font loaded.
 };
