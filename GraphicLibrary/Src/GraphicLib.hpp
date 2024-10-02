@@ -92,8 +92,13 @@ class GraphicLib : public IGraphic {
          * @param posy Position y.
          * @param fontSize Font size.
          * @param fontPath Font path.
+         * @param r Color value r.
+         * @param g Color value g.
+         * @param b Color value b.
+         * @param a Color value a.
          */
-        void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath);
+        void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
+            unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 0);
 
         /**
          * @brief Start to draw on the window.
