@@ -6,7 +6,28 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/Game)
 set(EXE_SRC_PATH "Src")
 set(EXE_INCLUDE_PATH "Include")
 
-set(COMPONENT_SRC_FILE ./Src/Components/ShaderComponent/ShaderPathComponent.cpp)
+set(COMPONENT_SRC_FILE
+    ./Src/Components/ShaderComponent/ShaderPathComponent.cpp
+    ../Shared/Component/FontPathComponent.cpp
+    ../Shared/Component/ObjPathComponent.cpp
+    ../Shared/Component/TexturePathComponent.cpp
+    ../Shared/Component/ScaleComponent.cpp
+    ../Shared/Component/ColourComponent.cpp
+    ../Shared/Component/Position3DComponent.cpp
+    ../Shared/Component/Position2DComponent.cpp
+    ../Shared/Component/Size1DComponent.cpp
+    ../Shared/Component/TextComponent.cpp
+    ../Shared/Component/MaterialMapComponent.cpp
+    ../Shared/Component/MusicPathComponent.cpp
+    ../Shared/Component/MusicPitchComponent.cpp
+    ../Shared/Component/MusicVolumeComponent.cpp
+    ../Shared/Component/SoundPathComponent.cpp
+    ../Shared/Component/SoundPitchComponent.cpp
+    ../Shared/Component/SoundVolumeComponent.cpp
+)
+set(SYSTEM_SRC_FILE
+    Src/Systems/DrawOBJ/DrawOBJSystem.cpp
+)
 
 set(COMPONENT_INCLUDE_DIR ./Include/Components/ShaderComponent)
 
@@ -17,24 +38,10 @@ set(SRC_EXE
         Src/Application/Application.cpp
         Src/ClientSceneManager/ClientSceneManager.cpp
         Src/GraphicalLibrary/GetGraphicalLibrary.cpp
+
         ../Shared/SceneManager/ASceneManager.cpp
-        ../Shared/Component/FontPathComponent.cpp
-        ../Shared/Component/ObjPathComponent.cpp
-        ../Shared/Component/TexturePathComponent.cpp
-        ../Shared/Component/ScaleComponent.cpp
-        ../Shared/Component/ColourComponent.cpp
-        ../Shared/Component/Position3DComponent.cpp
-        ../Shared/Component/Position2DComponent.cpp
-        ../Shared/Component/Size1DComponent.cpp
-        ../Shared/Component/TextComponent.cpp
-        ../Shared/Component/MaterialMapComponent.cpp
-        ../Shared/Component/MusicPathComponent.cpp
-        ../Shared/Component/MusicPitchComponent.cpp
-        ../Shared/Component/MusicVolumeComponent.cpp
-        ../Shared/Component/SoundPathComponent.cpp
-        ../Shared/Component/SoundPitchComponent.cpp
-        ../Shared/Component/SoundVolumeComponent.cpp
         ${COMPONENT_SRC_FILE}
+        ${SYSTEM_SRC_FILE}
 )
 
 include_directories(
@@ -43,6 +50,7 @@ include_directories(
         Src/ClientSceneManager
         Src/GraphicalLibrary
         Src/Errors
+        Src/Systems
         ../Shared/GraphicalLoad
         ../Shared/Component
         ../Shared/Ecs/Src
