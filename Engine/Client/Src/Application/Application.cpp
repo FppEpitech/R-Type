@@ -5,11 +5,7 @@
 ** App
 */
 
-#include "IGraphic.hpp"
 #include "Application.hpp"
-#include "ClientErrors.hpp"
-#include "ClientSceneManager.hpp"
-#include "GetGraphicalLibrary.hpp"
 
 void Application::_packetHandler(Network::UDPPacket packet)
 {
@@ -19,20 +15,45 @@ void Application::_packetHandler(Network::UDPPacket packet)
 Application::Application()
 {
     _registries = std::make_shared<std::vector<ECS::Registry>>();
-    SceneManager::ClientSceneManager sceneManager(_registries);
+    _sceneManager = std::make_shared<SceneManager::ClientSceneManager>(_registries);
 
     _initDefaultGraphicSystems();
 
     _client = std::make_shared<Network::Client>("127.0.0.1", 4444, 4445);
     _client->connect([this](Network::UDPPacket packet) {
         this->_packetHandler(std::move(packet));
-    });
+    }, _registries->at(SceneManager::RegisterIndex::CURRENT));
 }
 
 void Application::_initDefaultGraphicSystems()
 {
-    _defaultSystems.push_back(DrawOBJSystem().getFunction());
-    _defaultSystems.push_back(DrawTextureSystem().getFunction());
+    DrawOBJSystem drawOBJSystem;
+    _defaultSystems.push_back(drawOBJSystem.getFunction());
+}
+
+void Application::_keyboardHandler(std::size_t key)
+{
+
+    try {
+        if (key == KEY_NULL)
+            return;
+        int idxPlayerPacket = -1;
+
+        ECS::SparseArray<IComponent> PlayerComponentArray = _registries->at(SceneManager::RegisterIndex::CURRENT).get_components<IComponent>("PlayerComponent");
+        for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+            PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+            if (player->token == this->_client->getToken()) {
+                idxPlayerPacket = index;
+                break;
+            }
+        }
+        if (idxPlayerPacket == -1)
+            return;
+        _sceneManager->processInput(KEY_MAP(key), idxPlayerPacket);
+        _client->sendKeyPacket(KEY_MAP(key));
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
 }
 
 void Application::run()
@@ -43,6 +64,7 @@ void Application::run()
     libGraphic->init(WINDOW_TITLE);
 
     while (libGraphic->windowIsOpen()) {
+        _keyboardHandler(libGraphic->getKeyInput());
         libGraphic->startDraw();
         libGraphic->clear();
         _registries->at(SceneManager::RegisterIndex::CURRENT).run_systems(-1);

@@ -9,8 +9,12 @@
 
 #include <iostream>
 
+#include "IGraphic.hpp"
 #include "Registry.hpp"
+#include "ClientErrors.hpp"
 #include "NetworkClient.hpp"
+#include "ClientSceneManager.hpp"
+#include "GetGraphicalLibrary.hpp"
 #include "DrawOBJ/DrawOBJSystem.hpp"
 #include "DrawTexture/DrawTextureSystem.hpp"
 
@@ -52,12 +56,20 @@ class Application {
         void _packetHandler(Network::UDPPacket packet);
 
         /**
+         * @brief Function who handle keyboard signal.
+         *
+         * @param key Key entered.
+         */
+        void _keyboardHandler(std::size_t key);
+
+        /**
          * @brief Initialize default graphics systems.
          *
          */
         void _initDefaultGraphicSystems();
 
-        std::shared_ptr<std::vector<ECS::Registry>> _registries; // Registries for each scene.
-        std::shared_ptr<Network::Client>            _client;     // Network class for client.
-        std::vector<std::function<void(ECS::Registry& reg, int idxPacketEntities)>> _defaultSystems;
+        std::shared_ptr<std::vector<ECS::Registry>> _registries;                                        // Registries for each scene.
+        std::shared_ptr<Network::Client>            _client;                                            // Network class for client.
+        std::vector<std::function<void(ECS::Registry& reg, int idxPacketEntities)>> _defaultSystems;    // Default system.
+        std::shared_ptr<SceneManager::ClientSceneManager>       _sceneManager;                          // load and handle scene in the ECS.
 };
