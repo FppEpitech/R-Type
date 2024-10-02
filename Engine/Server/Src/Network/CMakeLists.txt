@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 set(LIB r-type_network_server)
 
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/Game/Libs/Network/)
+
 set(LIB_SRC_PATH ".")
 
 set(CMAKE_CXX_STANDARD 20)

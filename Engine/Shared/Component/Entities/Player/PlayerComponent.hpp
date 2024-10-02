@@ -9,7 +9,7 @@
 
 #include <cstdint>
 
-#include "../../../Interface/IComponent.hpp"
+#include "IComponent.hpp"
 
 /**
  * @brief Component PlayerComponent for R-Type Game.
