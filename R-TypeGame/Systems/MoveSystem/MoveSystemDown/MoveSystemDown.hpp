@@ -9,7 +9,7 @@
 
 #include "ISystem.hpp"
 #include "SpeedComponent.hpp"
-#include "Position2DComponent.hpp"
+#include "Position3DComponent.hpp"
 
 class MoveSystemDown : public ASystem
 {

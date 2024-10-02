@@ -59,7 +59,7 @@ void Application::run()
     packet.push_back(static_cast<uint8_t>(payloadLength >> 8));
     packet.push_back(static_cast<uint8_t>(payloadLength & 0xFF));
 
-    packet.push_back(0x1A);
+    packet.push_back(0x04);
 
     uint16_t checksum = 0;
     for (const auto& byte : packet) {
