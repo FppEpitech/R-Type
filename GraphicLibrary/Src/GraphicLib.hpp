@@ -91,8 +91,9 @@ class GraphicLib : public IGraphic {
          * @param posx Position x.
          * @param posy Position y.
          * @param fontSize Font size.
+         * @param fontPath Font path.
          */
-        void drawText(std::string text, float posx, float posy, int fontSize);
+        void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath);
 
         /**
          * @brief Start to draw on the window.
@@ -112,5 +113,6 @@ class GraphicLib : public IGraphic {
 
         Camera                                      _camera;        //< Player camera.
         std::unordered_map<std::string, Model>      _models;        //< List of Models loaded.
-        std::unordered_map<std::string, Texture2D>  _textures;      //< List of Models loaded.
+        std::unordered_map<std::string, Texture2D>  _textures;      //< List textures loaded.
+        std::unordered_map<std::string, Font>       _font;          //< List of Font loaded.
 };

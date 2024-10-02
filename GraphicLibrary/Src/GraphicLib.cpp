@@ -73,9 +73,16 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
     DrawTextureEx(_textures[texturePath], position, 0, scale, WHITE);
 }
 
-void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize)
+void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath)
 {
-    DrawText(text.c_str(), posx, posy, fontSize, BLACK);
+    if (_font.find(fontPath) == _font.end() && fontPath != "")
+        _font[fontPath] = LoadFont(fontPath.c_str());
+
+    if (fontPath != "") {
+        Vector2 position = { posx, posy };
+        DrawTextEx(_font[fontPath], text.c_str(), position, fontSize, 2, BLACK);
+    } else
+        DrawText(text.c_str(), posx, posy, 24, BLACK);
 }
 
 void GraphicLib::startDraw()

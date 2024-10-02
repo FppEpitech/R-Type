@@ -85,8 +85,9 @@ class IGraphic {
          * @param posx Position x.
          * @param posy Position y.
          * @param fontSize Font size.
+         * @param fontPath Font path.
          */
-        virtual void drawText(std::string text, float posx, float posy, int fontSize) = 0;
+        virtual void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath) = 0;
 
         /**
          * @brief Start to draw on the window.
