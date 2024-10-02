@@ -31,8 +31,8 @@ Application::Application()
 
 void Application::_initDefaultGraphicSystems()
 {
-    DrawOBJSystem drawOBJSystem;
-    _defaultSystems.push_back(drawOBJSystem.getFunction());
+    _defaultSystems.push_back(DrawOBJSystem().getFunction());
+    _defaultSystems.push_back(DrawTextureSystem().getFunction());
 }
 
 void Application::run()

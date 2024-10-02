@@ -47,8 +47,3 @@ void DrawOBJSystem::_drawOBJ(ECS::Registry& reg, int idxPacketEntities)
             libGraphic->drawOBJ(obj->path, 0, 0, 0, modelScale);
     }
 }
-
-extern "C" ISystem* loadSystemInstance()
-{
-    return new DrawOBJSystem();
-}
