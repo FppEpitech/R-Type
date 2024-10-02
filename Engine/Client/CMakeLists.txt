@@ -45,7 +45,7 @@ set(SRC_EXE
     ${EXE_SRC_PATH}/main.cpp
     ${EXE_SRC_PATH}/Application/Application.cpp
     ${EXE_SRC_PATH}/ClientSceneManager/ClientSceneManager.cpp
-    ${EXE_SRC_PATH}/GraphicalLibrary/GetGraphicalLibrary.cpp
+    ${EXE_SRC_PATH}/GetGraphicalLibrary/GetGraphicalLibrary.cpp
     ../Shared/SceneManager/ASceneManager.cpp
     ${COMPONENT_SRC_FILE}
     ${SYSTEM_SRC_FILE}
@@ -56,7 +56,7 @@ include_directories(
     ${EXE_SRC_PATH}/Network
     ${EXE_SRC_PATH}/Application
     ${EXE_SRC_PATH}/ClientSceneManager
-    ${EXE_SRC_PATH}/GraphicalLibrary
+    ${EXE_SRC_PATH}/GetGraphicalLibrary
     ${EXE_SRC_PATH}/Errors
     ${EXE_SRC_PATH}/Systems
     ../Shared/GraphicalLoad
