@@ -10,7 +10,7 @@ jobs:
 
       - name: Apt install for Ubuntu
         run: |
-          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config clang-tools-extra
+          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config clang-tidy
 
       - name: Install dependencies on Ubuntu (vcpkg)
         run: |
