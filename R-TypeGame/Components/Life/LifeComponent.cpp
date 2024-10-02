@@ -11,8 +11,3 @@ LifeComponent::LifeComponent(std::size_t life) :
     life(life), AComponent("LifeComponent")
 {
 }
-
-extern "C" IComponent* loadComponentInstance()
-{
-    return new LifeComponent();
-}

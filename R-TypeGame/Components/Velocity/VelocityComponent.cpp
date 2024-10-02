@@ -11,8 +11,3 @@ VelocityComponent::VelocityComponent(unsigned int velocity) :
     velocity(velocity), AComponent("VelocityComponent")
 {
 }
-
-extern "C" IComponent* loadComponentInstance()
-{
-    return new VelocityComponent();
-}

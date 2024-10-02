@@ -1,4 +1,5 @@
+# Minimum required version of CMake
 cmake_minimum_required(VERSION 3.5)
 
-add_subdirectory(Components)
+# Add the 'Systems' subdirectory to the build
 add_subdirectory(Systems)
