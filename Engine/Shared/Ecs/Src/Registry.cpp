@@ -41,4 +41,15 @@ void Registry::run_systems(int idxPacketEntities) {
         system(*this, idxPacketEntities);
 }
 
+void Registry::cloneComponentsArray(ECS::Registry &registry)
+{
+    registry.setComponentsArrays(_components_arrays, _remove_functions);
+}
+
+void Registry::setComponentsArrays(std::unordered_map <std::string, std::any> componentsArrays, std::unordered_map <std::string, remove_func_t> removeFunctions)
+{
+    _components_arrays = componentsArrays;
+    _remove_functions = removeFunctions;
+}
+
 } // namespace ECS
