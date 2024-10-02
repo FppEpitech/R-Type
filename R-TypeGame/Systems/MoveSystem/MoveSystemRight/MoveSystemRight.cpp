@@ -29,7 +29,6 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
         SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
 
         position->x += speed->speedX;
-        std::cout << "position->x: " << position->x << std::endl;
     } catch(const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }

@@ -6,7 +6,23 @@
         },
         {
             "key": "KEY_COMMA",
-            "path" : ""
+            "path" : "testScene.json"
+        },
+        {
+            "key": "KEY_D",
+            "path" : "libsystem_moveRight.so"
+        },
+        {
+            "key": "KEY_Q",
+            "path" : "libsystem_moveLeft.so"
+        },
+        {
+            "key": "KEY_Z",
+            "path" : "libsystem_moveUp.so"
+        },
+        {
+            "key": "KEY_S",
+            "path" : "libsystem_moveDown.so"
         }
     ],
 
