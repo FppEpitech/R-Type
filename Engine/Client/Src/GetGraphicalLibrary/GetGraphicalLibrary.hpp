@@ -17,7 +17,7 @@
     #define LIB_SUFFIX ".so"
 #endif
 
-#define PATH_GRAPHIC_LIB (std::string(GAME_ROOT) + "Libs/Graphic/")
+#define PATH_GRAPHIC_LIB "Libs/Graphic/"
 
 /**
  * @brief Get the Graphical Library object.
