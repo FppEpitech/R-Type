@@ -12,15 +12,17 @@ SceneManager::ClientSceneManager::ClientSceneManager(std::shared_ptr<std::vector
     _loadScene(FIRST_SCENE, CURRENT);
 }
 
-std::string SceneManager::ClientSceneManager::_getComponentLibPath() const {
+std::string SceneManager::ClientSceneManager::_getComponentLibPath() const
+{
     return LIB_COMPONENTS_PATH;
 }
 
-std::string SceneManager::ClientSceneManager::_getSystemLibPath() const {
+std::string SceneManager::ClientSceneManager::_getSystemLibPath() const
+{
     return LIB_SYSTEMS_PATH;
 }
 
-std::string SceneManager::ClientSceneManager::_getScenesPath() const {
+std::string SceneManager::ClientSceneManager::_getScenesPath() const
+{
     return SCENE_PATH;
 }
-

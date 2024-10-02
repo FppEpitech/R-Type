@@ -10,9 +10,25 @@
 #include <json/json.h>
 #include <unordered_map>
 
+#include "ISceneManager.hpp"
 #include "../Interface/ISystem.hpp"
 #include "../Enum/StringKeyMap.hpp"
-#include "ISceneManager.hpp"
+#include "TextComponent.hpp"
+#include "ScaleComponent.hpp"
+#include "ColourComponent.hpp"
+#include "Size1DComponent.hpp"
+#include "ObjPathComponent.hpp"
+#include "FontPathComponent.hpp"
+#include "MusicPathComponent.hpp"
+#include "SoundPathComponent.hpp"
+#include "MusicPitchComponent.hpp"
+#include "Position2DComponent.hpp"
+#include "Position3DComponent.hpp"
+#include "SoundPitchComponent.hpp"
+#include "MaterialMapComponent.hpp"
+#include "MusicVolumeComponent.hpp"
+#include "SoundVolumeComponent.hpp"
+#include "TexturePathComponent.hpp"
 
 #define CONFIG_SUFFIX ".json"
 
@@ -54,11 +70,12 @@ namespace SceneManager {
 
         protected:
 
-            std::shared_ptr<std::vector<ECS::Registry>> _registries; // Registries for each scene.
-            std::vector<std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>> _keysSystems; // Keys to load a system for each scene.
-            std::vector<std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>> _keysScenes; // Keys to load a scene for each scene.
+            std::shared_ptr<std::vector<ECS::Registry>>                                     _registries; // Registries for each scene.
+            ECS::Registry                                                                   _defaultRegistry; // Default registry for the scene manager.
+            std::vector<std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>>              _keysSystems; // Keys to load a system for each scene.
+            std::vector<std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>>   _keysScenes; // Keys to load a scene for each scene.
 
-            std::size_t _nextIndex; // Index of the next empty registry.
+            std::size_t                                                                     _nextIndex; // Index of the next empty registry.
 
             /**
              * @brief Get the component lib path.
@@ -134,5 +151,10 @@ namespace SceneManager {
              * @param scene Scene to load.
              */
             void _changeScene(std::pair<std::size_t, std::string> scene);
+
+            /**
+             * @brief Initialise the default components of the scene manager.
+             */
+            void _initialiseDefaultComponents();
     };
 }

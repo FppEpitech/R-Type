@@ -5,11 +5,11 @@
 ** App
 */
 
-#include "Application.hpp"
-#include "../ClientSceneManager/ClientSceneManager.hpp"
 #include "IGraphic.hpp"
-#include "GraphicalLoad.hpp"
+#include "Application.hpp"
 #include "ClientErrors.hpp"
+#include "ClientSceneManager.hpp"
+#include "GetGraphicalLibrary.hpp"
 
 void Application::_packetHandler(Network::UDPPacket packet)
 {
@@ -21,10 +21,18 @@ Application::Application()
     _registries = std::make_shared<std::vector<ECS::Registry>>();
     SceneManager::ClientSceneManager sceneManager(_registries);
 
+    _initDefaultGraphicSystems();
+
     _client = std::make_shared<Network::Client>("127.0.0.1", 4444, 4445);
     _client->connect([this](Network::UDPPacket packet) {
         this->_packetHandler(std::move(packet));
     });
+}
+
+void Application::_initDefaultGraphicSystems()
+{
+    DrawOBJSystem drawOBJSystem;
+    _defaultSystems.push_back(drawOBJSystem.getFunction());
 }
 
 void Application::run()
@@ -35,7 +43,11 @@ void Application::run()
     libGraphic->init(WINDOW_TITLE);
 
     while (libGraphic->windowIsOpen()) {
+        libGraphic->startDraw();
         libGraphic->clear();
         _registries->at(SceneManager::RegisterIndex::CURRENT).run_systems(-1);
+        for (auto defaultSystem : _defaultSystems)
+            defaultSystem(_registries->at(SceneManager::RegisterIndex::CURRENT), -1);
+        libGraphic->endDraw();
     }
 }

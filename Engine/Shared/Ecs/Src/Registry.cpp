@@ -20,6 +20,11 @@ entity_t Registry::spawn_entity() {
     return _next_entity++;
 }
 
+std::vector<entity_t> Registry::getEntities()
+{
+    return _entities;
+}
+
 entity_t Registry::entity_from_index(std::size_t idx) {
     if (idx < _entities.size())
         return _entities[idx];
@@ -39,6 +44,17 @@ void Registry::kill_entity(entity_t const& entity) {
 void Registry::run_systems(int idxPacketEntities) {
     for (auto& system : _systems)
         system(*this, idxPacketEntities);
+}
+
+void Registry::cloneComponentsArray(ECS::Registry &registry)
+{
+    setComponentsArrays(registry._components_arrays, registry._remove_functions);
+}
+
+void Registry::setComponentsArrays(std::unordered_map <std::string, std::any> componentsArrays, std::unordered_map <std::string, remove_func_t> removeFunctions)
+{
+    _components_arrays = componentsArrays;
+    _remove_functions = removeFunctions;
 }
 
 } // namespace ECS

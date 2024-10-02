@@ -13,13 +13,24 @@ extern "C" IGraphic* loadGraphicInstance() {
 
 GraphicLib::~GraphicLib()
 {
-    CloseWindow();
+    if (!WindowShouldClose())
+        CloseWindow();
 }
 
 void GraphicLib::init(const std::string &windowName)
 {
     InitWindow(1920, 1080, windowName.c_str());
     SetTargetFPS(140);
+
+    Vector3 position = {0.0f, 0.0f, -10.0f};
+    Vector3 target = {0.0f, 0.0f, 0.0f};
+    Vector3 up = {0.0f, 1.0f, 0.0f};
+
+    _camera.position = position;                        // Camera position
+    _camera.target = target;                            // Camera looking at point
+    _camera.up = up;                                    // Camera up vector (rotation towards target)
+    _camera.fovy = 45.0f;                               // Camera field-of-view Y
+    _camera.projection = CAMERA_PERSPECTIVE;            // Camera projection type
 }
 
 bool GraphicLib::windowIsOpen()
@@ -29,9 +40,7 @@ bool GraphicLib::windowIsOpen()
 
 void GraphicLib::clear()
 {
-    BeginDrawing();
     ClearBackground(BLACK);
-    EndDrawing();
 }
 
 std::size_t GraphicLib::getKeyInput() {
@@ -40,4 +49,26 @@ std::size_t GraphicLib::getKeyInput() {
             return i;
     }
     return KEY_NULL;
+}
+
+void GraphicLib::drawOBJ(std::string objPath, float posx, float posy, float posz, float scale)
+{
+    if (_models.find(objPath) == _models.end())
+        _models[objPath] = LoadModel(objPath.c_str());
+
+    Vector3 position = { posx, posy, posz };
+
+    BeginMode3D(_camera);
+        DrawModel(_models[objPath], position, scale, WHITE);
+    EndMode3D();
+}
+
+void GraphicLib::startDraw()
+{
+    BeginDrawing();
+}
+
+void GraphicLib::endDraw()
+{
+    EndDrawing();
 }
