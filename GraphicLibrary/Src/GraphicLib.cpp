@@ -40,7 +40,7 @@ bool GraphicLib::windowIsOpen()
 
 void GraphicLib::clear()
 {
-    ClearBackground(BLACK);
+    ClearBackground(WHITE);
 }
 
 std::size_t GraphicLib::getKeyInput() {
@@ -61,6 +61,16 @@ void GraphicLib::drawOBJ(std::string objPath, float posx, float posy, float posz
     BeginMode3D(_camera);
         DrawModel(_models[objPath], position, scale, WHITE);
     EndMode3D();
+}
+
+void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, float scale)
+{
+    if (_textures.find(texturePath) == _textures.end())
+        _textures[texturePath] = LoadTexture(texturePath.c_str());
+
+    Vector2 position = { posx, posy };
+
+    DrawTextureEx(_textures[texturePath], position, 0, scale, WHITE);
 }
 
 void GraphicLib::startDraw()
