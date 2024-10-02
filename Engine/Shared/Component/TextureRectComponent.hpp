@@ -8,7 +8,6 @@
 #pragma once
 
 #include "IComponent.hpp"
-#include "SFML/Graphics.hpp"
 
 /**
  * @class TextureRectComponent
