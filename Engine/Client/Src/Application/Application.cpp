@@ -33,6 +33,7 @@ void Application::_initDefaultGraphicSystems()
 {
     _defaultSystems.push_back(DrawOBJSystem().getFunction());
     _defaultSystems.push_back(DrawTextureSystem().getFunction());
+    _defaultSystems.push_back(DrawTextSystem().getFunction());
 }
 
 void Application::run()

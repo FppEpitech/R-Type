@@ -13,6 +13,7 @@
 #include "NetworkClient.hpp"
 #include "DrawOBJ/DrawOBJSystem.hpp"
 #include "DrawTexture/DrawTextureSystem.hpp"
+#include "DrawText/DrawTextSystem.hpp"
 
 #define WINDOW_TITLE "From noware"
 

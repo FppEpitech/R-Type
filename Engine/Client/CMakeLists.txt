@@ -27,6 +27,7 @@ set(COMPONENT_SRC_FILE
 set(SYSTEM_SRC_FILE
     Src/Systems/DrawOBJ/DrawOBJSystem.cpp
     Src/Systems/DrawTexture/DrawTextureSystem.cpp
+    Src/Systems/DrawText/DrawTextSystem.cpp
 )
 
 set(COMPONENT_INCLUDE_DIR ./Include/Components/ShaderComponent)
