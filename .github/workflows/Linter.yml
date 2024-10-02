@@ -1,4 +1,4 @@
-name: Linux
+name: Linter
 on: [check_run, pull_request]
 jobs:
   lint-clangtidy:
