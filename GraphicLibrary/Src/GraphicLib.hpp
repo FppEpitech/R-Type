@@ -46,7 +46,7 @@ class GraphicLib : public IGraphic {
          * @brief Check if the window is open.
          *
          * @return true The window is open.
-         * @return false The window is closed.                                     /
+         * @return false The window is closed.
          */
         bool windowIsOpen();
 
@@ -77,12 +77,26 @@ class GraphicLib : public IGraphic {
         /**
          * @brief Draw a texture on the screen.
          *
-         * @param texturePath Path to the Texture to draw.*
+         * @param texturePath Path to the Texture to draw.
          * @param posx Position x
          * @param posy Position y
          * @param scale Scale.
          */
         void drawTexture(std::string texturePath, float posx, float posy, float scale);
+
+        /**
+         * @brief Draw a texture rect on the screen.
+         *
+         * @param texturePath Path to the Texture to draw.
+         * @param posx Position x.
+         * @param posy Position y.
+         * @param left Left coordinate of the rectangle.
+         * @param top Top coordinate of the rectangle.
+         * @param width Width of the rectangle.
+         * @param height Height of the rectangle.
+         * @param scale Scale.
+         */
+        void drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale);
 
         /**
          * @brief Draw a text on the screen.
