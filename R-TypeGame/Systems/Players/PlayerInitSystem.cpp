@@ -29,7 +29,7 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
 
     ObjPathComponent obj;
     reg.register_component<IComponent>(obj.getType());
-    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<ObjPathComponent>("./R-TypeGame/Assets/player.glb"), obj.getType());
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<ObjPathComponent>("../R-TypeGame/Assets/player.glb"), obj.getType());
 
     PlayerComponent player;
     reg.register_component<IComponent>(player.getType());

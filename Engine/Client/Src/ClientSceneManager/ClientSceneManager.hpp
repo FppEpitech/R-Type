@@ -11,9 +11,9 @@
 
 #define FIRST_SCENE "firstScene.json"
 
-#define LIB_COMPONENTS_PATH "Engine/Client/Lib/Components/"
-#define LIB_SYSTEMS_PATH "Engine/Client/Lib/Systems/"
-#define SCENE_PATH "Engine/Client/Config/Scenes/"
+#define LIB_COMPONENTS_PATH "Engine/"
+#define LIB_SYSTEMS_PATH "Engine/"
+#define SCENE_PATH "GameData/Scenes/"
 
 /**
  * @brief Namespace for the scene manager.
@@ -61,4 +61,3 @@ namespace SceneManager {
             std::string _getScenesPath() const override;
     };
 }
-
