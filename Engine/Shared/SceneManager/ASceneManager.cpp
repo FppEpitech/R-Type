@@ -110,7 +110,7 @@ void SceneManager::ASceneManager::_loadSceneKeys(Json::Value root, std::size_t i
 void SceneManager::ASceneManager::_loadSceneKeysJson(std::string key, std::string path, std::size_t index)
 {
     _registries->push_back(ECS::Registry());
-    _registries->at(index).cloneComponentsArray(_defaultRegistry);
+    _registries->at(_nextIndex).cloneComponentsArray(_defaultRegistry);
     _keysSystems.push_back(std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>());
     _keysScenes.push_back(std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>());
     _keysScenes[index][stringKeyMap.at(key)] = std::make_pair(_nextIndex, path);
@@ -152,20 +152,20 @@ void SceneManager::ASceneManager::_changeScene(std::pair<std::size_t, std::strin
 
 void SceneManager::ASceneManager::_initialiseDefaultComponents()
 {
-    _defaultRegistry.register_component<ColourComponent>(ColourComponent().getType());
-    _defaultRegistry.register_component<FontPathComponent>(FontPathComponent().getType());
-    _defaultRegistry.register_component<MaterialMapComponent>(MaterialMapComponent().getType());
-    _defaultRegistry.register_component<MusicPathComponent>(MusicPathComponent().getType());
-    _defaultRegistry.register_component<MusicPitchComponent>(MusicPitchComponent().getType());
-    _defaultRegistry.register_component<MusicVolumeComponent>(MusicVolumeComponent().getType());
-    _defaultRegistry.register_component<ObjPathComponent>(ObjPathComponent().getType());
-    _defaultRegistry.register_component<Position2DComponent>(Position2DComponent().getType());
-    _defaultRegistry.register_component<Position3DComponent>(Position3DComponent().getType());
-    _defaultRegistry.register_component<ScaleComponent>(ScaleComponent().getType());
-    _defaultRegistry.register_component<Size1DComponent>(Size1DComponent().getType());
-    _defaultRegistry.register_component<SoundPathComponent>(SoundPathComponent().getType());
-    _defaultRegistry.register_component<SoundPitchComponent>(SoundPitchComponent().getType());
-    _defaultRegistry.register_component<SoundVolumeComponent>(SoundVolumeComponent().getType());
-    _defaultRegistry.register_component<TextComponent>(TextComponent().getType());
-    _defaultRegistry.register_component<TexturePathComponent>(TexturePathComponent().getType());
+    _defaultRegistry.register_component<IComponent>(ColourComponent().getType());
+    _defaultRegistry.register_component<IComponent>(FontPathComponent().getType());
+    _defaultRegistry.register_component<IComponent>(MaterialMapComponent().getType());
+    _defaultRegistry.register_component<IComponent>(MusicPathComponent().getType());
+    _defaultRegistry.register_component<IComponent>(MusicPitchComponent().getType());
+    _defaultRegistry.register_component<IComponent>(MusicVolumeComponent().getType());
+    _defaultRegistry.register_component<IComponent>(ObjPathComponent().getType());
+    _defaultRegistry.register_component<IComponent>(Position2DComponent().getType());
+    _defaultRegistry.register_component<IComponent>(Position3DComponent().getType());
+    _defaultRegistry.register_component<IComponent>(ScaleComponent().getType());
+    _defaultRegistry.register_component<IComponent>(Size1DComponent().getType());
+    _defaultRegistry.register_component<IComponent>(SoundPathComponent().getType());
+    _defaultRegistry.register_component<IComponent>(SoundPitchComponent().getType());
+    _defaultRegistry.register_component<IComponent>(SoundVolumeComponent().getType());
+    _defaultRegistry.register_component<IComponent>(TextComponent().getType());
+    _defaultRegistry.register_component<IComponent>(TexturePathComponent().getType());
 }
