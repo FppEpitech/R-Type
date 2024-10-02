@@ -20,6 +20,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/Component/FontPathComponent.cpp
     ../Shared/Component/ObjPathComponent.cpp
     ../Shared/Component/TexturePathComponent.cpp
+    ../Shared/Component/TextureRectComponent.cpp
     ../Shared/Component/ScaleComponent.cpp
     ../Shared/Component/ColourComponent.cpp
     ../Shared/Component/Position3DComponent.cpp

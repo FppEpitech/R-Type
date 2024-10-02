@@ -29,6 +29,7 @@
 #include "MusicVolumeComponent.hpp"
 #include "SoundVolumeComponent.hpp"
 #include "TexturePathComponent.hpp"
+#include "TextureRectComponent.hpp"
 
 #define CONFIG_SUFFIX ".json"
 
