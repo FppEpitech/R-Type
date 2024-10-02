@@ -37,7 +37,7 @@ set(COMPONENT_SRC_FILE
 
 # Define system source files
 set(SYSTEM_SRC_FILE
-    Systems/DrawOBJ/DrawOBJSystem.cpp
+    ${EXE_SRC_PATH}/Systems/DrawOBJ/DrawOBJSystem.cpp
     ${EXE_SRC_PATH}/Systems/DrawOBJ/DrawOBJSystem.cpp
     ${EXE_SRC_PATH}/Systems/DrawTexture/DrawTextureSystem.cpp
 )
@@ -63,6 +63,7 @@ include_directories(
     ${EXE_SRC_PATH}/Systems
     ../Shared/GraphicalLoad
     ../Shared/Component
+    ../Shared/Component/Entities
     ../Shared/Ecs/Src
     ../Shared/Interface
     ../Shared/SceneManager
