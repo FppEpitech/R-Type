@@ -67,8 +67,22 @@ class GraphicLib : public IGraphic {
          * @brief Draw an OBJ model on the screen.
          *
          * @param objPath Path to the OBJ Model to draw.
+         * @param posx Position x
+         * @param posy Position y
+         * @param posz Position z
+         * @param scale Scale.
          */
         void drawOBJ(std::string objPath, float posx, float posy, float posz, float scale);
+
+        /**
+         * @brief Draw a texture on the screen.
+         *
+         * @param texturePath Path to the Texture to draw.*
+         * @param posx Position x
+         * @param posy Position y
+         * @param scale Scale.
+         */
+        void drawTexture(std::string texturePath, float posx, float posy, float scale);
 
         /**
          * @brief Start to draw on the window.
@@ -86,6 +100,7 @@ class GraphicLib : public IGraphic {
 
     private:
 
-        Camera                                  _camera;    //< Player camera.
-        std::unordered_map<std::string, Model>  _models;    //< List of Models loaded.
+        Camera                                      _camera;        //< Player camera.
+        std::unordered_map<std::string, Model>      _models;        //< List of Models loaded.
+        std::unordered_map<std::string, Texture2D>  _textures;      //< List of Models loaded.
 };

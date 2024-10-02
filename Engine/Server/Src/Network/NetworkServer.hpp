@@ -14,7 +14,9 @@
 #include <stdexcept>
 #include <unordered_map>
 
+#include "Registry.hpp"
 #include "NetworkPacket.hpp"
+#include "PlayerComponent.hpp"
 
 /**
  * @namespace Network
@@ -30,7 +32,7 @@ namespace Network {
 
 class Network::Server
 {
-    using MessageHandler = std::function<void(Network::UDPPacket packet, const asio::ip::udp::endpoint&)>;
+    using MessageHandler = std::function<void(Network::UDPPacket packet, const asio::ip::udp::endpoint&, ECS::Registry& reg)>;
 
     public:
 
@@ -47,8 +49,9 @@ class Network::Server
          * @brief Starts the server.
          *
          * @param callback Callback function called when the server receive data.
+         * @param reg Registery with all system and Component.
          */
-        void start(MessageHandler callback);
+        void start(MessageHandler callback, ECS::Registry& reg);
 
         /**
          * @brief Sends a message to a specific UDP endpoint.
@@ -61,10 +64,11 @@ class Network::Server
     private:
 
         /**
-         * @brief Starts accepting new TCP connections.
+         * @brief  Starts accepting new TCP connections.
          *
+         * @param reg Registry with all list of component and system.
          */
-        void _startAccept(void);
+        void _startAccept(ECS::Registry& reg);
 
         /**
          * @brief Handles reading from a TCP socket.
@@ -76,8 +80,10 @@ class Network::Server
 
         /**
          * @brief Starts receiving UDP messages.
+         *
+         * @param reg Registry with all list of component and system.
          */
-        void _startReceive(void);
+        void _startReceive(ECS::Registry& reg);
 
         /**
          * @brief Generate a token for the user connection.

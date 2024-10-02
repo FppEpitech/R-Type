@@ -11,8 +11,3 @@ GravityComponent::GravityComponent(unsigned int gravity) :
     gravity(gravity), AComponent("GravityComponent")
 {
 }
-
-extern "C" IComponent* loadComponentInstance()
-{
-    return new GravityComponent();
-}

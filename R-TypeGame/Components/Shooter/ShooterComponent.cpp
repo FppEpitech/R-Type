@@ -11,8 +11,3 @@ ShooterComponent::ShooterComponent(int bullet, int damage) :
     bullet(bullet), damage(damage), AComponent("ShooterComponent")
 {
 }
-
-extern "C" IComponent* loadComponentInstance()
-{
-    return new ShooterComponent();
-}

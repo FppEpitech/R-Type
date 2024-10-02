@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2024
-** PlayerInitSystem
+** DrawTextureSystem
 ** File description:
-** PlayerInitSystem
+** DrawTextureSystem
 */
 
 #pragma once
@@ -12,25 +12,24 @@
 #include "ISystem.hpp"
 
 /**
- * @brief Initialize a player entity.
- * Set life, position and asset path.
+ * @brief System to draw an Texture.
  *
  */
-class PlayerInitSystem : public ASystem {
+class DrawTextureSystem : public ASystem {
 
     public:
 
         /**
-         * @brief Construct a new Player Init System object.
+         * @brief Construct a new Draw Texture System object.
          *
          */
-        PlayerInitSystem();
+        DrawTextureSystem();
 
         /**
-         * @brief Destroy the Player Init System object.
+         * @brief Destroy the Draw Texture System object.
          *
          */
-        ~PlayerInitSystem() = default;
+        ~DrawTextureSystem() = default;
 
         /**
          * @brief Get the Function object.
@@ -40,11 +39,11 @@ class PlayerInitSystem : public ASystem {
         std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction()
         {
             return [this](ECS::Registry& reg, int idxPacketEntities) {
-                _initPlayer(reg, idxPacketEntities);
+                _drawTexture(reg, idxPacketEntities);
             };
         }
 
     private:
 
-        void _initPlayer(ECS::Registry& reg, int idxPacketEntities); //< Function to init the player.
+        void _drawTexture(ECS::Registry& reg, int idxPacketEntities); //< Function to draw texture.
 };
