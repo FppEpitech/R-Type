@@ -56,6 +56,38 @@ class Application {
     private:
 
         /**
+         * @brief Function to handle Arrow key.
+         *
+         * @param keyCode Key Code send by the client
+         * @param idxPlayerPacket Index of Player who send the packet.
+         */
+        void _handleArrowKey(uint8_t keyCode, int idxPlayerPacket);
+
+        /**
+         * @brief Function to handle Alpha key.
+         *
+         * @param keyCode Key Code send by the client
+         * @param idxPlayerPacket Index of Player who send the packet.
+         */
+        void _handleAlphaKey(uint8_t keyCode, int idxPlayerPacket);
+
+        /**
+         * @brief Function to handle Number key.
+         *
+         * @param keyCode Key Code send by the client
+         * @param idxPlayerPacket Index of Player who send the packet.
+         */
+        void _handleNumberKey(uint8_t keyCode, int idxPlayerPacket);
+
+        /**
+         * @brief Function to Special key.
+         *
+         * @param keyCode Key Code send by the client
+         * @param idxPlayerPacket Index of Player who send the packet.
+         */
+        void _handleSpecialKey(uint8_t keyCode, int idxPlayerPacket);
+
+        /**
          * @brief Callback function who handle the packet receive.
          *
          * @param packet Packet to be handle in this function.
