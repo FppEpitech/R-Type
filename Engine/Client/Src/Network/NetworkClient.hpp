@@ -13,6 +13,8 @@
 #include <iostream>
 
 #include "NetworkPacket.hpp"
+#include "PlayerComponent.hpp"
+#include "ClientSceneManager.hpp"
 
 /**
  * @namespace Network
@@ -45,8 +47,9 @@ class Network::Client
          * @brief Function to connect the client to the server.
          *
          * @param callback Callback function called when the client receive data.
+         * @param reg Registry with all component and entity.
          */
-        void connect(MessageHandler callback);
+        void connect(MessageHandler callback, ECS::Registry& reg);
 
         /**
          * @brief Send a message to the server.
@@ -55,6 +58,20 @@ class Network::Client
          */
         void sendMessage(std::vector<uint8_t>& packet);
 
+        /**
+         * @brief Get the Token object
+         *
+         * @return uint32_t Token of client.
+         */
+        uint32_t getToken();
+
+        /**
+         * @brief Function who send the packet to server.
+         *
+         * @param key Key entered and sended to the server.
+         */
+        void sendKeyPacket(KEY_MAP key);
+
     private:
 
         /**
@@ -62,6 +79,45 @@ class Network::Client
          *
          */
         void _startReceive();
+
+        /**
+         * @brief Function to create a packet.
+         *
+         * @return std::vector<uint8_t> Packet.
+         */
+        std::vector<uint8_t> _createPacket();
+
+        /**
+         * @brief Send a Packet with Arrow in Message type and the Arrow key.
+         *
+         * @param keyCode The Key code to check if this is an Arrow Key.
+         * @param packet The packet to send if this is an Arrow Key.
+         */
+        bool _SendArrowKey(KEY_MAP key, std::vector<uint8_t> packet);
+
+        /**
+         * @brief Send a Packet with Alpha in Message type and the Alpha key.
+         *
+         * @param keyCode The Key code to check if this is an Alpha Key.
+         * @param packet The packet to send if this is an Alpha Key.
+         */
+        bool _SendAlphaKey(KEY_MAP key, std::vector<uint8_t> packet);
+
+        /**
+         * @brief Send a Packet with Number in Message type and the Number key.
+         *
+         * @param keyCode The Key code to check if this is an Number Key.
+         * @param packet The packet to send if this is an Number Key.
+         */
+        bool _SendNumberKey(KEY_MAP key, std::vector<uint8_t> packet);
+
+        /**
+         * @brief Send a Packet with Special in Message type and the Special key.
+         *
+         * @param keyCode The Key code to check if this is an Special Key.
+         * @param packet The packet to send if this is an Special Key.
+         */
+        bool _SendSpecialKey(KEY_MAP key, std::vector<uint8_t> packet);
 
         std::string                             _server_ip;         // Server IP
         int                                     _tcp_port;          // TCP port on witch we can connect to the server.
@@ -76,4 +132,6 @@ class Network::Client
         std::array<char, 1024>                  _recv_buffer;       // Receive buffer to store data received via UDP.
 
         MessageHandler                          _messageHandler;    // Message Manager to process messages.
+
+        uint32_t                                _messageId;        // Current Message ID (auto-incremente every send of message)
 };

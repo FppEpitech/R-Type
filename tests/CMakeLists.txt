@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
 
+# Set compiler flags for coverage
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/tests)
+
 add_executable(server_test
     ./Server/tests.cpp
 )

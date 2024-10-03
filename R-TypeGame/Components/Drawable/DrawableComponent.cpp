@@ -11,8 +11,3 @@ DrawableComponent::DrawableComponent(bool drawable, std::string pathTexture) :
     drawable(drawable), pathTexture(pathTexture), AComponent("DrawableComponent")
 {
 }
-
-extern "C" IComponent* loadComponentInstance()
-{
-    return new DrawableComponent();
-}

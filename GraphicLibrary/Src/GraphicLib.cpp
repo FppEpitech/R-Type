@@ -40,7 +40,7 @@ bool GraphicLib::windowIsOpen()
 
 void GraphicLib::clear()
 {
-    ClearBackground(BLACK);
+    ClearBackground(WHITE);
 }
 
 std::size_t GraphicLib::getKeyInput() {
@@ -61,6 +61,43 @@ void GraphicLib::drawOBJ(std::string objPath, float posx, float posy, float posz
     BeginMode3D(_camera);
         DrawModel(_models[objPath], position, scale, WHITE);
     EndMode3D();
+}
+
+void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, float scale)
+{
+    if (_textures.find(texturePath) == _textures.end())
+        _textures[texturePath] = LoadTexture(texturePath.c_str());
+
+    Vector2 position = { posx, posy };
+
+    DrawTextureEx(_textures[texturePath], position, 0, scale, WHITE);
+}
+
+void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale)
+{
+    if (_textures.find(texturePath) == _textures.end())
+        _textures[texturePath] = LoadTexture(texturePath.c_str());
+
+    Rectangle rect = {left, top, width, height};
+    Rectangle rectDest = {posx, posy, width * scale, height * scale};
+    Vector2 origin = { 0, 0 };
+
+    DrawTexturePro(_textures[texturePath], rect, rectDest, origin, 0, WHITE);
+}
+
+void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
+    unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+    if (_font.find(fontPath) == _font.end() && fontPath != "")
+        _font[fontPath] = LoadFont(fontPath.c_str());
+
+    Color color = {r, g, b, a};
+
+    if (fontPath != "") {
+        Vector2 position = { posx, posy };
+        DrawTextEx(_font[fontPath], text.c_str(), position, fontSize, 2, color);
+    } else
+        DrawText(text.c_str(), posx, posy, 24, color);
 }
 
 void GraphicLib::startDraw()

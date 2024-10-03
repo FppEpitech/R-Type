@@ -7,30 +7,31 @@
 
 #include "NetworkPacket.hpp"
 
-Network::UDPPacket::UDPPacket(const std::string& packetData) {
-        if (packetData.size() < 15)
-            throw std::invalid_argument("Packet data too short.");
+Network::UDPPacket::UDPPacket(const std::string& packetData)
+{
+    if (packetData.size() < 15)
+        throw std::invalid_argument("Packet data too short.");
 
-        _version = static_cast<uint8_t>(packetData[0]);
-        _messageType = static_cast<uint8_t>(packetData[1]);
-        _messageID = static_cast<uint16_t>((static_cast<uint16_t>(packetData[2]) << 8) | static_cast<uint16_t>(packetData[3]));
+    _version = static_cast<uint8_t>(packetData[0]);
+    _messageType = static_cast<uint8_t>(packetData[1]);
+    _messageID = static_cast<uint16_t>((static_cast<uint16_t>(packetData[2]) << 8) | static_cast<uint16_t>(packetData[3]));
 
-        _token = (static_cast<uint32_t>(static_cast<uint8_t>(packetData[4])) << 24) |
-             (static_cast<uint32_t>(static_cast<uint8_t>(packetData[5])) << 16) |
-             (static_cast<uint32_t>(static_cast<uint8_t>(packetData[6])) << 8)  |
-             static_cast<uint32_t>(static_cast<uint8_t>(packetData[7]));
+    _token = (static_cast<uint32_t>(static_cast<uint8_t>(packetData[4])) << 24) |
+            (static_cast<uint32_t>(static_cast<uint8_t>(packetData[5])) << 16) |
+            (static_cast<uint32_t>(static_cast<uint8_t>(packetData[6])) << 8)  |
+            static_cast<uint32_t>(static_cast<uint8_t>(packetData[7]));
 
-        _payloadLength = (static_cast<uint32_t>(packetData[8]) << 24) |
-                         (static_cast<uint32_t>(packetData[9]) << 16) |
-                         (static_cast<uint32_t>(packetData[10]) << 8) |
-                         static_cast<uint32_t>(packetData[11]);
+    _payloadLength = (static_cast<uint32_t>(packetData[8]) << 24) |
+                        (static_cast<uint32_t>(packetData[9]) << 16) |
+                        (static_cast<uint32_t>(packetData[10]) << 8) |
+                        static_cast<uint32_t>(packetData[11]);
 
-        if (packetData.size() != 14 + _payloadLength)
-            throw std::invalid_argument("Packet data size does not match the expected length.");
-        _payload.assign(packetData.begin() + 12, packetData.begin() + 12 + _payloadLength);
+    if (packetData.size() != static_cast<std::size_t>(14) + static_cast<std::size_t>(_payloadLength))
+        throw std::invalid_argument("Packet data size does not match the expected length.");
+    _payload.assign(packetData.begin() + 12, packetData.begin() + 12 + _payloadLength);
 
-        _checksum = (static_cast<uint16_t>(static_cast<uint8_t>(packetData[12 + _payloadLength]) << 8)) |
-                     static_cast<uint16_t>(static_cast<uint8_t>(packetData[13 + _payloadLength]));
+    _checksum = (static_cast<uint16_t>(static_cast<uint8_t>(packetData[12 + _payloadLength]) << 8)) |
+                    static_cast<uint16_t>(static_cast<uint8_t>(packetData[13 + _payloadLength]));
 }
 
 uint8_t Network::UDPPacket::getVersion() const
@@ -102,5 +103,5 @@ void Network::UDPPacket::displayPacket(void)
     std::cout << "Payload Length: "<< "0x" << std::hex << std::setw(8) << std::setfill('0') << static_cast<int>(_payloadLength) << std::endl;
     for (uint8_t bytes : _payload)
         std::cout << "Bytes payload: "<< "0x" << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(bytes) << std::endl;
-    std::cout << "Checksum: "<< "0x" << std::hex << std::setw(4) << std::setfill('0') << static_cast<int>(_checksum) << std::endl;
+    std::cout << "Checksum: "<< "0x" << std::hex << std::setw(4) << std::setfill('0') << static_cast<int>(_checksum) << std::dec << std::endl;
 }
