@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD 20)
 # Set the output directory for the library
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 
+find_package(jsoncpp REQUIRED)
+
 # Include directories for header files
 include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Include/
@@ -14,17 +16,83 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/
     ../Components/Speed/
+    ../Components/Life/
+    ../Parser/ScaleParser/
+    ../Parser/Position2DParser/
+    ../Parser/LifeParser/
+    ../Parser/PlayerParser/
+    ../Parser/SpeedParser/
+    ../Parser/TextureRectParser/
 )
 
 # Add a shared library target 'system_initPlayer'
-add_library(system_initPlayer SHARED
-    Players/PlayerInitSystem.cpp
+add_library(system_initPlayerOne SHARED
+    Players/PlayerInitOneSystem.cpp
     ../Components/Life/LifeComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position3DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ObjPathComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/LifeParser/LifeParser.cpp
+    ../Parser/PlayerParser/PlayerParser.cpp
+    ../Parser/SpeedParser/SpeedParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
 )
+target_link_libraries(system_initPlayerOne PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_initPlayerTwo SHARED
+    Players/PlayerInitTwoSystem.cpp
+    ../Components/Life/LifeComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ../Components/Speed/SpeedComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/LifeParser/LifeParser.cpp
+    ../Parser/PlayerParser/PlayerParser.cpp
+    ../Parser/SpeedParser/SpeedParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+)
+target_link_libraries(system_initPlayerTwo PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_initPlayerThree SHARED
+    Players/PlayerInitThreeSystem.cpp
+    ../Components/Life/LifeComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ../Components/Speed/SpeedComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/LifeParser/LifeParser.cpp
+    ../Parser/PlayerParser/PlayerParser.cpp
+    ../Parser/SpeedParser/SpeedParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+)
+target_link_libraries(system_initPlayerThree PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_initPlayerFour SHARED
+    Players/PlayerInitFourSystem.cpp
+    ../Components/Life/LifeComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ../Components/Speed/SpeedComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/LifeParser/LifeParser.cpp
+    ../Parser/PlayerParser/PlayerParser.cpp
+    ../Parser/SpeedParser/SpeedParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+)
+target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.cpp)
 add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)

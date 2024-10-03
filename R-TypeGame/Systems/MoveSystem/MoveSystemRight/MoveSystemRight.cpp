@@ -22,10 +22,10 @@ std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemRight::
 void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxPacketEntities)
 {
     try {
-        ECS::SparseArray<IComponent> PositionComponentArray = entityManager.get_components<IComponent>("Position3DComponent");
+        ECS::SparseArray<IComponent> PositionComponentArray = entityManager.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> SpeedComponentArray = entityManager.get_components<IComponent>("SpeedComponent");
 
-        Position3DComponent* position = dynamic_cast<Position3DComponent*>(PositionComponentArray[idxPacketEntities].get());
+        Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
         SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
 
         position->x += speed->speedX;
