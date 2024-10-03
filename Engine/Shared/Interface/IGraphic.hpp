@@ -79,6 +79,20 @@ class IGraphic {
         virtual void drawTexture(std::string texturePath, float posx, float posy, float scale) = 0;
 
         /**
+         * @brief Draw a texture rect on the screen.
+         *
+         * @param texturePath Path to the Texture to draw.*
+         * @param posx Position x.
+         * @param posy Position y.
+         * @param left Left coordinate of the rectangle.
+         * @param top Top coordinate of the rectangle.
+         * @param width Width of the rectangle.
+         * @param height Height of the rectangle.
+         * @param scale Scale.
+         */
+        virtual void drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale) = 0;
+
+        /**
          * @brief Draw a text on the screen.
          *
          * @param text Text to draw.
