@@ -20,6 +20,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/Component/FontPathComponent.cpp
     ../Shared/Component/ObjPathComponent.cpp
     ../Shared/Component/TexturePathComponent.cpp
+    ../Shared/Component/TextureRectComponent.cpp
     ../Shared/Component/ScaleComponent.cpp
     ../Shared/Component/ColourComponent.cpp
     ../Shared/Component/Position3DComponent.cpp
@@ -40,6 +41,7 @@ set(SYSTEM_SRC_FILE
     ${EXE_SRC_PATH}/Systems/DrawOBJ/DrawOBJSystem.cpp
     ${EXE_SRC_PATH}/Systems/DrawTexture/DrawTextureSystem.cpp
     ${EXE_SRC_PATH}/Systems/DrawText/DrawTextSystem.cpp
+    ${EXE_SRC_PATH}/Systems/DrawTextureRect/DrawTextureRectSystem.cpp
 )
 
 # Define the main source files for the executable

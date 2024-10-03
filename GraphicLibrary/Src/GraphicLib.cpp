@@ -73,6 +73,18 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
     DrawTextureEx(_textures[texturePath], position, 0, scale, WHITE);
 }
 
+void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale)
+{
+    if (_textures.find(texturePath) == _textures.end())
+        _textures[texturePath] = LoadTexture(texturePath.c_str());
+
+    Rectangle rect = {left, top, width, height};
+    Rectangle rectDest = {posx, posy, width * scale, height * scale};
+    Vector2 origin = { 0, 0 };
+
+    DrawTexturePro(_textures[texturePath], rect, rectDest, origin, 0, WHITE);
+}
+
 void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
     unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
