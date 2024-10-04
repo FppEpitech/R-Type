@@ -60,7 +60,6 @@ add_library(system_initPlayerTwo SHARED
     ../Parser/PlayerParser/PlayerParser.cpp
     ../Parser/SpeedParser/SpeedParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
-    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp
 )
 target_link_libraries(system_initPlayerTwo PRIVATE JsonCpp::JsonCpp)
 
