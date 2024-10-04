@@ -36,5 +36,5 @@ class SpriteSheetAnimationComponent : public AComponent {
          *
          * @param text Initial text content (default is an empty string).
          */
-        SpriteSheetAnimationComponent(std::size_t nbFrame = 1, float timeFrame = 0.5, float vx = 0, float vy = 0, float startX = 0, float startY = 0, std::size_t currentFrame = 1, bool reverseMod = false);
+        SpriteSheetAnimationComponent(std::size_t nbFrame = 1, float timeFrame = 0.5, float vx = 0, float vy = 0, float startX = 0, float startY = 0, bool reverseMod = false);
 };

@@ -35,7 +35,6 @@ void SpriteSheetAnimationSystem::_spriteSheetAnimation(ECS::Registry& reg, int i
             continue;
 
         clock_t time = clock();
-        std::cout << spriteSheetAnimation->currentFrame << std::endl;
         float timeElapsed = float(time - spriteSheetAnimation->timeElapsed) / CLOCKS_PER_SEC * 10;
         if (spriteSheetAnimation->timeFrame < timeElapsed) {
             spriteSheetAnimation->timeElapsed = clock();
