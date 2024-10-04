@@ -34,6 +34,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/Component/SoundPathComponent.cpp
     ../Shared/Component/SoundPitchComponent.cpp
     ../Shared/Component/SoundVolumeComponent.cpp
+    ../Shared/Component/SpriteSheetAnimationComponent.cpp
 )
 
 # Define system source files
@@ -42,6 +43,7 @@ set(SYSTEM_SRC_FILE
     ${EXE_SRC_PATH}/Systems/DrawTexture/DrawTextureSystem.cpp
     ${EXE_SRC_PATH}/Systems/DrawText/DrawTextSystem.cpp
     ${EXE_SRC_PATH}/Systems/DrawTextureRect/DrawTextureRectSystem.cpp
+    ${EXE_SRC_PATH}/Systems/SpriteSheetAnimation/SpriteSheetAnimationSystem.cpp
 )
 
 # Define the main source files for the executable

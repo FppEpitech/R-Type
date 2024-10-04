@@ -42,6 +42,7 @@ set(SRC_EXE
     ../Shared/Component/SoundPathComponent.cpp
     ../Shared/Component/SoundPitchComponent.cpp
     ../Shared/Component/SoundVolumeComponent.cpp
+    ../Shared/Component/SpriteSheetAnimationComponent.cpp
 )
 
 # Include directories for header files
