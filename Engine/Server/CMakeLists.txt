@@ -42,6 +42,7 @@ set(SRC_EXE
     ../Shared/Component/SoundPathComponent.cpp
     ../Shared/Component/SoundPitchComponent.cpp
     ../Shared/Component/SoundVolumeComponent.cpp
+    ../Shared/Component/Entities/Player/PlayerComponent.cpp
 )
 
 # Include directories for header files
@@ -56,6 +57,7 @@ include_directories(
     ../Shared/Network/Packet
     ../Shared/Component
     ../Shared/Component/Entities
+    ../Shared/Component/Entities/Player
     ${EXE_INCLUDE_PATH}
 )
 
