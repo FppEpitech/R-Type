@@ -11,6 +11,7 @@
 #include "ScaleComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "Position2DComponent.hpp"
+#include "SpriteSheetAnimationComponent.hpp"
 #include "../../Components/Life/LifeComponent.hpp"
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
@@ -18,6 +19,7 @@
 #include "LifeParser.hpp"
 #include "PlayerParser.hpp"
 #include "SpeedParser.hpp"
+#include "SpriteSheetAnimationParser.hpp"
 
 #include <fstream>
 #include <json/json.h>
@@ -65,6 +67,12 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
     if (speed) {
         reg.register_component<IComponent>(speed->getType());
         reg.set_component<IComponent>(idxPacketEntities, speed, speed->getType());
+    }
+
+    std::shared_ptr<SpriteSheetAnimationComponent> animation = parseSpriteSheetAnimation(PATH_JSON);
+    if (animation) {
+        reg.register_component<IComponent>(animation->getType());
+        reg.set_component<IComponent>(idxPacketEntities, animation, animation->getType());
     }
 }
 

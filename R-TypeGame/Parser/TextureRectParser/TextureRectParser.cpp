@@ -23,8 +23,6 @@ std::shared_ptr<TextureRectComponent> parseTextureRect(std::string pathFile)
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        TextureRectComponent texture;
-
         const Json::Value& textureRectJson = root["TextureRectComponent"];
         const Json::Value& scaleJson = root["ScaleComponent"];
         const Json::Value& position2DJson = root["Position2DComponent"];

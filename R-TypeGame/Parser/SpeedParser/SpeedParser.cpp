@@ -23,8 +23,6 @@ std::shared_ptr<SpeedComponent> parseSpeed(std::string pathFile)
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        SpeedComponent texture;
-
         const Json::Value& speed = root["SpeedComponent"];
         const Json::Value& x = speed["x"];
         const Json::Value& y = speed["y"];

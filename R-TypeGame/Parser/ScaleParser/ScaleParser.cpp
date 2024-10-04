@@ -23,8 +23,6 @@ std::shared_ptr<ScaleComponent> parseScale(std::string pathFile)
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        ScaleComponent texture;
-
         const Json::Value& scale = root["ScaleComponent"];
 
         if (scale)
