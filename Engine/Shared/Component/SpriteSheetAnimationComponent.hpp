@@ -29,11 +29,12 @@ class SpriteSheetAnimationComponent : public AComponent {
         float           startX;             //< Position x of the first frame.
         float           startY;             //< Position y of the first frame.
         std::size_t     currentFrame;       //< Index of the current frame display.
+        bool            reverseMod;         //< True if frames should be played in both directions. (For example: left to right and right to left)
 
         /**
          * @brief Construct a new Animation Component object
          *
          * @param text Initial text content (default is an empty string).
          */
-        SpriteSheetAnimationComponent(std::size_t nbFrame = 1, float timeFrame = 0.5, float vx = 0, float vy = 0, float startX = 0, float startY = 0, std::size_t currentFrame = 1);
+        SpriteSheetAnimationComponent(std::size_t nbFrame = 1, float timeFrame = 0.5, float vx = 0, float vy = 0, float startX = 0, float startY = 0, std::size_t currentFrame = 1, bool reverseMod = false);
 };

@@ -44,7 +44,6 @@ void Application::_keyboardHandler(std::size_t key)
         ECS::SparseArray<IComponent> PlayerComponentArray = _registries->at(SceneManager::RegisterIndex::CURRENT).get_components<IComponent>("PlayerComponent");
         for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
             PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-            std::cout << player->token << " " << this->_client->getToken() << std::endl;
             if (player->token == this->_client->getToken()) {
                 idxPlayerPacket = index;
                 break;

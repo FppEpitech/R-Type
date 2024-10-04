@@ -31,10 +31,11 @@ std::shared_ptr<SpriteSheetAnimationComponent> parseSpriteSheetAnimation(std::st
         const Json::Value& startX = spriteSheetAnimation["startX"];
         const Json::Value& startY = spriteSheetAnimation["startY"];
         const Json::Value& currentFrame = spriteSheetAnimation["currentFrame"];
+        const Json::Value& reverseMod = spriteSheetAnimation["reverseMod"];
 
-        if (nbFrame && timeFrame && vx && vy && startX && startY && currentFrame)
+        if (nbFrame && timeFrame && vx && vy && startX && startY && currentFrame && reverseMod)
             return std::make_shared<SpriteSheetAnimationComponent>(
-                nbFrame.asUInt(), timeFrame.asFloat(), vx.asFloat(), vy.asFloat(), startX.asFloat(), startY.asFloat(), currentFrame.asUInt());
+                nbFrame.asUInt(), timeFrame.asFloat(), vx.asFloat(), vy.asFloat(), startX.asFloat(), startY.asFloat(), currentFrame.asUInt(), reverseMod.asBool());
         return nullptr;
     } catch (std::exception e) {
         std::cout << e.what() << std::endl;

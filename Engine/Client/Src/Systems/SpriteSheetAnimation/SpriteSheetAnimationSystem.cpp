@@ -35,16 +35,24 @@ void SpriteSheetAnimationSystem::_spriteSheetAnimation(ECS::Registry& reg, int i
             continue;
 
         clock_t time = clock();
+        std::cout << spriteSheetAnimation->currentFrame << std::endl;
         float timeElapsed = float(time - spriteSheetAnimation->timeElapsed) / CLOCKS_PER_SEC * 10;
         if (spriteSheetAnimation->timeFrame < timeElapsed) {
             spriteSheetAnimation->timeElapsed = clock();
             spriteSheetAnimation->currentFrame++;
+            if (spriteSheetAnimation->currentFrame > spriteSheetAnimation->nbFrame) {
+                spriteSheetAnimation->currentFrame = 2;
+                if (!spriteSheetAnimation->reverseMod) {
+                    textureRect->left = spriteSheetAnimation->startX;
+                    textureRect->top = spriteSheetAnimation->startY;
+                    continue;
+                } else {
+                    spriteSheetAnimation->vx = spriteSheetAnimation->vx * (-1);
+                    spriteSheetAnimation->vy = spriteSheetAnimation->vy * (-1);
+                }
+            }
             textureRect->left += spriteSheetAnimation->vx;
             textureRect->top += spriteSheetAnimation->vy;
-            if (spriteSheetAnimation->currentFrame > spriteSheetAnimation->nbFrame) {
-                textureRect->left += spriteSheetAnimation->startX;
-                textureRect->top += spriteSheetAnimation->startY;
-            }
         }
     }
 }
