@@ -1,0 +1,23 @@
+{
+    "TextureRectComponent":
+    {
+        "path":"./Assets/players.gif",
+        "left": 0,
+        "top": 51.6,
+        "width": 33.2,
+        "height": 17.2
+    },
+    "ScaleComponent": 5,
+    "Position2DComponent":
+    {
+        "x": 0,
+        "y": 400
+    },
+    "LifeComponent":100,
+    "PlayerComponent":4,
+    "SpeedComponent":
+    {
+        "x":5,
+        "y":5
+    }
+}
