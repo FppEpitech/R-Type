@@ -169,4 +169,5 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _defaultRegistry.register_component<IComponent>(TextComponent().getType());
     _defaultRegistry.register_component<IComponent>(TexturePathComponent().getType());
     _defaultRegistry.register_component<IComponent>(TextureRectComponent().getType());
+    _defaultRegistry.register_component<IComponent>(SpriteSheetAnimationComponent().getType());
 }

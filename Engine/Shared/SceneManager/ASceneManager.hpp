@@ -30,6 +30,7 @@
 #include "SoundVolumeComponent.hpp"
 #include "TexturePathComponent.hpp"
 #include "TextureRectComponent.hpp"
+#include "SpriteSheetAnimationComponent.hpp"
 
 #define CONFIG_SUFFIX ".json"
 
