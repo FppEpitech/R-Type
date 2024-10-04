@@ -45,7 +45,7 @@ void GraphicLib::clear()
 
 std::size_t GraphicLib::getKeyInput() {
     for (std::size_t i = KEY_NULL; i < KEY_KP_EQUAL; i++) {
-        if (IsKeyDown(i))
+        if (IsKeyPressed(i))
             return i;
     }
     return KEY_NULL;
