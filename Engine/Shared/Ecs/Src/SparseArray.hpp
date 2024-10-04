@@ -101,7 +101,7 @@ class SparseArray {
          */
         SparseArray &operator=(SparseArray const &other)
         {
-            _data = other.data;
+            _data = other._data;
             return *this;
         };
 

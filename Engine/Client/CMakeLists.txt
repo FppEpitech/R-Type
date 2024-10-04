@@ -34,6 +34,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/Component/SoundPathComponent.cpp
     ../Shared/Component/SoundPitchComponent.cpp
     ../Shared/Component/SoundVolumeComponent.cpp
+    ../Shared/Component/Entities/Player/PlayerComponent.cpp
 )
 
 # Define system source files
