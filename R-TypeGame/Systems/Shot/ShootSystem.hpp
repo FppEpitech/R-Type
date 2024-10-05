@@ -9,6 +9,9 @@
 
 #include <iostream>
 
+#define POS_PLAYER_X 155
+#define POS_PLAYER_Y 50
+
 #include "ISystem.hpp"
 
 /**
