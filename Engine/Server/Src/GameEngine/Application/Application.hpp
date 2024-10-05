@@ -89,7 +89,7 @@ class Application {
          */
         void _packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, ECS::Registry& reg);
 
-        std::shared_ptr<std::vector<ECS::Registry>>             _registries;        // vector of registries class for ECS management.
+        std::shared_ptr<ECS::Registry>             _registries;        // vector of registries class for ECS management.
         std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
         std::shared_ptr<Network::Server>                        _server;            // Network class for server.
 };

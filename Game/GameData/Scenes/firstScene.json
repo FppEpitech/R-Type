@@ -5,7 +5,7 @@
             "path" : ""
         },
         {
-            "key": "KEY_COMMA",
+            "key": "KEY_K",
             "path" : "testScene.json"
         },
         {
@@ -36,5 +36,6 @@
         "libsystem_initPlayerFour.so"
     ],
     "systems": [
+        "libsystem_moveEntities.so"
     ]
 }

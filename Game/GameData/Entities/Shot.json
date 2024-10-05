@@ -17,5 +17,10 @@
     {
         "x":5,
         "y":5
+    },
+    "VelocityComponent":
+    {
+        "vx": 5,
+        "vy": 0
     }
 }

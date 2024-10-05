@@ -33,7 +33,7 @@ namespace SceneManager {
              * @brief Construct a new ServerSceneManager object.
              * @param registries Registries for each scene.
              */
-            ServerSceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries);
+            ServerSceneManager(std::shared_ptr<ECS::Registry> registries);
 
             /**
              * @brief Destroy the ServerSceneManager object.
