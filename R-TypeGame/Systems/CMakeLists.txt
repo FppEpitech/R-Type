@@ -31,6 +31,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
+    ../Parser/SpriteSheetAnimationParser/
 )
 
 # Add a shared library target 'system_initPlayer'
@@ -40,6 +41,7 @@ add_library(system_initPlayerOne SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
@@ -48,6 +50,7 @@ add_library(system_initPlayerOne SHARED
     ../Parser/PlayerParser/PlayerParser.cpp
     ../Parser/SpeedParser/SpeedParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp
 )
 target_link_libraries(system_initPlayerOne PRIVATE JsonCpp::JsonCpp)
 

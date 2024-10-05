@@ -23,8 +23,6 @@ std::shared_ptr<Position2DComponent> parsePosition2D(std::string pathFile)
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        Position2DComponent texture;
-
         const Json::Value& position2D = root["Position2DComponent"];
 
         const Json::Value& x = position2D["x"];

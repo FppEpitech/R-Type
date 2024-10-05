@@ -23,8 +23,6 @@ std::shared_ptr<PlayerComponent> parsePlayer(std::string pathFile)
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        PlayerComponent texture;
-
         const Json::Value& player = root["PlayerComponent"];
 
         if (player)
