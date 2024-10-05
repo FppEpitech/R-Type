@@ -1,35 +1,38 @@
 /*
 ** EPITECH PROJECT, 2024
-** ShotInitSystem
+** ShootDestroySystem
 ** File description:
-** ShotInitSystem
+** ShootDestroySystem
 */
 
 #pragma once
 
 #include <iostream>
 
+#define POS_PLAYER_X 155
+#define POS_PLAYER_Y 50
+
 #include "ISystem.hpp"
 
 /**
- * @brief Initialize a shot entity.
+ * @brief Destroy a shot if the bullet leave the screen.
  *
  */
-class ShotInitSystem : public ASystem {
+class ShootDestroySystem : public ASystem {
 
     public:
 
         /**
-         * @brief Construct a new Shot Init System object.
+         * @brief Construct a new ShootDestroy System object.
          *
          */
-        ShotInitSystem();
+        ShootDestroySystem();
 
         /**
-         * @brief Destroy the Shot Init System object.
+         * @brief Destroy the ShootDestroy System object.
          *
          */
-        ~ShotInitSystem() = default;
+        ~ShootDestroySystem() = default;
 
         /**
          * @brief Get the Function object.
@@ -39,11 +42,11 @@ class ShotInitSystem : public ASystem {
         std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction()
         {
             return [this](ECS::Registry& reg, int idxPacketEntities) {
-                _initShot(reg, idxPacketEntities);
+                _shootDestroy(reg, idxPacketEntities);
             };
         }
 
     private:
 
-        void _initShot(ECS::Registry& reg, int idxPacketEntities); //< Function to init the Shot.
+        void _shootDestroy(ECS::Registry& reg, int idxPacketEntities); //< Function to destroy shoot.
 };

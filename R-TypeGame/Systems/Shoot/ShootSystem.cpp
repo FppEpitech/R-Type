@@ -6,7 +6,7 @@
 */
 
 #include "ShootSystem.hpp"
-#include "ShotInitSystem.hpp"
+#include "ShootInitSystem.hpp"
 #include "Position2DComponent.hpp"
 #include "PlayerComponent.hpp"
 
@@ -18,7 +18,7 @@ ShootSystem::ShootSystem() :
 void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
 {
     ECS::entity_t shoot = reg.spawn_entity();
-    ShotInitSystem().getFunction()(reg, shoot);
+    ShootInitSystem().getFunction()(reg, shoot);
 
     try {
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");

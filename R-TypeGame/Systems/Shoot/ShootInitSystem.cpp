@@ -1,33 +1,35 @@
 /*
 ** EPITECH PROJECT, 2024
-** ShotInitSystem
+** ShootInitSystem
 ** File description:
-** ShotInitSystem
+** ShootInitSystem
 */
 
 #include "SpeedComponent.hpp"
-#include "ShotInitSystem.hpp"
+#include "ShootInitSystem.hpp"
 #include "ScaleComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "VelocityComponent.hpp"
+#include "ShootComponent.hpp"
 #include "VelocityParser.hpp"
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
 #include "SpeedParser.hpp"
+#include "ShootParser.hpp"
 
 #include <fstream>
 #include <json/json.h>
 
-#define PATH_JSON "GameData/Entities/Shot.json"
+#define PATH_JSON "GameData/Entities/Shoot.json"
 
-ShotInitSystem::ShotInitSystem() :
-    ASystem("ShotInitSystem")
+ShootInitSystem::ShootInitSystem() :
+    ASystem("ShootInitSystem")
 {
 }
 
-void ShotInitSystem::_initShot(ECS::Registry& reg, int idxPacketEntities)
+void ShootInitSystem::_initShoot(ECS::Registry& reg, int idxPacketEntities)
 {
     std::shared_ptr<TextureRectComponent> textureRect = parseTextureRect(PATH_JSON);
     if (textureRect) {
@@ -57,5 +59,11 @@ void ShotInitSystem::_initShot(ECS::Registry& reg, int idxPacketEntities)
     if (velocity) {
         reg.register_component<IComponent>(velocity->getType());
         reg.set_component<IComponent>(idxPacketEntities, velocity, velocity->getType());
+    }
+
+    std::shared_ptr<ShootComponent> shoot = parseShoot(PATH_JSON);
+    if (shoot) {
+        reg.register_component<IComponent>(shoot->getType());
+        reg.set_component<IComponent>(idxPacketEntities, shoot, shoot->getType());
     }
 }

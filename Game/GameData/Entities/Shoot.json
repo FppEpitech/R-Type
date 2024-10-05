@@ -22,5 +22,10 @@
     {
         "vx": 5,
         "vy": 0
+    },
+    "ShootComponent":
+    {
+        "damage": 20,
+        "friendlyFire": true
     }
 }
