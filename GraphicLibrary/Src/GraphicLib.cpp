@@ -109,3 +109,8 @@ void GraphicLib::endDraw()
 {
     EndDrawing();
 }
+
+std::pair<int, int> GraphicLib::getWindowSize()
+{
+    return std::make_pair<int, int>(GetScreenWidth(), GetScreenHeight());
+}

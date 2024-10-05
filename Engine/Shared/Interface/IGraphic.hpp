@@ -121,4 +121,11 @@ class IGraphic {
          *
          */
         virtual void endDraw() = 0;
+
+        /**
+         * @brief Get the Window Size object.
+         *
+         * @return std::pair<int, int> Width and Height.
+         */
+        virtual std::pair<int, int> getWindowSize() = 0;
 };

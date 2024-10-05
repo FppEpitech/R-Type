@@ -128,6 +128,13 @@ class GraphicLib : public IGraphic {
          */
         void endDraw();
 
+        /**
+         * @brief Get the Window Size object.
+         *
+         * @return std::pair<int, int> Width and Height.
+         */
+        std::pair<int, int> getWindowSize();
+
     private:
 
         Camera                                      _camera;        //< Player camera.
