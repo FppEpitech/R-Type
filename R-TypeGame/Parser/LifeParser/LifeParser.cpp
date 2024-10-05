@@ -23,8 +23,6 @@ std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        LifeComponent texture;
-
         const Json::Value& life = root["LifeComponent"];
 
         if (life)

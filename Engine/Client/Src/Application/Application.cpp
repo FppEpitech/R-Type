@@ -31,6 +31,7 @@ void Application::_initDefaultGraphicSystems()
     _defaultSystems.push_back(DrawTextureSystem().getFunction());
     _defaultSystems.push_back(DrawTextSystem().getFunction());
     _defaultSystems.push_back(DrawTextureRectSystem().getFunction());
+    _defaultSystems.push_back(SpriteSheetAnimationSystem().getFunction());
 }
 
 void Application::_keyboardHandler(std::size_t key)
