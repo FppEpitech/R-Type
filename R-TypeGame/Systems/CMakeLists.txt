@@ -94,6 +94,19 @@ add_library(system_initPlayerFour SHARED
 )
 target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
 
+add_library(system_initShot SHARED
+    Shot/ShotInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ../Components/Speed/SpeedComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/SpeedParser/SpeedParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+)
+target_link_libraries(system_initShot PRIVATE JsonCpp::JsonCpp)
+
 add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.cpp)
 add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)
 add_library(system_moveUp SHARED MoveSystem/MoveSystemUp/MoveSystemUp.cpp)

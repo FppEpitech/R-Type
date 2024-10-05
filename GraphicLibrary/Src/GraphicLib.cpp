@@ -40,7 +40,7 @@ bool GraphicLib::windowIsOpen()
 
 void GraphicLib::clear()
 {
-    ClearBackground(WHITE);
+    ClearBackground(BLACK);
 }
 
 std::size_t GraphicLib::getKeyInput() {

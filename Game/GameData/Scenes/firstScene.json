@@ -29,7 +29,8 @@
         "libsystem_initPlayerOne.so",
         "libsystem_initPlayerTwo.so",
         "libsystem_initPlayerThree.so",
-        "libsystem_initPlayerFour.so"
+        "libsystem_initPlayerFour.so",
+        "libsystem_initShot.so"
     ],
     "systems": [
     ]
