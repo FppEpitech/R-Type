@@ -7,7 +7,7 @@
 
 #include "VelocityComponent.hpp"
 
-VelocityComponent::VelocityComponent(unsigned int velocity) :
-    velocity(velocity), AComponent("VelocityComponent")
+VelocityComponent::VelocityComponent(float vx, float vy) :
+    vx(vx), vy(vy), AComponent("VelocityComponent")
 {
 }

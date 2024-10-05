@@ -10,6 +10,8 @@
 #include "ScaleComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "Position2DComponent.hpp"
+#include "VelocityComponent.hpp"
+#include "VelocityParser.hpp"
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
@@ -50,9 +52,10 @@ void ShotInitSystem::_initShot(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(speed->getType());
         reg.set_component<IComponent>(idxPacketEntities, speed, speed->getType());
     }
-}
 
-// extern "C" ISystem* loadSystemInstance()
-// {
-//     return new ShotInitSystem();
-// }
+    std::shared_ptr<VelocityComponent> velocity = parseVelocity(PATH_JSON);
+    if (velocity) {
+        reg.register_component<IComponent>(velocity->getType());
+        reg.set_component<IComponent>(idxPacketEntities, velocity, velocity->getType());
+    }
+}

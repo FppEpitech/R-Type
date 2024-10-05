@@ -17,12 +17,13 @@ class VelocityComponent : public AComponent {
 
     public:
 
-        unsigned int velocity;  // Velocity.
+        float vx;  // Velocity x.
+        float vy;  // Velocity y.
 
         /**
          * @brief Construct a new Velocity Component object.
          *
          * @param velocity Velocity.
          */
-        VelocityComponent(unsigned int velocity = 1);
+        VelocityComponent(float vx = 0, float vy = 0);
 };

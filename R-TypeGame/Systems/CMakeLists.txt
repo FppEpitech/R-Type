@@ -23,6 +23,8 @@ include_directories(
     ../Parser/PlayerParser/
     ../Parser/SpeedParser/
     ../Parser/TextureRectParser/
+    ../Parser/VelocityParser/
+    ../Components/Velocity/
 )
 
 # Add a shared library target 'system_initPlayer'
@@ -98,6 +100,7 @@ add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.c
 add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)
 add_library(system_moveUp SHARED MoveSystem/MoveSystemUp/MoveSystemUp.cpp)
 add_library(system_moveDown SHARED MoveSystem/MoveSystemDown/MoveSystemDown.cpp)
+add_library(system_moveEntities SHARED MoveSystem/MoveEntities/MoveEntitiesSystem.cpp)
 
 add_library(system_shoot SHARED
     Shot/ShootSystem.cpp
@@ -107,8 +110,10 @@ add_library(system_shoot SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
+    ../Components/Velocity/VelocityComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/SpeedParser/SpeedParser.cpp
+    ../Parser/VelocityParser/VelocityParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp)
 target_link_libraries(system_shoot PRIVATE JsonCpp::JsonCpp)
