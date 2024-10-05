@@ -146,7 +146,7 @@ class Registry {
         void remove_component(entity_t const& from, std::string typeIdx)
         {
             auto& components = get_components<Component>(typeIdx);
-            components.erase(from);
+            components.insert_at(from, nullptr);
         }
 
         /**

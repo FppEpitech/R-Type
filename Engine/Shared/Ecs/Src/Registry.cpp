@@ -6,7 +6,9 @@
 */
 
 #include "Registry.hpp"
+#include <algorithm>
 
+#include <iostream>
 namespace ECS {
 
 entity_t Registry::spawn_entity() {
@@ -16,8 +18,11 @@ entity_t Registry::spawn_entity() {
         _entities.push_back(reused_entity);
         return reused_entity;
     }
-    _entities.push_back(_next_entity);
-    return _next_entity++;
+    entity_t a = _next_entity;
+    _entities.push_back(a);
+    _next_entity++;
+
+    return a;
 }
 
 std::vector<entity_t> Registry::getEntities()
@@ -36,8 +41,10 @@ void Registry::kill_entity(entity_t const& entity) {
         remove_func(*this, entity);
     _dead_entities.push_back(entity);
     for (entity_t i = 0; i < _entities.size(); i++) {
-        if (_entities[i] == entity)
+        if (_entities[i] == entity) {
             _entities.erase(_entities.begin() + i);
+            break;
+        }
     }
 }
 
