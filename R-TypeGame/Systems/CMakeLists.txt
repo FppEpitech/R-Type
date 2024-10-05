@@ -94,7 +94,14 @@ add_library(system_initPlayerFour SHARED
 )
 target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
 
-add_library(system_initShot SHARED
+add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.cpp)
+add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)
+add_library(system_moveUp SHARED MoveSystem/MoveSystemUp/MoveSystemUp.cpp)
+add_library(system_moveDown SHARED MoveSystem/MoveSystemDown/MoveSystemDown.cpp)
+
+add_library(system_shoot SHARED
+    Shot/ShootSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
     Shot/ShotInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
@@ -103,11 +110,5 @@ add_library(system_initShot SHARED
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/SpeedParser/SpeedParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-)
-target_link_libraries(system_initShot PRIVATE JsonCpp::JsonCpp)
-
-add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.cpp)
-add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)
-add_library(system_moveUp SHARED MoveSystem/MoveSystemUp/MoveSystemUp.cpp)
-add_library(system_moveDown SHARED MoveSystem/MoveSystemDown/MoveSystemDown.cpp)
+    ../Parser/ScaleParser/ScaleParser.cpp)
+target_link_libraries(system_shoot PRIVATE JsonCpp::JsonCpp)

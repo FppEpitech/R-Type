@@ -23,14 +23,17 @@
         {
             "key": "KEY_S",
             "path" : "libsystem_moveDown.so"
+        },
+        {
+            "key": "KEY_SPACE",
+            "path": "libsystem_shoot.so"
         }
     ],
     "entities": [
         "libsystem_initPlayerOne.so",
         "libsystem_initPlayerTwo.so",
         "libsystem_initPlayerThree.so",
-        "libsystem_initPlayerFour.so",
-        "libsystem_initShot.so"
+        "libsystem_initPlayerFour.so"
     ],
     "systems": [
     ]

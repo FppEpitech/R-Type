@@ -52,7 +52,7 @@ void ShotInitSystem::_initShot(ECS::Registry& reg, int idxPacketEntities)
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
-    return new ShotInitSystem();
-}
+// extern "C" ISystem* loadSystemInstance()
+// {
+//     return new ShotInitSystem();
+// }
