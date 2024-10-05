@@ -108,8 +108,8 @@ void SceneManager::ASceneManager::_changeScene(std::pair<std::size_t, std::strin
 {
     _keysScenes.clear();
     _keysSystems.clear();
-    _registry->_systems.clear();
-    _registry->_components_arrays.clear();
+    _registry->clearSystems();
+    _registry->clearComponentsArray();
     _initialiseDefaultComponents();
     _loadScene(scene.second, CURRENT);
 }

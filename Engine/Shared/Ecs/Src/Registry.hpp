@@ -188,6 +188,18 @@ class Registry {
          */
         void setComponentsArrays(std::unordered_map<std::string, std::any> componentsArrays, std::unordered_map<std::string, remove_func_t> removeFunctions);
 
+        /**
+         * @brief Clear all components arrays.
+         *
+         */
+        void clearComponentsArray();
+
+        /**
+         * @brief Clear all systems.
+         *
+         */
+        void clearSystems();
+
     private:
 
         //Arrays

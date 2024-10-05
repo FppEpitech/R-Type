@@ -57,4 +57,14 @@ void Registry::setComponentsArrays(std::unordered_map <std::string, std::any> co
     _remove_functions = removeFunctions;
 }
 
+void Registry::clearComponentsArray()
+{
+    _components_arrays.clear();
+}
+
+void Registry::clearSystems()
+{
+    _systems.clear();
+}
+
 } // namespace ECS
