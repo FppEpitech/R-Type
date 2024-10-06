@@ -1,0 +1,20 @@
+{
+    "keyBinds": [
+        {
+            "key": "KEY_BACKSPACE",
+            "path" : "firstScene.json"
+        }
+    ],
+    "entities": [
+        "libsystem_initConnectButton.so",
+        "libsystem_initIpTextButton.so",
+        "libsystem_initPortTextButton.so"
+    ],
+    "systems": [
+        "libsystem_handleClick.so"
+    ],
+    "menus": {
+        "keyBinds": [
+        ]
+    }
+}
