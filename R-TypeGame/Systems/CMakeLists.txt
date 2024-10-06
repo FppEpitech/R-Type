@@ -18,6 +18,7 @@ include_directories(
     ../Components/Speed/
     ../Components/Life/
     ../Components/Shoot/
+    ../Components/Planet/
     ../Systems/Shoot/
     ../Parser/ScaleParser/
     ../Parser/Position2DParser/
@@ -154,9 +155,15 @@ add_library(system_initPlanet SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
+    ../Components/Planet/PlanetComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
     ../Parser/VelocityParser/VelocityParser.cpp
 )
 target_link_libraries(system_initPlanet PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_restartPlanet SHARED
+    Background/PlanetRestartSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
+)

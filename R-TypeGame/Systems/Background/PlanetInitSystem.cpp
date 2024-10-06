@@ -14,6 +14,7 @@
 #include "Position2DParser.hpp"
 #include "VelocityParser.hpp"
 #include "VelocityComponent.hpp"
+#include "PlanetComponent.hpp"
 
 #include <fstream>
 #include <chrono>
@@ -38,7 +39,7 @@ void PlanetInitSystem::_initPlanet(ECS::Registry& reg, int idxPacketEntities)
     std::uniform_int_distribution<unsigned> distrib(0, NB_JSON - 1);
     std::uniform_int_distribution<unsigned> distribX(1920, 5000);
     std::uniform_int_distribution<unsigned> distribY(0, 1080);
-    std::uniform_int_distribution<unsigned> distribVelocity(1, 5);
+    std::uniform_real_distribution<float> distribVelocity(0.3, 1.5);
 
     int randomJson = distrib(gen);
 
@@ -65,9 +66,16 @@ void PlanetInitSystem::_initPlanet(ECS::Registry& reg, int idxPacketEntities)
     std::shared_ptr<VelocityComponent> velocity = parseVelocity(_jsonFiles[randomJson]);
     if (velocity) {
         reg.register_component<IComponent>(velocity->getType());
-        int randomVelocity = distribVelocity(gen);
+        float randomVelocity = distribVelocity(gen) * 2;
         velocity->vx = randomVelocity * (-1);
         reg.set_component<IComponent>(idxPacketEntities, velocity, velocity->getType());
+    }
+
+
+    std::shared_ptr<PlanetComponent> planet = std::make_shared<PlanetComponent>();
+    if (planet) {
+        reg.register_component<IComponent>(planet->getType());
+        reg.set_component<IComponent>(idxPacketEntities, planet, planet->getType());
     }
 }
 
