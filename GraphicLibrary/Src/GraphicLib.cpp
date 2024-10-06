@@ -7,6 +7,11 @@
 
 #include "GraphicLib.hpp"
 
+#include <json/json.h>
+#include <fstream>
+
+#define SETTINGS_PATH "./Config/Settings.json"
+
 extern "C" IGraphic* loadGraphicInstance() {
     return new GraphicLib();
 }
@@ -100,6 +105,85 @@ void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize
         DrawText(text.c_str(), posx, posy, 24, color);
 }
 
+void GraphicLib::initShaderWithMap(std::unordered_map <std::string, std::string> shaders)
+{
+    try {
+        for (auto shader : shaders) {
+            Shader shaderLoaded = LoadShader(0, shader.second.c_str());
+            if (shaderLoaded.id == 0)
+                throw std::runtime_error("Failed to load shader: " + shader.second);
+            _shaders[shader.first] = shaderLoaded;
+        }
+    } catch (const std::exception &e) {
+        throw LoadShaderError(e.what());
+    }
+}
+
+void GraphicLib::initCurrentShader(std::string name)
+{
+    if (name == "none") {
+        _currentShader = "none";
+        return;
+    }
+    if (_shaders.find(name) != _shaders.end()) {
+        _currentShader = name;
+        return;
+    }
+    throw WrongCurrentShaderName("Shader not found: " + name);
+}
+
+void GraphicLib::initShaderIntensity(float intensity)
+{
+    for (auto shader : _shaders) {
+        SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
+    }
+}
+
+void GraphicLib::changeShaderIntensity(float intensity)
+{
+    Json::Value root;
+    std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    settingsFile >> root;
+    settingsFile.close();
+
+    for (auto shader : _shaders)
+        SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
+    root["color_blindness"]["intensity"] = intensity;
+    std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    settingsFileOut << root;
+    settingsFileOut.close();
+}
+
+void GraphicLib::changeCurrentShader(std::string name)
+{
+    Json::Value root;
+    std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    settingsFile >> root;
+    settingsFile.close();
+
+    if (name == "none") {
+        _currentShader = "none";
+        root["current"] = "none";
+    } else if (_shaders.find(name) != _shaders.end()) {
+        _currentShader = name;
+        root["current"] = name;
+    } else {
+        throw WrongCurrentShaderName("Shader not found: " + name);
+    }
+
+    std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    settingsFileOut << root;
+    settingsFileOut.close();
+}
+
+void GraphicLib::resetShader()
+{
+    for (auto shader : _shaders)
+        UnloadShader(_shaders[shader.first]);
+    _shaders.clear();
+    _currentShader = "none";
+}
+
 void GraphicLib::startDraw()
 {
     BeginDrawing();
@@ -108,6 +192,13 @@ void GraphicLib::startDraw()
 void GraphicLib::endDraw()
 {
     EndDrawing();
+}
+
+bool GraphicLib::_isShaderReady()
+{
+    if (_currentShader == "none")
+        return false;
+    return true;
 }
 
 std::pair<int, int> GraphicLib::getWindowSize()
