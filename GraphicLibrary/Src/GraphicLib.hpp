@@ -205,6 +205,12 @@ class GraphicLib : public IGraphic {
 
     private:
 
+        /**
+         * @brief Check if the shader is ready.
+         *
+         * The function will check if the @var _currentShader is none or not.
+         * @return true The shader is ready.
+         */
         bool _isShaderReady();
 
         Camera                                      _camera;        //< Player camera.

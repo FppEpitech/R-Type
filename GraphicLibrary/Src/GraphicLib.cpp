@@ -216,9 +216,7 @@ void GraphicLib::endDraw()
 
 bool GraphicLib::_isShaderReady()
 {
-    if (_currentShader == "none")
-        return false;
-    return true;
+    return _currentShader != "none";
 }
 
 std::pair<int, int> GraphicLib::getWindowSize()
