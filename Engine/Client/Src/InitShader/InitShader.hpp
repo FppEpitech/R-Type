@@ -25,8 +25,19 @@ class InitShader {
 
 public:
 
+    /**
+     * @brief Exception class for JSON-related errors.
+     *
+     * This class inherits from the AError class and is used to handle errors
+     * related to JSON operations within the InitShader system.
+     */
     class JsonError : public AError {
         public:
+            /**
+             * @brief Construct a new JsonError object.
+             *
+             * @param message The error message to be associated with this exception.
+             */
             JsonError(const std::string &message) : AError(message) {}
     };
 
