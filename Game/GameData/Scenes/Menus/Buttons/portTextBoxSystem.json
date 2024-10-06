@@ -1,0 +1,28 @@
+{
+    "TextureRectComponent":{
+        "path":"./Assets/Button01.png",
+        "left":0,
+        "top":0,
+        "width":152,
+        "height":40
+    },
+    "ScaleComponent":2,
+    "Position2DComponent":{
+        "x":1100,
+        "y":200
+    },
+    "TextPosition2DComponent":{
+        "x":1120,
+        "y":230
+    },
+    "ColourComponent":{
+        "r":255,
+        "g":255,
+        "b":255,
+        "a":255
+    },
+    "TextComponent": "Write the server Port",
+    "Size1DComponent": 18,
+    "FontPathComponent": "",
+    "ButtonStateComponent": "NONE"
+}
