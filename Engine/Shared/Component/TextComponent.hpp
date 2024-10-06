@@ -5,6 +5,7 @@
 ** DESCRIPTION
 */
 
+#pragma once
 #include "IComponent.hpp"
 
 /**

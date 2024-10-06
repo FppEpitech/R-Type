@@ -5,7 +5,7 @@
             "path" : ""
         },
         {
-            "key": "KEY_COMMA",
+            "key": "KEY_K",
             "path" : "testScene.json"
         },
         {
@@ -13,21 +13,30 @@
             "path" : "libsystem_moveRight.so"
         },
         {
-            "key": "KEY_Q",
+            "key": "KEY_A",
             "path" : "libsystem_moveLeft.so"
         },
         {
-            "key": "KEY_Z",
+            "key": "KEY_W",
             "path" : "libsystem_moveUp.so"
         },
         {
             "key": "KEY_S",
             "path" : "libsystem_moveDown.so"
+        },
+        {
+            "key": "KEY_SPACE",
+            "path": "libsystem_shoot.so"
         }
     ],
     "entities": [
-        "libsystem_initPlayer.so"
+        "libsystem_initPlayerOne.so",
+        "libsystem_initPlayerTwo.so",
+        "libsystem_initPlayerThree.so",
+        "libsystem_initPlayerFour.so"
     ],
     "systems": [
+        "libsystem_moveEntities.so",
+        "libsystem_shootDestroy.so"
     ]
 }

@@ -16,6 +16,7 @@ Network::Client::Client(const std::string& server_ip, int tcp_port, int udp_port
     _tcp_socket = std::make_shared<asio::ip::tcp::socket>(*_io_context);
     _udp_socket = std::make_shared<asio::ip::udp::socket>(*_io_context);
     _messageId = 0x0000;
+    _token = 0;
 }
 
 void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)

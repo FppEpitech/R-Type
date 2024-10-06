@@ -19,6 +19,7 @@
 #include "DrawText/DrawTextSystem.hpp"
 #include "DrawTexture/DrawTextureSystem.hpp"
 #include "DrawTextureRect/DrawTextureRectSystem.hpp"
+#include "SpriteSheetAnimation/SpriteSheetAnimationSystem.hpp"
 
 #define WINDOW_TITLE "From noware"
 
@@ -70,7 +71,7 @@ class Application {
          */
         void _initDefaultGraphicSystems();
 
-        std::shared_ptr<std::vector<ECS::Registry>> _registries;                                        // Registries for each scene.
+        std::shared_ptr<ECS::Registry> _registry;                                        // Registries for each scene.
         std::shared_ptr<Network::Client>            _client;                                            // Network class for client.
         std::vector<std::function<void(ECS::Registry& reg, int idxPacketEntities)>> _defaultSystems;    // Default system.
         std::shared_ptr<SceneManager::ClientSceneManager>       _sceneManager;                          // load and handle scene in the ECS.

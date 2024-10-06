@@ -30,6 +30,8 @@
 #include "SoundVolumeComponent.hpp"
 #include "TexturePathComponent.hpp"
 #include "TextureRectComponent.hpp"
+#include "SpriteSheetAnimationComponent.hpp"
+#include "PlayerComponent.hpp"
 
 #define CONFIG_SUFFIX ".json"
 
@@ -55,7 +57,7 @@ namespace SceneManager {
              * @brief Construct a new ASceneManager object.
              * @param registries Registries for each scene.
              */
-            ASceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries);
+            ASceneManager(std::shared_ptr<ECS::Registry> registry);
 
             /**
              * @brief Destroy the ASceneManager object.
@@ -71,10 +73,10 @@ namespace SceneManager {
 
         protected:
 
-            std::shared_ptr<std::vector<ECS::Registry>>                                     _registries; // Registries for each scene.
+            std::shared_ptr<ECS::Registry>                                                  _registry; // Registries for each scene.
             ECS::Registry                                                                   _defaultRegistry; // Default registry for the scene manager.
-            std::vector<std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>>              _keysSystems; // Keys to load a system for each scene.
-            std::vector<std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>>   _keysScenes; // Keys to load a scene for each scene.
+            std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>              _keysSystems; // Keys to load a system for each scene.
+            std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>   _keysScenes; // Keys to load a scene for each scene.
 
             std::size_t                                                                     _nextIndex; // Index of the next empty registry.
 
@@ -102,13 +104,6 @@ namespace SceneManager {
              * @param index Index of the registry to load the scene.
              */
             void _loadScene(const std::string &path, std::size_t index);
-
-            /**
-             * @brief Load the next scenes of a already loaded scene.
-             * @param path Path to the json file.
-             * @param index Index of the registry to load the scene.
-             */
-            void _loadNextScenes(const std::string &path, std::size_t index);
 
             /**
              * @brief Load the entities of a scene.
