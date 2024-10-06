@@ -7,7 +7,7 @@
 
 #include "ClientSceneManager.hpp"
 
-SceneManager::ClientSceneManager::ClientSceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries) : ASceneManager(registries)
+SceneManager::ClientSceneManager::ClientSceneManager(std::shared_ptr<ECS::Registry> registries) : ASceneManager(registries)
 {
     _loadScene(FIRST_SCENE, CURRENT);
 }

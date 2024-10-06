@@ -5,7 +5,7 @@
             "path" : ""
         },
         {
-            "key": "KEY_COMMA",
+            "key": "KEY_K",
             "path" : "testScene.json"
         },
         {
@@ -23,6 +23,10 @@
         {
             "key": "KEY_S",
             "path" : "libsystem_moveDown.so"
+        },
+        {
+            "key": "KEY_SPACE",
+            "path": "libsystem_shoot.so"
         }
     ],
     "entities": [
@@ -32,5 +36,7 @@
         "libsystem_initPlayerFour.so"
     ],
     "systems": [
+        "libsystem_moveEntities.so",
+        "libsystem_shootDestroy.so"
     ]
 }

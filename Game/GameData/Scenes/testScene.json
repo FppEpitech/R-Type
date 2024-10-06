@@ -1,5 +1,9 @@
 {
   "keyBinds": [
+    {
+        "key": "KEY_Q",
+        "path" : "firstScene.json"
+    }
   ],
   "entities": [
   ],
