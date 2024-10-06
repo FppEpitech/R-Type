@@ -64,7 +64,13 @@ void GraphicLib::drawOBJ(std::string objPath, float posx, float posy, float posz
     Vector3 position = { posx, posy, posz };
 
     BeginMode3D(_camera);
-        DrawModel(_models[objPath], position, scale, WHITE);
+
+    if (_isShaderReady())
+        BeginShaderMode(_shaders[_currentShader]);
+    DrawModel(_models[objPath], position, scale, WHITE);
+    if (_isShaderReady())
+        EndShaderMode();
+
     EndMode3D();
 }
 
@@ -75,7 +81,11 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
 
     Vector2 position = { posx, posy };
 
+    if (_isShaderReady())
+        BeginShaderMode(_shaders[_currentShader]);
     DrawTextureEx(_textures[texturePath], position, 0, scale, WHITE);
+    if (_isShaderReady())
+        EndShaderMode();
 }
 
 void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale)
@@ -87,7 +97,11 @@ void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy
     Rectangle rectDest = {posx, posy, width * scale, height * scale};
     Vector2 origin = { 0, 0 };
 
+    if (_isShaderReady())
+        BeginShaderMode(_shaders[_currentShader]);
     DrawTexturePro(_textures[texturePath], rect, rectDest, origin, 0, WHITE);
+    if (_isShaderReady())
+        EndShaderMode();
 }
 
 void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
@@ -98,11 +112,17 @@ void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize
 
     Color color = {r, g, b, a};
 
+    if (_isShaderReady())
+        BeginShaderMode(_shaders[_currentShader]);
+
     if (fontPath != "") {
         Vector2 position = { posx, posy };
         DrawTextEx(_font[fontPath], text.c_str(), position, fontSize, 2, color);
     } else
         DrawText(text.c_str(), posx, posy, 24, color);
+
+    if (_isShaderReady())
+        EndShaderMode();
 }
 
 void GraphicLib::initShaderWithMap(std::unordered_map <std::string, std::string> shaders)
