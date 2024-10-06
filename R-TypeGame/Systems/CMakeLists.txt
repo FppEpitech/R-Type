@@ -17,12 +17,20 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/
     ../Components/Speed/
     ../Components/Life/
+    ../Components/Shoot/
+    ../Systems/Shoot/
     ../Parser/ScaleParser/
     ../Parser/Position2DParser/
     ../Parser/LifeParser/
     ../Parser/PlayerParser/
     ../Parser/SpeedParser/
     ../Parser/TextureRectParser/
+    ../Parser/VelocityParser/
+    ../Parser/ShootParser/
+    ../Components/Velocity/
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
     ../Parser/SpriteSheetAnimationParser/
 )
 
@@ -101,3 +109,28 @@ add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.c
 add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)
 add_library(system_moveUp SHARED MoveSystem/MoveSystemUp/MoveSystemUp.cpp)
 add_library(system_moveDown SHARED MoveSystem/MoveSystemDown/MoveSystemDown.cpp)
+add_library(system_moveEntities SHARED MoveSystem/MoveEntities/MoveEntitiesSystem.cpp)
+
+add_library(system_shoot SHARED
+    Shoot/ShootSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+    Shoot/ShootInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ../Components/Speed/SpeedComponent.cpp
+    ../Components/Velocity/VelocityComponent.cpp
+    ../Components/Shoot/ShootComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/SpeedParser/SpeedParser.cpp
+    ../Parser/VelocityParser/VelocityParser.cpp
+    ../Parser/ShootParser/ShootParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp)
+target_link_libraries(system_shoot PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_shootDestroy SHARED
+    Shoot/ShootDestroySystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+)

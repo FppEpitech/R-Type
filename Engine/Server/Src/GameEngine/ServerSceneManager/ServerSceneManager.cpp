@@ -7,7 +7,7 @@
 
 #include "ServerSceneManager.hpp"
 
-SceneManager::ServerSceneManager::ServerSceneManager(std::shared_ptr<std::vector<ECS::Registry>> registries) : ASceneManager(registries)
+SceneManager::ServerSceneManager::ServerSceneManager(std::shared_ptr<ECS::Registry> registries) : ASceneManager(registries)
 {
     _loadScene(FIRST_SCENE, CURRENT);
 }
@@ -23,4 +23,3 @@ std::string SceneManager::ServerSceneManager::_getSystemLibPath() const {
 std::string SceneManager::ServerSceneManager::_getScenesPath() const {
     return SCENE_PATH;
 }
-

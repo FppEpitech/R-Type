@@ -40,7 +40,7 @@ bool GraphicLib::windowIsOpen()
 
 void GraphicLib::clear()
 {
-    ClearBackground(WHITE);
+    ClearBackground(BLACK);
 }
 
 std::size_t GraphicLib::getKeyInput() {
@@ -108,4 +108,9 @@ void GraphicLib::startDraw()
 void GraphicLib::endDraw()
 {
     EndDrawing();
+}
+
+std::pair<int, int> GraphicLib::getWindowSize()
+{
+    return std::make_pair<int, int>(GetScreenWidth(), GetScreenHeight());
 }

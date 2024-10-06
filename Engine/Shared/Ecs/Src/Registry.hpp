@@ -146,7 +146,7 @@ class Registry {
         void remove_component(entity_t const& from, std::string typeIdx)
         {
             auto& components = get_components<Component>(typeIdx);
-            components.erase(from);
+            components.insert_at(from, nullptr);
         }
 
         /**
@@ -187,6 +187,18 @@ class Registry {
          * @param removeFunctions Remove functions to set.
          */
         void setComponentsArrays(std::unordered_map<std::string, std::any> componentsArrays, std::unordered_map<std::string, remove_func_t> removeFunctions);
+
+        /**
+         * @brief Clear all components arrays.
+         *
+         */
+        void clearComponentsArray();
+
+        /**
+         * @brief Clear all systems.
+         *
+         */
+        void clearSystems();
 
     private:
 
