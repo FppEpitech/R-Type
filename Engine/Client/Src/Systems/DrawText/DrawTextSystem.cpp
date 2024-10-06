@@ -6,7 +6,7 @@
 */
 
 #include "DrawTextSystem.hpp"
-#include "Position2DComponent.hpp"
+#include "TextPosition2DComponent.hpp"
 #include "TextComponent.hpp"
 #include "Size1DComponent.hpp"
 #include "FontPathComponent.hpp"
@@ -26,7 +26,7 @@ void DrawTextSystem::_drawText(ECS::Registry& reg, int idxPacketEntities)
     std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
 
     ECS::SparseArray<IComponent> textComponents = reg.get_components<IComponent>("TextComponent");
-    ECS::SparseArray<IComponent> position2DComponents = reg.get_components<IComponent>("Position2DComponent");
+    ECS::SparseArray<IComponent> textPosition2DComponents = reg.get_components<IComponent>("TextPosition2DComponent");
     ECS::SparseArray<IComponent> size1DComponents = reg.get_components<IComponent>("Size1DComponent");
     ECS::SparseArray<IComponent> fontPathComponents = reg.get_components<IComponent>("FontPathComponent");
     ECS::SparseArray<IComponent> colourComponents = reg.get_components<IComponent>("ColourComponent");
@@ -36,8 +36,8 @@ void DrawTextSystem::_drawText(ECS::Registry& reg, int idxPacketEntities)
         std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(textComponents[entity]);
         if (!text)
             continue;
-        std::shared_ptr<Position2DComponent> pos = (position2DComponents.size() >= entity + 1) ?
-            std::dynamic_pointer_cast<Position2DComponent>(position2DComponents[entity]) : nullptr;
+        std::shared_ptr<TextPosition2DComponent> pos = (textPosition2DComponents.size() >= entity + 1) ?
+            std::dynamic_pointer_cast<TextPosition2DComponent>(textPosition2DComponents[entity]) : nullptr;
         std::shared_ptr<Size1DComponent> size = (size1DComponents.size() >= entity + 1) ?
             std::dynamic_pointer_cast<Size1DComponent>(size1DComponents[entity]) : nullptr;
         std::shared_ptr<FontPathComponent> path = (fontPathComponents.size() >= entity + 1) ?
