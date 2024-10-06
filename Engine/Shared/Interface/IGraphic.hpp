@@ -20,6 +20,17 @@
  */
 class IGraphic {
     public:
+
+        /**
+         * @brief Enum for the Mouse button inputs.
+         *
+         */
+        enum MouseButtons {
+            MOUSE_LEFT = 0,
+            MOUSE_RIGHT = 1,
+            MOUSE_MIDDLE = 2
+        };
+
         /**
          * @brief Virtual destructor for IGraphic.
          */
@@ -128,4 +139,19 @@ class IGraphic {
          * @return std::pair<int, int> Width and Height.
          */
         virtual std::pair<int, int> getWindowSize() = 0;
+
+        /**
+         * @brief Get the Mouse Position object.
+         *
+         * @return std::pair<int, int> Mouse position.
+         */
+        virtual std::pair<int, int> getMousePosition() = 0;
+
+        /**
+         * @brief Check if the mouse button is pressed.
+         * @param button MouseButtons that you want to check.
+         * @return true Mouse button is pressed.
+         * @return false Mouse button is not pressed.
+         */
+        virtual bool isMouseButtonPressed(MouseButtons button) = 0;
 };

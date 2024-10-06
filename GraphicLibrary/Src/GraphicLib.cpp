@@ -114,3 +114,13 @@ std::pair<int, int> GraphicLib::getWindowSize()
 {
     return std::make_pair<int, int>(GetScreenWidth(), GetScreenHeight());
 }
+
+std::pair<int, int> GraphicLib::getMousePosition()
+{
+    return std::make_pair<int, int>(GetMouseX(), GetMouseY());
+}
+
+bool GraphicLib::isMouseButtonPressed(MouseButtons button)
+{
+    return IsMouseButtonPressed(button);
+}

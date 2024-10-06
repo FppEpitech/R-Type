@@ -7,11 +7,12 @@
 
 #pragma once
 
-#include "IGraphic.hpp"
 #include "raylib.h"
+#include "IGraphic.hpp"
 
-#include <unordered_map>
+#include <vector>
 #include <iostream>
+#include <unordered_map>
 
 /**
  * @brief Raylib graphical library.
@@ -134,6 +135,22 @@ class GraphicLib : public IGraphic {
          * @return std::pair<int, int> Width and Height.
          */
         std::pair<int, int> getWindowSize();
+
+        /**
+         * @brief Get the Mouse Position object.
+         *
+         * @return std::pair<int, int> Mouse position.
+         */
+        std::pair<int, int> getMousePosition();
+
+        /**
+         * @brief Checks if the mouse button is pressed.
+         *
+         * @param button The button to check.
+         * @return true The button is pressed.
+         * @return false The button is not pressed.
+         */
+        bool isMouseButtonPressed(MouseButtons button);
 
     private:
 
