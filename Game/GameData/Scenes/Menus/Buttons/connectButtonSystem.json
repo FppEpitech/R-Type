@@ -1,0 +1,28 @@
+{
+    "TextureRectComponent":{
+        "path":"./Assets/Button01.png",
+        "left":0,
+        "top":0,
+        "width":152,
+        "height":40
+    },
+    "ScaleComponent":2,
+    "Position2DComponent":{
+        "x":800,
+        "y":500
+    },
+    "TextPosition2DComponent":{
+        "x":845,
+        "y":530
+    },
+    "ColourComponent":{
+        "r":255,
+        "g":255,
+        "b":255,
+        "a":255
+    },
+    "TextComponent": "Connect to server",
+    "Size1DComponent": 18,
+    "FontPathComponent": "",
+    "ButtonStateComponent": "NONE"
+}
