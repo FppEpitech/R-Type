@@ -19,6 +19,8 @@ include_directories(
     ../Components/Life/
     ../Components/Shoot/
     ../Systems/Shoot/
+    ../Components/ButtonState/
+    ../Components/CallBack/
     ../Parser/ScaleParser/
     ../Parser/Position2DParser/
     ../Parser/LifeParser/
@@ -32,6 +34,14 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
     ../Parser/SpriteSheetAnimationParser/
+    ../Parser/FontPathParser/
+    ../Parser/TextParser/
+    ../Parser/ButtonStateParser/
+    ../Parser/ColourParser/
+    ../Parser/Size1DParser/
+    ../Parser/TextPosition2DParser/
+    ../../Engine/Shared/Ecs/Src/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
 )
 
 # Add a shared library target 'system_initPlayer'
@@ -105,6 +115,31 @@ add_library(system_initPlayerFour SHARED
 )
 target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
 
+add_library(system_initConnectButton SHARED
+        Menus/Buttons/ConnectButtonInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/FontPathComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
+    ../Components/ButtonState/ButtonStateComponent.cpp
+    ../Components/CallBack/CallBackComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/FontPathParser/FontPathParser.cpp
+    ../Parser/TextParser/TextParser.cpp
+    ../Parser/ButtonStateParser/ButtonStateParser.cpp
+    ../Parser/ColourParser/ColourParser.cpp
+    ../Parser/Size1DParser/Size1DParser.cpp
+)
+target_link_libraries(system_initConnectButton PRIVATE JsonCpp::JsonCpp)
+
+
 add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.cpp)
 add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)
 add_library(system_moveUp SHARED MoveSystem/MoveSystemUp/MoveSystemUp.cpp)
@@ -134,3 +169,62 @@ add_library(system_shootDestroy SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
 )
+
+add_library(system_initIpTextButton SHARED
+        Menus/Buttons/IpTextBoxInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/FontPathComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
+    ../Components/ButtonState/ButtonStateComponent.cpp
+    ../Components/CallBack/CallBackComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/FontPathParser/FontPathParser.cpp
+    ../Parser/TextParser/TextParser.cpp
+    ../Parser/ButtonStateParser/ButtonStateParser.cpp
+    ../Parser/ColourParser/ColourParser.cpp
+    ../Parser/Size1DParser/Size1DParser.cpp
+)
+target_link_libraries(system_initIpTextButton PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_initPortTextButton SHARED
+    Menus/Buttons/PortTextBoxInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/FontPathComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
+    ../Components/ButtonState/ButtonStateComponent.cpp
+    ../Components/CallBack/CallBackComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/FontPathParser/FontPathParser.cpp
+    ../Parser/TextParser/TextParser.cpp
+    ../Parser/ButtonStateParser/ButtonStateParser.cpp
+    ../Parser/ColourParser/ColourParser.cpp
+    ../Parser/Size1DParser/Size1DParser.cpp
+)
+target_link_libraries(system_initPortTextButton PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_handleClick SHARED
+    ClicksSystems/ClicksSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ../Components/CallBack/CallBackComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
+)
+target_link_libraries(system_handleClick PRIVATE JsonCpp::JsonCpp)
