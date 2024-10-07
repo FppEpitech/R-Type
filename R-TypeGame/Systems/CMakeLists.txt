@@ -28,7 +28,9 @@ include_directories(
     ../Parser/TextureRectParser/
     ../Parser/VelocityParser/
     ../Parser/ShootParser/
+    ../Parser/MobParser/
     ../Components/Velocity/
+    ../Components/Mob/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
@@ -167,3 +169,17 @@ add_library(system_restartPlanet SHARED
     Background/PlanetRestartSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
+
+add_library(system_initMob SHARED
+    Mob/MobInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ../Components/Velocity/VelocityComponent.cpp
+    ../Components/Mob/MobComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/VelocityParser/VelocityParser.cpp
+)
+target_link_libraries(system_initMob PRIVATE JsonCpp::JsonCpp)
