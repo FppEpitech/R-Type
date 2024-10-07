@@ -41,7 +41,8 @@
         "libsystem_initPlayerOne.so",
         "libsystem_initPlayerTwo.so",
         "libsystem_initPlayerThree.so",
-        "libsystem_initPlayerFour.so"
+        "libsystem_initPlayerFour.so",
+        "libsystem_initMob.so"
     ],
     "systems": [
         "libsystem_moveEntities.so",
