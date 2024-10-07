@@ -11,7 +11,7 @@
         "libsystem_initPortTextButton.so"
     ],
     "systems": [
-        "libsystem_handleClick.so",
+        "libsystem_handleMouse.so",
         "libsystem_handleTyping.so"
     ],
     "menus": {
