@@ -9,6 +9,7 @@
 
 #include <chrono>
 #include <random>
+#include  <memory>
 
 #include "VelocityComponent.hpp"
 #include "Position2DComponent.hpp"
