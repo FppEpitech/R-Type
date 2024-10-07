@@ -196,10 +196,20 @@ class IGraphic {
         virtual std::pair<int, int> getMousePosition() = 0;
 
         /**
-         * @brief Check if the mouse button is pressed.
+         * @brief Checks if the mouse button is pressed.
+         *
          * @param button MouseButtons that you want to check.
          * @return true Mouse button is pressed.
          * @return false Mouse button is not pressed.
          */
         virtual bool isMouseButtonPressed(MouseButtons button) = 0;
+
+        /**
+         * @brief Checks if the mouse button is down.
+         *
+         * @param button MouseButtons that you want to check.
+         * @return true Mouse button is down.
+         * @return false Mouse button is not down.
+         */
+        virtual bool isMouseButtonDown(MouseButtons button) = 0;
 };

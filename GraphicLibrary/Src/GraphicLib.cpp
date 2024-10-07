@@ -244,3 +244,8 @@ bool GraphicLib::isMouseButtonPressed(MouseButtons button)
 {
     return IsMouseButtonPressed(button);
 }
+
+bool GraphicLib::isMouseButtonDown(MouseButtons button)
+{
+    return IsMouseButtonDown(button);
+}

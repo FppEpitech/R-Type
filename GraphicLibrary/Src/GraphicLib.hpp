@@ -226,6 +226,15 @@ class GraphicLib : public IGraphic {
          */
         bool isMouseButtonPressed(MouseButtons button);
 
+        /**
+         * @brief Checks if the mouse button is down.
+         *
+         * @param button The button to check.
+         * @return true The button is down.
+         * @return false The button is not down.
+         */
+        bool isMouseButtonDown(MouseButtons button);
+
     private:
 
         /**
