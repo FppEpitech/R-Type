@@ -1,0 +1,41 @@
+name: Generate Doxygen Documentation and Readme
+
+on:
+  push:
+
+jobs:
+  generate-doc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Doxygen
+        run: sudo apt-get install -y doxygen graphviz  # Graphviz is required for generating diagrams
+
+      - name: Generate Documentation
+        run: doxygen Docs/Doxyfile
+
+      - name: Upload Documentation to GitHub Wiki
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Clone le wiki dans le dossier `wiki/`
+          git clone https://github.com/${{ github.repository }}.wiki.git wiki
+          
+          # Supprime l'ancienne documentation et copie la nouvelle documentation
+          rm -rf wiki/docs
+          cp -r Docs/doxygen/html wiki/docs
+
+          # Commit et push la documentation
+          cd wiki
+          git add .
+          git commit -m "Update Doxygen documentation"
+          git push
+          
+          rm -rf readme.md
+          cp ../README.md readme.md
+          git add .
+          git commit -m "Update README.md"
+          git push
