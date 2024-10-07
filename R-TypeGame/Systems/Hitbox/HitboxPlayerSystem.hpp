@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2024
-** PlanetRestartSystem
+** HitboxPlayerSystem
 ** File description:
-** PlanetRestartSystem
+** HitboxPlayerSystem
 */
 
 #pragma once
@@ -10,28 +10,25 @@
 #include <iostream>
 
 #include "ISystem.hpp"
-#include "VelocityComponent.hpp"
-#include "Position2DComponent.hpp"
-
 /**
- * @brief Restart a planet if it leave the screen.
+ * @brief Handle hitbox for players.
  *
  */
-class PlanetRestartSystem : public ASystem {
+class HitboxPlayerSystem : public ASystem {
 
     public:
 
         /**
-         * @brief Construct a new PlanetRestart System object.
+         * @brief Construct a new HitboxPlayer System object.
          *
          */
-        PlanetRestartSystem();
+        HitboxPlayerSystem();
 
         /**
-         * @brief Destroy the PlanetRestart System object.
+         * @brief Destroy the HitboxPlayer System object.
          *
          */
-        ~PlanetRestartSystem() = default;
+        ~HitboxPlayerSystem() = default;
 
         /**
          * @brief Get the Function object.
@@ -41,11 +38,11 @@ class PlanetRestartSystem : public ASystem {
         std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction()
         {
             return [this](ECS::Registry& reg, int idxPacketEntities) {
-                _restartPlanet(reg, idxPacketEntities);
+                _hitboxPlayer(reg, idxPacketEntities);
             };
         }
 
     private:
 
-        void _restartPlanet(ECS::Registry& reg, int idxPacketEntities); //< Function to Restart a Planet.
+        void _hitboxPlayer(ECS::Registry& reg, int idxPacketEntities); //< Function to handle players hitbox.
 };

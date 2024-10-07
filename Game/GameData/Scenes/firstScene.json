@@ -46,6 +46,7 @@
     "systems": [
         "libsystem_moveEntities.so",
         "libsystem_shootDestroy.so",
-        "libsystem_restartPlanet.so"
+        "libsystem_restartPlanet.so",
+        "libsystem_hitboxPlayer.so"
     ]
 }
