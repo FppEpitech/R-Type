@@ -177,22 +177,23 @@ void GraphicLib::changeShaderIntensity(float intensity)
 void GraphicLib::changeCurrentShader(std::string name)
 {
     Json::Value root;
+    Json::StreamWriterBuilder writer;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
     settingsFile >> root;
     settingsFile.close();
 
     if (name == "none") {
         _currentShader = "none";
-        root["current"] = "none";
+        root["color_blindness"]["current"] = "none";
     } else if (_shaders.find(name) != _shaders.end()) {
         _currentShader = name;
-        root["current"] = name;
+        root["color_blindness"]["current"] = name;
     } else {
         throw WrongCurrentShaderName("Shader not found: " + name);
     }
 
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
-    settingsFileOut << root;
+    settingsFileOut << Json::writeString(writer, root);
     settingsFileOut.close();
 }
 
