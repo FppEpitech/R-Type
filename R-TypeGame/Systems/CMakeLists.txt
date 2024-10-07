@@ -167,3 +167,7 @@ add_library(system_restartPlanet SHARED
     Background/PlanetRestartSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
+
+add_library(system_updatePlayerPosition SHARED
+    Players/Update/PlayerUpdatePositionSystem.cpp
+)
