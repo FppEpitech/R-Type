@@ -70,7 +70,7 @@ void Application::run()
     InitShader InitShader(libGraphic);
 
     while (libGraphic->windowIsOpen()) {
-        _keyboardHandler(libGraphic->getKeyInput());
+        _keyboardHandler(libGraphic->getKeyDownInput());
         libGraphic->startDraw();
         libGraphic->clear();
         _registry->run_systems(-1);

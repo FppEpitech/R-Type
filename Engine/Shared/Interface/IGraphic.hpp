@@ -57,11 +57,18 @@ class IGraphic {
         virtual void clear() = 0;
 
         /**
-         * @brief Get the Key Input object.
+         * @brief Get the Key Down Input object.
+         *
+         * @return int The key down.
+         */
+        virtual std::size_t getKeyDownInput() = 0;
+
+        /**
+         * @brief Get the Key Pressed Input object.
          *
          * @return int The key pressed.
          */
-        virtual std::size_t getKeyInput() = 0;
+        virtual std::size_t getKeyPressedInput() = 0;
 
         /**
          * @brief Draw an OBJ model on the screen.

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "raylib.h"
+#include "IError.hpp"
 #include "IGraphic.hpp"
 
 #include <vector>
@@ -84,11 +85,18 @@ class GraphicLib : public IGraphic {
         void clear();
 
         /**
-         * @brief Get the Key Input object.
+         * @brief Get the Key Down Input object.
+         *
+         * @return KEY_MAP The key down.
+         */
+        std::size_t getKeyDownInput();
+
+        /**
+         * @brief Get the Key Pressed Input object.
          *
          * @return KEY_MAP The key pressed.
          */
-        std::size_t getKeyInput();
+        std::size_t getKeyPressedInput();
 
         /**
          * @brief Draw an OBJ model on the screen.
