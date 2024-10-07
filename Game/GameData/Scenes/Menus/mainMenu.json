@@ -1,7 +1,7 @@
 {
     "keyBinds": [
         {
-            "key": "KEY_BACKSPACE",
+            "key": "KEY_KP_0",
             "path" : "firstScene.json"
         }
     ],
@@ -11,7 +11,8 @@
         "libsystem_initPortTextButton.so"
     ],
     "systems": [
-        "libsystem_handleClick.so"
+        "libsystem_handleClick.so",
+        "libsystem_handleTyping.so"
     ],
     "menus": {
         "keyBinds": [

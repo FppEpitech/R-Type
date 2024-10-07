@@ -17,12 +17,16 @@
 #include "ScaleComponent.hpp"
 #include "Size1DComponent.hpp"
 #include "ColourComponent.hpp"
+#include "TextLimitParser.hpp"
 #include "ButtonInitSystem.hpp"
 #include "Position2DParser.hpp"
+#include "DefaultTextParser.hpp"
 #include "CallBackComponent.hpp"
 #include "FontPathComponent.hpp"
 #include "ButtonStateParser.hpp"
 #include "TextureRectParser.hpp"
+#include "EditableComponent.hpp"
+#include "TextLimitComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "ButtonStateComponent.hpp"
 #include "TextureRectComponent.hpp"
@@ -41,6 +45,12 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
     if (text) {
         reg.register_component<IComponent>(text->getType());
         reg.set_component<IComponent>(idxPacketEntities, text, text->getType());
+    }
+
+    std::shared_ptr<DefaultTextComponent> defaultText = parseDefaultText(PATH_JSON);
+    if (defaultText) {
+        reg.register_component<IComponent>(defaultText->getType());
+        reg.set_component<IComponent>(idxPacketEntities, defaultText, defaultText->getType());
     }
 
     std::shared_ptr<FontPathComponent> font = parseFontPath(PATH_JSON);
@@ -93,8 +103,16 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
 
     std::shared_ptr<CallBackComponent> callback = std::make_shared<CallBackComponent>([](ECS::Registry& reg, int idxPacketEntities) {
         std::shared_ptr<ButtonStateComponent> state = std::dynamic_pointer_cast<ButtonStateComponent>(reg.get_components<IComponent>("ButtonStateComponent")[idxPacketEntities]);
-        if (state != nullptr)
-            state->state = state->state == ButtonStateComponent::ButtonState::CLICKED ? ButtonStateComponent::ButtonState::NONE : ButtonStateComponent::ButtonState::CLICKED;
+        std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(reg.get_components<IComponent>("TextComponent")[idxPacketEntities]);
+        std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(reg.get_components<IComponent>("DefaultTextComponent")[idxPacketEntities]);
+        if (state && text && defaultText) {
+            if (state->state == ButtonStateComponent::ButtonState::CLICKED) {
+                state->state = ButtonStateComponent::ButtonState::NONE;
+                if (text->text.empty())
+                    text->text = defaultText->text;
+            } else
+                state->state = ButtonStateComponent::ButtonState::CLICKED;
+        }
         ECS::SparseArray<IComponent> entities = reg.get_components<IComponent>("ButtonStateComponent");
         for (int i = 0; i < entities.size(); i++) {
             std::shared_ptr<ButtonStateComponent> state = std::dynamic_pointer_cast<ButtonStateComponent>(entities[i]);
@@ -104,6 +122,16 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
     });
     reg.register_component<IComponent>(callback->getType());
     reg.set_component<IComponent>(idxPacketEntities, callback, callback->getType());
+
+    std::shared_ptr<EditableComponent> editable = std::make_shared<EditableComponent>();
+    reg.register_component<IComponent>(editable->getType());
+    reg.set_component<IComponent>(idxPacketEntities, editable, editable->getType());
+
+    std::shared_ptr<TextLimitComponent> textLimit = parseTextLimit(PATH_JSON);
+    if (textLimit) {
+        reg.register_component<IComponent>(textLimit->getType());
+        reg.set_component<IComponent>(idxPacketEntities, textLimit, textLimit->getType());
+    }
 }
 
 extern "C" ISystem* loadSystemInstance()

@@ -45,7 +45,7 @@
     ],
     "systems": [
         "libsystem_moveEntities.so",
-        "libsystem_restartPlanet.so"
+        "libsystem_restartPlanet.so",
         "libsystem_shootDestroy.so"
     ],
     "menus": {

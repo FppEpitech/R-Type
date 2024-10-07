@@ -19,9 +19,11 @@ include_directories(
     ../Components/Life/
     ../Components/Shoot/
     ../Components/Planet/
+    ../Components/Editable/
     ../Systems/Shoot/
     ../Components/ButtonState/
     ../Components/CallBack/
+    ../Components/TextLimit/
     ../Parser/ScaleParser/
     ../Parser/Position2DParser/
     ../Parser/LifeParser/
@@ -31,6 +33,7 @@ include_directories(
     ../Parser/VelocityParser/
     ../Parser/ShootParser/
     ../Components/Velocity/
+    ../Components/Editable/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
@@ -41,6 +44,8 @@ include_directories(
     ../Parser/ColourParser/
     ../Parser/Size1DParser/
     ../Parser/TextPosition2DParser/
+    ../Parser/DefaultTextParser/
+    ../Parser/TextLimitParser/
     ../../Engine/Shared/Ecs/Src/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
 )
@@ -117,7 +122,7 @@ add_library(system_initPlayerFour SHARED
 target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initConnectButton SHARED
-        Menus/Buttons/ConnectButtonInitSystem.cpp
+    Menus/Buttons/ConnectButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
@@ -204,7 +209,7 @@ add_library(system_restartPlanet SHARED
 )
 
 add_library(system_initIpTextButton SHARED
-        Menus/Buttons/IpTextBoxInitSystem.cpp
+    Menus/Buttons/IpTextBoxInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
@@ -213,8 +218,11 @@ add_library(system_initIpTextButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
+    ../Components/Editable/EditableComponent.cpp
+    ../Components/TextLimit/TextLimitComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
@@ -224,6 +232,8 @@ add_library(system_initIpTextButton SHARED
     ../Parser/ButtonStateParser/ButtonStateParser.cpp
     ../Parser/ColourParser/ColourParser.cpp
     ../Parser/Size1DParser/Size1DParser.cpp
+    ../Parser/DefaultTextParser/DefaultTextParser.cpp
+    ../Parser/TextLimitParser/TextLimitParser.cpp
 )
 target_link_libraries(system_initIpTextButton PRIVATE JsonCpp::JsonCpp)
 
@@ -237,8 +247,11 @@ add_library(system_initPortTextButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
+    ../Components/Editable/EditableComponent.cpp
+    ../Components/TextLimit/TextLimitComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
@@ -248,11 +261,13 @@ add_library(system_initPortTextButton SHARED
     ../Parser/ButtonStateParser/ButtonStateParser.cpp
     ../Parser/ColourParser/ColourParser.cpp
     ../Parser/Size1DParser/Size1DParser.cpp
+    ../Parser/DefaultTextParser/DefaultTextParser.cpp
+    ../Parser/TextLimitParser/TextLimitParser.cpp
 )
 target_link_libraries(system_initPortTextButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_handleClick SHARED
-    ClicksSystems/ClicksSystem.cpp
+    Click/ClicksSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
@@ -261,3 +276,13 @@ add_library(system_handleClick SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
 target_link_libraries(system_handleClick PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_handleTyping SHARED
+    Typing/TypingSystem.cpp
+    ../Components/Editable/EditableComponent.cpp
+    ../Components/ButtonState/ButtonStateComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
+)
+target_link_libraries(system_handleTyping PRIVATE JsonCpp::JsonCpp)
