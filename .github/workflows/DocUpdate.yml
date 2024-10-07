@@ -4,42 +4,42 @@ on:
   push:
 
 jobs:
-  generate-doc:
+  publish-wiki:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Doxygen
         run: sudo apt-get install -y doxygen graphviz  # Graphviz is required for generating diagrams
 
-      - name: Setup Git User
+      - name: Generate Doxygen Documentation
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "<>"
+          cd Docs
+          doxygen Doxyfile
+          cd ..
 
-      - name: Upload Documentation to GitHub Wiki
+      - name: Clone GitHub Wiki
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Clone le wiki dans le dossier `wiki/`
           git clone https://github.com/${{ github.repository }}.wiki.git wiki
-          
-          # Supprime l'ancienne documentation et copie la nouvelle documentation
+          git config --global user.name ${{ secrets.GIT_USER }}
+          git config --global user.email ${{ secrets.GIT_EMAIL }}
+
+      - name: Update Wiki Documentation
+        run: |
+          # Delete the old documentation
           rm -rf wiki/docs
           mkdir -p wiki/docs
-          cd Docs
-          doxygen Doxyfile
-          cp -r doxygen/html ../wiki/docs
-          cd ..
+          cp -r Docs/doxygen/html/* wiki/docs
 
-          # Commit et push la documentation
+          # Commit and push the changes
           cd wiki
           git add .
           git commit -m "Update Doxygen documentation"
           git push
-          
+
+          # Update the README.md
           rm -rf readme.md
           cp ../README.md readme.md
           git add .
