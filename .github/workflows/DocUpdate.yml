@@ -25,6 +25,7 @@ jobs:
           rm -rf wiki/docs
           cd Docs
           doxygen Doxyfile
+          tree
           mkdir -p wiki/docs
           cp -r Docs/doxygen/html wiki/docs
 
