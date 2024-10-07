@@ -23,11 +23,11 @@ jobs:
           
           # Supprime l'ancienne documentation et copie la nouvelle documentation
           rm -rf wiki/docs
+          mkdir -p wiki/docs
           cd Docs
           doxygen Doxyfile
-          tree
-          mkdir -p wiki/docs
-          cp -r Docs/doxygen/html wiki/docs
+          cp -r doxygen/html ../wiki/docs
+          cd ..
 
           # Commit et push la documentation
           cd wiki
