@@ -27,8 +27,13 @@ jobs:
           # Supprime l'ancienne documentation et copie la nouvelle documentation
           rm -rf wiki/docs
           ls
+          echo "\n"
           ls Docs
+          echo "\n"
           ls Docs/doxygen
+          echo "\n"
+          ls Docs/doxygen/html
+          echo "\n"
           rm -rf wiki/docs
           mkdir -p wiki/docs
           cp -r Docs/doxygen/html wiki/docs
