@@ -39,7 +39,7 @@ void ClicksSystem::_handleClicks(ECS::Registry &reg, int idxPacketEntities)
             if (!position || !textureRect || !callback || !scale)
                 continue;
             if (lib->isMouseButtonPressed(IGraphic::MouseButtons::MOUSE_LEFT) && mousePos.first >= position->x && mousePos.first <= position->x + textureRect->width * scale->scale && mousePos.second >= position->y && mousePos.second <= position->y + textureRect->height * scale->scale)
-                callback->callback(reg, idxPacketEntities);
+                callback->callback(reg, entity);
         }
     } catch (std::exception e) {
         std::cerr << "Exception: " << e.what() << std::endl;

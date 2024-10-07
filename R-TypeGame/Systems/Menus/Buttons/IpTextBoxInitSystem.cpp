@@ -92,30 +92,16 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
         reg.set_component<IComponent>(idxPacketEntities, position2D, position2D->getType());
     }
 
-    /*
-     * This is the callback of the button.
-     * This callback is supposed to set the button state to:
-     *      - Clicked if the previous state was None
-     *      - None if the previous state was Clicked
-     * And set all the other buttons states to None if any.
-     *
-     * For the moment, its implementation is crashing so it's commented.
-     * Make sure to contact @Thomaltarix if any questions about this callback.
-     */
     std::shared_ptr<CallBackComponent> callback = std::make_shared<CallBackComponent>([](ECS::Registry& reg, int idxPacketEntities) {
-        /*std::shared_ptr<ButtonStateComponent> state = std::dynamic_pointer_cast<ButtonStateComponent>(reg.get_components<IComponent>("ButtonStateComponent")[idxPacketEntities]);
-        if (state != nullptr) {
-            state->state = ButtonStateComponent::ButtonState::NONE;
-            std::cout << "state : " << state->state << std::endl;
+        std::shared_ptr<ButtonStateComponent> state = std::dynamic_pointer_cast<ButtonStateComponent>(reg.get_components<IComponent>("ButtonStateComponent")[idxPacketEntities]);
+        if (state != nullptr)
             state->state = state->state == ButtonStateComponent::ButtonState::CLICKED ? ButtonStateComponent::ButtonState::NONE : ButtonStateComponent::ButtonState::CLICKED;
-            std::cout << "state : " << state->state << std::endl;
-        }
         ECS::SparseArray<IComponent> entities = reg.get_components<IComponent>("ButtonStateComponent");
         for (int i = 0; i < entities.size(); i++) {
             std::shared_ptr<ButtonStateComponent> state = std::dynamic_pointer_cast<ButtonStateComponent>(entities[i]);
             if (state && state->state == ButtonStateComponent::ButtonState::CLICKED && i != idxPacketEntities)
                 state->state = ButtonStateComponent::ButtonState::NONE;
-        }*/
+        }
     });
     reg.register_component<IComponent>(callback->getType());
     reg.set_component<IComponent>(idxPacketEntities, callback, callback->getType());
