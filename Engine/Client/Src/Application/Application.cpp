@@ -9,7 +9,16 @@
 
 void Application::_packetHandler(Network::UDPPacket packet)
 {
-    std::cout << "Messages received from server: [...]" << std::endl;
+    uint32_t componentTypeLength = static_cast<size_t>(packet.getPayload()[0]);
+
+    if (packet.getPayload().size() < 1 + componentTypeLength + 4 + 2 * sizeof(float)) {
+        std::cerr << "Payload is too small." << std::endl;
+        return;
+    }
+
+    std::string componentType(packet.getPayload().begin() + 1, packet.getPayload().begin() + 1 + componentTypeLength);
+
+    // TODO: launch the updateNetworkSystem associate.
 }
 
 Application::Application()

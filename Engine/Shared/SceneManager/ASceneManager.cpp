@@ -41,6 +41,28 @@ void SceneManager::ASceneManager::_loadScene(const std::string &path, std::size_
     _loadSceneEntities(root, index);
     _loadSceneSystems(root, index);
     _loadSceneKeys(root, index);
+
+    //TODO: Uncomment this part when the Pr #120 will be merge main
+    //////
+    // _loadUpdatesNetworkSystems(root);
+
+    // const Json::Value& networkUpdates = root["networkUpdate"];
+
+    // for (auto updates : networkUpdates) {
+    //     const Json::Value& component = updates["component"];
+    //     const Json::Value& path = updates["path"];
+
+    //     if (component and path) {
+    //         std::shared_ptr<ISystem> system = DLLoader<ISystem>::load(_getSystemLibPath() + path.asString(), "loadUpdateInstance");
+    //         if (system) {
+    //             _updateNetworkSystems[component.asString()] = system->getFunction();
+    //         } else
+    //             throw SceneManagerJsonErrors("Error while loading the system: " + path.asString());
+    //     } else
+    //         throw SceneManagerJsonErrors("Error while loading the networkUpdate: " + updates.asString());
+    // }
+    //////
+
 }
 
 void SceneManager::ASceneManager::_loadSceneEntities(Json::Value root, std::size_t index)
