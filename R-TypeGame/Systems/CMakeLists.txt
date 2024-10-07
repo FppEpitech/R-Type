@@ -20,6 +20,7 @@ include_directories(
     ../Components/Shoot/
     ../Components/Planet/
     ../Systems/Shoot/
+    ../Systems/Background/
     ../Parser/ScaleParser/
     ../Parser/Position2DParser/
     ../Parser/LifeParser/
@@ -166,4 +167,11 @@ target_link_libraries(system_initPlanet PRIVATE JsonCpp::JsonCpp)
 add_library(system_restartPlanet SHARED
     Background/PlanetRestartSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
+    Background/UpdatePlanet.cpp
+)
+
+add_library(system_hitboxPlayer SHARED
+    Hitbox/HitboxPlayerSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+    Background/UpdatePlanet.cpp
 )

@@ -8,8 +8,6 @@
 #pragma once
 
 #include <iostream>
-#include <chrono>
-#include <random>
 
 #include "ISystem.hpp"
 #include "VelocityComponent.hpp"
@@ -50,6 +48,6 @@ class PlanetRestartSystem : public ASystem {
     private:
 
         void _restartPlanet(ECS::Registry& reg, int idxPacketEntities); //< Function to Restart a Planet.
-        std::mt19937::result_type _getRandomSeed();
-        void _updateNewPositions(std::shared_ptr<VelocityComponent> velocity, std::shared_ptr<Position2DComponent> position);
+        // std::mt19937::result_type _getRandomSeed();
+        // void _updateNewPositions(std::shared_ptr<VelocityComponent> velocity, std::shared_ptr<Position2DComponent> position);
 };
