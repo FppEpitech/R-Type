@@ -3,12 +3,6 @@ name: Generate Doxygen Documentation and Readme
 on:
   push:
 
-permissions:
-  contents: write
-  issues: write
-  pull-requests: write
-  workflows: write
-
 jobs:
   publish-wiki:
     runs-on: ubuntu-latest
