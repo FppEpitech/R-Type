@@ -47,15 +47,9 @@ void Network::Server::_startAccept(ECS::Registry& reg)
                 bool tokenAssigned = false;
 
                 ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
-                std::cout << "PlayerComponentArray.size(): " << PlayerComponentArray.size() << std::endl;
                 for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
                     PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-                    if (!player)
-                        std::cout << "Index: " << index << " && his null" << std::endl;
-                    else
-                        std::cout << "Index: " << index << " && not null" << std::endl;
                     if (player && player->token == 0) {
-                        std::cout << "In" << std::endl;
                         player->token = token;
                         tokenAssigned = true;
                         break;
