@@ -45,7 +45,7 @@ jobs:
         run: |
           cp README.md wiki/readme.md
           cd wiki
-          if ! git diff --exit-code README.md; then
+          if ! git diff --exit-code -- README.md; then
             git add readme.md
             git commit -m "Update README.md"
             git push
@@ -55,7 +55,7 @@ jobs:
         run: |
           cp Contributing.md wiki/contributing.md
           cd wiki
-          if ! git diff --exit-code Contributing.md; then
+          if ! git diff --exit-code -- Contributing.md; then
               git add contributing.md
               git commit -m "Update CONTRIBUTING.md"
               git push
