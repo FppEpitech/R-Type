@@ -141,11 +141,11 @@ add_library(system_initConnectButton SHARED
 target_link_libraries(system_initConnectButton PRIVATE JsonCpp::JsonCpp)
 
 
-add_library(system_moveRight SHARED MoveSystem/MoveSystemRight/MoveSystemRight.cpp)
-add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)
-add_library(system_moveUp SHARED MoveSystem/MoveSystemUp/MoveSystemUp.cpp)
-add_library(system_moveDown SHARED MoveSystem/MoveSystemDown/MoveSystemDown.cpp)
-add_library(system_moveEntities SHARED MoveSystem/MoveEntities/MoveEntitiesSystem.cpp)
+add_library(system_moveRight SHARED Move/MoveSystemRight/MoveSystemRight.cpp)
+add_library(system_moveLeft SHARED Move/MoveSystemLeft/MoveSystemLeft.cpp)
+add_library(system_moveUp SHARED Move/MoveSystemUp/MoveSystemUp.cpp)
+add_library(system_moveDown SHARED Move/MoveSystemDown/MoveSystemDown.cpp)
+add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
 
 add_library(system_shoot SHARED
     Shoot/ShootSystem.cpp

@@ -17,13 +17,13 @@ class ClicksSystem : public ASystem {
     public:
 
         /**
-         * @brief Construct a new Clicks System object.
+         * @brief Construct a new Click System object.
          *
          */
         ClicksSystem();
 
         /**
-         * @brief Destroy the Clicks System object.
+         * @brief Destroy the Click System object.
          *
          */
         ~ClicksSystem() = default;

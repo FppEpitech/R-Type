@@ -7,7 +7,6 @@
 
 #include <iostream>
 
-#include "KeyMap.hpp"
 #include "ClicksSystem.hpp"
 #include "ScaleComponent.hpp"
 #include "CallBackComponent.hpp"
