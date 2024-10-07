@@ -35,22 +35,28 @@ jobs:
 
           # Commit and push the changes
           cd wiki
-          git add .
-          git commit -m "Update Doxygen documentation"
-          git push
+          if ! git diff --exit-code; then
+            git add .
+            git commit -m "Update Doxygen documentation"
+            git push
+          fi
 
       - name: Update README.md
         run: |
           cp README.md wiki/readme.md
           cd wiki
-          git add readme.md
-          git commit -m "Update README.md"
-          git push
+          if ! git diff --exit-code README.md; then
+            git add readme.md
+            git commit -m "Update README.md"
+            git push
+          fi
 
       - name: Update Contribution Guidelines
         run: |
           cp Contributing.md wiki/contributing.md
           cd wiki
-          git add contributing.md
-          git commit -m "Update CONTRIBUTING.md"
-          git push
+          if ! git diff --exit-code Contributing.md; then
+              git add contributing.md
+              git commit -m "Update CONTRIBUTING.md"
+              git push
+          fi
