@@ -15,5 +15,11 @@ include_directories(
 # Add a shared library target 'graphic_raylib'
 add_library(graphic_raylib SHARED Src/GraphicLib.cpp)
 
+# Find the 'jsoncpp' package
+find_package(jsoncpp REQUIRED)
+
 # Link the 'raylib' library to 'graphic_raylib'
-target_link_libraries(graphic_raylib PRIVATE raylib)
+target_link_libraries(graphic_raylib PRIVATE
+        raylib
+        JsonCpp::JsonCpp
+)
