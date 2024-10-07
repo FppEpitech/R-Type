@@ -16,7 +16,6 @@ set(EXE_INCLUDE_PATH "Include")
 
 # Define component source files
 set(COMPONENT_SRC_FILE
-    ${EXE_SRC_PATH}/Components/ShaderComponent/ShaderPathComponent.cpp
     ../Shared/Component/FontPathComponent.cpp
     ../Shared/Component/ObjPathComponent.cpp
     ../Shared/Component/TexturePathComponent.cpp
@@ -57,6 +56,7 @@ set(SRC_EXE
     ../Shared/SceneManager/ASceneManager.cpp
     ${COMPONENT_SRC_FILE}
     ${SYSTEM_SRC_FILE}
+    ${EXE_SRC_PATH}/InitShader/InitShader.cpp
 )
 
 # Include directories for header files
@@ -75,6 +75,7 @@ include_directories(
     ../Shared/Interface
     ../Shared/SceneManager
     ../Shared/DLLoader
+    ${EXE_SRC_PATH}/InitShader/
     ${EXE_INCLUDE_PATH}/Components/ShaderComponent
 )
 

@@ -14,7 +14,7 @@
         "y": 300
     },
     "LifeComponent":100,
-    "PlayerComponent":3,
+    "PlayerComponent":0,
     "SpeedComponent":
     {
         "x":5,

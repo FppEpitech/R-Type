@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 
 /**
  * @class IGraphic
@@ -118,6 +119,46 @@ class IGraphic {
          */
         virtual void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
             unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 0) = 0;
+
+        /**
+         * @brief Initialize shaders with a map of shader names and paths.
+         *
+         * @param shaders A map where the key is the shader name and the value is the shader path.
+         */
+        virtual void initShaderWithMap(std::unordered_map<std::string, std::string> shaders) = 0;
+
+        /**
+         * @brief Initialize the current shader by name.
+         *
+         * @param name The name of the shader to initialize.
+         */
+        virtual void initCurrentShader(std::string name) = 0;
+
+        /**
+         * @brief Initialize the intensity of the shader.
+         *
+         * @param intensity The intensity value to set for the shader.
+         */
+        virtual void initShaderIntensity(float intensity) = 0;
+
+        /**
+         * @brief Change the current shader by name.
+         *
+         * @param name The name of the shader to change to.
+         */
+        virtual void changeCurrentShader(std::string name) = 0;
+
+        /**
+         * @brief Change the intensity of the current shader.
+         *
+         * @param intensity The new intensity value for the shader.
+         */
+        virtual void changeShaderIntensity(float intensity) = 0;
+
+        /**
+         * @brief Reset the current shader to its default state.
+         */
+        virtual void resetShader() = 0;
 
         /**
          * @brief Start to draw on the window.

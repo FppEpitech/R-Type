@@ -25,6 +25,32 @@ class GraphicLib : public IGraphic {
     public:
 
         /**
+         * @brief Exception class for handling errors related to the current shader name.
+         */
+        class WrongCurrentShaderName : public AError {
+            public:
+                /**
+                 * @brief Construct a new WrongCurrentShaderName exception.
+                 *
+                 * @param message The error message.
+                 */
+                WrongCurrentShaderName(const std::string &message) : AError(message) {}
+        };
+
+        /**
+         * @brief Exception class for handling errors related to loading shaders.
+         */
+        class LoadShaderError : public AError {
+            public:
+                /**
+                 * @brief Construct a new LoadShaderError exception.
+                 *
+                 * @param message The error message.
+                 */
+                LoadShaderError(const std::string &message) : AError(message) {}
+        };
+
+        /**
          * @brief Construct a new Graphic Lib object.
          *
          */
@@ -116,6 +142,46 @@ class GraphicLib : public IGraphic {
             unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 0);
 
         /**
+         * @brief Initialize shaders with a map of shader names and paths.
+         *
+         * @param shaders A map where the key is the shader name and the value is the shader path.
+         */
+        void initShaderWithMap(std::unordered_map<std::string, std::string> shaders);
+
+        /**
+         * @brief Initialize the current shader by name.
+         *
+         * @param name The name of the shader to initialize.
+         */
+        void initCurrentShader(std::string name);
+
+        /**
+         * @brief Initialize the intensity of the shader.
+         *
+         * @param intensity The intensity value to set for the shader.
+         */
+        void initShaderIntensity(float intensity);
+
+        /**
+         * @brief Change the current shader by name.
+         *
+         * @param name The name of the shader to change to.
+         */
+        void changeCurrentShader(std::string name);
+
+        /**
+         * @brief Change the intensity of the current shader.
+         *
+         * @param intensity The new intensity value for the shader.
+         */
+        void changeShaderIntensity(float intensity);
+
+        /**
+         * @brief Reset the current shader to its default state.
+         */
+        void resetShader();
+
+        /**
          * @brief Start to draw on the window.
          * Must be call at the begin of the Game loop.
          *
@@ -154,8 +220,18 @@ class GraphicLib : public IGraphic {
 
     private:
 
+        /**
+         * @brief Check if the shader is ready.
+         *
+         * The function will check if the @var _currentShader is none or not.
+         * @return true The shader is ready.
+         */
+        bool _isShaderReady();
+
         Camera                                      _camera;        //< Player camera.
         std::unordered_map<std::string, Model>      _models;        //< List of Models loaded.
         std::unordered_map<std::string, Texture2D>  _textures;      //< List textures loaded.
         std::unordered_map<std::string, Font>       _font;          //< List of Font loaded.
+        std::unordered_map<std::string, Shader>     _shaders;       //< List of Shaders loaded.
+        std::string                                 _currentShader; //< Current shader.
 };

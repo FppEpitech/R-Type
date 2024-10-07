@@ -67,6 +67,7 @@ void Application::run()
     if (!libGraphic)
         throw ClientError("Failed to load graphic library");
     libGraphic->init(WINDOW_TITLE);
+    InitShader InitShader(libGraphic);
 
     while (libGraphic->windowIsOpen()) {
         _keyboardHandler(libGraphic->getKeyInput());

@@ -30,6 +30,14 @@
         }
     ],
     "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
         "libsystem_initPlayerOne.so",
         "libsystem_initPlayerTwo.so",
         "libsystem_initPlayerThree.so",
@@ -37,6 +45,7 @@
     ],
     "systems": [
         "libsystem_moveEntities.so",
+        "libsystem_restartPlanet.so"
         "libsystem_shootDestroy.so"
     ],
     "menus": {

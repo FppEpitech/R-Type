@@ -7,5 +7,5 @@
 
 #include "Position2DComponent.hpp"
 
-Position2DComponent::Position2DComponent(int x, int y) :
+Position2DComponent::Position2DComponent(float x, float y) :
     AComponent("Position2DComponent"), x(x), y(y) {}

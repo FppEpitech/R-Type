@@ -25,8 +25,8 @@ class Position2DComponent : public AComponent {
 
     public:
 
-        int x; //< Position x.
-        int y; //< Position y.
+        float x; //< Position x.
+        float y; //< Position y.
 
         /**
          * @brief Construct a new Position 2D Component object
@@ -34,5 +34,5 @@ class Position2DComponent : public AComponent {
          * @param x Initial x position (default is 0).
          * @param y Initial y position (default is 0).
          */
-        Position2DComponent(int x = 0, int y = 0);
+        Position2DComponent(float x = 0, float y = 0);
 };

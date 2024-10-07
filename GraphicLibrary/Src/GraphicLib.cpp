@@ -7,6 +7,11 @@
 
 #include "GraphicLib.hpp"
 
+#include <json/json.h>
+#include <fstream>
+
+#define SETTINGS_PATH "./Config/Settings.json"
+
 extern "C" IGraphic* loadGraphicInstance() {
     return new GraphicLib();
 }
@@ -59,7 +64,13 @@ void GraphicLib::drawOBJ(std::string objPath, float posx, float posy, float posz
     Vector3 position = { posx, posy, posz };
 
     BeginMode3D(_camera);
-        DrawModel(_models[objPath], position, scale, WHITE);
+
+    if (_isShaderReady())
+        BeginShaderMode(_shaders[_currentShader]);
+    DrawModel(_models[objPath], position, scale, WHITE);
+    if (_isShaderReady())
+        EndShaderMode();
+
     EndMode3D();
 }
 
@@ -70,7 +81,11 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
 
     Vector2 position = { posx, posy };
 
+    if (_isShaderReady())
+        BeginShaderMode(_shaders[_currentShader]);
     DrawTextureEx(_textures[texturePath], position, 0, scale, WHITE);
+    if (_isShaderReady())
+        EndShaderMode();
 }
 
 void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale)
@@ -82,7 +97,11 @@ void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy
     Rectangle rectDest = {posx, posy, width * scale, height * scale};
     Vector2 origin = { 0, 0 };
 
+    if (_isShaderReady())
+        BeginShaderMode(_shaders[_currentShader]);
     DrawTexturePro(_textures[texturePath], rect, rectDest, origin, 0, WHITE);
+    if (_isShaderReady())
+        EndShaderMode();
 }
 
 void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
@@ -93,11 +112,97 @@ void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize
 
     Color color = {r, g, b, a};
 
+    if (_isShaderReady())
+        BeginShaderMode(_shaders[_currentShader]);
+
     if (fontPath != "") {
         Vector2 position = { posx, posy };
         DrawTextEx(_font[fontPath], text.c_str(), position, fontSize, 2, color);
     } else
         DrawText(text.c_str(), posx, posy, 24, color);
+
+    if (_isShaderReady())
+        EndShaderMode();
+}
+
+void GraphicLib::initShaderWithMap(std::unordered_map <std::string, std::string> shaders)
+{
+    try {
+        for (auto shader : shaders) {
+            Shader shaderLoaded = LoadShader(0, shader.second.c_str());
+            if (shaderLoaded.id == 0)
+                throw std::runtime_error("Failed to load shader: " + shader.second);
+            _shaders[shader.first] = shaderLoaded;
+        }
+    } catch (const std::exception &e) {
+        throw LoadShaderError(e.what());
+    }
+}
+
+void GraphicLib::initCurrentShader(std::string name)
+{
+    if (name == "none") {
+        _currentShader = "none";
+        return;
+    }
+    if (_shaders.find(name) != _shaders.end()) {
+        _currentShader = name;
+        return;
+    }
+    throw WrongCurrentShaderName("Shader not found: " + name);
+}
+
+void GraphicLib::initShaderIntensity(float intensity)
+{
+    for (auto shader : _shaders) {
+        SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
+    }
+}
+
+void GraphicLib::changeShaderIntensity(float intensity)
+{
+    Json::Value root;
+    std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    settingsFile >> root;
+    settingsFile.close();
+
+    for (auto shader : _shaders)
+        SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
+    root["color_blindness"]["intensity"] = intensity;
+    std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    settingsFileOut << root;
+    settingsFileOut.close();
+}
+
+void GraphicLib::changeCurrentShader(std::string name)
+{
+    Json::Value root;
+    Json::StreamWriterBuilder writer;
+    std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    settingsFile >> root;
+    settingsFile.close();
+
+    if (name == "none") {
+        _currentShader = "none";
+        root["color_blindness"]["current"] = "none";
+    } else if (_shaders.find(name) != _shaders.end()) {
+        _currentShader = name;
+        root["color_blindness"]["current"] = name;
+    } else {
+        throw WrongCurrentShaderName("Shader not found: " + name);
+    }
+
+    std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    settingsFileOut << Json::writeString(writer, root);
+    settingsFileOut.close();
+}
+
+void GraphicLib::resetShader()
+{
+    for (auto shader : _shaders)
+        UnloadShader(_shaders[shader.first]);
+    _shaders.clear();
+    _currentShader = "none";
 }
 
 void GraphicLib::startDraw()
@@ -108,6 +213,11 @@ void GraphicLib::startDraw()
 void GraphicLib::endDraw()
 {
     EndDrawing();
+}
+
+bool GraphicLib::_isShaderReady()
+{
+    return _currentShader != "none";
 }
 
 std::pair<int, int> GraphicLib::getWindowSize()

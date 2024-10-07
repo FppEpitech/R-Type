@@ -18,6 +18,7 @@ include_directories(
     ../Components/Speed/
     ../Components/Life/
     ../Components/Shoot/
+    ../Components/Planet/
     ../Systems/Shoot/
     ../Components/ButtonState/
     ../Components/CallBack/
@@ -168,6 +169,38 @@ add_library(system_shootDestroy SHARED
     Shoot/ShootDestroySystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+)
+
+add_library(system_initBackground SHARED
+    Background/BackgroundInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp
+)
+target_link_libraries(system_initBackground PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_initPlanet SHARED
+    Background/PlanetInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ../Components/Velocity/VelocityComponent.cpp
+    ../Components/Planet/PlanetComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/VelocityParser/VelocityParser.cpp
+)
+target_link_libraries(system_initPlanet PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_restartPlanet SHARED
+    Background/PlanetRestartSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
 
 add_library(system_initIpTextButton SHARED

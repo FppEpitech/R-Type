@@ -1,0 +1,15 @@
+{
+  "color_blindness": {
+    "current": "none",
+    "allPaths": {
+      "achromatopsia": "./Assets/fsFile/achromatopsie.fs",
+      "deuteranopie": "./Assets/fsFile/deuteranopie.fs",
+      "deuteranomalie": "./Assets/fsFile/deuteranomalie.fs",
+      "protanopie": "./Assets/fsFile/protanopie.fs",
+      "protanomalie": "./Assets/fsFile/protanomalie.fs",
+      "tritanopie": "./Assets/fsFile/tritanopie.fs",
+      "tritanomalie": "./Assets/fsFile/tritanomalie.fs"
+    },
+    "intensity": 0.0
+  }
+}

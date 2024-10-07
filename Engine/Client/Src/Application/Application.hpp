@@ -20,6 +20,7 @@
 #include "DrawTexture/DrawTextureSystem.hpp"
 #include "DrawTextureRect/DrawTextureRectSystem.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationSystem.hpp"
+#include "InitShader.hpp"
 
 #define WINDOW_TITLE "From noware"
 

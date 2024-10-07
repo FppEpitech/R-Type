@@ -1,0 +1,26 @@
+{
+    "TextureRectComponent":
+    {
+        "path":"./Assets/background.png",
+        "left": 0,
+        "top": 0,
+        "width": 1920,
+        "height": 1080
+    },
+    "ScaleComponent": 6,
+    "Position2DComponent":
+    {
+        "x": 0,
+        "y": 0
+    },
+    "SpriteSheetAnimationComponent":
+    {
+        "nbFrame": 2176,
+        "timeFrame": 0,
+        "vx": 0.125,
+        "vy": 0,
+        "startX": 0,
+        "startY": 0,
+        "reverseMod": false
+    }
+}
