@@ -1,19 +1,19 @@
 {
     "TextureRectComponent":{
-        "path":"./Assets/Button01.png",
+        "path":"./Assets/Button11.png",
         "left":0,
         "top":0,
-        "width":152,
-        "height":40
+        "width":105,
+        "height":21
     },
-    "ScaleComponent":2,
+    "ScaleComponent":3,
     "Position2DComponent":{
         "x":1100,
-        "y":200
+        "y":215
     },
     "TextPosition2DComponent":{
-        "x":1120,
-        "y":230
+        "x":1125,
+        "y":235
     },
     "ColourComponent":{
         "r":255,
@@ -26,5 +26,10 @@
     "DefaultTextComponent": "Write the server Port",
     "Size1DComponent": 18,
     "FontPathComponent": "",
-    "ButtonStateComponent": "NONE"
+    "ButtonStateComponent": "NONE",
+    "ButtonTexturePathComponent": {
+        "None": "./Assets/Button11.png",
+        "Hover": "./Assets/Button15.png",
+        "Clicked": "./Assets/Button16.png"
+    }
 }

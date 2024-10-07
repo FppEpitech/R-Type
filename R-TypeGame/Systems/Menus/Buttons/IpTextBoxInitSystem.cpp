@@ -34,11 +34,49 @@
 #include "TextPosition2DParser.hpp"
 #include "DefaultTextComponent.hpp"
 #include "TextPosition2DComponent.hpp"
+#include "ButtonTexturePathParser.hpp"
+#include "ButtonTexturePathComponent.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/ipTextBoxSystem.json"
 
 ButtonInitSystem::ButtonInitSystem() :
         ASystem("ButtonInitSystem") {}
+
+static void handleThis(ECS::Registry& reg, int idxPacketEntities)
+{
+    std::shared_ptr<ButtonStateComponent> state = std::dynamic_pointer_cast<ButtonStateComponent>(reg.get_components<IComponent>("ButtonStateComponent")[idxPacketEntities]);
+    std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(reg.get_components<IComponent>("TextComponent")[idxPacketEntities]);
+    std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(reg.get_components<IComponent>("DefaultTextComponent")[idxPacketEntities]);
+    if (state && text && defaultText) {
+        if (state->state == ButtonStateComponent::ButtonState::CLICKED) {
+            state->state = ButtonStateComponent::ButtonState::NONE;
+            if (text->text.empty())
+                text->text = defaultText->text;
+        } else
+            state->state = ButtonStateComponent::ButtonState::CLICKED;
+    }
+}
+
+static void handleOthers(ECS::Registry& reg, int idxPacketEntities)
+{
+    ECS::SparseArray<IComponent> states = reg.get_components<IComponent>("ButtonStateComponent");
+    ECS::SparseArray<IComponent> callbacks = reg.get_components<IComponent>("CallBackComponent");
+    ECS::SparseArray<IComponent> texts = reg.get_components<IComponent>("TextComponent");
+    ECS::SparseArray<IComponent> defaultTexts = reg.get_components<IComponent>("DefaultTextComponent");
+    for (int i = 0; i < states.size() && i < callbacks.size() && i < texts.size() && i < defaultTexts.size(); i++) {
+        std::shared_ptr<ButtonStateComponent> newState = std::dynamic_pointer_cast<ButtonStateComponent>(states[i]);
+        std::shared_ptr<CallBackComponent> callback = std::dynamic_pointer_cast<CallBackComponent>(callbacks[i]);
+        std::shared_ptr<TextComponent> newText = std::dynamic_pointer_cast<TextComponent>(texts[i]);
+        std::shared_ptr<DefaultTextComponent> newDefaultText = std::dynamic_pointer_cast<DefaultTextComponent>(defaultTexts[i]);
+        if (!newState || !callback || !newText || !newDefaultText)
+            continue;
+        if (newState->state == ButtonStateComponent::ButtonState::CLICKED && i != idxPacketEntities) {
+            newState->state = ButtonStateComponent::ButtonState::NONE;
+            if (newText->text.empty())
+                newText->text = newDefaultText->text;
+        }
+    }
+}
 
 void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
 {
@@ -103,23 +141,8 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
     }
 
     std::shared_ptr<CallBackComponent> callback = std::make_shared<CallBackComponent>([](ECS::Registry& reg, int idxPacketEntities) {
-        std::shared_ptr<ButtonStateComponent> state = std::dynamic_pointer_cast<ButtonStateComponent>(reg.get_components<IComponent>("ButtonStateComponent")[idxPacketEntities]);
-        std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(reg.get_components<IComponent>("TextComponent")[idxPacketEntities]);
-        std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(reg.get_components<IComponent>("DefaultTextComponent")[idxPacketEntities]);
-        if (state && text && defaultText) {
-            if (state->state == ButtonStateComponent::ButtonState::CLICKED) {
-                state->state = ButtonStateComponent::ButtonState::NONE;
-                if (text->text.empty())
-                    text->text = defaultText->text;
-            } else
-                state->state = ButtonStateComponent::ButtonState::CLICKED;
-        }
-        ECS::SparseArray<IComponent> entities = reg.get_components<IComponent>("ButtonStateComponent");
-        for (int i = 0; i < entities.size(); i++) {
-            std::shared_ptr<ButtonStateComponent> state = std::dynamic_pointer_cast<ButtonStateComponent>(entities[i]);
-            if (state && state->state == ButtonStateComponent::ButtonState::CLICKED && i != idxPacketEntities)
-                state->state = ButtonStateComponent::ButtonState::NONE;
-        }
+        handleThis(reg, idxPacketEntities);
+        handleOthers(reg, idxPacketEntities);
     });
     reg.register_component<IComponent>(callback->getType());
     reg.set_component<IComponent>(idxPacketEntities, callback, callback->getType());
@@ -132,6 +155,12 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
     if (textLimit) {
         reg.register_component<IComponent>(textLimit->getType());
         reg.set_component<IComponent>(idxPacketEntities, textLimit, textLimit->getType());
+    }
+
+    std::shared_ptr<ButtonTexturePathComponent> buttonTexturePath = parseButtonTexturePath(PATH_JSON);
+    if (buttonTexturePath) {
+        reg.register_component<IComponent>(buttonTexturePath->getType());
+        reg.set_component<IComponent>(idxPacketEntities, buttonTexturePath, buttonTexturePath->getType());
     }
 }
 

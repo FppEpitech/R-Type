@@ -1,19 +1,19 @@
 {
     "TextureRectComponent":{
-        "path":"./Assets/Button01.png",
+        "path":"./Assets/Button11.png",
         "left":0,
         "top":0,
-        "width":152,
-        "height":40
+        "width":105,
+        "height":21
     },
-    "ScaleComponent":2,
+    "ScaleComponent":3,
     "Position2DComponent":{
         "x":800,
-        "y":500
+        "y":515
     },
     "TextPosition2DComponent":{
         "x":845,
-        "y":530
+        "y":535
     },
     "ColourComponent":{
         "r":255,
@@ -24,5 +24,10 @@
     "TextComponent": "Connect to server",
     "Size1DComponent": 18,
     "FontPathComponent": "",
-    "ButtonStateComponent": "NONE"
+    "ButtonStateComponent": "NONE",
+    "ButtonTexturePathComponent": {
+        "None": "./Assets/Button11.png",
+        "Hover": "./Assets/Button15.png",
+        "Clicked": "./Assets/Button16.png"
+    }
 }
