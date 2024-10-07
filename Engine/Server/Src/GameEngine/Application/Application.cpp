@@ -109,9 +109,6 @@ GameEngine::Application::Application()
 
 void GameEngine::Application::run()
 {
-    // TODO: Start sceneManager
-    // _sceneManager->processInput("ok");
-    while (true) {
-        // TODO: Game loop
-    }
+    while (true)
+        _registries->run_systems(-1);
 }
