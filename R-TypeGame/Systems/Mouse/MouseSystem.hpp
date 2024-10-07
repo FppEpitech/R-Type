@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** ClicksSystem.hpp
+** MouseSystem.hpp
 */
 
 #pragma once
@@ -10,23 +10,23 @@
 #include "ISystem.hpp"
 
 /**
- * @brief System to handle clicks.
+ * @brief System to handle mouse events.
  */
-class ClicksSystem : public ASystem {
+class MouseSystem : public ASystem {
 
     public:
 
         /**
-         * @brief Construct a new Click System object.
+         * @brief Construct a new Mouse System object.
          *
          */
-        ClicksSystem();
+        MouseSystem();
 
         /**
-         * @brief Destroy the Click System object.
+         * @brief Destroy the Mouse System object.
          *
          */
-        ~ClicksSystem() = default;
+        ~MouseSystem() = default;
 
         /**
          * @brief Get the Function object.
@@ -36,11 +36,11 @@ class ClicksSystem : public ASystem {
         std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction()
         {
             return [this](ECS::Registry& reg, int idxPacketEntities) {
-                _handleClicks(reg, idxPacketEntities);
+                _handleMouse(reg, idxPacketEntities);
             };
         }
 
     private:
 
-        void _handleClicks(ECS::Registry& reg, int idxPacketEntities); //< Function to handle clicks.
+        void _handleMouse(ECS::Registry& reg, int idxPacketEntities); //< Function to handle mouse events.
 };
