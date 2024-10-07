@@ -14,6 +14,11 @@ jobs:
       - name: Setup Doxygen
         run: sudo apt-get install -y doxygen graphviz  # Graphviz is required for generating diagrams
 
+      - name: Setup Git User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "<>"
+
       - name: Upload Documentation to GitHub Wiki
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
