@@ -3,6 +3,12 @@ name: Generate Doxygen Documentation and Readme
 on:
   push:
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  workflows: write
+
 jobs:
   publish-wiki:
     runs-on: ubuntu-latest
@@ -16,6 +22,7 @@ jobs:
         run: |
           cd Docs
           doxygen Doxyfile
+          make -C doxygen/latex
 
       - name: Clone GitHub Wiki
         env:
@@ -29,8 +36,8 @@ jobs:
         run: |
           # Delete the old documentation
           rm -rf wiki/docs
-          mkdir -p wiki/docs
-          cp -r Docs/doxygen/html/ wiki/docs
+          rm -rf wiki/DoxygenDoc.pdf
+          cp -r Docs/doxygen/latex/refman.pdf wiki/DoxygenDoc.pdf
 
           # Commit and push the changes
           cd wiki
@@ -44,4 +51,12 @@ jobs:
           cd wiki
           git add readme.md
           git commit -m "Update README.md"
+          git push
+
+      - name: Update Contribution Guidelines
+        run: |
+          cp Contributing.md wiki/contributing.md
+          cd wiki
+          git add contributing.md
+          git commit -m "Update CONTRIBUTING.md"
           git push
