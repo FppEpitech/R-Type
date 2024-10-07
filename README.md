@@ -165,12 +165,14 @@ Run the following command to install the dependencies:
 
 - For linux:
 ```bash
+cd tools
 chmod +x install.sh   # Make the script executable
 ./install.sh           # Run the installation script
 ```
 
 - For Windows:
 ```powershell
+cd tools
 .\install.bat     # Run the installation script
 ```
 
@@ -182,12 +184,14 @@ Once the installation is complete, you can build the project. Execute the build 
 
 - For linux:
 ```bash
+cd tools
 chmod +x build.sh   # Make the script executable
 ./build.sh           # Run the build script
 ```
 
 - For Windows:
 ```powershell
+cd tools
 .\build.bat      # Run the build script
 ```
 
@@ -197,7 +201,7 @@ The build process will compile the project and generate the necessary files for 
 
 With the build complete, you are now ready to dive into the code!
 You can modify the source files, add features, and create your own plugins as needed.
-For more information on how add mod and pluggin, please refer to the [SlimWiki](https://slimwiki.com/6fvu0f5pu/getting-started-nqdxve9qg-/welcome).
+For more information on how add mod and pluggin, please refer to the [Developer Documentation](https://github.com/FppEpitech/R-Type/wiki/Dev-documentation).
 
 ---
 
@@ -228,4 +232,4 @@ ctest
 ```
 
 # Documentation
-Here the project documentation: [SlimWiki](https://slimwiki.com/6fvu0f5pu/getting-started-nqdxve9qg-/welcome)
+Here the project documentation: [R-Type](https://github.com/FppEpitech/R-Type/wiki)
