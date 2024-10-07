@@ -14,9 +14,6 @@ jobs:
       - name: Setup Doxygen
         run: sudo apt-get install -y doxygen graphviz  # Graphviz is required for generating diagrams
 
-      - name: Generate Documentation
-        run: doxygen Docs/Doxyfile
-
       - name: Upload Documentation to GitHub Wiki
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -26,6 +23,7 @@ jobs:
           
           # Supprime l'ancienne documentation et copie la nouvelle documentation
           rm -rf wiki/docs
+          doxygen Docs/Doxyfile
           ls
           echo "\n"
           ls Docs
@@ -34,7 +32,6 @@ jobs:
           echo "\n"
           ls Docs/doxygen/html
           echo "\n"
-          rm -rf wiki/docs
           mkdir -p wiki/docs
           cp -r Docs/doxygen/html wiki/docs
 
