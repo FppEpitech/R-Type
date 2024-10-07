@@ -8,6 +8,7 @@
 #include <chrono>
 #include <random>
 
+#include "UpdatePlanet.hpp"
 #include "VelocityComponent.hpp"
 #include "Position2DComponent.hpp"
 
