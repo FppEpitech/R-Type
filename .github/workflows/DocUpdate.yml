@@ -20,13 +20,13 @@ jobs:
 
       - name: Clone GitHub Wiki
         env:
-          GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
-          GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+          GIT_USER_NAME: ${{ secrets.GIT_USER }}
+          GIT_USER_EMAIL: ${{ secrets.GIT_EMAIL }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git clone https://github.com/${{ github.repository }}.wiki.git wiki
-          git config --global user.name ${{ secrets.GIT_USER }}
-          git config --global user.email ${{ secrets.GIT_EMAIL }}
+          git config --global user.name "${GIT_USER_NAME}"
+          git config --global user.email "${GIT_USER_EMAIL}"
 
       - name: Update Wiki Documentation
         run: |
