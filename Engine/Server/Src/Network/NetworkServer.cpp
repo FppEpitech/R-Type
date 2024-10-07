@@ -39,33 +39,36 @@ void Network::Server::_startAccept(ECS::Registry& reg)
 
     _tcp_acceptor->async_accept(*socket, [this, socket, &reg](const asio::error_code& error) {
         if (!error) {
+            try {
+                uint32_t token = _generateToken();
+                while (_clients.find(token) != _clients.end())
+                    token = _generateToken();
 
-            uint32_t token = _generateToken();
-            while (_clients.find(token) != _clients.end())
-                token = _generateToken();
+                bool tokenAssigned = false;
 
-            bool tokenAssigned = false;
-
-            ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
-            for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-                PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-                if (player->token == 0) {
-                    player->token = token;
-                    tokenAssigned = true;
-                    break;
+                ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+                for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+                    PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+                    if (player && player->token == 0) {
+                        player->token = token;
+                        tokenAssigned = true;
+                        break;
+                    }
                 }
-            }
 
-            if (tokenAssigned == false) {
-                std::cout << "No more place available" << std::endl;
-                socket->close();
-            } else {
-                _clients[token] = asio::ip::udp::endpoint();
-                std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::dec << std::endl;
+                if (tokenAssigned == false) {
+                    std::cout << "No more place available" << std::endl;
+                    socket->close();
+                } else {
+                    _clients[token] = asio::ip::udp::endpoint();
+                    std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::dec << std::endl;
 
-                _startRead(socket, token);
-                asio::write(*socket, asio::buffer(&token, sizeof(token)));
-                _startAccept(reg);
+                    _startRead(socket, token);
+                    asio::write(*socket, asio::buffer(&token, sizeof(token)));
+                    _startAccept(reg);
+                }
+            } catch (const std::exception& e) {
+                std::cerr << "Error: " << e.what() << std::endl;
             }
         }
     });

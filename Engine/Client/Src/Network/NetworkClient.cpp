@@ -33,7 +33,7 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
         ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
         for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
             PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-            if (player->token == 0) {
+            if (player && player->token == 0) {
                 player->token = _token;
                 break;
             }
