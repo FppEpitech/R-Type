@@ -16,24 +16,21 @@ jobs:
         run: |
           cd Docs
           doxygen Doxyfile
-          cd ..
 
       - name: Clone GitHub Wiki
         env:
-          GIT_USER_NAME: ${{ secrets.GIT_USER }}
-          GIT_USER_EMAIL: ${{ secrets.GIT_EMAIL }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git clone https://github.com/${{ github.repository }}.wiki.git wiki
-          git config --global user.name "${GIT_USER_NAME}"
-          git config --global user.email "${GIT_USER_EMAIL}"
+          git clone https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.wiki.git wiki
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Update Wiki Documentation
         run: |
           # Delete the old documentation
           rm -rf wiki/docs
           mkdir -p wiki/docs
-          cp -r Docs/doxygen/html/* wiki/docs
+          cp -r Docs/doxygen/html/ wiki/docs
 
           # Commit and push the changes
           cd wiki
@@ -41,9 +38,10 @@ jobs:
           git commit -m "Update Doxygen documentation"
           git push
 
-          # Update the README.md
-          rm -rf readme.md
-          cp ../README.md readme.md
-          git add .
+      - name: Update README.md
+        run: |
+          cp README.md wiki/readme.md
+          cd wiki
+          git add readme.md
           git commit -m "Update README.md"
           git push
