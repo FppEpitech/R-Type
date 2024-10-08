@@ -33,6 +33,8 @@ void UpdatePositionComponent::_updatePosition(Network::UDPPacket packet, ECS::Re
         std::memcpy(&y, &packet.getPayload()[9 + componentTypeLength], sizeof(float));
 
         ECS::SparseArray<IComponent> PositionComponentArray = reg.get_components<IComponent>(componentType);
+        if (PositionComponentArray.size() < idxPacketEntities)
+            return;
         Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
         if (position) {
             position->x = x;
