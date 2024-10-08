@@ -38,7 +38,7 @@ jobs:
           cd wiki
           if ! git diff --exit-code; then
             git add .
-            git commit -m "Update Doxygen documentation"
+            git commit -m "refactor(docs): Update Doxygen documentation"
             git push
           fi
 
@@ -48,7 +48,7 @@ jobs:
           cd wiki
           if ! git diff --exit-code -- README.md; then
             git add readme.md
-            git commit -m "Update README.md"
+            git commit -m "refactor(readme): Update README.md"
             git push
           fi
 
@@ -58,6 +58,6 @@ jobs:
           cd wiki
           if ! git diff --exit-code -- Contributing.md; then
               git add contributing.md
-              git commit -m "Update CONTRIBUTING.md"
+              git commit -m "refactor(contributing): Update contribution guidelines"
               git push
           fi
