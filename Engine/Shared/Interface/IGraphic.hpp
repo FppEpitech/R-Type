@@ -66,7 +66,7 @@ class IGraphic {
         /**
          * @brief Get the Key Pressed Input object.
          *
-         * @return std::    size_t The key pressed.
+         * @return std::size_t The key pressed.
          */
         virtual std::size_t getKeyPressedInput() = 0;
 
