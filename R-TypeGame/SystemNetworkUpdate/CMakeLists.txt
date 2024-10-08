@@ -38,6 +38,8 @@ add_library(update_position_component SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
 )
 
+find_package(asio CONFIG REQUIRED)
+
 target_link_libraries(
     update_position_component
     PRIVATE asio::asio
