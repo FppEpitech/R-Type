@@ -206,19 +206,55 @@ For more information on how add mod and pluggin, please refer to the [Developer 
 ---
 
 ## How to PLAY ?
-First, download the repository from GitHub, then compile it with:
+First, download the repository from GitHub:
 ```
 git clone git@github.com:FppEpitech/R-Type.git
-chmod +x ./tools/build.sh
-./tools/build.sh
 ```
-Then to run the server:
+
+After that, go to our `tools` folder and run the `install-linux.sh` or `install-windows.bat` script:
+**For Linux:**
+```bash
+cd tools
+chmod +x install-linux.sh
+./install-linux.sh
 ```
-./r-type_server
+
+or 
+
+**For Windows:**
+```powershell
+cd tools
+.\install-windows.bat
 ```
-And the client:
+
+Then after the installation, you can run the other scripts:
+
+**For Linux:**
+```bash
+chmod +x build-linux.sh
+./build-linux.sh
 ```
-./r-type_client
+
+or
+
+**For Windows:**
+```powershell
+.\build-windows.bat
+```
+
+Once the build is done, you can go into our `Game folder` and run the server or the client:
+
+```bash
+cd build
+
+For the server:
+```bash
+./r-type_server #or .\r-type_server.exe
+```
+
+For the client:
+```bash
+./r-type_client #or .\r-type_client.exe
 ```
 ## How to launch tests ?
 First, download the repository from Github, then compile it with:
