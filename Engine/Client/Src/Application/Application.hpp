@@ -57,7 +57,7 @@ class Application {
          *
          * @param packet Packet receive by the server
          */
-        void _packetHandler(Network::UDPPacket packet);
+        void _packetHandler(Network::UDPPacket packet, ECS::Registry& reg);
 
         /**
          * @brief Function who handle keyboard signal.

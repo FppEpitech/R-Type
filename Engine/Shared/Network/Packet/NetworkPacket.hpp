@@ -20,6 +20,7 @@
 #define VERSION 0x01
 
 enum class MessageType : uint8_t {
+    Init        = 0x00,  // Init
     ArrowKey    = 0x01,  // Arrow
     AlphaKey    = 0x02,  // Alpha (A-Z)
     NumberKey   = 0x03,  // Number (0-9)

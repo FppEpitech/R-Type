@@ -59,7 +59,23 @@ class Network::Server
          * @param message The message to be sent.
          * @param endpoint The UDP endpoint to which the message is sent.
          */
-        void sendMessage(const std::string& message, const asio::ip::udp::endpoint& endpoint);
+        void sendMessage(std::vector<uint8_t>& packet, const asio::ip::udp::endpoint& endpoint);
+
+        /**
+         * @brief Create a Packet object.
+         *
+         * @param messageType Message Type to insert in Packet.
+         * @param payload Payload to insert in Packet.
+         * @return std::vector<uint8_t> The packet.
+         */
+        std::vector<uint8_t> createPacket(uint8_t messageType, const std::vector<uint8_t>& payload);
+
+        /**
+         * @brief Get the Clients List object.
+         *
+         * @return std::unordered_map<uint32_t, asio::ip::udp::endpoint> Client List.
+         */
+        std::unordered_map<uint32_t, asio::ip::udp::endpoint>& getClientsList();
 
     private:
 
@@ -100,4 +116,5 @@ class Network::Server
         std::string                                                 _read_buffer;       // Read buffer to accumulate data received via TCP connection.
         std::unordered_map<uint32_t, asio::ip::udp::endpoint>       _clients;           // Hash table associating a unique identifier to the UDP endpoint of a connected client.
         MessageHandler                                              _messageHandler;    // Message Manager to process messages.
+        uint32_t                                                    _messageId;         // Current Message ID (auto-incremente every send of message)
 };

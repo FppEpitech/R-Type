@@ -200,6 +200,11 @@ class Registry {
          */
         void clearSystems();
 
+
+
+        uint8_t messageType;             // Message Type
+        std::vector<uint8_t> payload;    // Payload
+
     private:
 
         //Arrays
