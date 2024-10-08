@@ -1,5 +1,10 @@
 name: Windows
-on: [check_run, pull_request]
+on:
+  check_run:
+  pull_request:
+  schedule:
+      - cron: '0 18 * * 5'  # Runs every Friday at 6pm UTC
+
 jobs:
   cmake-build-windows:
     runs-on: windows-latest
@@ -32,3 +37,10 @@ jobs:
         run: |
           cd build/tests/
           ctest -C Debug
+
+      - name: Upload Executables as Artifacts
+        if: github.event_name == 'schedule'
+        uses: actions/upload-artifact@v3
+        with:
+          name: Game_Folder_Windows
+          path: ./Game/

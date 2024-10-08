@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+  schedule:
+    - cron: '5 18 * * 5'  # Runs every Friday at 6:05pm UTC
+  workflow_run:
+    workflows: [ "Linux", "Windows" ]
+    types:
+      - completed
+
+jobs:
+  deploy_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Download Artifacts from Action 1
+        uses: actions/download-artifact@v3
+        with:
+          name: Game_Folder_Linux
+          path: Game_Linux
+
+      - name: Download Artifacts from Action 2
+        uses: actions/download-artifact@v3
+        with:
+          name: Game_Folder_Windows
+          path: Game_Windows
+
+      - name: Check if artifacts are empty
+        run: |
+          if [ -z "$(ls -A Game_Linux)" ] && [ -z "$(ls -A Game_Windows)" ]; then
+            echo "Artifacts are empty. Exiting..."
+            exit 1
+          fi
+
+      - name: Group Executables
+        run: |
+          mkdir Game
+          mv Game_Linux/* ReleaseGame/
+          mv Game_Windows/*.exe ReleaseGame/
+
+      - name: Create a Release
+        uses: elgohr/Github-Release-Action@v5
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: Release ${{ github.run_number }}
+          tag: v${{ github.run_number }}
+          workdir: ReleaseGame
