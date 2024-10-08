@@ -37,3 +37,9 @@ add_library(update_position_component SHARED
     UpdatePositionSystem/updatePositionSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
 )
+
+target_link_libraries(
+    update_position_component
+    PRIVATE asio::asio
+    JsonCpp::JsonCpp
+)

@@ -11,7 +11,10 @@
 
 #include "ISystemNetworkUpdate.hpp"
 
-
+/**
+ * @brief Update position system.
+ *
+ */
 class UpdatePositionComponent : public ISystemNetworkUpdate {
 
     public:
@@ -42,5 +45,5 @@ class UpdatePositionComponent : public ISystemNetworkUpdate {
 
     private:
 
-        void _updatePosition(Network::UDPPacket packet, ECS::Registry& reg);
+        void _updatePosition(Network::UDPPacket packet, ECS::Registry& reg); //The system to update position.
 };
