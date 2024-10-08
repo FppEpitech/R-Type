@@ -46,7 +46,6 @@ void MouseSystem::_handleMouse(ECS::Registry &reg, int idxPacketEntities)
                 if (lib->isMouseButtonPressed(IGraphic::MouseButtons::MOUSE_LEFT)) {
                     textureRect->path = buttonTexturePath->clickedTexturePath;
                     callback->callback(reg, entity);
-                    std::cout << "Clicked" << std::endl;
                 }
             } else {
                 textureRect->path = buttonTexturePath->noneTexturePath;
