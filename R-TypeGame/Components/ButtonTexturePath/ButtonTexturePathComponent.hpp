@@ -30,5 +30,5 @@ class ButtonTexturePathComponent : public AComponent {
          * @param hoverTexturePath The path to the hover texture
          * @param clickedTexturePath The path to the clicked texture
          */
-        ButtonTexturePathComponent(const std::string &noneTexturePath = "", const std::string &hoverTexturePath = "", const std::string &clickedTexturePath = "");
+        ButtonTexturePathComponent(const std::string noneTexturePath = "", const std::string hoverTexturePath = "", const std::string clickedTexturePath = "");
 };
