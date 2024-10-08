@@ -27,8 +27,7 @@ std::shared_ptr<ButtonStateComponent> parseButtonState(std::string pathFile)
         if (buttonState)
             return std::make_shared<ButtonStateComponent>(ButtonStateComponent::getStateFromString(buttonState.asString()));
         return nullptr;
-    } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
+    } catch (std::exception &e) {
+        throw ComponentError(e.what());
     }
-    return nullptr;
 }

@@ -30,7 +30,6 @@ std::shared_ptr<TextPosition2DComponent> parseTextPosition2D(std::string pathFil
             return std::make_shared<TextPosition2DComponent>(x.asInt(), y.asInt());
         return nullptr;
     } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
+        throw ComponentError(e.what());
     }
-    return nullptr;
 }

@@ -32,7 +32,6 @@ std::shared_ptr<ColourComponent> parseColour(std::string pathFile)
             return std::make_shared<ColourComponent>(r.asUInt64(), g.asUInt64(), b.asUInt64(), a.asUInt64());
         return nullptr;
     } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
+        throw ComponentError(e.what());
     }
-    return nullptr;
 }

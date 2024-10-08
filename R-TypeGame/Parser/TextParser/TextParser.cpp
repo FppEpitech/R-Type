@@ -27,7 +27,6 @@ std::shared_ptr<TextComponent> parseText(std::string pathFile)
             return std::make_shared<TextComponent>(text.asString());
         return nullptr;
     } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
+        throw ComponentError(e.what());
     }
-    return nullptr;
 }

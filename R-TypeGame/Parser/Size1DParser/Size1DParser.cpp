@@ -27,7 +27,6 @@ std::shared_ptr<Size1DComponent> parseSize1D(std::string pathFile)
             return std::make_shared<Size1DComponent>(size.asInt());
         return nullptr;
     } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
+        throw ComponentError(e.what());
     }
-    return nullptr;
 }

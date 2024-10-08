@@ -11,8 +11,7 @@
 
 #include "ButtonTexturePathParser.hpp"
 
-std::shared_ptr<ButtonTexturePathComponent> parseButtonTexturePath(
-    const std::string &path)
+std::shared_ptr<ButtonTexturePathComponent> parseButtonTexturePath(const std::string &path)
 {
     try {
         std::ifstream file(path);
@@ -29,8 +28,7 @@ std::shared_ptr<ButtonTexturePathComponent> parseButtonTexturePath(
 
         if (buttonTexturePath && buttonNoneTexturePath && buttonHoverTexturePath && buttonClickedTexturePath)
             return std::make_shared<ButtonTexturePathComponent>(buttonNoneTexturePath.asString(), buttonHoverTexturePath.asString(), buttonClickedTexturePath.asString());
-    } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
+    } catch (std::exception e)
+        throw ComponentError(e.what());
     }
-    return nullptr;
 }

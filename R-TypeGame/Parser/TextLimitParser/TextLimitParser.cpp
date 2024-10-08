@@ -27,7 +27,6 @@ std::shared_ptr<TextLimitComponent> parseTextLimit(const std::string &path)
             return std::make_shared<TextLimitComponent>(textLimit.asUInt());
         return nullptr;
     } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
+        throw ComponentError(e.what());
     }
-    return nullptr;
 }
