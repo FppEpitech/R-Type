@@ -49,6 +49,9 @@
         "libsystem_restartPlanet.so",
         "libsystem_hitboxPlayer.so"
     ],
+    "networkUpdate": [
+
+    ],
     "menus": {
         "keyBinds": [
             {

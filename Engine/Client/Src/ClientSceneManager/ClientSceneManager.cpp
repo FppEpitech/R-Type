@@ -43,4 +43,5 @@ void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::
     _loadSceneSystems(root, index);
     _loadSceneKeys(root, index);
     _loadSceneKeys(menus, index);
+    _loadNetworkUpdateSystem(root, index);
 }

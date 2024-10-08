@@ -33,6 +33,7 @@
 #include "TextPosition2DComponent.hpp"
 #include "SpriteSheetAnimationComponent.hpp"
 #include "PlayerComponent.hpp"
+#include "../Network/Packet/NetworkPacket.hpp"
 
 #define CONFIG_SUFFIX ".json"
 
@@ -72,12 +73,22 @@ namespace SceneManager {
              */
             bool processInput(KEY_MAP key, int idxPacketEntities);
 
+            /**
+             * @brief Process the Update network.
+             *
+             * @param packet Packet receive by the network.
+             * @return true if the packet has been processed, false otherwise.
+             */
+            bool processUpdate(std::string componentType, Network::UDPPacket packet);
+
         protected:
 
             std::shared_ptr<ECS::Registry>                                                  _registry; // Registries for each scene.
             ECS::Registry                                                                   _defaultRegistry; // Default registry for the scene manager.
             std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>              _keysSystems; // Keys to load a system for each scene.
             std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>   _keysScenes; // Keys to load a scene for each scene.
+
+            std::unordered_map<std::string, std::function<void(Network::UDPPacket packet, ECS::Registry& reg)>>   _updateNetworkSystems; // Keys to load a scene for each scene.
 
             std::size_t                                                                     _nextIndex; // Index of the next empty registry.
 
@@ -142,6 +153,13 @@ namespace SceneManager {
              * @param index Index of the registry to load the scene.
              */
             void _loadSceneKeysSystem(std::string key, std::string system, std::size_t index);
+
+                        /**
+             * @brief Load the systems to change component from server.
+             * @param root Json root of the scene.
+             * @param index Index of the registry to load the scene.
+             */
+            void _loadNetworkUpdateSystem(Json::Value root, std::size_t index);
 
             /**
              * @brief Change the current scene.

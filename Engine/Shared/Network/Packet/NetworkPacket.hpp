@@ -5,6 +5,8 @@
 ** NetworkPacket
 */
 
+#pragma once
+
 #include <thread>
 #include <random>
 #include <vector>
@@ -120,4 +122,3 @@ class Network::UDPPacket {
         std::vector<uint8_t>    _payload;           // Payload related to the Message type.
         uint16_t                _checksum;          // Checksum to validate the authenticity of data.
 };
-

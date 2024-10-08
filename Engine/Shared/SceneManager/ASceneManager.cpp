@@ -11,6 +11,8 @@
 #include "ASceneManager.hpp"
 #include "../DLLoader/DLLoader.hpp"
 
+#include "ISystemNetworkUpdate.hpp"
+
 SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> registry)
 {
     _registry = registry;
@@ -25,6 +27,15 @@ bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntitie
     }
     if (_keysScenes.find(key) != _keysScenes.end()) {
         _changeScene(_keysScenes.at(key));
+        return true;
+    }
+    return false;
+}
+
+bool SceneManager::ASceneManager::processUpdate(std::string componentType, Network::UDPPacket packet)
+{
+    if (_updateNetworkSystems.find(componentType) != _updateNetworkSystems.end()) {
+        _updateNetworkSystems.at(componentType)(packet, *_registry);
         return true;
     }
     return false;
@@ -72,6 +83,25 @@ void SceneManager::ASceneManager::_loadSceneKeys(Json::Value root, std::size_t i
                 _loadSceneKeysSystem(key.asString(), path.asString(), index);
         } else
             throw SceneManagerJsonErrors("Error while loading the key: " + key.asString());
+    }
+}
+
+void SceneManager::ASceneManager::_loadNetworkUpdateSystem(Json::Value root, std::size_t index)
+{
+    const Json::Value& networkUpdates = root["networkUpdate"];
+
+    for (auto updates : networkUpdates) {
+        const Json::Value& component = updates["component"];
+        const Json::Value& path = updates["path"];
+
+        if (component and path) {
+            std::shared_ptr<ISystemNetworkUpdate> system = DLLoader<ISystemNetworkUpdate>::load(_getSystemLibPath() + path.asString(), "loadUpdateInstance");
+            if (system) {
+                _updateNetworkSystems[component.asString()] = system->getFunction();
+            } else
+                throw SceneManagerJsonErrors("Error while loading the system: " + path.asString());
+        } else
+            throw SceneManagerJsonErrors("Error while loading the networkUpdate: " + updates.asString());
     }
 }
 
