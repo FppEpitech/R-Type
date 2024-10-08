@@ -59,14 +59,14 @@ class IGraphic {
         /**
          * @brief Get the Key Down Input object.
          *
-         * @return int The key down.
+         * @return std::size_t The key down.
          */
         virtual std::size_t getKeyDownInput() = 0;
 
         /**
          * @brief Get the Key Pressed Input object.
          *
-         * @return int The key pressed.
+         * @return std::    size_t The key pressed.
          */
         virtual std::size_t getKeyPressedInput() = 0;
 
