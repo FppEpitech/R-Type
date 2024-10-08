@@ -17,8 +17,7 @@ void Application::_packetHandler(Network::UDPPacket packet)
     }
 
     std::string componentType(packet.getPayload().begin() + 1, packet.getPayload().begin() + 1 + componentTypeLength);
-
-    // TODO: launch the updateNetworkSystem associate.
+    _sceneManager->processUpdate(componentType, packet);
 }
 
 Application::Application()
