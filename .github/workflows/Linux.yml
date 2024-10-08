@@ -45,4 +45,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Game_Folder_Linux
-          path: ./Game/
+          path: ${{ github.workspace }}/Game/

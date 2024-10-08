@@ -42,4 +42,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Game_Folder_Windows
-          path: ./Game/
+          path: ${{ github.workspace }}/Game/
