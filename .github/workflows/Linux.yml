@@ -2,8 +2,7 @@ name: Linux
 on:
   check_run:
   pull_request:
-  schedule:
-    - cron: '0 18 * * 5'  # Runs every Friday at 6pm UTC
+  workflow_dispatch:
 
 jobs:
   cmake-build-linux:
@@ -42,7 +41,7 @@ jobs:
           ctest -C Debug
 
       - name: Upload Executables as Artifacts
-        if: github.event_name == 'schedule'
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v3
         with:
           name: Game_Folder_Linux
