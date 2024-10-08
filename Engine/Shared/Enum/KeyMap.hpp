@@ -126,4 +126,8 @@ enum KEY_MAP
     KEY_KP_ADD          = 334,      /**< Key: Keypad + */
     KEY_KP_ENTER        = 335,      /**< Key: Keypad Enter */
     KEY_KP_EQUAL        = 336,      /**< Key: Keypad = */
+    // Mouse buttons
+    MOUSE_LEFT_CLICK    = 501,        /**< Mouse button: Left click */
+    MOUSE_RIGHT_CLICK   = 502,        /**< Mouse button: Right click */
+    MOUSE_MIDDLE_CLICK  = 503,        /**< Mouse button: Middle click */
 };
