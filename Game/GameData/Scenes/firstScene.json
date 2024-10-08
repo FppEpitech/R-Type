@@ -50,9 +50,14 @@
         "libsystem_hitboxPlayer.so"
     ],
     "networkUpdate": [
-        {
-            "component": "Position2DComponent",
-            "path": "libupdate_move.so"
-        }
-    ]
+
+    ],
+    "menus": {
+        "keyBinds": [
+            {
+                "key": "KEY_F",
+                "path" : "Menus/mainMenu.json"
+            }
+        ]
+    }
 }

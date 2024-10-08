@@ -30,6 +30,7 @@
 #include "SoundVolumeComponent.hpp"
 #include "TexturePathComponent.hpp"
 #include "TextureRectComponent.hpp"
+#include "TextPosition2DComponent.hpp"
 #include "SpriteSheetAnimationComponent.hpp"
 #include "PlayerComponent.hpp"
 #include "../Network/Packet/NetworkPacket.hpp"
@@ -78,7 +79,7 @@ namespace SceneManager {
              * @param packet Packet receive by the network.
              * @return true if the packet has been processed, false otherwise.
              */
-            bool SceneManager::ASceneManager::processUpdate(std::string componentType, Network::UDPPacket packet);
+            bool processUpdate(std::string componentType, Network::UDPPacket packet);
 
         protected:
 
@@ -115,7 +116,7 @@ namespace SceneManager {
              * @param path Path to the json file.
              * @param index Index of the registry to load the scene.
              */
-            void _loadScene(const std::string &path, std::size_t index);
+            virtual void _loadScene(const std::string &path, std::size_t index) = 0;
 
             /**
              * @brief Load the entities of a scene.
@@ -153,6 +154,13 @@ namespace SceneManager {
              * @param index Index of the registry to load the scene.
              */
             void _loadSceneKeysSystem(std::string key, std::string system, std::size_t index);
+
+                        /**
+             * @brief Load the systems to change component from server.
+             * @param root Json root of the scene.
+             * @param index Index of the registry to load the scene.
+             */
+            void _loadNetworkUpdateSystem(Json::Value root, std::size_t index);
 
             /**
              * @brief Change the current scene.

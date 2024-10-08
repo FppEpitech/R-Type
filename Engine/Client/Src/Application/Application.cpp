@@ -37,8 +37,8 @@ void Application::_initDefaultGraphicSystems()
 {
     _defaultSystems.push_back(DrawOBJSystem().getFunction());
     _defaultSystems.push_back(DrawTextureSystem().getFunction());
-    _defaultSystems.push_back(DrawTextSystem().getFunction());
     _defaultSystems.push_back(DrawTextureRectSystem().getFunction());
+    _defaultSystems.push_back(DrawTextSystem().getFunction());
     _defaultSystems.push_back(SpriteSheetAnimationSystem().getFunction());
 }
 
@@ -78,7 +78,7 @@ void Application::run()
     InitShader InitShader(libGraphic);
 
     while (libGraphic->windowIsOpen()) {
-        _keyboardHandler(libGraphic->getKeyInput());
+        _keyboardHandler(libGraphic->getKeyDownInput());
         libGraphic->startDraw();
         libGraphic->clear();
         _registry->run_systems(-1);

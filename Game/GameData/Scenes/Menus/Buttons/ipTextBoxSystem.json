@@ -1,0 +1,35 @@
+{
+    "TextureRectComponent":{
+        "path":"./Assets/Button11.png",
+        "left":0,
+        "top":0,
+        "width":105,
+        "height":21
+    },
+    "ScaleComponent":3,
+    "Position2DComponent":{
+        "x":500,
+        "y":215
+    },
+    "TextPosition2DComponent":{
+        "x":535,
+        "y":235
+    },
+    "ColourComponent":{
+        "r":255,
+        "g":255,
+        "b":255,
+        "a":255
+    },
+    "TextComponent": "Write the server IP",
+    "TextLimitComponent": 15,
+    "DefaultTextComponent": "Write the server IP",
+    "Size1DComponent": 18,
+    "FontPathComponent": "",
+    "ButtonStateComponent": "NONE",
+    "ButtonTexturePathComponent": {
+        "None": "./Assets/Button11.png",
+        "Hover": "./Assets/Button15.png",
+        "Clicked": "./Assets/Button16.png"
+    }
+}

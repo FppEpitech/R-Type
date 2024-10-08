@@ -59,5 +59,12 @@ namespace SceneManager {
              * @return The path to the scenes.
              */
             std::string _getScenesPath() const override;
+
+            /**
+             * @brief Load a scene from a json file.
+             * @param path Path to the json file.
+             * @param index Index of the registry to load the scene.
+             */
+            void _loadScene(const std::string &path, std::size_t index) override;
     };
 }

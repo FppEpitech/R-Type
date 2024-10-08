@@ -33,6 +33,7 @@ set(SRC_EXE
     ../Shared/Component/ColourComponent.cpp
     ../Shared/Component/Position3DComponent.cpp
     ../Shared/Component/Position2DComponent.cpp
+    ../Shared/Component/TextPosition2DComponent.cpp
     ../Shared/Component/Size1DComponent.cpp
     ../Shared/Component/TextComponent.cpp
     ../Shared/Component/MaterialMapComponent.cpp
