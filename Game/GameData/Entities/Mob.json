@@ -1,21 +1,21 @@
 {
     "TextureRectComponent":
     {
-        "path":"./Assets/mob-1.png",
+        "path":"./Assets/mob-1.gif",
         "left": 0,
         "top": 0,
         "width": 63,
         "height": 66
     },
-    "ScaleComponent": 6,
+    "ScaleComponent": 4,
     "Position2DComponent":
     {
-        "x": 950,
-        "y": 700
+        "x": 1600,
+        "y": 350
     },
     "VelocityComponent":
     {
         "vx": 0,
-        "vy": -2
+        "vy": 0
     }
 }
