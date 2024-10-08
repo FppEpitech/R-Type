@@ -1,0 +1,52 @@
+{
+    "keyBinds": [
+        {
+            "key": "KEY_APOSTROPHE",
+            "path" : ""
+        },
+        {
+            "key": "KEY_K",
+            "path" : "testScene.json"
+        },
+        {
+            "key": "KEY_D",
+            "path" : "libsystem_moveRight.so"
+        },
+        {
+            "key": "KEY_A",
+            "path" : "libsystem_moveLeft.so"
+        },
+        {
+            "key": "KEY_W",
+            "path" : "libsystem_moveUp.so"
+        },
+        {
+            "key": "KEY_S",
+            "path" : "libsystem_moveDown.so"
+        },
+        {
+            "key": "KEY_SPACE",
+            "path": "libsystem_shoot.so"
+        }
+    ],
+    "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlayerOne.so",
+        "libsystem_initPlayerTwo.so",
+        "libsystem_initPlayerThree.so",
+        "libsystem_initPlayerFour.so"
+    ],
+    "systems": [
+        "libsystem_moveEntities.so",
+        "libsystem_shootDestroy.so",
+        "libsystem_restartPlanet.so",
+        "libsystem_hitboxPlayer.so"
+    ]
+}

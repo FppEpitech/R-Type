@@ -32,6 +32,21 @@
 *.app
 r-type_server
 r-type_client
+ecs_test
+server_test
+client_test
 
 # Build Folder
 build
+
+#vpkg
+vcpkg_installed
+vcpkg
+vcpkg.json
+vcpkg-master
+vcpkg.zip
+
+# Editor config Folder
+.idea/
+.vscode/
+
