@@ -10,12 +10,12 @@
     "ScaleComponent": 4,
     "Position2DComponent":
     {
-        "x": 1600,
+        "x": 2500,
         "y": 350
     },
     "VelocityComponent":
     {
-        "vx": 0,
+        "vx": -1,
         "vy": 0
     }
 }
