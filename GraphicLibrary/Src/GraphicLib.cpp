@@ -48,9 +48,19 @@ void GraphicLib::clear()
     ClearBackground(BLACK);
 }
 
-std::size_t GraphicLib::getKeyInput() {
+std::size_t GraphicLib::getKeyDownInput()
+{
     for (std::size_t i = KEY_NULL; i < KEY_KP_EQUAL; i++) {
         if (IsKeyDown(i))
+            return i;
+    }
+    return KEY_NULL;
+}
+
+std::size_t GraphicLib::getKeyPressedInput()
+{
+    for (std::size_t i = KEY_NULL; i < KEY_KP_EQUAL; i++) {
+        if (IsKeyPressed(i))
             return i;
     }
     return KEY_NULL;
@@ -223,4 +233,19 @@ bool GraphicLib::_isShaderReady()
 std::pair<int, int> GraphicLib::getWindowSize()
 {
     return std::make_pair<int, int>(GetScreenWidth(), GetScreenHeight());
+}
+
+std::pair<int, int> GraphicLib::getMousePosition()
+{
+    return std::make_pair<int, int>(GetMouseX(), GetMouseY());
+}
+
+bool GraphicLib::isMouseButtonPressed(MouseButtons button)
+{
+    return IsMouseButtonPressed(button);
+}
+
+bool GraphicLib::isMouseButtonDown(MouseButtons button)
+{
+    return IsMouseButtonDown(button);
 }

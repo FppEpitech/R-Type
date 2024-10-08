@@ -21,6 +21,17 @@
  */
 class IGraphic {
     public:
+
+        /**
+         * @brief Enum for the Mouse button inputs.
+         *
+         */
+        enum MouseButtons {
+            MOUSE_LEFT = 0,
+            MOUSE_RIGHT = 1,
+            MOUSE_MIDDLE = 2
+        };
+
         /**
          * @brief Virtual destructor for IGraphic.
          */
@@ -46,11 +57,18 @@ class IGraphic {
         virtual void clear() = 0;
 
         /**
-         * @brief Get the Key Input object.
+         * @brief Get the Key Down Input object.
          *
-         * @return int The key pressed.
+         * @return std::size_t The key down.
          */
-        virtual std::size_t getKeyInput() = 0;
+        virtual std::size_t getKeyDownInput() = 0;
+
+        /**
+         * @brief Get the Key Pressed Input object.
+         *
+         * @return std::size_t The key pressed.
+         */
+        virtual std::size_t getKeyPressedInput() = 0;
 
         /**
          * @brief Draw an OBJ model on the screen.
@@ -169,4 +187,29 @@ class IGraphic {
          * @return std::pair<int, int> Width and Height.
          */
         virtual std::pair<int, int> getWindowSize() = 0;
+
+        /**
+         * @brief Get the Mouse Position object.
+         *
+         * @return std::pair<int, int> Mouse position.
+         */
+        virtual std::pair<int, int> getMousePosition() = 0;
+
+        /**
+         * @brief Checks if the mouse button is pressed.
+         *
+         * @param button MouseButtons that you want to check.
+         * @return true Mouse button is pressed.
+         * @return false Mouse button is not pressed.
+         */
+        virtual bool isMouseButtonPressed(MouseButtons button) = 0;
+
+        /**
+         * @brief Checks if the mouse button is down.
+         *
+         * @param button MouseButtons that you want to check.
+         * @return true Mouse button is down.
+         * @return false Mouse button is not down.
+         */
+        virtual bool isMouseButtonDown(MouseButtons button) = 0;
 };

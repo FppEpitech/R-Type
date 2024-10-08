@@ -30,19 +30,6 @@ bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntitie
     return false;
 }
 
-void SceneManager::ASceneManager::_loadScene(const std::string &path, std::size_t index)
-{
-    std::ifstream file(_getScenesPath() + path);
-    Json::Reader reader;
-    Json::Value root;
-
-    if (!reader.parse(file, root, false))
-        throw SceneManagerErrors("Error while parsing the scene file: " + path);
-    _loadSceneEntities(root, index);
-    _loadSceneSystems(root, index);
-    _loadSceneKeys(root, index);
-}
-
 void SceneManager::ASceneManager::_loadSceneEntities(Json::Value root, std::size_t index)
 {
     const Json::Value& entities = root["entities"];
@@ -135,4 +122,5 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(TextureRectComponent().getType());
     _registry->register_component<IComponent>(SpriteSheetAnimationComponent().getType());
     _registry->register_component<IComponent>(PlayerComponent().getType());
+    _registry->register_component<IComponent>(TextPosition2DComponent().getType());
 }

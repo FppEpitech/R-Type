@@ -48,5 +48,13 @@
         "libsystem_shootDestroy.so",
         "libsystem_restartPlanet.so",
         "libsystem_hitboxPlayer.so"
-    ]
+    ],
+    "menus": {
+        "keyBinds": [
+            {
+                "key": "KEY_F",
+                "path" : "Menus/mainMenu.json"
+            }
+        ]
+    }
 }

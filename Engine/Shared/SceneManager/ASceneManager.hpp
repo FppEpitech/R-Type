@@ -30,6 +30,7 @@
 #include "SoundVolumeComponent.hpp"
 #include "TexturePathComponent.hpp"
 #include "TextureRectComponent.hpp"
+#include "TextPosition2DComponent.hpp"
 #include "SpriteSheetAnimationComponent.hpp"
 #include "PlayerComponent.hpp"
 
@@ -103,7 +104,7 @@ namespace SceneManager {
              * @param path Path to the json file.
              * @param index Index of the registry to load the scene.
              */
-            void _loadScene(const std::string &path, std::size_t index);
+            virtual void _loadScene(const std::string &path, std::size_t index) = 0;
 
             /**
              * @brief Load the entities of a scene.
