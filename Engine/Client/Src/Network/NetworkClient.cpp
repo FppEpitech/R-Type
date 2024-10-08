@@ -72,12 +72,23 @@ void Network::Client::_startReceive(ECS::Registry& reg)
                     if (this->_messageHandler)
                         this->_messageHandler(message, reg);
                 } catch (const std::exception& e) {
-                    _startReceive(reg);
+                    std::cerr << "Exception in message handler: " << e.what() << std::endl;
                 }
-            } else {
+            } else if (error) {
                 std::cerr << "Error receiving message: " << error.message() << std::endl;
+                if (_udp_socket) {
+                    asio::error_code ec;
+                    _udp_socket->cancel(ec); // Cancel any ongoing operations
+                    _udp_socket->close(ec);  // Close the socket
+                    return;
+                }
             }
-            _startReceive(reg);
+
+            // Schedule the next receive using asio::post to avoid direct recursion.
+            asio::post(_udp_socket->get_executor(),
+                [this, &reg]() {
+                    _startReceive(reg);
+                });
         });
 }
 
