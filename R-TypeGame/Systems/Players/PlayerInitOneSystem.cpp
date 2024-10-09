@@ -20,6 +20,7 @@
 #include "PlayerParser.hpp"
 #include "SpeedParser.hpp"
 #include "SpriteSheetAnimationParser.hpp"
+#include "ShootComponent.hpp"
 
 #include <fstream>
 #include <json/json.h>
@@ -33,6 +34,9 @@ PlayerInitSystem::PlayerInitSystem() :
 
 void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
 {
+
+    reg.register_component<IComponent>("ShootComponent");
+
     std::shared_ptr<TextureRectComponent> textureRect = parseTextureRect(PATH_JSON);
     if (textureRect) {
         reg.register_component<IComponent>(textureRect->getType());

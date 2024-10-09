@@ -8,7 +8,6 @@
 #include "ShootDestroySystem.hpp"
 #include "Position2DComponent.hpp"
 #include "ShootComponent.hpp"
-#include "GetGraphicalLibrary.hpp"
 
 ShootDestroySystem::ShootDestroySystem() :
     ASystem("ShootDestroySystem")
@@ -18,9 +17,6 @@ ShootDestroySystem::ShootDestroySystem() :
 void ShootDestroySystem::_shootDestroy(ECS::Registry& reg, int idxPacketEntities)
 {
     try {
-        std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
-        if (!libGraphic)
-            return;
 
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> shoots = reg.get_components<IComponent>("ShootComponent");
@@ -34,8 +30,7 @@ void ShootDestroySystem::_shootDestroy(ECS::Registry& reg, int idxPacketEntities
             std::shared_ptr<Position2DComponent> position = std::dynamic_pointer_cast<Position2DComponent>(positions[entity]);
 
             if (position && shoot->friendlyFire) {
-                if (position->x >= 0 && position->x <= libGraphic->getWindowSize().first &&
-                    position->y >= 0 && position->y <= libGraphic->getWindowSize().second)
+                if (position->x >= 0 && position->x <= 1920 && position->y >= 0 && position->y <= 1080)
                     continue;
                 reg.kill_entity(entity);
             }
