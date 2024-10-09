@@ -1,7 +1,6 @@
 name: Release
 
 on:
-  push:
   schedule:
     - cron: '0 18 * * 5'  # Runs every Friday at 6:00pm UTC
 
