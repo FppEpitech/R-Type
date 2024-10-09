@@ -72,12 +72,12 @@ jobs:
       - name: Download Artifacts from cmake-build-linux
         uses: actions/download-artifact@v4
         with:
-          name: game-folder-linux
+          name: game-folder-linux-latest
 
       - name: Download Artifacts from cmake-build-windows
         uses: actions/download-artifact@v4
         with:
-          name: game-folder-windows
+          name: game-folder-windows-latest
 
       - name: Check if artifacts are empty
         run: |
