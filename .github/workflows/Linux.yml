@@ -43,7 +43,9 @@ jobs:
       - name: Rename Executables
         if: github.event_name == 'workflow_dispatch'
         run: |
-          mv Game/ Game_Linux/
+          cp -r Game/ Game_Linux/
+          ls Game_Linux/
+          echo "Linux Executables renamed"
 
       - name: Upload Executables as Artifacts
         if: github.event_name == 'workflow_dispatch'
