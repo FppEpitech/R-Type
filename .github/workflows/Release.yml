@@ -72,7 +72,7 @@ jobs:
       - name: Download Artifacts from cmake-build-linux
         uses: actions/download-artifact@v4
         with:
-          name: game-folder-linux-latest
+          name: game-folder-ubuntu-latest
 
       - name: Download Artifacts from cmake-build-windows
         uses: actions/download-artifact@v4
