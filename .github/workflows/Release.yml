@@ -73,18 +73,25 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: game-folder-ubuntu-latest
+          path: game-folder-ubuntu-latest
 
       - name: Download Artifacts from cmake-build-windows
         uses: actions/download-artifact@v4
         with:
           name: game-folder-windows-latest
+          path: game-folder-windows-latest
+
+      - name: List directory structure for debugging
+        run: |
+          echo "Current directory structure:"
+          ls -R
 
       - name: Group Executables
         run: |
           # Rename downloaded artifacts to a unified folder
           mkdir ReleaseGame
-          mv game-folder-ubuntu-latest/* ReleaseGame/
-          mv game-folder-windows-latest/* ReleaseGame/
+          mv game-folder-ubuntu-latest/* ReleaseGame/ || echo "Warning: game-folder-ubuntu-latest is empty or missing."
+          mv game-folder-windows-latest/* ReleaseGame/ || echo "Warning: game-folder-windows-latest is empty or missing."
 
       - name: Create a Release
         uses: elgohr/Github-Release-Action@v5
