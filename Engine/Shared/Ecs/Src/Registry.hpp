@@ -202,7 +202,7 @@ class Registry {
 
 
 
-        uint8_t messageType;             // Message Type
+        uint8_t messageType = 0x00;             // Message Type
         std::vector<uint8_t> payload;    // Payload
 
     private:
