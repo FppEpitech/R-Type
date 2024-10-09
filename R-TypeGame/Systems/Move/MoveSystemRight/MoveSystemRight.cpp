@@ -31,6 +31,8 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
         Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
         SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
 
+        if (!position || !speed)
+            return;
         position->x += speed->speedX;
 
         entityManager.messageType = 0x01;

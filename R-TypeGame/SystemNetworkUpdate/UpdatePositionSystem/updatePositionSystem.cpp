@@ -5,6 +5,7 @@
 ** UpdatePositionComponent
 */
 
+#include "PlayerComponent.hpp"
 #include "VelocityComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "updatePositionSystem.hpp"
@@ -25,6 +26,15 @@ void UpdatePositionComponent::_updatePosition(Network::UDPPacket packet, ECS::Re
                             (packet.getPayload()[2 + componentTypeLength] << 16) |
                             (packet.getPayload()[3 + componentTypeLength] << 8)  |
                             packet.getPayload()[4 + componentTypeLength];
+
+        ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+        for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+            PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+            if (player)
+                return;
+            else
+                idxPacketEntities++;
+        }
 
         float x;
         std::memcpy(&x, &packet.getPayload()[5 + componentTypeLength], sizeof(float));

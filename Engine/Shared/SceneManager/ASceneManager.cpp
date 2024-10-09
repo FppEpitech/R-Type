@@ -153,4 +153,5 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(SpriteSheetAnimationComponent().getType());
     _registry->register_component<IComponent>(PlayerComponent().getType());
     _registry->register_component<IComponent>(TextPosition2DComponent().getType());
+    _registry->register_component<IComponent>(NetworkConnectionComponent().getType());
 }

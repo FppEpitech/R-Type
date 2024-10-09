@@ -17,6 +17,7 @@
 #include "GetGraphicalLibrary.hpp"
 #include "DrawOBJ/DrawOBJSystem.hpp"
 #include "DrawText/DrawTextSystem.hpp"
+#include "NetworkConnectionComponent.hpp"
 #include "DrawTexture/DrawTextureSystem.hpp"
 #include "DrawTextureRect/DrawTextureRectSystem.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationSystem.hpp"
@@ -58,6 +59,12 @@ class Application {
          * @param packet Packet receive by the server
          */
         void _packetHandler(Network::UDPPacket packet, ECS::Registry& reg);
+
+        /**
+         * @brief Connect to the server.
+         *
+         */
+        void _connectServer();
 
         /**
          * @brief Function who handle keyboard signal.

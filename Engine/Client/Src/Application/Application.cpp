@@ -17,6 +17,14 @@ void Application::_packetHandler(Network::UDPPacket packet, ECS::Registry& reg)
     }
     std::string componentType(packet.getPayload().begin() + 1, packet.getPayload().begin() + 1 + componentTypeLength);
 
+    int idxPacketEntities = (packet.getPayload()[1 + componentTypeLength] << 24) |
+                            (packet.getPayload()[2 + componentTypeLength] << 16) |
+                            (packet.getPayload()[3 + componentTypeLength] << 8)  |
+                            packet.getPayload()[4 + componentTypeLength];
+
+    if (idxPacketEntities == this->_client->getIdxPlayerServer())
+        return;
+
     _sceneManager->processUpdate(componentType, packet);
 }
 
@@ -27,10 +35,7 @@ Application::Application()
 
     _initDefaultGraphicSystems();
 
-    _client = std::make_shared<Network::Client>("127.0.0.1", 4444, 4445);
-    _client->connect([this](Network::UDPPacket packet, ECS::Registry& reg) {
-        this->_packetHandler(std::move(packet), *_registry);
-    }, *_registry);
+    _client = nullptr;
 }
 
 void Application::_initDefaultGraphicSystems()
@@ -45,12 +50,34 @@ void Application::_initDefaultGraphicSystems()
 void Application::_keyboardHandler(std::size_t key)
 {
     try {
-        if (key == KEY_NULL)
+        if (key == KEY_NULL || _client == nullptr)
             return;
         _sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent());
         _client->sendKeyPacket(KEY_MAP(key));
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
+    }
+}
+
+void Application::_connectServer()
+{
+    try {
+        ECS::SparseArray<IComponent> buttonNetworkConnection = this->_registry->get_components<IComponent>("NetworkConnectionComponent");
+        for (int index = 0; index < buttonNetworkConnection.size(); index++) {
+            std::shared_ptr<NetworkConnectionComponent> networkInfo = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[index]);
+            if (!networkInfo)
+                continue;
+            if (networkInfo->connect == true) {
+                networkInfo->connect = false;
+                _sceneManager->_changeScene(std::make_pair<size_t, std::string>(0, "firstScene.json"));
+                 _client = std::make_shared<Network::Client>(networkInfo->serverIp, std::atoi(networkInfo->serverPort.c_str()), 4445);
+                _client->connect([this](Network::UDPPacket packet, ECS::Registry& reg) {
+                    this->_packetHandler(std::move(packet), *_registry);
+                }, *_registry);
+            }
+        }
+    } catch(const std::exception& e) {
+        std::cerr << e.what() << '\n';
     }
 }
 
@@ -63,6 +90,7 @@ void Application::run()
     InitShader InitShader(libGraphic);
 
     while (libGraphic->windowIsOpen()) {
+        _connectServer();
         _keyboardHandler(libGraphic->getKeyDownInput());
         libGraphic->startDraw();
         libGraphic->clear();

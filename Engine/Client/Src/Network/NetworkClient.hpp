@@ -16,6 +16,8 @@
 #include "PlayerComponent.hpp"
 #include "ClientSceneManager.hpp"
 
+# define POSITION_PLAYER_ENTITY_SERVER 8
+
 /**
  * @namespace Network
  * @brief Network-related classes and functions
@@ -71,6 +73,13 @@ class Network::Client
          * @return int Index of Player Component on Server.
          */
         int getIdxPlayerComponent();
+
+        /**
+         * @brief Get the Index of Player connected on Server
+         *
+         * @return int Index of Player connected on Server.
+         */
+        int getIdxPlayerServer();
 
         /**
          * @brief Function who send the packet to server.
@@ -137,6 +146,7 @@ class Network::Client
         asio::ip::udp::endpoint                 _server_endpoint;   // Server endpoint (used to communicate with the server).
         uint32_t                                _token;             // Token of client (used to be identify on server)
         int                                     _idxPlayerComponent;// Index of Player Component in server.
+        int                                     _idxPlayerServer;   // Index of Player connected in server.
 
         std::array<char, 1024>                  _recv_buffer;       // Receive buffer to store data received via UDP.
 

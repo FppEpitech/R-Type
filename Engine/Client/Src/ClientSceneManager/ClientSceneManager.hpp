@@ -9,7 +9,7 @@
 
 #include "ASceneManager.hpp"
 
-#define FIRST_SCENE "firstScene.json"
+#define FIRST_SCENE "Menus/mainMenu.json"
 
 #define LIB_COMPONENTS_PATH "Engine/"
 #define LIB_SYSTEMS_PATH "Engine/"
