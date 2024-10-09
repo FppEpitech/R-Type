@@ -20,7 +20,7 @@
     },
     "VelocityComponent":
     {
-        "vx": 5,
+        "vx": 600,
         "vy": 0
     },
     "ShootComponent":

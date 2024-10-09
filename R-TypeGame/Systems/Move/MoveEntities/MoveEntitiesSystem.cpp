@@ -9,6 +9,8 @@
 #include "VelocityComponent.hpp"
 #include "Position2DComponent.hpp"
 
+#include <chrono>
+
 MoveEntitiesSystem::MoveEntitiesSystem() :
     ASystem("MoveEntitiesSystem")
 {
@@ -25,8 +27,15 @@ void MoveEntitiesSystem::_moveEntities(ECS::Registry& reg, int idxPacketEntities
             std::shared_ptr<VelocityComponent> velocity = std::dynamic_pointer_cast<VelocityComponent>(velocities[entity]);
             if (!position || !velocity)
                 continue;
-            position->x += velocity->vx;
-            position->y += velocity->vy;
+
+            const std::chrono::_V2::system_clock::time_point now = std::chrono::high_resolution_clock::now();
+            double timeElapsed = std::chrono::duration<double, std::milli>(now - velocity->frameRate).count() / 1000;
+
+            if (0.005 < timeElapsed) {
+                position->x += velocity->vx * timeElapsed;
+                position->y += velocity->vy;
+                velocity->frameRate = std::chrono::high_resolution_clock::now();
+            }
         }
     } catch (std::exception e) {
     }
