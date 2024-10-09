@@ -40,9 +40,14 @@ jobs:
           cd build/tests/
           ctest -C Debug
 
+      - name: Rename Executables
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          mv Game/ Game_Linux/
+
       - name: Upload Executables as Artifacts
         if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v3
         with:
-          name: Game_Folder_Linux
-          path: ${{ github.workspace }}/Game/
+          name: Game_Linux
+          path: ${{ github.workspace }}/Game_Linux/

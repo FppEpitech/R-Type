@@ -35,13 +35,13 @@ jobs:
       - name: Download Artifacts from cmake-build-linux
         uses: actions/download-artifact@v3
         with:
-          name: Game_Folder_Linux
+          name: Game_Linux
           path: ./Game_Linux
 
       - name: Download Artifacts from cmake-build-windows
         uses: actions/download-artifact@v3
         with:
-          name: Game_Folder_Windows
+          name: Game_Windows
           path: ./Game_Windows
 
       - name: Check if artifacts are empty
