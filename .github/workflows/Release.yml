@@ -9,7 +9,7 @@ jobs:
   build-project:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Target Workflow
+      - name: Trigger Target Workflow - Windows
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -18,11 +18,47 @@ jobs:
             -H "Authorization: token ${GITHUB_TOKEN}" \
             https://api.github.com/repos/${{ github.repository }}/actions/workflows/Windows.yml/dispatches \
             -d '{"ref":"16-feat-manage-release"}'
+
+      - name: Trigger Target Workflow - Linux
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
           curl -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${GITHUB_TOKEN}" \
             https://api.github.com/repos/${{ github.repository }}/actions/workflows/Linux.yml/dispatches \
             -d '{"ref":"16-feat-manage-release"}'
+
+      - name: Wait for triggered workflows to complete
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # IDs of the workflows triggered
+          WINDOWS_WORKFLOW_ID=$(curl -s \
+            -H "Authorization: token ${GITHUB_TOKEN}" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/Windows.yml | jq -r .id)
+          LINUX_WORKFLOW_ID=$(curl -s \
+            -H "Authorization: token ${GITHUB_TOKEN}" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/Linux.yml | jq -r .id)
+          
+          # Loop to check completion
+          while :
+          do
+            WINDOWS_STATUS=$(curl -s \
+              -H "Authorization: token ${GITHUB_TOKEN}" \
+              https://api.github.com/repos/${{ github.repository }}/actions/runs/${WINDOWS_WORKFLOW_ID} | jq -r .status)
+            LINUX_STATUS=$(curl -s \
+              -H "Authorization: token ${GITHUB_TOKEN}" \
+              https://api.github.com/repos/${{ github.repository }}/actions/runs/${LINUX_WORKFLOW_ID} | jq -r .status)
+          
+            if [ "$WINDOWS_STATUS" == "completed" ] && [ "$LINUX_STATUS" == "completed" ]; then
+              echo "Both workflows completed."
+              break
+            fi
+          
+            echo "Waiting for workflows to complete..."
+            sleep 30
+          done
 
   deploy_release:
     runs-on: ubuntu-latest
@@ -51,7 +87,7 @@ jobs:
 
       - name: Group Executables
         run: |
-          mkdir Game
+          mkdir ReleaseGame
           mv Game_Linux/* ReleaseGame/
           mv Game_Windows/*.exe ReleaseGame/
 
