@@ -1,8 +1,5 @@
 name: Linux
-on:
-  check_run:
-  pull_request:
-  workflow_dispatch:
+on: [check_run, pull_request]
 
 jobs:
   cmake-build-linux:
@@ -39,16 +36,3 @@ jobs:
         run: |
           cd build/tests/
           ctest -C Debug
-
-      - name: Rename Executables
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          cp -r Game/ Game_Linux/
-
-      - name: Upload Executables as Artifacts
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/upload-artifact@v4
-        with:
-          name: game-folder-linux
-          retention-days: 1
-          path: ${{ github.workspace }}/Game_Linux/

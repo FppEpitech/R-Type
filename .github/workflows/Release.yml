@@ -7,58 +7,59 @@ on:
 
 jobs:
   build-project:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
     steps:
-      - name: Trigger Target Workflow - Windows
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${GITHUB_TOKEN}" \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/Windows.yml/dispatches \
-            -d '{"ref":"16-feat-manage-release"}'
+      - name: Checkout project
+        uses: actions/checkout@v4
 
-      - name: Trigger Target Workflow - Linux
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${GITHUB_TOKEN}" \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/Linux.yml/dispatches \
-            -d '{"ref":"16-feat-manage-release"}'
+      - name: Cache vcpkg
+        uses: actions/cache@v4
+        with:
+          path: vcpkg
+          key: vcpkg-cache-${{ runner.os }}
 
-      - name: Wait for triggered workflows to complete
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies on Windows (vcpkg)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
         run: |
-          # IDs of the workflows triggered
-          WINDOWS_WORKFLOW_ID=$(curl -s \
-            -H "Authorization: token ${GITHUB_TOKEN}" \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/Windows.yml | jq -r .id)
-          LINUX_WORKFLOW_ID=$(curl -s \
-            -H "Authorization: token ${GITHUB_TOKEN}" \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/Linux.yml | jq -r .id)
-          
-          # Loop to check completion
-          while :
-          do
-            WINDOWS_STATUS=$(curl -s \
-              -H "Authorization: token ${GITHUB_TOKEN}" \
-              https://api.github.com/repos/${{ github.repository }}/actions/runs/${WINDOWS_WORKFLOW_ID} | jq -r .status)
-            LINUX_STATUS=$(curl -s \
-              -H "Authorization: token ${GITHUB_TOKEN}" \
-              https://api.github.com/repos/${{ github.repository }}/actions/runs/${LINUX_WORKFLOW_ID} | jq -r .status)
-          
-            if [ "$WINDOWS_STATUS" == "completed" ] && [ "$LINUX_STATUS" == "completed" ]; then
-              echo "Both workflows completed."
-              break
-            fi
-          
-            echo "Waiting for workflows to complete..."
-            sleep 30
-          done
+          if (-Not (Test-Path "vcpkg")) {
+            git clone https://github.com/microsoft/vcpkg.git
+            .\vcpkg\bootstrap-vcpkg.bat
+          }
+          .\vcpkg\vcpkg install
+
+      - name: Apt install for Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config
+
+      - name: Install dependencies on Ubuntu (vcpkg)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          if [ ! -d "vcpkg" ]; then
+            git clone https://github.com/microsoft/vcpkg.git
+            ./vcpkg/bootstrap-vcpkg.sh
+          fi
+          ./vcpkg/vcpkg install
+
+      - name: Build project
+        run: |
+          cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+          cmake --build build/ --config Debug
+
+      - name: Rename Executables
+        run: |
+          cp -r Game/ Game_${{ matrix.os }}
+
+      - name: Upload Executables as Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: game-folder-${{ matrix.os }}
+          path: ${{ github.workspace }}/Game_${{ matrix.os }}
 
   deploy_release:
     runs-on: ubuntu-latest
