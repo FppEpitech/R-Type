@@ -7,6 +7,6 @@
 
 #include "MobComponent.hpp"
 
-MobComponent::MobComponent() : AComponent("MobComponent"), _clock(std::chrono::high_resolution_clock::now())
+MobComponent::MobComponent() : AComponent("MobComponent"), clock(std::chrono::high_resolution_clock::now())
 {
 }
