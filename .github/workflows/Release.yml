@@ -79,19 +79,12 @@ jobs:
         with:
           name: game-folder-windows-latest
 
-      - name: Debug
-        run: tree
-
-      - name: Download unzip
-        run: sudo apt-get install unzip
-
       - name: Group Executables
-        # the execs are in game-folder-ubuntu-latest.zip and game-folder-windows-latest.zip
         run: |
-            unzip game-folder-ubuntu-latest.zip -d TmpGameUbuntu
-            unzip game-folder-windows-latest.zip -d TmpGameWindows
-            mv TmpGameUbuntu/Game ReleaseGame/
-            mv TmpGameWindows/Game/*.exe ReleaseGame/
+          # Rename downloaded artifacts to a unified folder
+          mkdir ReleaseGame
+          mv game-folder-ubuntu-latest/* ReleaseGame/
+          mv game-folder-windows-latest/* ReleaseGame/
 
       - name: Create a Release
         uses: elgohr/Github-Release-Action@v5
