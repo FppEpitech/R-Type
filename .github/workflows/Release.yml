@@ -94,10 +94,10 @@ jobs:
           mv game-folder-windows-latest/* ReleaseGame/ || echo "Warning: game-folder-windows-latest is empty or missing."
 
       - name: Create a Release
-        uses: elgohr/Github-Release-Action@v5
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          title: Release ${{ github.run_number }}
-          tag: v${{ github.run_number }}
-          workdir: ReleaseGame
+          name: "Release ${{ github.run_number }}"
+          tag_name: "v${{ github.run_number }}"
+          files: ReleaseGame/**  # This selects all files in the ReleaseGame folder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
