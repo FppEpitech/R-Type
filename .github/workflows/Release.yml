@@ -93,11 +93,20 @@ jobs:
           mv game-folder-ubuntu-latest/* ReleaseGame/ || echo "Warning: game-folder-ubuntu-latest is empty or missing."
           mv game-folder-windows-latest/* ReleaseGame/ || echo "Warning: game-folder-windows-latest is empty or missing."
 
+      - name: Install zip
+        run: |
+          sudo apt-get install zip
+
+      - name: Zip Executables
+        run: |
+          zip -r ReleaseGame.zip ReleaseGame
+
       - name: Create a Release
         uses: softprops/action-gh-release@v2
         with:
           name: "Release ${{ github.run_number }}"
           tag_name: "v${{ github.run_number }}"
-          files: ReleaseGame/**  # This selects all files in the ReleaseGame folder
+          body: "Install the game by unzipping the ReleaseGame.zip file. And run the server or the client executable."
+          files: ReleaseGame.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
