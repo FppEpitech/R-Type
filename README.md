@@ -165,12 +165,14 @@ Run the following command to install the dependencies:
 
 - For linux:
 ```bash
+cd tools
 chmod +x install.sh   # Make the script executable
 ./install.sh           # Run the installation script
 ```
 
 - For Windows:
 ```powershell
+cd tools
 .\install.bat     # Run the installation script
 ```
 
@@ -182,12 +184,14 @@ Once the installation is complete, you can build the project. Execute the build 
 
 - For linux:
 ```bash
+cd tools
 chmod +x build.sh   # Make the script executable
 ./build.sh           # Run the build script
 ```
 
 - For Windows:
 ```powershell
+cd tools
 .\build.bat      # Run the build script
 ```
 
@@ -197,24 +201,60 @@ The build process will compile the project and generate the necessary files for 
 
 With the build complete, you are now ready to dive into the code!
 You can modify the source files, add features, and create your own plugins as needed.
-For more information on how add mod and pluggin, please refer to the [SlimWiki](https://slimwiki.com/6fvu0f5pu/getting-started-nqdxve9qg-/welcome).
+For more information on how add mod and pluggin, please refer to the [Developer Documentation](https://github.com/FppEpitech/R-Type/wiki/Dev-documentation).
 
 ---
 
 ## How to PLAY ?
-First, download the repository from GitHub, then compile it with:
+First, download the repository from GitHub:
 ```
 git clone git@github.com:FppEpitech/R-Type.git
-chmod +x ./tools/build.sh
-./tools/build.sh
 ```
-Then to run the server:
+
+After that, go to our `tools` folder and run the `install-linux.sh` or `install-windows.bat` script:
+**For Linux:**
+```bash
+cd tools
+chmod +x install-linux.sh
+./install-linux.sh
 ```
-./r-type_server
+
+or 
+
+**For Windows:**
+```powershell
+cd tools
+.\install-windows.bat
 ```
-And the client:
+
+Then after the installation, you can run the other scripts:
+
+**For Linux:**
+```bash
+chmod +x build-linux.sh
+./build-linux.sh
 ```
-./r-type_client
+
+or
+
+**For Windows:**
+```powershell
+.\build-windows.bat
+```
+
+Once the build is done, you can go into our `Game folder` and run the server or the client:
+
+```bash
+cd build
+
+For the server:
+```bash
+./r-type_server #or .\r-type_server.exe
+```
+
+For the client:
+```bash
+./r-type_client #or .\r-type_client.exe
 ```
 ## How to launch tests ?
 First, download the repository from Github, then compile it with:
@@ -228,4 +268,4 @@ ctest
 ```
 
 # Documentation
-Here the project documentation: [SlimWiki](https://slimwiki.com/6fvu0f5pu/getting-started-nqdxve9qg-/welcome)
+Here the project documentation: [R-Type](https://github.com/FppEpitech/R-Type/wiki)

@@ -17,6 +17,8 @@ ShootSystem::ShootSystem() :
 
 void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
 {
+    if (idxPacketEntities > reg.getEntities().size())
+        return;
     ECS::entity_t shoot = reg.spawn_entity();
     ShootInitSystem().getFunction()(reg, shoot);
 
@@ -32,7 +34,21 @@ void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
                 position->y = positionPlayer->y + POS_PLAYER_Y;
             }
         }
+
+        reg.messageType = 0x02;
+        reg.payload.clear();
+
+        std::string componentType = "ShootSystem";
+        reg.payload.push_back(static_cast<uint8_t>(componentType.size()));
+        reg.payload.insert(reg.payload.end(), componentType.begin(), componentType.end());
+
+        reg.payload.push_back(static_cast<uint8_t>(idxPacketEntities >> 24) & 0xFF);
+        reg.payload.push_back(static_cast<uint8_t>((idxPacketEntities >> 16) & 0xFF));
+        reg.payload.push_back(static_cast<uint8_t>((idxPacketEntities >> 8) & 0xFF));
+        reg.payload.push_back(static_cast<uint8_t>((idxPacketEntities) & 0xFF));
+
     } catch (std::exception e){
+        std::cerr << "Error in Shoot system: " << e.what() << std::endl;
     }
 }
 
