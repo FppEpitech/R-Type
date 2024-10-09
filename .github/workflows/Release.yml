@@ -79,6 +79,9 @@ jobs:
         with:
           name: game-folder-windows-latest
 
+      - name: Debug
+        run: tree
+
       - name: Download unzip
         run: sudo apt-get install unzip
 
