@@ -25,8 +25,14 @@ std::shared_ptr<MobComponent> parseMob(std::string pathFile)
 
         const Json::Value& Mob = root["MobComponent"];
 
+        const Json::Value& oscillateSpeed = Mob["oscillateSpeed"];
+        const Json::Value& shootSpeed = Mob["shootSpeed"];
+        const Json::Value& xStartOscillate = Mob["xStartOscillate"];
+        const Json::Value& minY = Mob["minY"];
+        const Json::Value& maxY = Mob["maxY"];
+
         if (Mob)
-            return std::make_shared<MobComponent>();
+            return std::make_shared<MobComponent>(shootSpeed.asFloat(), xStartOscillate.asInt(), oscillateSpeed.asInt(), minY.asInt(), maxY.asInt());
         return nullptr;
     } catch (std::exception e) {
         std::cout << e.what() << std::endl;

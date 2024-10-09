@@ -33,7 +33,7 @@ void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
                 continue;
             std::chrono::duration<float> elapsedTime = std::chrono::duration_cast<std::chrono::duration<float>>(currentTime - mob->clock);
 
-            if (elapsedTime.count() >= 1.0f) {
+            if (elapsedTime.count() >= mob->shootSpeed) {
                 mob->clock = std::chrono::high_resolution_clock::now();
                 std::shared_ptr<Position2DComponent> positionMob = std::dynamic_pointer_cast<Position2DComponent>(positions[entity]);
                 ECS::entity_t shoot = reg.spawn_entity();

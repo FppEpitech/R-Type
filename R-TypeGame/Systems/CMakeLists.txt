@@ -113,6 +113,8 @@ add_library(system_moveLeft SHARED MoveSystem/MoveSystemLeft/MoveSystemLeft.cpp)
 add_library(system_moveUp SHARED MoveSystem/MoveSystemUp/MoveSystemUp.cpp)
 add_library(system_moveDown SHARED MoveSystem/MoveSystemDown/MoveSystemDown.cpp)
 add_library(system_moveEntities SHARED MoveSystem/MoveEntities/MoveEntitiesSystem.cpp)
+add_library(system_moveMobs SHARED MoveSystem/MoveMobs/MoveMobsSystem.cpp)
+
 
 add_library(system_shoot SHARED
     Shoot/ShootSystem.cpp
