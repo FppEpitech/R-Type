@@ -1,5 +1,11 @@
 {
-    "MobComponent": {},
+    "MobComponent": {
+        "minY": -50,
+        "maxY": 850,
+        "oscillateSpeed": 3,
+        "xStartOscillate": 1600,
+        "shootSpeed": 1
+    },
     "TextureRectComponent": {
         "path": "./Assets/mob-1.gif",
         "left": 0,
