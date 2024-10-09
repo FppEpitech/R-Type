@@ -7,7 +7,9 @@
 
 #pragma once
 
+#include <ctime>
 #include "../../../Engine/Shared/Interface/IComponent.hpp"
+#include <chrono>
 
 /**
  * @brief Component Mob for R-Type Game.
@@ -22,4 +24,6 @@ class MobComponent : public AComponent {
          *
          */
         MobComponent();
+
+        std::chrono::high_resolution_clock::time_point _clock;
 };

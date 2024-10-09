@@ -181,5 +181,24 @@ add_library(system_initMob SHARED
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
     ../Parser/VelocityParser/VelocityParser.cpp
-)
+    ../Parser/MobParser/MobParser.cpp
+    )
 target_link_libraries(system_initMob PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_shoot_mob SHARED
+    ShootMob/ShootSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+    ShootMob/ShootInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ../Components/Speed/SpeedComponent.cpp
+    ../Components/Velocity/VelocityComponent.cpp
+    ../Components/Shoot/ShootComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/SpeedParser/SpeedParser.cpp
+    ../Parser/VelocityParser/VelocityParser.cpp
+    ../Parser/ShootParser/ShootParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp)
+target_link_libraries(system_shoot_mob PRIVATE JsonCpp::JsonCpp)

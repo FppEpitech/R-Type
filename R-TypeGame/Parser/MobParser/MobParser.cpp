@@ -26,7 +26,7 @@ std::shared_ptr<MobComponent> parseMob(std::string pathFile)
         const Json::Value& Mob = root["MobComponent"];
 
         if (Mob)
-            return std::make_shared<MobComponent>(Mob.asUInt());
+            return std::make_shared<MobComponent>();
         return nullptr;
     } catch (std::exception e) {
         std::cout << e.what() << std::endl;

@@ -17,3 +17,9 @@ mkdir build
 # export LINTER=on
 
 cmake . -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" -B build
+
+cd build
+
+make -j 10
+
+cd ..
