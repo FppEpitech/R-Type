@@ -28,12 +28,14 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
 
         asio::error_code ec;
         asio::read(*_tcp_socket, asio::buffer(&_token, sizeof(_token)), ec);
+        asio::read(*_tcp_socket, asio::buffer(&_idxPlayerComponent, sizeof(_idxPlayerComponent)), ec);
         std::cout << "Connected to server with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << _token << std::dec << std::endl;
+        std::cout << "Connected to server with index player component: " << _idxPlayerComponent << std::endl;
 
         ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
         for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
             PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-            if (player->token == 0) {
+            if (player && player->token == 0) {
                 player->token = _token;
                 break;
             }
@@ -43,7 +45,9 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
         _server_endpoint = asio::ip::udp::endpoint(asio::ip::address::from_string(_server_ip), _udp_port);
 
         this->_messageHandler = std::move(callback);
-        _startReceive();
+        std::vector<uint8_t> initPacket = _createPacket();
+        this->sendMessage(initPacket);
+        _startReceive(reg);
 
         std::thread io_thread([this]() { _io_context->run(); });
         io_thread.detach();
@@ -58,22 +62,32 @@ void Network::Client::sendMessage(std::vector<uint8_t>& packet)
         [](const asio::error_code&, std::size_t) {});
 }
 
-void Network::Client::_startReceive()
+void Network::Client::_startReceive(ECS::Registry& reg)
 {
     _udp_socket->async_receive_from(asio::buffer(_recv_buffer), _server_endpoint,
-        [this](const asio::error_code& error, std::size_t bytes_recvd) {
+        [this, &reg](const asio::error_code& error, std::size_t bytes_recvd) {
             if (!error && bytes_recvd > 0) {
                 try {
                     std::string message(_recv_buffer.data(), bytes_recvd);
                     if (this->_messageHandler)
-                        this->_messageHandler(message);
+                        this->_messageHandler(message, reg);
                 } catch (const std::exception& e) {
-                    _startReceive();
+                    std::cerr << "Exception in message handler: " << e.what() << std::endl;
                 }
-            } else {
+            } else if (error) {
                 std::cerr << "Error receiving message: " << error.message() << std::endl;
+                if (_udp_socket) {
+                    asio::error_code ec;
+                    _udp_socket->cancel(ec);
+                    _udp_socket->close(ec);
+                    return;
+                }
             }
-            _startReceive();
+
+            asio::post(_udp_socket->get_executor(),
+                [this, &reg]() {
+                    _startReceive(reg);
+                });
         });
 }
 
@@ -208,4 +222,9 @@ std::vector<uint8_t> Network::Client::_createPacket()
     packet.push_back(static_cast<uint8_t>(checksum >> 8));
     packet.push_back(static_cast<uint8_t>(checksum & 0xFF));
     return packet;
+}
+
+int Network::Client::getIdxPlayerComponent()
+{
+    return this->_idxPlayerComponent;
 }

@@ -1,0 +1,63 @@
+name: Generate Doxygen Documentation and Readme
+
+on:
+  schedule: # Every Friday at 18:00
+    - cron: '0 18 * * 5'
+
+jobs:
+  publish-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Doxygen
+        run: sudo apt-get install -y doxygen graphviz texlive-latex-extra # Graphviz is required for generating diagrams
+
+      - name: Generate Doxygen Documentation
+        run: |
+          cd Docs
+          doxygen Doxyfile
+          make -C doxygen/latex
+
+      - name: Clone GitHub Wiki
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.wiki.git wiki
+          git config --global user.name "${{ secrets.GIT_USER }}"
+          git config --global user.email "${{ secrets.GIT_EMAIL }}"
+
+      - name: Update Wiki Documentation
+        run: |
+          # Delete the old documentation
+          rm -rf wiki/docs
+          rm -rf wiki/DoxygenDoc.pdf
+          cp -r Docs/doxygen/latex/refman.pdf wiki/DoxygenDoc.pdf
+
+          # Commit and push the changes
+          cd wiki
+          if ! git diff --exit-code; then
+            git add .
+            git commit -m "refactor(docs): Update Doxygen documentation"
+            git push
+          fi
+
+      - name: Update README.md
+        run: |
+          cp README.md wiki/readme.md
+          cd wiki
+          if ! git diff --exit-code -- README.md; then
+            git add readme.md
+            git commit -m "refactor(readme): Update README.md"
+            git push
+          fi
+
+      - name: Update Contribution Guidelines
+        run: |
+          cp Contributing.md wiki/contributing.md
+          cd wiki
+          if ! git diff --exit-code -- Contributing.md; then
+              git add contributing.md
+              git commit -m "refactor(contributing): Update contribution guidelines"
+              git push
+          fi

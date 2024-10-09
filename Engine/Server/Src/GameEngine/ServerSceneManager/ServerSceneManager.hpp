@@ -60,5 +60,12 @@ namespace SceneManager {
              * @return The path to the scenes.
              */
             std::string _getScenesPath() const override;
+
+            /**
+             * @brief Load the scene.
+             * @param path Path to the scene.
+             * @param index Index of the scene.
+             */
+            void _loadScene(const std::string &path, std::size_t index) override;
     };
 }

@@ -9,6 +9,8 @@
 
 #include <string>
 
+#include "IError.hpp"
+
 /**
  * @brief Interface class for ECS components.
  *  A component is a modular piece of data that defines
@@ -63,4 +65,19 @@ class AComponent : public IComponent {
 
     private:
         std::string _type; //< The type identifier for this component.
+};
+
+/**
+ * @brief Error for components
+ *
+ */
+class ComponentError : public AError {
+
+public:
+    /**
+     * @brief Construct a new ComponentError object
+     *
+     * @param message Error message
+     */
+    ComponentError(const std::string &message) : AError(message) {}
 };

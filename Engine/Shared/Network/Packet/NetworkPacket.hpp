@@ -5,6 +5,8 @@
 ** NetworkPacket
 */
 
+#pragma once
+
 #include <thread>
 #include <random>
 #include <vector>
@@ -18,6 +20,7 @@
 #define VERSION 0x01
 
 enum class MessageType : uint8_t {
+    Init        = 0x00,  // Init
     ArrowKey    = 0x01,  // Arrow
     AlphaKey    = 0x02,  // Alpha (A-Z)
     NumberKey   = 0x03,  // Number (0-9)
@@ -120,4 +123,3 @@ class Network::UDPPacket {
         std::vector<uint8_t>    _payload;           // Payload related to the Message type.
         uint16_t                _checksum;          // Checksum to validate the authenticity of data.
 };
-

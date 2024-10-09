@@ -12,6 +12,7 @@ Network::Server::Server(int tcp_port, int udp_port)
     _io_context = std::make_shared<asio::io_context>();
     _tcp_acceptor = std::make_shared<asio::ip::tcp::acceptor>(*_io_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), 4444));
     _udp_socket = std::make_shared<asio::ip::udp::socket>(*_io_context, asio::ip::udp::endpoint(asio::ip::udp::v4(), 4445));
+    _messageId = 0x0000;
 }
 
 void Network::Server::start(MessageHandler callback, ECS::Registry& reg)
@@ -39,33 +40,39 @@ void Network::Server::_startAccept(ECS::Registry& reg)
 
     _tcp_acceptor->async_accept(*socket, [this, socket, &reg](const asio::error_code& error) {
         if (!error) {
+            try {
+                uint32_t token = _generateToken();
+                while (_clients.find(token) != _clients.end())
+                    token = _generateToken();
 
-            uint32_t token = _generateToken();
-            while (_clients.find(token) != _clients.end())
-                token = _generateToken();
+                bool tokenAssigned = false;
 
-            bool tokenAssigned = false;
-
-            ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
-            for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-                PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-                if (player->token == 0) {
-                    player->token = token;
-                    tokenAssigned = true;
-                    break;
+                ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+                int idxPlayerComponent = 0;
+                for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+                    PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+                    if (player && player->token == 0) {
+                        player->token = token;
+                        idxPlayerComponent = index;
+                        tokenAssigned = true;
+                        break;
+                    }
                 }
-            }
 
-            if (tokenAssigned == false) {
-                std::cout << "No more place available" << std::endl;
-                socket->close();
-            } else {
-                _clients[token] = asio::ip::udp::endpoint();
-                std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::dec << std::endl;
+                if (tokenAssigned == false) {
+                    std::cout << "No more place available" << std::endl;
+                    socket->close();
+                } else {
+                    _clients[token] = asio::ip::udp::endpoint();
+                    std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::dec << std::endl;
 
-                _startRead(socket, token);
-                asio::write(*socket, asio::buffer(&token, sizeof(token)));
-                _startAccept(reg);
+                    _startRead(socket, token);
+                    asio::write(*socket, asio::buffer(&token, sizeof(token)));
+                    asio::write(*socket, asio::buffer(&idxPlayerComponent, sizeof(idxPlayerComponent)));
+                    _startAccept(reg);
+                }
+            } catch (const std::exception& e) {
+                std::cerr << "Error: " << e.what() << std::endl;
             }
         }
     });
@@ -115,8 +122,49 @@ void Network::Server::_startReceive(ECS::Registry& reg)
         });
 }
 
-void Network::Server::sendMessage(const std::string& message, const asio::ip::udp::endpoint& endpoint)
+void Network::Server::sendMessage(std::vector<uint8_t>& packet, const asio::ip::udp::endpoint& endpoint)
 {
-    _udp_socket->async_send_to(asio::buffer(message), endpoint,
+    _udp_socket->async_send_to(asio::buffer(packet), endpoint,
         [](const asio::error_code&, std::size_t) {});
+}
+
+std::vector<uint8_t> Network::Server::createPacket(uint8_t messageType, const std::vector<uint8_t>& payload)
+{
+    std::vector<uint8_t> packet;
+
+    uint32_t payloadLength = static_cast<uint32_t>(payload.size());
+    uint32_t tokenServer = 0xffffffff;
+
+    packet.push_back(VERSION);
+    packet.push_back(messageType);
+
+    packet.push_back(static_cast<uint8_t>(_messageId >> 8));
+    packet.push_back(static_cast<uint8_t>(_messageId & 0xFF));
+    _messageId = (_messageId + 1) % 65536;
+
+    packet.push_back(static_cast<uint8_t>((tokenServer >> 24) & 0xFF));
+    packet.push_back(static_cast<uint8_t>((tokenServer >> 16) & 0xFF));
+    packet.push_back(static_cast<uint8_t>((tokenServer >> 8) & 0xFF));
+    packet.push_back(static_cast<uint8_t>(tokenServer & 0xFF));
+
+    packet.push_back(static_cast<uint8_t>(payloadLength >> 24));
+    packet.push_back(static_cast<uint8_t>(payloadLength >> 16));
+    packet.push_back(static_cast<uint8_t>(payloadLength >> 8));
+    packet.push_back(static_cast<uint8_t>(payloadLength & 0xFF));
+
+    packet.insert(packet.end(), payload.begin(), payload.end());
+
+    uint16_t checksum = 0;
+    for (const auto& byte : packet) {
+        checksum += byte;
+    }
+    packet.push_back(static_cast<uint8_t>(checksum >> 8));
+    packet.push_back(static_cast<uint8_t>(checksum & 0xFF));
+    return packet;
+}
+
+
+std::unordered_map<uint32_t, asio::ip::udp::endpoint>& Network::Server::getClientsList()
+{
+    return this->_clients;
 }

@@ -128,4 +128,8 @@ const std::unordered_map<std::string, KEY_MAP> stringKeyMap = {
     {"KEY_KP_ADD", KEY_MAP::KEY_KP_ADD},                 /**< Key: Keypad Add */
     {"KEY_KP_ENTER", KEY_MAP::KEY_KP_ENTER},             /**< Key: Keypad Enter */
     {"KEY_KP_EQUAL", KEY_MAP::KEY_KP_EQUAL},             /**< Key: Keypad Equal */
+    // Mouse keys
+    {"MOUSE_LEFT_CLICK", KEY_MAP::MOUSE_LEFT_CLICK},     /**< Mouse: Left Click */
+    {"MOUSE_RIGHT_CLICK", KEY_MAP::MOUSE_RIGHT_CLICK},   /**< Mouse: Right Click */
+    {"MOUSE_MIDDLE_CLICK", KEY_MAP::MOUSE_MIDDLE_CLICK}, /**< Mouse: Middle Click */
 };

@@ -16,7 +16,6 @@ set(EXE_INCLUDE_PATH "Include")
 
 # Define component source files
 set(COMPONENT_SRC_FILE
-    ${EXE_SRC_PATH}/Components/ShaderComponent/ShaderPathComponent.cpp
     ../Shared/Component/FontPathComponent.cpp
     ../Shared/Component/ObjPathComponent.cpp
     ../Shared/Component/TexturePathComponent.cpp
@@ -25,6 +24,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/Component/ColourComponent.cpp
     ../Shared/Component/Position3DComponent.cpp
     ../Shared/Component/Position2DComponent.cpp
+    ../Shared/Component/TextPosition2DComponent.cpp
     ../Shared/Component/Size1DComponent.cpp
     ../Shared/Component/TextComponent.cpp
     ../Shared/Component/MaterialMapComponent.cpp
@@ -56,6 +56,7 @@ set(SRC_EXE
     ../Shared/SceneManager/ASceneManager.cpp
     ${COMPONENT_SRC_FILE}
     ${SYSTEM_SRC_FILE}
+    ${EXE_SRC_PATH}/InitShader/InitShader.cpp
 )
 
 # Include directories for header files
@@ -74,6 +75,7 @@ include_directories(
     ../Shared/Interface
     ../Shared/SceneManager
     ../Shared/DLLoader
+    ${EXE_SRC_PATH}/InitShader/
     ${EXE_INCLUDE_PATH}/Components/ShaderComponent
 )
 

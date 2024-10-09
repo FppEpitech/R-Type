@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 
 /**
  * @class IGraphic
@@ -20,6 +21,17 @@
  */
 class IGraphic {
     public:
+
+        /**
+         * @brief Enum for the Mouse button inputs.
+         *
+         */
+        enum MouseButtons {
+            MOUSE_LEFT = 0,
+            MOUSE_RIGHT = 1,
+            MOUSE_MIDDLE = 2
+        };
+
         /**
          * @brief Virtual destructor for IGraphic.
          */
@@ -45,11 +57,18 @@ class IGraphic {
         virtual void clear() = 0;
 
         /**
-         * @brief Get the Key Input object.
+         * @brief Get the Key Down Input object.
          *
-         * @return int The key pressed.
+         * @return std::size_t The key down.
          */
-        virtual std::size_t getKeyInput() = 0;
+        virtual std::size_t getKeyDownInput() = 0;
+
+        /**
+         * @brief Get the Key Pressed Input object.
+         *
+         * @return std::size_t The key pressed.
+         */
+        virtual std::size_t getKeyPressedInput() = 0;
 
         /**
          * @brief Draw an OBJ model on the screen.
@@ -109,6 +128,46 @@ class IGraphic {
             unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 0) = 0;
 
         /**
+         * @brief Initialize shaders with a map of shader names and paths.
+         *
+         * @param shaders A map where the key is the shader name and the value is the shader path.
+         */
+        virtual void initShaderWithMap(std::unordered_map<std::string, std::string> shaders) = 0;
+
+        /**
+         * @brief Initialize the current shader by name.
+         *
+         * @param name The name of the shader to initialize.
+         */
+        virtual void initCurrentShader(std::string name) = 0;
+
+        /**
+         * @brief Initialize the intensity of the shader.
+         *
+         * @param intensity The intensity value to set for the shader.
+         */
+        virtual void initShaderIntensity(float intensity) = 0;
+
+        /**
+         * @brief Change the current shader by name.
+         *
+         * @param name The name of the shader to change to.
+         */
+        virtual void changeCurrentShader(std::string name) = 0;
+
+        /**
+         * @brief Change the intensity of the current shader.
+         *
+         * @param intensity The new intensity value for the shader.
+         */
+        virtual void changeShaderIntensity(float intensity) = 0;
+
+        /**
+         * @brief Reset the current shader to its default state.
+         */
+        virtual void resetShader() = 0;
+
+        /**
          * @brief Start to draw on the window.
          * Must be call at the begin of the Game loop.
          *
@@ -128,4 +187,29 @@ class IGraphic {
          * @return std::pair<int, int> Width and Height.
          */
         virtual std::pair<int, int> getWindowSize() = 0;
+
+        /**
+         * @brief Get the Mouse Position object.
+         *
+         * @return std::pair<int, int> Mouse position.
+         */
+        virtual std::pair<int, int> getMousePosition() = 0;
+
+        /**
+         * @brief Checks if the mouse button is pressed.
+         *
+         * @param button MouseButtons that you want to check.
+         * @return true Mouse button is pressed.
+         * @return false Mouse button is not pressed.
+         */
+        virtual bool isMouseButtonPressed(MouseButtons button) = 0;
+
+        /**
+         * @brief Checks if the mouse button is down.
+         *
+         * @param button MouseButtons that you want to check.
+         * @return true Mouse button is down.
+         * @return false Mouse button is not down.
+         */
+        virtual bool isMouseButtonDown(MouseButtons button) = 0;
 };
