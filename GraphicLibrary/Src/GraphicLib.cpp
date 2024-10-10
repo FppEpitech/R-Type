@@ -98,7 +98,7 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
         EndShaderMode();
 }
 
-void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale)
+void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale, unsigned char r = 255, unsigned char g = 255, unsigned char b = 255, unsigned char a = 255)
 {
     if (_textures.find(texturePath) == _textures.end())
         _textures[texturePath] = LoadTexture(texturePath.c_str());
@@ -106,10 +106,11 @@ void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy
     Rectangle rect = {left, top, width, height};
     Rectangle rectDest = {posx, posy, width * scale, height * scale};
     Vector2 origin = { 0, 0 };
+    Color color = {r, g, b, a};
 
     if (_isShaderReady())
         BeginShaderMode(_shaders[_currentShader]);
-    DrawTexturePro(_textures[texturePath], rect, rectDest, origin, 0, WHITE);
+    DrawTexturePro(_textures[texturePath], rect, rectDest, origin, 0, color);
     if (_isShaderReady())
         EndShaderMode();
 }

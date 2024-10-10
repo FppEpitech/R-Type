@@ -21,6 +21,8 @@
 
 #include <fstream>
 #include <json/json.h>
+#include <ColourComponent.hpp>
+#include <ColourParser.hpp>
 
 #define PATH_JSON "GameData/Entities/ShootMob.json"
 
@@ -35,6 +37,13 @@ void ShootInitSystem::_initShoot(ECS::Registry& reg, int idxPacketEntities)
     if (textureRect) {
         reg.register_component<IComponent>(textureRect->getType());
         reg.set_component<IComponent>(idxPacketEntities, textureRect, textureRect->getType());
+    }
+
+    std::shared_ptr<ColourComponent> colour = parseColour(PATH_JSON);
+    if (colour) {
+        std::cout << "COLOUR" << std::endl;
+        reg.register_component<IComponent>(colour->getType());
+        reg.set_component<IComponent>(idxPacketEntities, colour, colour->getType());
     }
 
     std::shared_ptr<ScaleComponent> scale = parseScale(PATH_JSON);

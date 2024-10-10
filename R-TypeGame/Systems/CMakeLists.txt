@@ -249,7 +249,9 @@ add_library(system_shoot_mob SHARED
     ../Parser/SpeedParser/SpeedParser.cpp
     ../Parser/VelocityParser/VelocityParser.cpp
     ../Parser/ShootParser/ShootParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp)
+    ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/ColourParser/ColourParser.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp)
 target_link_libraries(system_shoot_mob PRIVATE JsonCpp::JsonCpp)
 add_library(system_hitboxPlayer SHARED
     Hitbox/HitboxPlayerSystem.cpp
