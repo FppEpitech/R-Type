@@ -41,11 +41,15 @@
         "libsystem_initPlayerOne.so",
         "libsystem_initPlayerTwo.so",
         "libsystem_initPlayerThree.so",
-        "libsystem_initPlayerFour.so"
+        "libsystem_initPlayerFour.so",
+        "libsystem_initMob.so"
     ],
     "systems": [
         "libsystem_moveEntities.so",
         "libsystem_shootDestroy.so",
+        "libsystem_restartPlanet.so",
+        "libsystem_shoot_mob.so",
+        "libsystem_moveMobs.so",
         "libsystem_restartPlanet.so"
     ],
     "networkUpdate": [

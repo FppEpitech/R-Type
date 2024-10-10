@@ -108,8 +108,12 @@ class IGraphic {
          * @param width Width of the rectangle.
          * @param height Height of the rectangle.
          * @param scale Scale.
+         * @param r Color value r.
+         * @param g Color value g.
+         * @param b Color value b.
+         * @param a Color value a.
          */
-        virtual void drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale) = 0;
+        virtual void drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale, unsigned char r, unsigned char g, unsigned char b, unsigned char a) = 0;
 
         /**
          * @brief Draw a text on the screen.
@@ -125,7 +129,7 @@ class IGraphic {
          * @param a Color value a.
          */
         virtual void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
-            unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 0) = 0;
+            unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255) = 0;
 
         /**
          * @brief Initialize shaders with a map of shader names and paths.
