@@ -58,7 +58,8 @@ void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPac
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new MoveSystemDown();
+}
 }

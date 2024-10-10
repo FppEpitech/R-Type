@@ -12,8 +12,10 @@
 
 #define SETTINGS_PATH "./Config/Settings.json"
 
-extern "C" IGraphic* loadGraphicInstance() {
+extern "C" {
+EXPORT_SYMBOL IGraphic* loadGraphicInstance() {
     return new GraphicLib();
+}
 }
 
 GraphicLib::~GraphicLib()

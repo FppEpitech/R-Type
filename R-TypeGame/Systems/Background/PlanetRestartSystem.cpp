@@ -43,7 +43,9 @@ void PlanetRestartSystem::_restartPlanet(ECS::Registry& reg, int idxPacketEntiti
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new PlanetRestartSystem();
 }
+}
+
