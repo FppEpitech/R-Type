@@ -27,6 +27,13 @@ find_package(jsoncpp REQUIRED)
 
 # Link the 'raylib' library to 'graphic_raylib'
 target_link_libraries(graphic_raylib PRIVATE
-        raylib
+        if (WIN32)
+            ${CMAKE_SOURCE_DIR}/vcpkg_installed/lib/raylib.lib
+        else()
+            ${CMAKE_SOURCE_DIR}/vcpkg_installed/lib/libraylib.a
         JsonCpp::JsonCpp
+)
+
+target_include_directories(graphic_raylib PRIVATE
+    ${CMAKE_SOURCE_DIR}/vcpkg_installed/include
 )
