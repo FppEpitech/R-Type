@@ -41,7 +41,6 @@ void ShootInitSystem::_initShoot(ECS::Registry& reg, int idxPacketEntities)
 
     std::shared_ptr<ColourComponent> colour = parseColour(PATH_JSON);
     if (colour) {
-        std::cout << "COLOUR" << std::endl;
         reg.register_component<IComponent>(colour->getType());
         reg.set_component<IComponent>(idxPacketEntities, colour, colour->getType());
     }

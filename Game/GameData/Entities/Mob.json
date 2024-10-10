@@ -10,7 +10,7 @@
         "path": "./Assets/mob-1.gif",
         "left": 0,
         "top": 0,
-        "width": 63,
+        "width": 65.2,
         "height": 66
     },
     "ScaleComponent": 4,
@@ -21,5 +21,15 @@
     "VelocityComponent": {
         "vx": -1,
         "vy": 0
+    },
+    "SpriteSheetAnimationComponent":
+    {
+        "nbFrame": 5,
+        "timeFrame": 0.5,
+        "vx": 65.2,
+        "vy": 0,
+        "startX": 0,
+        "startY": 0,
+        "reverseMod": true
     }
 }

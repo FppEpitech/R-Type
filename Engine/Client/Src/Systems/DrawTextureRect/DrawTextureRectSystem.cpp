@@ -27,10 +27,7 @@ void DrawTextureRectSystem::_drawTextureRect(ECS::Registry& reg, int idxPacketEn
     ECS::SparseArray<IComponent> texturerectComponents = reg.get_components<IComponent>("TextureRectComponent");
     ECS::SparseArray<IComponent> position2DComponents = reg.get_components<IComponent>("Position2DComponent");
     ECS::SparseArray<IComponent> scaleComponents = reg.get_components<IComponent>("ScaleComponent");
-    std::cout << "filsdeput" << std::endl;
     ECS::SparseArray<IComponent> colourComponents = reg.get_components<IComponent>("ColourComponent");
-    std::cout << "tamere" << std::endl;
-
 
     for (ECS::entity_t entity = 0; texturerectComponents.size() >= entity + 1; entity++) {
         std::shared_ptr<TextureRectComponent> texture = std::dynamic_pointer_cast<TextureRectComponent>(texturerectComponents[entity]);

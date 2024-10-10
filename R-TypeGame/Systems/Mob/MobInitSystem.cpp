@@ -21,6 +21,8 @@
 
 #include <fstream>
 #include <json/json.h>
+#include <SpriteSheetAnimationComponent.hpp>
+#include <SpriteSheetAnimationParser.hpp>
 
 #define PATH_JSON "GameData/Entities/Mob.json"
 
@@ -65,6 +67,12 @@ void MobInitSystem::_initMob(ECS::Registry& reg, int idxPacketEntities)
     if (mob) {
         reg.register_component<IComponent>(mob->getType());
         reg.set_component<IComponent>(idxPacketEntities, mob, mob->getType());
+    }
+
+    std::shared_ptr<SpriteSheetAnimationComponent> animation = parseSpriteSheetAnimation(PATH_JSON);
+    if (animation) {
+        reg.register_component<IComponent>(animation->getType());
+        reg.set_component<IComponent>(idxPacketEntities, animation, animation->getType());
     }
 }
 
