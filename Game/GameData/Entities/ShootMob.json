@@ -27,5 +27,11 @@
     {
         "damage": 20,
         "friendlyFire": true
+    },
+    "ColourComponent":{
+        "r":0,
+        "g":255,
+        "b":0,
+        "a":255
     }
 }
