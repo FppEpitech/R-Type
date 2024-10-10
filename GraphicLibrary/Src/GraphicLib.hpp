@@ -52,6 +52,19 @@ class GraphicLib : public IGraphic {
         };
 
         /**
+         * @brief Exception class set a wrong resolution.
+         */
+        class ResolutionError : public AError {
+            public:
+                /**
+                 * @brief Construct a new ResolutionError exception.
+                 *
+                 * @param message The error message.
+                 */
+                ResolutionError(const std::string &message) : AError(message) {}
+        };
+
+        /**
          * @brief Construct a new Graphic Lib object.
          *
          */
@@ -239,6 +252,40 @@ class GraphicLib : public IGraphic {
          */
         bool isMouseButtonDown(MouseButtons button);
 
+        /**
+         * @brief Set the list of available resolutions.
+         *
+         * @param resolutions A vector of pairs where each pair contains the width and height of a resolution.
+         */
+        void setResolutionList(std::vector<std::pair<int, int>> resolutions);
+
+        /**
+         * @brief Set the resolution of the window.
+         *
+         * @param width The width of the window.
+         * @param height The height of the window.
+         */
+        void setResolution(int width, int height);
+
+        /**
+         * @brief Set the window to fullscreen or windowed mode.
+         *
+         */
+        void setFullscreen();
+
+        /**
+         * @brief Change the resolution of the window.
+         *
+         * @param width The width of the window.
+         * @param height The height of the window.
+         */
+        void changeResolution(int width, int height);
+
+        /**
+         * @brief Toggle the fullscreen mode of the window.
+         */
+        void changeFullscreen();
+
     private:
 
         /**
@@ -254,5 +301,6 @@ class GraphicLib : public IGraphic {
         std::unordered_map<std::string, Texture2D>  _textures;      //< List textures loaded.
         std::unordered_map<std::string, Font>       _font;          //< List of Font loaded.
         std::unordered_map<std::string, Shader>     _shaders;       //< List of Shaders loaded.
+        std::vector<std::pair<int, int>>            _resolutions;   //< List of resolutions.
         std::string                                 _currentShader; //< Current shader.
 };

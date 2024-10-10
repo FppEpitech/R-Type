@@ -9,6 +9,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 /**
  * @class IGraphic
@@ -216,4 +217,38 @@ class IGraphic {
          * @return false Mouse button is not down.
          */
         virtual bool isMouseButtonDown(MouseButtons button) = 0;
+
+        /**
+         * @brief Set the list of available resolutions.
+         *
+         * @param resolutions A vector of pairs where each pair contains the width and height of a resolution.
+         */
+        virtual void setResolutionList(std::vector<std::pair<int, int>> resolutions) = 0;
+
+        /**
+         * @brief Set the resolution of the window.
+         *
+         * @param width The width of the window.
+         * @param height The height of the window.
+         */
+        virtual void setResolution(int width, int height) = 0;
+
+        /**
+         * @brief Set the window to fullscreen or windowed mode.
+         *
+         */
+        virtual void setFullscreen() = 0;
+
+        /**
+         * @brief Change the resolution of the window.
+         *
+         * @param width The width of the window.
+         * @param height The height of the window.
+         */
+        virtual void changeResolution(int width, int height) = 0;
+
+        /**
+         * @brief Toggle the fullscreen mode of the window.
+         */
+        virtual void changeFullscreen() = 0;
 };

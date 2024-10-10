@@ -57,6 +57,7 @@ set(SRC_EXE
     ${COMPONENT_SRC_FILE}
     ${SYSTEM_SRC_FILE}
     ${EXE_SRC_PATH}/InitShader/InitShader.cpp
+    ${EXE_SRC_PATH}/InitWindow/InitWindow.cpp
 )
 
 # Include directories for header files
@@ -76,6 +77,7 @@ include_directories(
     ../Shared/SceneManager
     ../Shared/DLLoader
     ${EXE_SRC_PATH}/InitShader/
+    ${EXE_SRC_PATH}/InitWindow/
     ${EXE_INCLUDE_PATH}/Components/ShaderComponent
 )
 
