@@ -129,7 +129,7 @@ class IGraphic {
          * @param a Color value a.
          */
         virtual void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
-            unsigned char r = 255, unsigned char g = 255, unsigned char b = 255, unsigned char a = 255) = 0;
+            unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255) = 0;
 
         /**
          * @brief Initialize shaders with a map of shader names and paths.

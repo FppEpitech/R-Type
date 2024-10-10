@@ -43,7 +43,6 @@ void DrawTextureRectSystem::_drawTextureRect(ECS::Registry& reg, int idxPacketEn
         std::shared_ptr<ColourComponent> colour = (colourComponents.size() >= entity + 1) ?
             std::dynamic_pointer_cast<ColourComponent>(colourComponents[entity]) : nullptr;
 
-        // Color color = {255, 255, 255, 255};
         if (!colour)
             colour = std::make_shared<ColourComponent>(255, 255, 255, 255);
 

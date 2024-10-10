@@ -51,12 +51,6 @@ void MobInitSystem::_initMob(ECS::Registry& reg, int idxPacketEntities)
         reg.set_component<IComponent>(idxPacketEntities, position2D, position2D->getType());
     }
 
-    // std::shared_ptr<SpeedComponent> speed = parseSpeed(PATH_JSON);
-    // if (speed) {
-    //     reg.register_component<IComponent>(speed->getType());
-    //     reg.set_component<IComponent>(idxPacketEntities, speed, speed->getType());
-    // }
-
     std::shared_ptr<VelocityComponent> velocity = parseVelocity(PATH_JSON);
     if (velocity) {
         reg.register_component<IComponent>(velocity->getType());
