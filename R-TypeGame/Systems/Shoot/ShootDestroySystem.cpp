@@ -30,7 +30,7 @@ void ShootDestroySystem::_shootDestroy(ECS::Registry& reg, int idxPacketEntities
             std::shared_ptr<Position2DComponent> position = std::dynamic_pointer_cast<Position2DComponent>(positions[entity]);
 
             if (position && shoot->friendlyFire) {
-                if (position->x >= 0 && position->x <= 1920 && position->y >= 0 && position->y <= 1080)
+                if (position->x >= -100 && position->x <= 1920 && position->y >= 0 && position->y <= 1080)
                     continue;
                 reg.kill_entity(entity);
             }

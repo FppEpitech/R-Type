@@ -28,6 +28,7 @@ std::shared_ptr<ButtonTexturePathComponent> parseButtonTexturePath(const std::st
 
         if (buttonTexturePath && buttonNoneTexturePath && buttonHoverTexturePath && buttonClickedTexturePath)
             return std::make_shared<ButtonTexturePathComponent>(buttonNoneTexturePath.asString(), buttonHoverTexturePath.asString(), buttonClickedTexturePath.asString());
+        return nullptr;
     } catch (std::exception e) {
         throw ComponentError(e.what());
     }
