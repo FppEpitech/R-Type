@@ -28,7 +28,7 @@ void MoveEntitiesSystem::_moveEntities(ECS::Registry& reg, int idxPacketEntities
             if (!position || !velocity)
                 continue;
 
-            const std::chrono::_V2::system_clock::time_point now = std::chrono::high_resolution_clock::now();
+            const std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
             double timeElapsed = std::chrono::duration<double, std::milli>(now - velocity->frameRate).count() / 1000;
 
             if (0.005 < timeElapsed) {
