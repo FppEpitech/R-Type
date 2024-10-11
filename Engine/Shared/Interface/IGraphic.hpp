@@ -9,6 +9,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 /**
  * @brief Macro to define export symbols for different platforms.
@@ -120,8 +121,12 @@ class IGraphic {
          * @param width Width of the rectangle.
          * @param height Height of the rectangle.
          * @param scale Scale.
+         * @param r Color value r.
+         * @param g Color value g.
+         * @param b Color value b.
+         * @param a Color value a.
          */
-        virtual void drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale) = 0;
+        virtual void drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale, unsigned char r, unsigned char g, unsigned char b, unsigned char a) = 0;
 
         /**
          * @brief Draw a text on the screen.
@@ -137,7 +142,7 @@ class IGraphic {
          * @param a Color value a.
          */
         virtual void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
-            unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 0) = 0;
+            unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255) = 0;
 
         /**
          * @brief Initialize shaders with a map of shader names and paths.
@@ -224,4 +229,38 @@ class IGraphic {
          * @return false Mouse button is not down.
          */
         virtual bool isMouseButtonDown(MouseButtons button) = 0;
+
+        /**
+         * @brief Set the list of available resolutions.
+         *
+         * @param resolutions A vector of pairs where each pair contains the width and height of a resolution.
+         */
+        virtual void setResolutionList(std::vector<std::pair<int, int>> resolutions) = 0;
+
+        /**
+         * @brief Set the resolution of the window.
+         *
+         * @param width The width of the window.
+         * @param height The height of the window.
+         */
+        virtual void setResolution(int width, int height) = 0;
+
+        /**
+         * @brief Set the window to fullscreen or windowed mode.
+         *
+         */
+        virtual void setFullscreen() = 0;
+
+        /**
+         * @brief Change the resolution of the window.
+         *
+         * @param width The width of the window.
+         * @param height The height of the window.
+         */
+        virtual void changeResolution(int width, int height) = 0;
+
+        /**
+         * @brief Toggle the fullscreen mode of the window.
+         */
+        virtual void changeFullscreen() = 0;
 };

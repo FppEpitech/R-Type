@@ -59,7 +59,7 @@ void Application::run()
     std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
     if (!libGraphic)
         throw ClientError("Failed to load graphic library");
-    libGraphic->init(WINDOW_TITLE);
+    InitWindow InitWindow(libGraphic);
     InitShader InitShader(libGraphic);
 
     while (libGraphic->windowIsOpen()) {

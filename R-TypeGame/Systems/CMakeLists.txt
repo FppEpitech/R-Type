@@ -40,6 +40,9 @@ include_directories(
     ../Parser/TextureRectParser/
     ../Parser/VelocityParser/
     ../Parser/ShootParser/
+    ../Parser/MobParser/
+    ../Components/Velocity/
+    ../Components/Mob/
     ../Parser/SpriteSheetAnimationParser/
     ../Parser/FontPathParser/
     ../Parser/TextParser/
@@ -129,6 +132,8 @@ add_library(system_initPlayerFour SHARED
     ../Parser/ScaleParser/ScaleParser.cpp
 )
 target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_moveMobs SHARED MoveSystem/MoveMobs/MoveMobsSystem.cpp)
 
 add_library(system_initConnectButton SHARED
     Menus/Buttons/ConnectButtonInitSystem.cpp
@@ -220,6 +225,41 @@ add_library(system_restartPlanet SHARED
     Background/UpdatePlanet.cpp
 )
 
+add_library(system_initMob SHARED
+    Mob/MobInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
+    ../Components/Velocity/VelocityComponent.cpp
+    ../Components/Mob/MobComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/VelocityParser/VelocityParser.cpp
+    ../Parser/MobParser/MobParser.cpp
+    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp)
+target_link_libraries(system_initMob PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_shoot_mob SHARED
+    ShootMob/ShootSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+    ShootMob/ShootInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ../Components/Speed/SpeedComponent.cpp
+    ../Components/Velocity/VelocityComponent.cpp
+    ../Components/Shoot/ShootComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+    ../Parser/SpeedParser/SpeedParser.cpp
+    ../Parser/VelocityParser/VelocityParser.cpp
+    ../Parser/ShootParser/ShootParser.cpp
+    ../Parser/ScaleParser/ScaleParser.cpp
+    ../Parser/ColourParser/ColourParser.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp)
+target_link_libraries(system_shoot_mob PRIVATE JsonCpp::JsonCpp)
 add_library(system_hitboxPlayer SHARED
     Hitbox/HitboxPlayerSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp

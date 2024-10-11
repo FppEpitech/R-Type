@@ -1,0 +1,37 @@
+{
+    "TextureRectComponent":
+    {
+        "path":"./Assets/shots.gif",
+        "left": 250,
+        "top": 90,
+        "width": 17,
+        "height": 6
+    },
+    "ScaleComponent": 5,
+    "Position2DComponent":
+    {
+        "x": 100,
+        "y": 100
+    },
+    "SpeedComponent":
+    {
+        "x":2,
+        "y":2
+    },
+    "VelocityComponent":
+    {
+        "vx": -2,
+        "vy": 0
+    },
+    "ShootComponent":
+    {
+        "damage": 20,
+        "friendlyFire": true
+    },
+    "ColourComponent":{
+        "r":0,
+        "g":255,
+        "b":0,
+        "a":255
+    }
+}

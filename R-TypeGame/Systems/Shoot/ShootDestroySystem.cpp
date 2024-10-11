@@ -34,7 +34,7 @@ void ShootDestroySystem::_shootDestroy(ECS::Registry& reg, int idxPacketEntities
             std::shared_ptr<Position2DComponent> position = std::dynamic_pointer_cast<Position2DComponent>(positions[entity]);
 
             if (position && shoot->friendlyFire) {
-                if (position->x >= 0 && position->x <= libGraphic->getWindowSize().first &&
+                if (position->x >= -100 && position->x <= libGraphic->getWindowSize().first &&
                     position->y >= 0 && position->y <= libGraphic->getWindowSize().second)
                     continue;
                 reg.kill_entity(entity);

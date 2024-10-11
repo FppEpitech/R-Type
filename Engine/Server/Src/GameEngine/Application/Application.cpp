@@ -19,8 +19,8 @@ void GameEngine::Application::_handleArrowKey(uint8_t keyCode, int idxPlayerPack
 
     bool status = false;
     if (arrowKeyMap.find(keyCode) != arrowKeyMap.end())
-        _sceneManager->processInput(arrowKeyMap[keyCode], idxPlayerPacket);
-    if (status == true) {
+        status = _sceneManager->processInput(arrowKeyMap[keyCode], idxPlayerPacket);
+    if ((status == true) && (this->_registries->messageType != 0) && (this->_registries->payload.size() != 0)) {
         std::vector<uint8_t> packet = this->_server->createPacket(this->_registries->messageType, this->_registries->payload);
         for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
             asio::ip::udp::endpoint& endpoint = it->second;
@@ -44,7 +44,7 @@ void GameEngine::Application::_handleAlphaKey(uint8_t keyCode, int idxPlayerPack
     bool status = false;
     if (alphaKeyMap.find(keyCode) != alphaKeyMap.end())
         status = _sceneManager->processInput(alphaKeyMap[keyCode], idxPlayerPacket);
-    if (status == true) {
+    if ((status == true) && (this->_registries->messageType != 0) && (this->_registries->payload.size() != 0)) {
         std::vector<uint8_t> packet = this->_server->createPacket(this->_registries->messageType, this->_registries->payload);
         for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
             asio::ip::udp::endpoint& endpoint = it->second;
@@ -64,7 +64,7 @@ void GameEngine::Application::_handleNumberKey(uint8_t keyCode, int idxPlayerPac
     bool status = false;
     if (numberKeyMap.find(keyCode) != numberKeyMap.end())
         status = _sceneManager->processInput(numberKeyMap[keyCode], idxPlayerPacket);
-    if (status == true) {
+    if ((status == true) && (this->_registries->messageType != 0) && (this->_registries->payload.size() != 0)) {
         std::vector<uint8_t> packet = this->_server->createPacket(this->_registries->messageType, this->_registries->payload);
         for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
             asio::ip::udp::endpoint& endpoint = it->second;
@@ -85,8 +85,8 @@ void GameEngine::Application::_handleSpecialKey(uint8_t keyCode, int idxPlayerPa
 
     bool status = false;
     if (specialKeyMap.find(keyCode) != specialKeyMap.end())
-        _sceneManager->processInput(specialKeyMap[keyCode], idxPlayerPacket);
-    if (status == true) {
+        status = _sceneManager->processInput(specialKeyMap[keyCode], idxPlayerPacket);
+    if ((status == true) && (this->_registries->messageType != 0) && (this->_registries->payload.size() != 0)) {
         std::vector<uint8_t> packet = this->_server->createPacket(this->_registries->messageType, this->_registries->payload);
         for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
             asio::ip::udp::endpoint& endpoint = it->second;
