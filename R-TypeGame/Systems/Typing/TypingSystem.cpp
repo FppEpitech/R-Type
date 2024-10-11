@@ -64,7 +64,7 @@ bool TypingSystem::_isKeyPrintable(size_t input)
 }
 
 extern "C" {
-EXPORT_SYMBOL ISystem* loadSystemInstance() {
-    return new TypingSystem();
-}
+    EXPORT_SYMBOL ISystem* loadSystemInstance() {
+        return new TypingSystem();
+    }
 }
