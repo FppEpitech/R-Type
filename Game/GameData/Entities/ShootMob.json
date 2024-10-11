@@ -26,7 +26,8 @@
     "ShootComponent":
     {
         "damage": 20,
-        "friendlyFire": true
+        "friendlyFire": true,
+        "type": "Mob"
     },
     "ColourComponent":{
         "r":0,
