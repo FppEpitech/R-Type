@@ -112,8 +112,8 @@ void Network::Server::_startReceive(ECS::Registry& reg)
                     if (it != _clients.end()) {
                         if (it->second == asio::ip::udp::endpoint())
                             _clients[packet.getToken()] = _remote_endpoint;
-                        if (this->_messageHandler)
-                            this->_messageHandler(packet, this->_remote_endpoint, reg);
+                        // if (this->_messageHandler)
+                        //     this->_messageHandler(packet, this->_remote_endpoint, reg);
                     }
                 } catch (const std::exception& e) {
                     _startReceive(reg);

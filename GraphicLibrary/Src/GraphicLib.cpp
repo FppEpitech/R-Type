@@ -7,6 +7,7 @@
 
 #include "GraphicLib.hpp"
 
+#include <algorithm>
 #include <json/json.h>
 #include <fstream>
 
@@ -98,7 +99,7 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
         EndShaderMode();
 }
 
-void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale)
+void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale, unsigned char r = 255, unsigned char g = 255, unsigned char b = 255, unsigned char a = 255)
 {
     if (_textures.find(texturePath) == _textures.end())
         _textures[texturePath] = LoadTexture(texturePath.c_str());
@@ -106,10 +107,11 @@ void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy
     Rectangle rect = {left, top, width, height};
     Rectangle rectDest = {posx, posy, width * scale, height * scale};
     Vector2 origin = { 0, 0 };
+    Color color = {r, g, b, a};
 
     if (_isShaderReady())
         BeginShaderMode(_shaders[_currentShader]);
-    DrawTexturePro(_textures[texturePath], rect, rectDest, origin, 0, WHITE);
+    DrawTexturePro(_textures[texturePath], rect, rectDest, origin, 0, color);
     if (_isShaderReady())
         EndShaderMode();
 }
@@ -248,4 +250,53 @@ bool GraphicLib::isMouseButtonPressed(MouseButtons button)
 bool GraphicLib::isMouseButtonDown(MouseButtons button)
 {
     return IsMouseButtonDown(button);
+}
+
+void GraphicLib::setResolutionList(std::vector <std::pair<int, int>> resolutions)
+{
+    _resolutions = resolutions;
+}
+
+void GraphicLib::setResolution(int width, int height) {
+    if (std::find(_resolutions.begin(), _resolutions.end(), std::make_pair(width, height)) == _resolutions.end())
+        throw ResolutionError("Resolution format not handle: " + std::to_string(width) + "x" + std::to_string(height));
+    SetWindowSize(width, height);
+}
+
+void GraphicLib::changeResolution(int width, int height) {
+    if (std::find(_resolutions.begin(), _resolutions.end(), std::make_pair(width, height)) == _resolutions.end())
+        throw ResolutionError("Resolution format not handle: " + std::to_string(width) + "x" + std::to_string(height));
+    SetWindowSize(width, height);
+
+    Json::Value root;
+    Json::StreamWriterBuilder writer;
+    std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+
+    settingsFile >> root;
+    settingsFile.close();
+    root["window"]["resolutionIndex"] = std::find(_resolutions.begin(), _resolutions.end(), std::make_pair(width, height)) - _resolutions.begin();
+    std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    settingsFileOut << Json::writeString(writer, root);
+    settingsFileOut.close();
+}
+
+void GraphicLib::setFullscreen()
+{
+    ToggleFullscreen();
+}
+
+void GraphicLib::changeFullscreen()
+{
+    ToggleFullscreen();
+
+    Json::Value root;
+    Json::StreamWriterBuilder writer;
+    std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+
+    settingsFile >> root;
+    settingsFile.close();
+    root["window"]["fullscreen"] = !root["window"]["fullscreen"].asBool();
+    std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    settingsFileOut << Json::writeString(writer, root);
+    settingsFileOut.close();
 }

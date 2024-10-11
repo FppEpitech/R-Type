@@ -52,7 +52,8 @@ void Application::_keyboardHandler(std::size_t key)
     try {
         if (key == KEY_NULL || _client == nullptr)
             return;
-        _sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent());
+        if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
+            return;
         _client->sendKeyPacket(KEY_MAP(key));
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
@@ -86,7 +87,7 @@ void Application::run()
     std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
     if (!libGraphic)
         throw ClientError("Failed to load graphic library");
-    libGraphic->init(WINDOW_TITLE);
+    InitWindow InitWindow(libGraphic);
     InitShader InitShader(libGraphic);
 
     while (libGraphic->windowIsOpen()) {

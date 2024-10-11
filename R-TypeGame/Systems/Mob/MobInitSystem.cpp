@@ -1,42 +1,38 @@
 /*
 ** EPITECH PROJECT, 2024
-** PlayerInitSystem
+** MobInitSystem
 ** File description:
-** PlayerInitSystem
+** MobInitSystem
 */
 
 #include "SpeedComponent.hpp"
-#include "PlayerComponent.hpp"
-#include "PlayerInitSystem.hpp"
+#include "MobInitSystem.hpp"
 #include "ScaleComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "Position2DComponent.hpp"
-#include "SpriteSheetAnimationComponent.hpp"
-#include "../../Components/Life/LifeComponent.hpp"
+#include "VelocityComponent.hpp"
+#include "MobComponent.hpp"
+#include "VelocityParser.hpp"
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
-#include "LifeParser.hpp"
-#include "PlayerParser.hpp"
 #include "SpeedParser.hpp"
-#include "SpriteSheetAnimationParser.hpp"
-#include "ShootComponent.hpp"
+#include "MobParser.hpp"
 
 #include <fstream>
 #include <json/json.h>
+#include <SpriteSheetAnimationComponent.hpp>
+#include <SpriteSheetAnimationParser.hpp>
 
-#define PATH_JSON "GameData/Entities/PlayerOne.json"
+#define PATH_JSON "GameData/Entities/Mob.json"
 
-PlayerInitSystem::PlayerInitSystem() :
-    ASystem("PlayerInitSystem")
+MobInitSystem::MobInitSystem() :
+    ASystem("MobInitSystem")
 {
 }
 
-void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
+void MobInitSystem::_initMob(ECS::Registry& reg, int idxPacketEntities)
 {
-
-    reg.register_component<IComponent>("ShootComponent");
-
     std::shared_ptr<TextureRectComponent> textureRect = parseTextureRect(PATH_JSON);
     if (textureRect) {
         reg.register_component<IComponent>(textureRect->getType());
@@ -55,22 +51,16 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
         reg.set_component<IComponent>(idxPacketEntities, position2D, position2D->getType());
     }
 
-    std::shared_ptr<LifeComponent> life = parseLife(PATH_JSON);
-    if (life) {
-        reg.register_component<IComponent>(life->getType());
-        reg.set_component<IComponent>(idxPacketEntities, life, life->getType());
+    std::shared_ptr<VelocityComponent> velocity = parseVelocity(PATH_JSON);
+    if (velocity) {
+        reg.register_component<IComponent>(velocity->getType());
+        reg.set_component<IComponent>(idxPacketEntities, velocity, velocity->getType());
     }
 
-    std::shared_ptr<PlayerComponent> player = parsePlayer(PATH_JSON);
-    if (player) {
-        reg.register_component<IComponent>(player->getType());
-        reg.set_component<IComponent>(idxPacketEntities, player, player->getType());
-    }
-
-    std::shared_ptr<SpeedComponent> speed = parseSpeed(PATH_JSON);
-    if (speed) {
-        reg.register_component<IComponent>(speed->getType());
-        reg.set_component<IComponent>(idxPacketEntities, speed, speed->getType());
+    std::shared_ptr<MobComponent> mob = parseMob(PATH_JSON);
+    if (mob) {
+        reg.register_component<IComponent>(mob->getType());
+        reg.set_component<IComponent>(idxPacketEntities, mob, mob->getType());
     }
 
     std::shared_ptr<SpriteSheetAnimationComponent> animation = parseSpriteSheetAnimation(PATH_JSON);
@@ -82,5 +72,5 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
 
 extern "C" ISystem* loadSystemInstance()
 {
-    return new PlayerInitSystem();
+    return new MobInitSystem();
 }

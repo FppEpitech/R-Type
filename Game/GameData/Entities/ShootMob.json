@@ -15,17 +15,23 @@
     },
     "SpeedComponent":
     {
-        "x":5,
-        "y":5
+        "x":2,
+        "y":2
     },
     "VelocityComponent":
     {
-        "vx": 600,
+        "vx": -2,
         "vy": 0
     },
     "ShootComponent":
     {
         "damage": 20,
         "friendlyFire": true
+    },
+    "ColourComponent":{
+        "r":0,
+        "g":255,
+        "b":0,
+        "a":255
     }
 }
