@@ -66,6 +66,7 @@ add_library(system_initPlayerOne SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
+    ../Components/Shoot/ShootComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/LifeParser/LifeParser.cpp
@@ -182,7 +183,6 @@ target_link_libraries(system_shoot PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_shootDestroy SHARED
     Shoot/ShootDestroySystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
 )
 
@@ -215,7 +215,6 @@ target_link_libraries(system_initPlanet PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_restartPlanet SHARED
     Background/PlanetRestartSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
     Background/UpdatePlanet.cpp
 )
 

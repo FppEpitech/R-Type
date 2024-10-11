@@ -47,7 +47,8 @@ void Application::_keyboardHandler(std::size_t key)
     try {
         if (key == KEY_NULL)
             return;
-        _sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent());
+        if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
+            return;
         _client->sendKeyPacket(KEY_MAP(key));
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;

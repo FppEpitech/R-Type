@@ -10,4 +10,5 @@
 VelocityComponent::VelocityComponent(float vx, float vy) :
     vx(vx), vy(vy), AComponent("VelocityComponent")
 {
+    frameRate = std::chrono::high_resolution_clock::now();
 }

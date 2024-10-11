@@ -39,7 +39,7 @@ void PlanetInitSystem::_initPlanet(ECS::Registry& reg, int idxPacketEntities)
     std::uniform_int_distribution<unsigned> distrib(0, NB_JSON - 1);
     std::uniform_int_distribution<unsigned> distribX(1920, 5000);
     std::uniform_int_distribution<unsigned> distribY(0, 1080);
-    std::uniform_real_distribution<float> distribVelocity(0.3, 1.5);
+    std::uniform_real_distribution<float> distribVelocity(30, 150);
 
     int randomJson = distrib(gen);
 

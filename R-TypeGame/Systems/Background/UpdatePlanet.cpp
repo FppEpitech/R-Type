@@ -29,7 +29,7 @@ void updateNewPositions(std::shared_ptr<VelocityComponent> velocity, std::shared
     std::mt19937 gen(getRandomSeed());
     std::uniform_int_distribution<unsigned> distribX(1920, 5000);
     std::uniform_int_distribution<unsigned> distribY(0, 1080);
-    std::uniform_real_distribution<float> distribVelocity(0.3, 1.5);
+    std::uniform_real_distribution<float> distribVelocity(30, 150);
 
     position->x = distribX(gen);
     position->y = distribY(gen);
