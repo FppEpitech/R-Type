@@ -21,7 +21,7 @@ class VelocityComponent : public AComponent {
 
         float vx;  // Velocity x.
         float vy;  // Velocity y.
-        std::chrono::_V2::system_clock::time_point frameRate; // Velocity frameRate.
+        std::chrono::high_resolution_clock::time_point frameRate; // Velocity frameRate.
 
         /**
          * @brief Construct a new Velocity Component object.
