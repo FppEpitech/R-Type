@@ -210,7 +210,6 @@ target_link_libraries(system_initPlanet PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_restartPlanet SHARED
     Background/PlanetRestartSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
     Background/UpdatePlanet.cpp
 )
 
