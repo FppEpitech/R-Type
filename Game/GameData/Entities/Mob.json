@@ -19,7 +19,7 @@
         "y": 350
     },
     "VelocityComponent": {
-        "vx": -1,
+        "vx": -100,
         "vy": 0
     },
     "SpriteSheetAnimationComponent":
