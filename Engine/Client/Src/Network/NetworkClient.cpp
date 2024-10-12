@@ -51,8 +51,8 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
         this->sendMessage(initPacket);
         _startReceive(reg);
 
-        //auto client_thread = std::make_shared<std::thread>([this]() { _io_context->run(); });
-        //client_thread->detach();
+        auto client_thread = std::make_shared<std::thread>([this]() { _io_context->run(); });
+        client_thread->detach();
     } catch (const std::exception& e) {
         std::cerr << "Error during connection: " << e.what() << std::endl;
     }
