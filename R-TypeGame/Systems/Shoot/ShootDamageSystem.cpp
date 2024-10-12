@@ -65,7 +65,8 @@ static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootTyp
             std::shared_ptr<Position2DComponent> shootPos = std::dynamic_pointer_cast<Position2DComponent>(positions[shoot]);
             std::shared_ptr<TextureRectComponent> shootTexture = std::dynamic_pointer_cast<TextureRectComponent>(textures[shoot]);
             std::shared_ptr<ScaleComponent> shootScale = std::dynamic_pointer_cast<ScaleComponent>(scales[shoot]);
-            if (!shootComp || !shootPos || !shootTexture || !shootScale)
+            std::shared_ptr<TYPE> entityObject = std::dynamic_pointer_cast<TYPE>(entities[entity]);
+            if (!shootComp || !shootPos || !shootTexture || !shootScale || !entityObject)
                 continue;
             if (shootComp->type != shootType)
                 continue;
@@ -75,8 +76,9 @@ static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootTyp
                 else
                     entityLife->life -= shootComp->damage;
                 if (entityLife->life == 0) {
-                    if (!std::is_same_v<TYPE,PlayerComponent>)
-                        // Remove this condition when the segfault will be fixed so that the player components can be deleted
+                    if (std::is_same_v<TYPE,PlayerComponent>)
+                        ((PlayerComponent *)entityObject.get())->isAlive = false;
+                    else
                         reg.kill_entity(entity);
                 }
                 reg.kill_entity(shoot);

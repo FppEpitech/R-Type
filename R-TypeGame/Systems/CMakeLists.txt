@@ -367,3 +367,14 @@ add_library(system_shootDamage SHARED
     ../Parser/Position2DParser/Position2DParser.cpp
 )
 target_link_libraries(system_shootDamage PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_initEndLogo SHARED
+        Background/EndLogoInitSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+        ../Parser/TextureRectParser/TextureRectParser.cpp
+        ../Parser/Position2DParser/Position2DParser.cpp
+        ../Parser/ScaleParser/ScaleParser.cpp
+)
+target_link_libraries(system_initEndLogo PRIVATE JsonCpp::JsonCpp)
