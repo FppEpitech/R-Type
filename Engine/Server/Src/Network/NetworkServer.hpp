@@ -32,7 +32,7 @@ namespace Network {
 
 class Network::Server
 {
-    using MessageHandler = std::function<void(Network::UDPPacket packet, const asio::ip::udp::endpoint&, ECS::Registry& reg)>;
+    using MessageHandler = std::function<void(Network::UDPPacket packet, const asio::ip::udp::endpoint&, std::shared_ptr<ECS::Registry> reg)>;
 
     public:
 
@@ -51,7 +51,7 @@ class Network::Server
          * @param callback Callback function called when the server receive data.
          * @param reg Registery with all system and Component.
          */
-        void start(MessageHandler callback, ECS::Registry& reg);
+        void start(MessageHandler callback, std::shared_ptr<ECS::Registry> reg);
 
         /**
          * @brief Sends a message to a specific UDP endpoint.
@@ -84,7 +84,7 @@ class Network::Server
          *
          * @param reg Registry with all list of component and system.
          */
-        void _startAccept(ECS::Registry& reg);
+        void _startAccept(std::shared_ptr<ECS::Registry> reg);
 
         /**
          * @brief Handles reading from a TCP socket.
@@ -99,7 +99,7 @@ class Network::Server
          *
          * @param reg Registry with all list of component and system.
          */
-        void _startReceive(ECS::Registry& reg);
+        void _startReceive(std::shared_ptr<ECS::Registry> reg);
 
         /**
          * @brief Generate a token for the user connection.

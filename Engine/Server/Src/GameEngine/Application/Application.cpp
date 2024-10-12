@@ -95,11 +95,10 @@ void GameEngine::Application::_handleSpecialKey(uint8_t keyCode, int idxPlayerPa
     }
 }
 
-void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, ECS::Registry& reg)
+void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg)
 {
     int idxPlayerPacket = -1;
-
-    ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+    ECS::SparseArray<IComponent> PlayerComponentArray = reg->get_components<IComponent>("PlayerComponent");
     for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
         PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
         if (player && player->token == packet.getToken()) {
@@ -134,9 +133,9 @@ GameEngine::Application::Application()
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
 
     _server = std::make_shared<Network::Server>(4444, 4445);
-    _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, ECS::Registry& reg) {
-        this->_packetHandler(std::move(packet), endpoint, *_registries);
-    }, *_registries);
+    _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg) {
+        this->_packetHandler(std::move(packet), endpoint, reg);
+    }, _registries);
 }
 
 void GameEngine::Application::run()
