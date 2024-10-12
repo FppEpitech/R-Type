@@ -14,6 +14,7 @@
         "height": 66
     },
     "ScaleComponent": 4,
+    "LifeComponent":1000,
     "Position2DComponent": {
         "x": 2500,
         "y": 350

@@ -226,12 +226,15 @@ add_library(system_initMob SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Mob/MobComponent.cpp
+    ../Components/Life/LifeComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
     ../Parser/VelocityParser/VelocityParser.cpp
     ../Parser/MobParser/MobParser.cpp
-    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp)
+    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp
+    ../Parser/LifeParser/LifeParser.cpp
+)
 target_link_libraries(system_initMob PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_shoot_mob SHARED
