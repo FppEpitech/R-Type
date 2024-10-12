@@ -104,7 +104,8 @@ void ShootDamageSystem::_shootDamage(ECS::Registry &reg, int idxPacketEntities)
     }
 }
 
-extern "C" ISystem *loadSystemInstance()
-{
-    return new ShootDamageSystem();
+extern "C" {
+    EXPORT_SYMBOL ISystem *loadSystemInstance() {
+        return new ShootDamageSystem();
+    }
 }
