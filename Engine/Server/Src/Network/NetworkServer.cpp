@@ -47,7 +47,7 @@ void Network::Server::_startAccept(std::shared_ptr<ECS::Registry> reg)
 
                 bool tokenAssigned = false;
 
-                ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+                ECS::SparseArray<IComponent> PlayerComponentArray = reg->get_components<IComponent>("PlayerComponent");
                 int idxPlayerComponent = -1;
                 for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
                     PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
