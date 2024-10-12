@@ -235,12 +235,15 @@ add_library(system_initMob SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Mob/MobComponent.cpp
+    ../Components/Life/LifeComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
     ../Parser/VelocityParser/VelocityParser.cpp
     ../Parser/MobParser/MobParser.cpp
-    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp)
+    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp
+    ../Parser/LifeParser/LifeParser.cpp
+)
 target_link_libraries(system_initMob PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_shoot_mob SHARED
@@ -350,6 +353,20 @@ add_library(system_handleTyping SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
 target_link_libraries(system_handleTyping PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_shootDamage SHARED
+    Shoot/ShootDamageSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ../Components/Shoot/ShootComponent.cpp
+    ../Components/Life/LifeComponent.cpp
+    ../Components/Mob/MobComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+)
+target_link_libraries(system_shootDamage PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initEndLogo SHARED
         Background/EndLogoInitSystem.cpp
