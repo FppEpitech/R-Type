@@ -71,7 +71,7 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         if (defaultText->text == "Write the server Port")
             portServer = text->text;
     }
-    for (ECS::entity_t entity = 0; buttonNetworkConnection.size() >= entity + 1; entity++) {
+    for (ECS::entity_t entity = 0; buttonNetworkConnection.size() >= entity + 1 && buttonDefaultText.size() >= entity + 1; entity++) {
         std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(buttonDefaultText[entity]);
         std::shared_ptr<NetworkConnectionComponent> connection = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[entity]);
         if (!connection || !defaultText)
@@ -79,7 +79,11 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         if (defaultText->text == "Connect to server")
             entityConnection = entity;
     }
+    if (buttonNetworkConnection.size() <= entityConnection)
+        return;
     std::shared_ptr<NetworkConnectionComponent> network = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[entityConnection]);
+    if (!network)
+        return;
     network->connect = true;
     network->serverPort = portServer;
     network->serverIp = ipServer;
