@@ -102,9 +102,8 @@ void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const as
     ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
     for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
         PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-        if (player)
-            idxPlayerPacket++;
         if (player && player->token == packet.getToken()) {
+            idxPlayerPacket = index;
             break;
         }
     }
@@ -140,8 +139,24 @@ GameEngine::Application::Application()
     }, *_registries);
 }
 
+bool GameEngine::Application::noPlayerConnected()
+{
+    ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
+    for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+        PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+        if (player && player->token != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void GameEngine::Application::run()
 {
+
+    while (noPlayerConnected())
+        sleep(0.5);
+
     while (true)
         _registries->run_systems(-1);
 

@@ -127,6 +127,7 @@ void SceneManager::ASceneManager::_changeScene(std::pair<std::size_t, std::strin
     _keysSystems.clear();
     _registry->clearSystems();
     _registry->clearComponentsArray();
+    _registry->clearEntities();
     _initialiseDefaultComponents();
     _loadScene(scene.second, CURRENT);
 }

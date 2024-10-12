@@ -200,6 +200,12 @@ class Registry {
          */
         void clearSystems();
 
+        /**
+         * @brief Clear all entities.
+         *
+         */
+        void clearEntities();
+
 
 
         uint8_t messageType = 0x00;             // Message Type
