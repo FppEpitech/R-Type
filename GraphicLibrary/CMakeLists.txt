@@ -28,8 +28,12 @@ find_package(jsoncpp REQUIRED)
 # Find the 'raylib' package
 find_package(raylib REQUIRED)
 
+# Find the 'glfw' package
+find_package(glfw3 REQUIRED)
+
 # Link the 'raylib' library to 'graphic_raylib'
 target_link_libraries(graphic_raylib PRIVATE
     raylib
+    glfw
     JsonCpp::JsonCpp
 )
