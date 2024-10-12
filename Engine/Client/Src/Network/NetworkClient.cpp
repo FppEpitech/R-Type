@@ -5,13 +5,6 @@
 ** NetworkClient
 */
 
-#ifdef _WIN32
-    #define ON_LINUX false
-#else
-    #define ON_LINUX true
-#endif
-
-
 #include "NetworkClient.hpp"
 
 Network::Client::Client(const std::string& server_ip, int tcp_port, int udp_port)
@@ -58,10 +51,8 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
         this->sendMessage(initPacket);
         _startReceive(reg);
 
-        if (ON_LINUX) {
-            std::thread io_thread([this]() { _io_context->run(); });
-            io_thread.detach();
-        }
+        //auto client_thread = std::make_shared<std::thread>([this]() { _io_context->run(); });
+        //client_thread->detach();
     } catch (const std::exception& e) {
         std::cerr << "Error during connection: " << e.what() << std::endl;
     }
