@@ -5,7 +5,13 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_STANDARD 20)
 
 # Set the output directory for the library
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
 
 find_package(jsoncpp REQUIRED)
 
@@ -140,6 +146,8 @@ add_library(system_initConnectButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/NetworkConnectionComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
     ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
@@ -152,6 +160,7 @@ add_library(system_initConnectButton SHARED
     ../Parser/ButtonStateParser/ButtonStateParser.cpp
     ../Parser/ColourParser/ColourParser.cpp
     ../Parser/Size1DParser/Size1DParser.cpp
+    ../Parser/DefaultTextParser/DefaultTextParser.cpp
     ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
 )
 target_link_libraries(system_initConnectButton PRIVATE JsonCpp::JsonCpp)

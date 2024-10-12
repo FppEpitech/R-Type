@@ -41,7 +41,8 @@ void MoveEntitiesSystem::_moveEntities(ECS::Registry& reg, int idxPacketEntities
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new MoveEntitiesSystem();
+}
 }

@@ -23,7 +23,6 @@ SET "CURRENT_DIR=%CD%"
 cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build"
 call vcvars32.bat
 
-echo "après pwd"
 cd "%CURRENT_DIR%"
 
 

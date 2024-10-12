@@ -8,7 +8,13 @@ set(CMAKE_CXX_STANDARD 20)
 set(EXE r-type_client)
 
 # Set the output directory for the executable
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/Game)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game)
+set(CMAKE_EXECUTABLE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game)
+set(CMAKE_EXECUTABLE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game)
 
 # Define source and include paths
 set(EXE_SRC_PATH "Src")
@@ -34,6 +40,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/Component/SoundPathComponent.cpp
     ../Shared/Component/SoundPitchComponent.cpp
     ../Shared/Component/SoundVolumeComponent.cpp
+    ../Shared/Component/NetworkConnectionComponent.cpp
     ../Shared/Component/SpriteSheetAnimationComponent.cpp
     ../Shared/Component/Entities/Player/PlayerComponent.cpp
 )

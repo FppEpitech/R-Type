@@ -31,6 +31,9 @@ void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketE
         Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
         SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
 
+        if (!position || !speed)
+            return;
+
         position->y -= speed->speedY;
 
         entityManager.messageType = 0x01;
@@ -58,7 +61,8 @@ void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketE
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new MoveSystemUp();
+}
 }

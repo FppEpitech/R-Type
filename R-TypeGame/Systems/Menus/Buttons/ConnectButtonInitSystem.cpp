@@ -20,6 +20,7 @@
 #include "ColourComponent.hpp"
 #include "ButtonInitSystem.hpp"
 #include "Position2DParser.hpp"
+#include "DefaultTextParser.hpp"
 #include "CallBackComponent.hpp"
 #include "FontPathComponent.hpp"
 #include "ButtonStateParser.hpp"
@@ -32,6 +33,7 @@
 #include "TextPosition2DComponent.hpp"
 #include "ButtonTexturePathParser.hpp"
 #include "ButtonTexturePathComponent.hpp"
+#include "NetworkConnectionComponent.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/connectButtonSystem.json"
 
@@ -41,7 +43,50 @@ ButtonInitSystem::ButtonInitSystem() :
 
 static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 {
-    std::cout << "Connect to server" << std::endl;
+    ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
+    ECS::SparseArray<IComponent> texturesRect = reg.get_components<IComponent>("TextureRectComponent");
+    ECS::SparseArray<IComponent> callbacks = reg.get_components<IComponent>("CallBackComponent");
+    ECS::SparseArray<IComponent> scales = reg.get_components<IComponent>("ScaleComponent");
+    ECS::SparseArray<IComponent> buttonTexturePaths = reg.get_components<IComponent>("ButtonTexturePathComponent");
+    ECS::SparseArray<IComponent> buttonText = reg.get_components<IComponent>("TextComponent");
+    ECS::SparseArray<IComponent> buttonDefaultText = reg.get_components<IComponent>("DefaultTextComponent");
+    ECS::SparseArray<IComponent> buttonNetworkConnection = reg.get_components<IComponent>("NetworkConnectionComponent");
+
+    std::string ipServer = "";
+    std::string portServer = "";
+    ECS::entity_t entityConnection = 0;
+
+    for (ECS::entity_t entity = 0; positions.size() >= entity + 1 && texturesRect.size() >= entity + 1 && callbacks.size() >= entity + 1 && scales.size() >= entity + 1 && buttonTexturePaths.size() >= entity + 1; entity++) {
+        std::shared_ptr<Position2DComponent> position = std::dynamic_pointer_cast<Position2DComponent>(positions[entity]);
+        std::shared_ptr<TextureRectComponent> textureRect = std::dynamic_pointer_cast<TextureRectComponent>(texturesRect[entity]);
+        std::shared_ptr<CallBackComponent> callback = std::dynamic_pointer_cast<CallBackComponent>(callbacks[entity]);
+        std::shared_ptr<ScaleComponent> scale = std::dynamic_pointer_cast<ScaleComponent>(scales[entity]);
+        std::shared_ptr<ButtonTexturePathComponent> buttonTexturePath = std::dynamic_pointer_cast<ButtonTexturePathComponent>(buttonTexturePaths[entity]);
+        std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(buttonText[entity]);
+        std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(buttonDefaultText[entity]);
+        if (!position || !textureRect || !callback || !scale || !buttonTexturePath || !text || !defaultText)
+            continue;
+        if (defaultText->text == "Write the server IP")
+            ipServer = text->text;
+        if (defaultText->text == "Write the server Port")
+            portServer = text->text;
+    }
+    for (ECS::entity_t entity = 0; buttonNetworkConnection.size() >= entity + 1 && buttonDefaultText.size() >= entity + 1; entity++) {
+        std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(buttonDefaultText[entity]);
+        std::shared_ptr<NetworkConnectionComponent> connection = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[entity]);
+        if (!connection || !defaultText)
+            continue;
+        if (defaultText->text == "Connect to server")
+            entityConnection = entity;
+    }
+    if (buttonNetworkConnection.size() <= entityConnection)
+        return;
+    std::shared_ptr<NetworkConnectionComponent> network = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[entityConnection]);
+    if (!network)
+        return;
+    network->connect = true;
+    network->serverPort = portServer;
+    network->serverIp = ipServer;
 }
 
 static void handleOther(ECS::Registry& reg, int idxPacketEntities)
@@ -78,6 +123,15 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(font->getType());
         reg.set_component<IComponent>(idxPacketEntities, font, font->getType());
     }
+
+    std::shared_ptr<DefaultTextComponent> defaultText = parseDefaultText(PATH_JSON);
+    if (defaultText) {
+        reg.register_component<IComponent>(defaultText->getType());
+        reg.set_component<IComponent>(idxPacketEntities, defaultText, defaultText->getType());
+    }
+
+    reg.register_component<IComponent>("NetworkConnectionComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<NetworkConnectionComponent>(), "NetworkConnectionComponent");
 
     std::shared_ptr<Size1DComponent> size1D = parseSize1D(PATH_JSON);
     if (size1D) {
@@ -135,7 +189,8 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new ButtonInitSystem();
+}
 }

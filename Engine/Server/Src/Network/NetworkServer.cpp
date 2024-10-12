@@ -21,8 +21,8 @@ void Network::Server::start(MessageHandler callback, std::shared_ptr<ECS::Regist
     this->_messageHandler = std::move(callback);
     _startAccept(reg);
     _startReceive(reg);
-    std::thread server_thread([this]() { _io_context->run(); });
-    server_thread.detach();
+    std::thread server_thread([this]() { _io_context->run(); });                // Here in the client we use a if statement to check if the OS is Linux
+    server_thread.detach();                                                     // but if I do that here, The server will not run on Windows
 }
 
 uint32_t Network::Server::_generateToken(void)
@@ -47,13 +47,14 @@ void Network::Server::_startAccept(std::shared_ptr<ECS::Registry> reg)
 
                 bool tokenAssigned = false;
 
-                ECS::SparseArray<IComponent> PlayerComponentArray = reg->get_components<IComponent>("PlayerComponent");
-                int idxPlayerComponent = 0;
+                ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+                int idxPlayerComponent = -1;
                 for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
                     PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+                    if (player)
+                        idxPlayerComponent++;
                     if (player && player->token == 0) {
                         player->token = token;
-                        idxPlayerComponent = index;
                         tokenAssigned = true;
                         break;
                     }

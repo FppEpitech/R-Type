@@ -1,14 +1,6 @@
 {
     "keyBinds": [
         {
-            "key": "KEY_APOSTROPHE",
-            "path" : ""
-        },
-        {
-            "key": "KEY_K",
-            "path" : "testScene.json"
-        },
-        {
             "key": "KEY_D",
             "path" : "libsystem_moveRight.so"
         },

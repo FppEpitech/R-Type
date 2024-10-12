@@ -7,6 +7,9 @@
 
 #include "Application.hpp"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 void GameEngine::Application::_handleArrowKey(uint8_t keyCode, int idxPlayerPacket)
 {
@@ -138,8 +141,24 @@ GameEngine::Application::Application()
     }, _registries);
 }
 
+bool GameEngine::Application::noPlayerConnected()
+{
+    ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
+    for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+        PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+        if (player && player->token != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void GameEngine::Application::run()
 {
-    while (true)
-        _registries->run_systems(-1);
+    while (true) {
+        if (!noPlayerConnected())
+            _registries->run_systems(-1);
+        else
+            SLEEP(0.5);
+    }
 }
