@@ -7,6 +7,9 @@
 
 #include "Application.hpp"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 void GameEngine::Application::_handleArrowKey(uint8_t keyCode, int idxPlayerPacket)
 {
@@ -154,8 +157,13 @@ bool GameEngine::Application::noPlayerConnected()
 void GameEngine::Application::run()
 {
 
-    while (noPlayerConnected())
+    while (noPlayerConnected()) {
+#ifdef _WIN32
+        Sleep(0.5);
+#else
         sleep(0.5);
+#endif
+    }
 
     while (true)
         _registries->run_systems(-1);
