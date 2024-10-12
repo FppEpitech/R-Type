@@ -40,6 +40,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/Component/SoundPathComponent.cpp
     ../Shared/Component/SoundPitchComponent.cpp
     ../Shared/Component/SoundVolumeComponent.cpp
+    ../Shared/Component/NetworkConnectionComponent.cpp
     ../Shared/Component/SpriteSheetAnimationComponent.cpp
     ../Shared/Component/Entities/Player/PlayerComponent.cpp
 )

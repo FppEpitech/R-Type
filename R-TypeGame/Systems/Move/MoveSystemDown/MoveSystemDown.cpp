@@ -31,6 +31,9 @@ void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPac
         Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
         SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
 
+        if (!position || !speed)
+            return;
+
         position->y += speed->speedY;
 
         entityManager.messageType = 0x01;

@@ -39,10 +39,12 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
         std::cout << "Connected to server with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << _token << std::dec << std::endl;
         std::cout << "Connected to server with index player component: " << _idxPlayerComponent << std::endl;
 
+        _idxPlayerServer = _idxPlayerComponent;
         ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
         for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
             PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
             if (player && player->token == 0) {
+                _idxPlayerComponent += index;
                 player->token = _token;
                 break;
             }
@@ -236,4 +238,9 @@ std::vector<uint8_t> Network::Client::_createPacket()
 int Network::Client::getIdxPlayerComponent()
 {
     return this->_idxPlayerComponent;
+}
+
+int Network::Client::getIdxPlayerServer()
+{
+    return this->_idxPlayerServer;
 }
