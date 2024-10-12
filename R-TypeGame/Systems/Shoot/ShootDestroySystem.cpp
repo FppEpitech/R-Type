@@ -39,7 +39,8 @@ void ShootDestroySystem::_shootDestroy(ECS::Registry& reg, int idxPacketEntities
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
-    return new ShootDestroySystem();
+extern "C" {
+    EXPORT_SYMBOL ISystem* loadSystemInstance() {
+        return new ShootDestroySystem();
+    }
 }

@@ -45,7 +45,9 @@ void UpdatePositionComponent::_updatePosition(Network::UDPPacket packet, ECS::Re
     }
 }
 
-extern "C" ISystemNetworkUpdate* loadUpdateInstance()
-{
-    return new UpdatePositionComponent();
+extern "C" {
+    EXPORT_SYMBOL ISystemNetworkUpdate* loadUpdateInstance() {
+        return new UpdatePositionComponent();
+    }
 }
+

@@ -14,6 +14,18 @@
 #include "../Network/Packet/NetworkPacket.hpp"
 
 /**
+ * @brief Macro to define export symbols for different platforms.
+ *
+ * On Windows, it uses `__declspec(dllexport)` to export symbols.
+ * On other platforms, it leaves the symbol definition empty.
+ */
+#ifdef _WIN32
+    #define EXPORT_SYMBOL __declspec(dllexport)
+#else
+    #define EXPORT_SYMBOL
+#endif
+
+/**
  * @brief Interface class for network update systems.
  *
  */

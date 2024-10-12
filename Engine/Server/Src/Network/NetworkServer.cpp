@@ -21,8 +21,8 @@ void Network::Server::start(MessageHandler callback, ECS::Registry& reg)
     this->_messageHandler = std::move(callback);
     _startAccept(reg);
     _startReceive(reg);
-    std::thread server_thread([this]() { _io_context->run(); });
-    server_thread.detach();
+    std::thread server_thread([this]() { _io_context->run(); });                // Here in the client we use a if statement to check if the OS is Linux
+    server_thread.detach();                                                     // but if I do that here, The server will not run on Windows
 }
 
 uint32_t Network::Server::_generateToken(void)

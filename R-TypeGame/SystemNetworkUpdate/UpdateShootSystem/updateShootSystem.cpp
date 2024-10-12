@@ -48,7 +48,8 @@ void UpdateShootSystem::_updateShootSystem(Network::UDPPacket packet, ECS::Regis
     }
 }
 
-extern "C" ISystemNetworkUpdate* loadUpdateInstance()
-{
-    return new UpdateShootSystem();
+extern "C" {
+    EXPORT_SYMBOL ISystemNetworkUpdate* loadUpdateInstance() {
+        return new UpdateShootSystem();
+    }
 }

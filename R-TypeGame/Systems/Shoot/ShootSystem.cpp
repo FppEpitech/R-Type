@@ -52,7 +52,8 @@ void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
-    return new ShootSystem();
+extern "C" {
+    EXPORT_SYMBOL ISystem* loadSystemInstance() {
+        return new ShootSystem();
+    }
 }

@@ -3,7 +3,7 @@
 	{
 		"allPaths" : 
 		{
-			"achromatopsia" : "./Assets/fsFile/achromatopsie.fs",
+			"achromatopsie" : "./Assets/fsFile/achromatopsie.fs",
 			"deuteranomalie" : "./Assets/fsFile/deuteranomalie.fs",
 			"deuteranopie" : "./Assets/fsFile/deuteranopie.fs",
 			"protanomalie" : "./Assets/fsFile/protanomalie.fs",

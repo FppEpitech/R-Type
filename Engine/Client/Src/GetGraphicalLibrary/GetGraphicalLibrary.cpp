@@ -17,13 +17,10 @@ static std::string getPathGraphicalLib()
     std::string path = PATH_GRAPHIC_LIB;
 
     for (const auto& file : std::filesystem::directory_iterator(path)) {
-        std::string prefix = path + "libgraphic_";
-        std::string suffix = LIB_SUFFIX;
-
         std::string libPath = file.path().string();
-        if (libPath.length() < prefix.size() + suffix.size())
+        if (libPath.find("graphic_") == std::string::npos)
             continue;
-        if (libPath.find(prefix) == 0 && libPath.find(suffix, libPath.length() - 4) != std::string::npos)
+        if (libPath.find(LIB_SUFFIX) != std::string::npos)
             return libPath;
     }
     return "";

@@ -79,7 +79,7 @@ void SceneManager::ASceneManager::_loadSceneKeys(Json::Value root, std::size_t i
         if (key and path) {
             if (path.asString().find(CONFIG_SUFFIX) != std::string::npos)
                 _loadSceneKeysJson(key.asString(), path.asString(), index);
-            else if (path.asString().find(LIB_SUFFIX) != std::string::npos)
+            else if (path.asString().find(".so") != std::string::npos) // In ours scene files, we write the lib in .so format even on windows
                 _loadSceneKeysSystem(key.asString(), path.asString(), index);
         } else
             throw SceneManagerJsonErrors("Error while loading the key: " + key.asString());

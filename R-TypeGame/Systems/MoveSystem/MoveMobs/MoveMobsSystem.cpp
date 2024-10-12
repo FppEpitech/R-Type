@@ -45,7 +45,8 @@ void MoveMobsSystem::_moveMobs(ECS::Registry& reg, int idxPacketMobs)
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
-    return new MoveMobsSystem();
+extern "C" {
+    EXPORT_SYMBOL ISystem* loadSystemInstance() {
+        return new MoveMobsSystem();
+    }
 }

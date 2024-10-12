@@ -59,7 +59,8 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new MoveSystemRight();
+}
 }

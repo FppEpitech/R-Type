@@ -58,7 +58,8 @@ void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketE
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new MoveSystemUp();
+}
 }

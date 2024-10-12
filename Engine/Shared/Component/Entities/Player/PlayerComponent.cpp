@@ -11,8 +11,3 @@ PlayerComponent::PlayerComponent(uint32_t token) :
     token(token), AComponent("PlayerComponent")
 {
 }
-
-extern "C" IComponent* loadComponentInstance()
-{
-    return new PlayerComponent();
-}
