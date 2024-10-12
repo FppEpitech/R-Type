@@ -16,8 +16,6 @@
 #include "PlayerComponent.hpp"
 #include "ClientSceneManager.hpp"
 
-# define POSITION_PLAYER_ENTITY_SERVER 8
-
 /**
  * @namespace Network
  * @brief Network-related classes and functions
