@@ -146,6 +146,8 @@ add_library(system_initConnectButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/NetworkConnectionComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
     ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
@@ -158,6 +160,7 @@ add_library(system_initConnectButton SHARED
     ../Parser/ButtonStateParser/ButtonStateParser.cpp
     ../Parser/ColourParser/ColourParser.cpp
     ../Parser/Size1DParser/Size1DParser.cpp
+    ../Parser/DefaultTextParser/DefaultTextParser.cpp
     ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
 )
 target_link_libraries(system_initConnectButton PRIVATE JsonCpp::JsonCpp)

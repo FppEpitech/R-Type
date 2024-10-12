@@ -48,12 +48,13 @@ void Network::Server::_startAccept(ECS::Registry& reg)
                 bool tokenAssigned = false;
 
                 ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
-                int idxPlayerComponent = 0;
+                int idxPlayerComponent = -1;
                 for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
                     PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+                    if (player)
+                        idxPlayerComponent++;
                     if (player && player->token == 0) {
                         player->token = token;
-                        idxPlayerComponent = index;
                         tokenAssigned = true;
                         break;
                     }
@@ -111,8 +112,8 @@ void Network::Server::_startReceive(ECS::Registry& reg)
                     if (it != _clients.end()) {
                         if (it->second == asio::ip::udp::endpoint())
                             _clients[packet.getToken()] = _remote_endpoint;
-                        // if (this->_messageHandler)
-                        //     this->_messageHandler(packet, this->_remote_endpoint, reg);
+                        if (this->_messageHandler)
+                            this->_messageHandler(packet, this->_remote_endpoint, reg);
                     }
                 } catch (const std::exception& e) {
                     _startReceive(reg);

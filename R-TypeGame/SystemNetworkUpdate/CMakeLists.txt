@@ -57,6 +57,8 @@ include_directories(
 add_library(update_position_component SHARED
     UpdatePositionSystem/updatePositionSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
 )
 find_package(asio CONFIG REQUIRED)
 target_link_libraries(update_position_component PRIVATE asio::asio JsonCpp::JsonCpp)

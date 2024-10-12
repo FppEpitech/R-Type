@@ -67,11 +67,19 @@ void Registry::setComponentsArrays(std::unordered_map <std::string, std::any> co
 void Registry::clearComponentsArray()
 {
     _components_arrays.clear();
+    _remove_functions.clear();
 }
 
 void Registry::clearSystems()
 {
     _systems.clear();
+}
+
+void Registry::clearEntities()
+{
+    _entities.clear();
+    _dead_entities.clear();
+    _next_entity = 0;
 }
 
 } // namespace ECS

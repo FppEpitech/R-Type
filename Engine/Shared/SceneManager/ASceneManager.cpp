@@ -127,6 +127,7 @@ void SceneManager::ASceneManager::_changeScene(std::pair<std::size_t, std::strin
     _keysSystems.clear();
     _registry->clearSystems();
     _registry->clearComponentsArray();
+    _registry->clearEntities();
     _initialiseDefaultComponents();
     _loadScene(scene.second, CURRENT);
 }
@@ -153,4 +154,5 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(SpriteSheetAnimationComponent().getType());
     _registry->register_component<IComponent>(PlayerComponent().getType());
     _registry->register_component<IComponent>(TextPosition2DComponent().getType());
+    _registry->register_component<IComponent>(NetworkConnectionComponent().getType());
 }
