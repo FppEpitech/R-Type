@@ -63,7 +63,9 @@ void Application::_keyboardHandler(std::size_t key)
 void Application::_connectServer()
 {
     try {
+        ECS::SparseArray<IComponent> players = this->_registry->get_components<IComponent>("PlayerComponent");
         ECS::SparseArray<IComponent> buttonNetworkConnection = this->_registry->get_components<IComponent>("NetworkConnectionComponent");
+
         for (int index = 0; index < buttonNetworkConnection.size(); index++) {
             std::shared_ptr<NetworkConnectionComponent> networkInfo = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[index]);
             if (!networkInfo)
@@ -75,6 +77,16 @@ void Application::_connectServer()
                 _client->connect([this](Network::UDPPacket packet, ECS::Registry& reg) {
                     this->_packetHandler(std::move(packet), *_registry);
                 }, *_registry);
+            }
+        }
+        if (_client == nullptr)
+            return;
+        if (_client->getIdxPlayerComponent() != -1 && _client->getIdxPlayerComponent() < players.size()) {
+            std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(players[_client->getIdxPlayerComponent()]);
+
+            if (player && !player->isAlive) {
+                player->isAlive = true;
+                _sceneManager->_changeScene(std::make_pair<size_t, std::string>(0, "endScene.json"));
             }
         }
     } catch(const std::exception& e) {
