@@ -25,7 +25,8 @@
     },
     "ShootComponent":
     {
-        "damage": 20,
-        "friendlyFire": true
+        "damage": 1,
+        "friendlyFire": true,
+        "type": "Player"
     }
 }

@@ -20,13 +20,14 @@
     },
     "VelocityComponent":
     {
-        "vx": -2,
+        "vx": -200,
         "vy": 0
     },
     "ShootComponent":
     {
         "damage": 20,
-        "friendlyFire": true
+        "friendlyFire": true,
+        "type": "Mob"
     },
     "ColourComponent":{
         "r":0,

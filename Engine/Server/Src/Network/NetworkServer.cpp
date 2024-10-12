@@ -15,7 +15,7 @@ Network::Server::Server(int tcp_port, int udp_port)
     _messageId = 0x0000;
 }
 
-void Network::Server::start(MessageHandler callback, ECS::Registry& reg)
+void Network::Server::start(MessageHandler callback, std::shared_ptr<ECS::Registry> reg)
 {
     std::cout << "Server running on TCP port 4444 and UDP port 4445..." << std::endl;
     this->_messageHandler = std::move(callback);
@@ -34,11 +34,11 @@ uint32_t Network::Server::_generateToken(void)
     return distrib(gen);
 }
 
-void Network::Server::_startAccept(ECS::Registry& reg)
+void Network::Server::_startAccept(std::shared_ptr<ECS::Registry> reg)
 {
     auto socket = std::make_shared<asio::ip::tcp::socket>(*_io_context);
 
-    _tcp_acceptor->async_accept(*socket, [this, socket, &reg](const asio::error_code& error) {
+    _tcp_acceptor->async_accept(*socket, [this, socket, reg](const asio::error_code& error) {
         if (!error) {
             try {
                 uint32_t token = _generateToken();
@@ -47,7 +47,7 @@ void Network::Server::_startAccept(ECS::Registry& reg)
 
                 bool tokenAssigned = false;
 
-                ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+                ECS::SparseArray<IComponent> PlayerComponentArray = reg->get_components<IComponent>("PlayerComponent");
                 int idxPlayerComponent = -1;
                 for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
                     PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
@@ -98,10 +98,10 @@ void Network::Server::_startRead(std::shared_ptr<asio::ip::tcp::socket> socket, 
         });
 }
 
-void Network::Server::_startReceive(ECS::Registry& reg)
+void Network::Server::_startReceive(std::shared_ptr<ECS::Registry> reg)
 {
     _udp_socket->async_receive_from(asio::buffer(_recv_buffer), _remote_endpoint,
-        [this, &reg](const asio::error_code& error, std::size_t bytes_recvd) {
+        [this, reg](const asio::error_code& error, std::size_t bytes_recvd) {
             if (!error && bytes_recvd > 0) {
                 try {
                     std::string message(_recv_buffer.data(), bytes_recvd);
@@ -120,7 +120,8 @@ void Network::Server::_startReceive(ECS::Registry& reg)
                 }
             }
             _startReceive(reg);
-        });
+        }
+    );
 }
 
 void Network::Server::sendMessage(std::vector<uint8_t>& packet, const asio::ip::udp::endpoint& endpoint)

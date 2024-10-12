@@ -93,7 +93,7 @@ class Application {
          * @param endpoint Endpoint of the client who send the packet.
          * @param reg Registry with list of Component and system.
          */
-        void _packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, ECS::Registry& reg);
+        void _packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg);
 
         /**
          * @brief Check if no player are connected.

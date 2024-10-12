@@ -14,12 +14,13 @@
         "height": 66
     },
     "ScaleComponent": 4,
+    "LifeComponent":1000,
     "Position2DComponent": {
         "x": 2500,
         "y": 350
     },
     "VelocityComponent": {
-        "vx": -1,
+        "vx": -100,
         "vy": 0
     },
     "SpriteSheetAnimationComponent":
