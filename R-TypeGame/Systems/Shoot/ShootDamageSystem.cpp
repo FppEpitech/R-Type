@@ -75,7 +75,9 @@ static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootTyp
                 else
                     entityLife->life -= shootComp->damage;
                 if (entityLife->life == 0) {
-                    reg.kill_entity(entity);
+                    if (!std::is_same_v<TYPE,PlayerComponent>)
+                        // Remove this condition when the segfault will be fixed so that the player components can be deleted
+                        reg.kill_entity(entity);
                 }
                 reg.kill_entity(shoot);
             }
