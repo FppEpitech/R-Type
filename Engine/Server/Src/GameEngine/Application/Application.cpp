@@ -156,9 +156,10 @@ bool GameEngine::Application::noPlayerConnected()
 
 void GameEngine::Application::run()
 {
-    while (noPlayerConnected())
-        SLEEP(0.5);
-
-    while (true)
-        _registries->run_systems(-1);
+    while (true) {
+        if (!noPlayerConnected())
+            _registries->run_systems(-1);
+        else
+            SLEEP(0.5);
+    }
 }
