@@ -17,17 +17,17 @@
 ShootDamageSystem::ShootDamageSystem() :
     ASystem("ShootDamageSystem") {}
 
-static bool isColliding(
+static bool isColliding(float rectRatio,
         std::shared_ptr<Position2DComponent> pos1, std::shared_ptr<ScaleComponent> scale1, std::shared_ptr<TextureRectComponent> texture1,
         std::shared_ptr<Position2DComponent> pos2, std::shared_ptr<ScaleComponent> scale2, std::shared_ptr<TextureRectComponent> texture2)
 {
     if (!pos1 || !scale1 || !texture1 || !pos2 || !scale2 || !texture2)
         return false;
-    std::vector<float> mob = {
-        pos1->x,
-        pos1->x + texture1->width * scale1->scale,
-        pos1->y,
-        pos1->y + texture1->height * scale1->scale
+    std::vector<float> entity = {
+        pos1->x + texture1->width * scale1->scale * (1 - rectRatio),
+        pos1->x + texture1->width * scale1->scale * rectRatio,
+        pos1->y + texture1->height * scale1->scale * (1 - rectRatio),
+        pos1->y + texture1->height * scale1->scale * rectRatio
     };
     std::vector<float> shoot = {
         pos2->x,
@@ -37,8 +37,8 @@ static bool isColliding(
     };
     for (int i = 0; i < 2; ++i) {
         for (int j = 2; j < 4; ++j) {
-            if ((mob[i] >= shoot[0] && mob[i] <= shoot[1] && mob[j] >= shoot[2] && mob[j] <= shoot[3]) ||
-                (shoot[i] >= mob[0] && shoot[i] <= mob[1] && shoot[j] >= mob[2] && shoot[j] <= mob[3])) {
+            if ((entity[i] >= shoot[0] && entity[i] <= shoot[1] && entity[j] >= shoot[2] && entity[j] <= shoot[3]) ||
+                (shoot[i] >= entity[0] && shoot[i] <= entity[1] && shoot[j] >= entity[2] && shoot[j] <= entity[3])) {
                 return true;
             }
         }
@@ -47,7 +47,7 @@ static bool isColliding(
 }
 
 template <typename TYPE>
-static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootType,
+static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootType, float rectRatio,
             ECS::SparseArray<IComponent> entities, ECS::SparseArray<IComponent> shoots,
             ECS::SparseArray<IComponent> positions, ECS::SparseArray<IComponent> textures,
             ECS::SparseArray<IComponent> scales, ECS::SparseArray<IComponent> lives)
@@ -67,17 +67,17 @@ static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootTyp
             std::shared_ptr<ScaleComponent> shootScale = std::dynamic_pointer_cast<ScaleComponent>(scales[shoot]);
             if (!shootComp || !shootPos || !shootTexture || !shootScale)
                 continue;
-            if (std::is_same<TYPE, MobComponent>::value)
-                std::cout << "ShootType: " << shootComp->type << std::endl;
             if (shootComp->type != shootType)
                 continue;
-            if (isColliding(entityPos, entityScale, entityTexture, shootPos, shootScale, shootTexture)) {
-                std::cout << "Colliding" << std::endl;
-                entityLife->life -= shootComp->damage;
-                if (entityLife->life <= 0) {
+            if (isColliding(rectRatio, entityPos, entityScale, entityTexture, shootPos, shootScale, shootTexture)) {
+                if (entityLife->life - shootComp->damage <= 0)
+                    entityLife->life = 0;
+                else
+                    entityLife->life -= shootComp->damage;
+                if (entityLife->life == 0) {
                     reg.kill_entity(entity);
-                    reg.kill_entity(shoot);
                 }
+                reg.kill_entity(shoot);
             }
         }
     }
@@ -94,12 +94,9 @@ void ShootDamageSystem::_shootDamage(ECS::Registry &reg, int idxPacketEntities)
         ECS::SparseArray<IComponent> scales = reg.get_components<IComponent>("ScaleComponent");
         ECS::SparseArray<IComponent> lives = reg.get_components<IComponent>("LifeComponent");
 
-        std::cout << "shoot array of components size: " << shoots.size() << std::endl;
-
-        areEntityShot<MobComponent>(reg, ShootComponent::ShootType::PLAYER, mobs, shoots, positions, textures, scales, lives);
-        areEntityShot<PlayerComponent>(reg, ShootComponent::ShootType::MOB, players, shoots, positions, textures, scales, lives);
+        areEntityShot<MobComponent>(reg, ShootComponent::ShootType::PLAYER, 0.8, mobs, shoots, positions, textures, scales, lives);
+        areEntityShot<PlayerComponent>(reg, ShootComponent::ShootType::MOB, 1.0, players, shoots, positions, textures, scales, lives);
     } catch (const std::exception &e) {
-        std::cerr << "Error in ShootDamage system: " << e.what() << std::endl;
     }
 }
 
