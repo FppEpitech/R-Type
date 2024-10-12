@@ -1,0 +1,16 @@
+{
+    "TextureRectComponent":
+    {
+        "path":"./Assets/from_noware.png",
+        "left": 0,
+        "top": 0,
+        "width": 831,
+        "height": 323
+    },
+    "ScaleComponent": 1,
+    "Position2DComponent":
+    {
+        "x": 544.5,
+        "y": 378.5
+    }
+}
