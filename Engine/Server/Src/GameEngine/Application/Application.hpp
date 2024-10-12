@@ -11,6 +11,12 @@
 #include "NetworkServer.hpp"
 #include "ServerSceneManager.hpp"
 
+#ifdef _WIN32
+        #define SLEEP(x) Sleep(x)
+#else
+        #define SLEEP(x) sleep(x)
+#endif
+
 /**
  * @brief GameEngine namespace handle all
  * classes of the GameEngine part of the server.
