@@ -33,8 +33,10 @@ void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketE
 
         if (!position || !speed)
             return;
-
-        position->y -= speed->speedY;
+        if (position->y - speed->speedY < 0)
+            position->y = 0;
+        else
+            position->y -= speed->speedY;
 
         entityManager.messageType = 0x01;
         entityManager.payload.clear();
