@@ -20,11 +20,13 @@ class PlayerComponent : public AComponent {
     public:
 
         uint32_t token; // Token of player.
+        bool isAlive; // Is player alive.
 
         /**
          * @brief Construct a new PlayerComponent Component object.
          *
          * @param token of player.
+         * @param isAlive of player.
          */
-        PlayerComponent(uint32_t token = 0x00000000);
+        PlayerComponent(uint32_t token = 0x00000000, bool isAlive = true);
 };

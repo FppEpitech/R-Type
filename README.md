@@ -207,7 +207,7 @@ First, download the repository from GitHub:
 git clone git@github.com:FppEpitech/R-Type.git
 ```
 
-After that, go to our `tools` folder and run the `install-linux.sh` or `install-windows.bat` script:
+After that, run the `install-linux.sh` or `install-windows.bat` script in the `tools`folder:
 **For Linux:**
 ```bash
 chmod +x ./tools/install-linux.sh
@@ -238,8 +238,9 @@ or
 
 Once the build is done, you can go into our `Game folder` and run the server or the client:
 
-```bash
-cd build
+```
+cd Game
+```
 
 For the server:
 ```bash
@@ -250,6 +251,16 @@ For the client:
 ```bash
 ./r-type_client #or .\r-type_client.exe
 ```
+
+Once the client is launch, you will be front of the main menu, you can write an IP address and a port to connect to a server.
+After that, you can click on the `Connect` button to join the server.
+
+![Main Menu](https://imgur.com/7lYBMrh)
+
+After that, you will be able to play the game with your friends.
+
+![Playable](https://imgur.com/2yeC7fE)
+
 ## How to launch tests ?
 First, download the repository from Github, then compile it with:
 ```

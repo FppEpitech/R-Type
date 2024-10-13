@@ -14,6 +14,7 @@
 #include "../Interface/ISystem.hpp"
 #include "../Enum/StringKeyMap.hpp"
 #include "TextComponent.hpp"
+#include "DrawComponent.hpp"
 #include "ScaleComponent.hpp"
 #include "ColourComponent.hpp"
 #include "Size1DComponent.hpp"
@@ -31,6 +32,7 @@
 #include "TexturePathComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "TextPosition2DComponent.hpp"
+#include "NetworkConnectionComponent.hpp"
 #include "SpriteSheetAnimationComponent.hpp"
 #include "PlayerComponent.hpp"
 #include "../Network/Packet/NetworkPacket.hpp"
@@ -80,6 +82,12 @@ namespace SceneManager {
              * @return true if the packet has been processed, false otherwise.
              */
             bool processUpdate(std::string componentType, Network::UDPPacket packet);
+
+            /**
+             * @brief Change the current scene.
+             * @param scene Scene to load.
+             */
+            void _changeScene(std::pair<std::size_t, std::string> scene);
 
         protected:
 
@@ -160,12 +168,6 @@ namespace SceneManager {
              * @param index Index of the registry to load the scene.
              */
             void _loadNetworkUpdateSystem(Json::Value root, std::size_t index);
-
-            /**
-             * @brief Change the current scene.
-             * @param scene Scene to load.
-             */
-            void _changeScene(std::pair<std::size_t, std::string> scene);
 
             /**
              * @brief Initialise the default components of the scene manager.

@@ -7,6 +7,11 @@
 
 #include "MoveSystemDown.hpp"
 
+#include <fstream>
+#include <json/json.h>
+
+#define SETTINGS_PATH "./Config/Settings.json"
+
 MoveSystemDown::MoveSystemDown() :
     ASystem("MovementUpSystem")
 {
@@ -22,16 +27,44 @@ std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemDown::g
 void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPacketEntities)
 {
     try {
+        ECS::SparseArray<IComponent> DrawComponentArray = entityManager.get_components<IComponent>("DrawComponent");
+        if (DrawComponentArray.size() <= idxPacketEntities)
+            return;
+        DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[idxPacketEntities].get());
+        if (!draw || !draw->draw)
+            return;
+
         ECS::SparseArray<IComponent> PositionComponentArray = entityManager.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> SpeedComponentArray = entityManager.get_components<IComponent>("SpeedComponent");
+        ECS::SparseArray<IComponent> texturesRectComponents = entityManager.get_components<IComponent>("TextureRectComponent");
+        ECS::SparseArray<IComponent> ScaleComponents = entityManager.get_components<IComponent>("ScaleComponent");
 
-        if (PositionComponentArray.size() <= idxPacketEntities || SpeedComponentArray.size() <= idxPacketEntities)
+        if (PositionComponentArray.size() <= idxPacketEntities || SpeedComponentArray.size() <= idxPacketEntities ||
+        texturesRectComponents.size() <= idxPacketEntities || ScaleComponents.size() <= idxPacketEntities)
             return;
 
         Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
         SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
+        TextureRectComponent* textureRect = dynamic_cast<TextureRectComponent*>(texturesRectComponents[idxPacketEntities].get());
+        ScaleComponent* scale = dynamic_cast<ScaleComponent*>(ScaleComponents[idxPacketEntities].get());
 
-        position->y += speed->speedY;
+        if (!position || !speed || !textureRect || !scale)
+            return;
+
+        Json::Value root;
+        Json::Reader reader;
+        std::ifstream file(SETTINGS_PATH);
+        std::vector<std::pair<int, int>> allResolutions;
+        if (!reader.parse(file, root, false))
+            return;
+        int index = root["window"]["resolutionIndex"].asInt();
+        if (root["window"]["resolutions"].size() <= index)
+            return;
+
+        if (position->y + speed->speedY + textureRect->height * scale->scale > root["window"]["resolutions"][index]["h"].asInt())
+            position->y = root["window"]["resolutions"][index]["h"].asInt() - textureRect->height * scale->scale;
+        else
+            position->y += speed->speedY;
 
         entityManager.messageType = 0x01;
         entityManager.payload.clear();
@@ -58,7 +91,8 @@ void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPac
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new MoveSystemDown();
+}
 }

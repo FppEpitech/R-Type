@@ -20,12 +20,13 @@
     },
     "VelocityComponent":
     {
-        "vx": 5,
+        "vx": 600,
         "vy": 0
     },
     "ShootComponent":
     {
-        "damage": 20,
-        "friendlyFire": true
+        "damage": 1,
+        "friendlyFire": true,
+        "type": "Player"
     }
 }

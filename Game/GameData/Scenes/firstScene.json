@@ -1,14 +1,6 @@
 {
     "keyBinds": [
         {
-            "key": "KEY_APOSTROPHE",
-            "path" : ""
-        },
-        {
-            "key": "KEY_K",
-            "path" : "testScene.json"
-        },
-        {
             "key": "KEY_D",
             "path" : "libsystem_moveRight.so"
         },
@@ -50,7 +42,8 @@
         "libsystem_restartPlanet.so",
         "libsystem_shoot_mob.so",
         "libsystem_moveMobs.so",
-        "libsystem_restartPlanet.so"
+        "libsystem_restartPlanet.so",
+        "libsystem_shootDamage.so"
     ],
     "networkUpdate": [
         {
@@ -60,6 +53,10 @@
         {
             "component": "ShootSystem",
             "path": "libupdate_shoot_system.so"
+        },
+        {
+            "component": "DrawComponent",
+            "path": "libupdate_playerConnection_system.so"
         }
     ],
     "menus": {

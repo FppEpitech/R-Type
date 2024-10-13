@@ -15,14 +15,14 @@ Network::Server::Server(int tcp_port, int udp_port)
     _messageId = 0x0000;
 }
 
-void Network::Server::start(MessageHandler callback, ECS::Registry& reg)
+void Network::Server::start(MessageHandler callback, std::shared_ptr<ECS::Registry> reg)
 {
     std::cout << "Server running on TCP port 4444 and UDP port 4445..." << std::endl;
     this->_messageHandler = std::move(callback);
     _startAccept(reg);
     _startReceive(reg);
-    std::thread server_thread([this]() { _io_context->run(); });
-    server_thread.detach();
+    std::thread server_thread([this]() { _io_context->run(); });                // Here in the client we use a if statement to check if the OS is Linux
+    server_thread.detach();                                                     // but if I do that here, The server will not run on Windows
 }
 
 uint32_t Network::Server::_generateToken(void)
@@ -34,11 +34,11 @@ uint32_t Network::Server::_generateToken(void)
     return distrib(gen);
 }
 
-void Network::Server::_startAccept(ECS::Registry& reg)
+void Network::Server::_startAccept(std::shared_ptr<ECS::Registry> reg)
 {
     auto socket = std::make_shared<asio::ip::tcp::socket>(*_io_context);
 
-    _tcp_acceptor->async_accept(*socket, [this, socket, &reg](const asio::error_code& error) {
+    _tcp_acceptor->async_accept(*socket, [this, socket, reg](const asio::error_code& error) {
         if (!error) {
             try {
                 uint32_t token = _generateToken();
@@ -47,14 +47,40 @@ void Network::Server::_startAccept(ECS::Registry& reg)
 
                 bool tokenAssigned = false;
 
-                ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
-                int idxPlayerComponent = 0;
+                ECS::SparseArray<IComponent> PlayerComponentArray = reg->get_components<IComponent>("PlayerComponent");
+                ECS::SparseArray<IComponent> DrawComponentArray = reg->get_components<IComponent>("DrawComponent");
+
+                int idxPlayerComponent = -1;
                 for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
                     PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+                    if (player)
+                        idxPlayerComponent++;
                     if (player && player->token == 0) {
                         player->token = token;
-                        idxPlayerComponent = index;
                         tokenAssigned = true;
+                        if (index < DrawComponentArray.size()) {
+                            DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[index].get());
+                            if (draw)
+                                draw->draw = true;
+
+                            reg->messageType = 0x01;
+                            reg->payload.clear();
+                            std::string componentType = "DrawComponent";
+                            reg->payload.push_back(static_cast<uint8_t>(componentType.size()));
+                            reg->payload.insert(reg->payload.end(), componentType.begin(), componentType.end());
+                            reg->payload.push_back(static_cast<uint8_t>(index >> 24) & 0xFF);
+                            reg->payload.push_back(static_cast<uint8_t>((index >> 16) & 0xFF));
+                            reg->payload.push_back(static_cast<uint8_t>((index >> 8) & 0xFF));
+                            reg->payload.push_back(static_cast<uint8_t>((index) & 0xFF));
+                            bool drawable = true;
+                            uint8_t* xBytes = reinterpret_cast<uint8_t*>(&drawable);
+                            reg->payload.insert(reg->payload.end(), xBytes, xBytes + sizeof(bool));
+                            std::vector<uint8_t> packet = createPacket(reg->messageType, reg->payload);
+                            for (auto it = getClientsList().begin(); it != getClientsList().end(); ++it) {
+                                asio::ip::udp::endpoint& endpoint = it->second;
+                                sendMessage(packet, endpoint);
+                            }
+                        }
                         break;
                     }
                 }
@@ -97,10 +123,10 @@ void Network::Server::_startRead(std::shared_ptr<asio::ip::tcp::socket> socket, 
         });
 }
 
-void Network::Server::_startReceive(ECS::Registry& reg)
+void Network::Server::_startReceive(std::shared_ptr<ECS::Registry> reg)
 {
     _udp_socket->async_receive_from(asio::buffer(_recv_buffer), _remote_endpoint,
-        [this, &reg](const asio::error_code& error, std::size_t bytes_recvd) {
+        [this, reg](const asio::error_code& error, std::size_t bytes_recvd) {
             if (!error && bytes_recvd > 0) {
                 try {
                     std::string message(_recv_buffer.data(), bytes_recvd);
@@ -109,8 +135,10 @@ void Network::Server::_startReceive(ECS::Registry& reg)
 
                     auto it = _clients.find(packet.getToken());
                     if (it != _clients.end()) {
-                        if (it->second == asio::ip::udp::endpoint())
+                        if (it->second == asio::ip::udp::endpoint()) {
                             _clients[packet.getToken()] = _remote_endpoint;
+                            _getAllClientConnected(reg, _remote_endpoint);
+                        }
                         if (this->_messageHandler)
                             this->_messageHandler(packet, this->_remote_endpoint, reg);
                     }
@@ -119,7 +147,8 @@ void Network::Server::_startReceive(ECS::Registry& reg)
                 }
             }
             _startReceive(reg);
-        });
+        }
+    );
 }
 
 void Network::Server::sendMessage(std::vector<uint8_t>& packet, const asio::ip::udp::endpoint& endpoint)
@@ -167,4 +196,33 @@ std::vector<uint8_t> Network::Server::createPacket(uint8_t messageType, const st
 std::unordered_map<uint32_t, asio::ip::udp::endpoint>& Network::Server::getClientsList()
 {
     return this->_clients;
+}
+
+void Network::Server::_getAllClientConnected(std::shared_ptr<ECS::Registry> reg, asio::ip::udp::endpoint token)
+{
+
+    ECS::SparseArray<IComponent> PlayerComponentArray = reg->get_components<IComponent>("PlayerComponent");
+    ECS::SparseArray<IComponent> DrawComponentArray = reg->get_components<IComponent>("DrawComponent");
+
+    for (std::size_t index = 0; index < PlayerComponentArray.size() && index < DrawComponentArray.size(); index++) {
+        PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+        DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[index].get());
+        if (player && player->token != 0 && draw) {
+            reg->messageType = 0x01;
+            reg->payload.clear();
+            std::string componentType = "DrawComponent";
+            reg->payload.push_back(static_cast<uint8_t>(componentType.size()));
+            reg->payload.insert(reg->payload.end(), componentType.begin(), componentType.end());
+            reg->payload.push_back(static_cast<uint8_t>(index >> 24) & 0xFF);
+            reg->payload.push_back(static_cast<uint8_t>((index >> 16) & 0xFF));
+            reg->payload.push_back(static_cast<uint8_t>((index >> 8) & 0xFF));
+            reg->payload.push_back(static_cast<uint8_t>((index) & 0xFF));
+            bool drawable = draw->draw;
+            uint8_t* xBytes = reinterpret_cast<uint8_t*>(&drawable);
+            reg->payload.insert(reg->payload.end(), xBytes, xBytes + sizeof(bool));
+            std::vector<uint8_t> packet = createPacket(reg->messageType, reg->payload);
+            asio::ip::udp::endpoint& endpoint = token;
+            sendMessage(packet, endpoint);
+        }
+    }
 }

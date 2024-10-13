@@ -7,6 +7,9 @@
 
 #include "Application.hpp"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 void GameEngine::Application::_handleArrowKey(uint8_t keyCode, int idxPlayerPacket)
 {
@@ -26,6 +29,7 @@ void GameEngine::Application::_handleArrowKey(uint8_t keyCode, int idxPlayerPack
             asio::ip::udp::endpoint& endpoint = it->second;
             this->_server->sendMessage(packet, endpoint);
         }
+        _registries->payload.clear();
     }
 }
 
@@ -50,6 +54,7 @@ void GameEngine::Application::_handleAlphaKey(uint8_t keyCode, int idxPlayerPack
             asio::ip::udp::endpoint& endpoint = it->second;
             this->_server->sendMessage(packet, endpoint);
         }
+        _registries->payload.clear();
     }
 }
 
@@ -70,6 +75,7 @@ void GameEngine::Application::_handleNumberKey(uint8_t keyCode, int idxPlayerPac
             asio::ip::udp::endpoint& endpoint = it->second;
             this->_server->sendMessage(packet, endpoint);
         }
+        _registries->payload.clear();
     }
 }
 
@@ -92,14 +98,14 @@ void GameEngine::Application::_handleSpecialKey(uint8_t keyCode, int idxPlayerPa
             asio::ip::udp::endpoint& endpoint = it->second;
             this->_server->sendMessage(packet, endpoint);
         }
+        _registries->payload.clear();
     }
 }
 
-void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, ECS::Registry& reg)
+void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg)
 {
     int idxPlayerPacket = -1;
-
-    ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+    ECS::SparseArray<IComponent> PlayerComponentArray = reg->get_components<IComponent>("PlayerComponent");
     for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
         PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
         if (player && player->token == packet.getToken()) {
@@ -134,13 +140,41 @@ GameEngine::Application::Application()
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
 
     _server = std::make_shared<Network::Server>(4444, 4445);
-    _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, ECS::Registry& reg) {
-        this->_packetHandler(std::move(packet), endpoint, *_registries);
-    }, *_registries);
+    _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg) {
+        this->_packetHandler(std::move(packet), endpoint, reg);
+    }, _registries);
+}
+
+bool GameEngine::Application::noPlayerConnected()
+{
+    ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
+    for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+        PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+        if (player && player->token != 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void GameEngine::Application::run()
 {
-    while (true)
-        _registries->run_systems(-1);
+    while (true) {
+        if (!noPlayerConnected())
+            _registries->run_systems(-1);
+        else
+            SLEEP(0.5);
+        // TODO : put this in a thread for better optimization
+        if (!_registries->_queue_payload.empty()) {
+            for (std::size_t index = 0; index < _registries->_queue_payload.size() && index < _registries->_queue_messageType.size(); index++) {
+                std::vector<uint8_t> packet = this->_server->createPacket(_registries->_queue_messageType[index], this->_registries->_queue_payload[index]);
+                for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
+                    asio::ip::udp::endpoint& endpoint = it->second;
+                    this->_server->sendMessage(packet, endpoint);
+                }
+                _registries->_queue_messageType.erase(_registries->_queue_messageType.begin() + index);
+                _registries->_queue_payload.erase(_registries->_queue_payload.begin() + index);
+            }
+        }
+    }
 }

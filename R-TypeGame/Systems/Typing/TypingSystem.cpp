@@ -63,7 +63,8 @@ bool TypingSystem::_isKeyPrintable(size_t input)
     return (input >= KEY_MAP::KEY_SPACE && input <= KEY_MAP::KEY_GRAVE) || input == KEY_MAP::KEY_BACKSPACE || (input >= KEY_MAP::KEY_KP_0 && input <= KEY_MAP::KEY_KP_9);
 }
 
-extern "C" ISystem *loadSystemInstance()
-{
-    return new TypingSystem();
+extern "C" {
+    EXPORT_SYMBOL ISystem* loadSystemInstance() {
+        return new TypingSystem();
+    }
 }

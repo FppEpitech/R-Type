@@ -22,6 +22,13 @@ std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemUp::get
 void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketEntities)
 {
     try {
+        ECS::SparseArray<IComponent> DrawComponentArray = entityManager.get_components<IComponent>("DrawComponent");
+        if (DrawComponentArray.size() <= idxPacketEntities)
+            return;
+        DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[idxPacketEntities].get());
+        if (!draw || !draw->draw)
+            return;
+
         ECS::SparseArray<IComponent> PositionComponentArray = entityManager.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> SpeedComponentArray = entityManager.get_components<IComponent>("SpeedComponent");
 
@@ -31,7 +38,12 @@ void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketE
         Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
         SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
 
-        position->y -= speed->speedY;
+        if (!position || !speed)
+            return;
+        if (position->y - speed->speedY < 0)
+            position->y = 0;
+        else
+            position->y -= speed->speedY;
 
         entityManager.messageType = 0x01;
         entityManager.payload.clear();
@@ -58,7 +70,8 @@ void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketE
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new MoveSystemUp();
+}
 }

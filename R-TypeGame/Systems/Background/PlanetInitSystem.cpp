@@ -7,6 +7,7 @@
 
 #include "PlanetInitSystem.hpp"
 #include "ScaleComponent.hpp"
+#include "DrawComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "TextureRectParser.hpp"
@@ -39,7 +40,7 @@ void PlanetInitSystem::_initPlanet(ECS::Registry& reg, int idxPacketEntities)
     std::uniform_int_distribution<unsigned> distrib(0, NB_JSON - 1);
     std::uniform_int_distribution<unsigned> distribX(1920, 5000);
     std::uniform_int_distribution<unsigned> distribY(0, 1080);
-    std::uniform_real_distribution<float> distribVelocity(0.3, 1.5);
+    std::uniform_real_distribution<float> distribVelocity(30, 150);
 
     int randomJson = distrib(gen);
 
@@ -77,9 +78,13 @@ void PlanetInitSystem::_initPlanet(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(planet->getType());
         reg.set_component<IComponent>(idxPacketEntities, planet, planet->getType());
     }
+
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(), "DrawComponent");
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new PlanetInitSystem();
+}
 }

@@ -9,6 +9,7 @@
 #include "ObjPathComponent.hpp"
 #include "Position3DComponent.hpp"
 #include "ScaleComponent.hpp"
+#include "DrawComponent.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
 
@@ -26,8 +27,15 @@ void DrawOBJSystem::_drawOBJ(ECS::Registry& reg, int idxPacketEntities)
     ECS::SparseArray<IComponent> objPathComponents = reg.get_components<IComponent>("ObjPathComponent");
     ECS::SparseArray<IComponent> position3DComponents = reg.get_components<IComponent>("Position3DComponent");
     ECS::SparseArray<IComponent> scaleComponents = reg.get_components<IComponent>("ScaleComponent");
+    ECS::SparseArray<IComponent> drawComponents = reg.get_components<IComponent>("DrawComponent");
 
     for (ECS::entity_t entity = 0; objPathComponents.size() >= entity + 1; entity++) {
+        std::shared_ptr<DrawComponent> draw = (drawComponents.size() >= entity + 1) ?
+            std::dynamic_pointer_cast<DrawComponent>(drawComponents[entity]) : nullptr;
+
+        if (!draw || !draw->draw)
+            continue;
+
         std::shared_ptr<ObjPathComponent> obj = std::dynamic_pointer_cast<ObjPathComponent>(objPathComponents[entity]);
 
         std::shared_ptr<Position3DComponent> pos = (position3DComponents.size() >= entity + 1) ?

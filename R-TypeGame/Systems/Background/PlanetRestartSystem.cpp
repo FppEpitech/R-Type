@@ -7,7 +7,6 @@
 
 #include "PlanetRestartSystem.hpp"
 #include "PlanetComponent.hpp"
-#include "GetGraphicalLibrary.hpp"
 #include "UpdatePlanet.hpp"
 
 PlanetRestartSystem::PlanetRestartSystem() :
@@ -18,10 +17,6 @@ PlanetRestartSystem::PlanetRestartSystem() :
 void PlanetRestartSystem::_restartPlanet(ECS::Registry& reg, int idxPacketEntities)
 {
     try {
-        std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
-        if (!libGraphic)
-            return;
-
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> velocities = reg.get_components<IComponent>("VelocityComponent");
         ECS::SparseArray<IComponent> planets = reg.get_components<IComponent>("PlanetComponent");
@@ -43,7 +38,9 @@ void PlanetRestartSystem::_restartPlanet(ECS::Registry& reg, int idxPacketEntiti
     }
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new PlanetRestartSystem();
 }
+}
+

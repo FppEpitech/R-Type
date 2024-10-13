@@ -7,12 +7,5 @@
 
 #include "PlayerComponent.hpp"
 
-PlayerComponent::PlayerComponent(uint32_t token) :
-    token(token), AComponent("PlayerComponent")
-{
-}
-
-extern "C" IComponent* loadComponentInstance()
-{
-    return new PlayerComponent();
-}
+PlayerComponent::PlayerComponent(uint32_t token, bool isAlive)
+    : token(token), isAlive(isAlive), AComponent("PlayerComponent") {}

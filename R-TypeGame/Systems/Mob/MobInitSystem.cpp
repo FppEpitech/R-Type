@@ -5,24 +5,25 @@
 ** MobInitSystem
 */
 
-#include "SpeedComponent.hpp"
-#include "MobInitSystem.hpp"
-#include "ScaleComponent.hpp"
-#include "TextureRectComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "VelocityComponent.hpp"
-#include "MobComponent.hpp"
-#include "VelocityParser.hpp"
-#include "TextureRectParser.hpp"
-#include "ScaleParser.hpp"
-#include "Position2DParser.hpp"
-#include "SpeedParser.hpp"
 #include "MobParser.hpp"
+#include "LifeParser.hpp"
+#include "ScaleParser.hpp"
+#include "MobComponent.hpp"
+#include "DrawComponent.hpp"
+#include "MobInitSystem.hpp"
+#include "LifeComponent.hpp"
+#include "ScaleComponent.hpp"
+#include "VelocityParser.hpp"
+#include "Position2DParser.hpp"
+#include "TextureRectParser.hpp"
+#include "VelocityComponent.hpp"
+#include "Position2DComponent.hpp"
+#include "TextureRectComponent.hpp"
+#include "SpriteSheetAnimationParser.hpp"
+#include "SpriteSheetAnimationComponent.hpp"
 
 #include <fstream>
 #include <json/json.h>
-#include <SpriteSheetAnimationComponent.hpp>
-#include <SpriteSheetAnimationParser.hpp>
 
 #define PATH_JSON "GameData/Entities/Mob.json"
 
@@ -68,9 +69,21 @@ void MobInitSystem::_initMob(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(animation->getType());
         reg.set_component<IComponent>(idxPacketEntities, animation, animation->getType());
     }
+
+    std::shared_ptr<LifeComponent> life = parseLife(PATH_JSON);
+    if (life) {
+        reg.register_component<IComponent>(life->getType());
+        reg.set_component<IComponent>(idxPacketEntities, life, life->getType());
+    }
+
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(), "DrawComponent");
 }
 
-extern "C" ISystem* loadSystemInstance()
+extern "C"
 {
-    return new MobInitSystem();
+    EXPORT_SYMBOL ISystem *loadSystemInstance()
+    {
+        return new MobInitSystem();
+    }
 }

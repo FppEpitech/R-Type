@@ -7,7 +7,5 @@
 
 #include "ShootComponent.hpp"
 
-ShootComponent::ShootComponent(int damage, bool friendlyFire) :
-    damage(damage), friendlyFire(friendlyFire), AComponent("ShootComponent")
-{
-}
+ShootComponent::ShootComponent(int damage, bool friendlyFire, ShootType type) :
+    damage(damage), friendlyFire(friendlyFire), type(type), AComponent("ShootComponent") {}

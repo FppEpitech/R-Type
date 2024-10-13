@@ -5,6 +5,13 @@
 ** NetworkClient
 */
 
+#ifdef _WIN32
+    #define ON_LINUX false
+#else
+    #define ON_LINUX true
+#endif
+
+
 #include "NetworkClient.hpp"
 
 Network::Client::Client(const std::string& server_ip, int tcp_port, int udp_port)
@@ -32,11 +39,21 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
         std::cout << "Connected to server with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << _token << std::dec << std::endl;
         std::cout << "Connected to server with index player component: " << _idxPlayerComponent << std::endl;
 
+        _idxPlayerServer = _idxPlayerComponent;
         ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+        ECS::SparseArray<IComponent> DrawComponentArray = reg.get_components<IComponent>("DrawComponent");
         for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
             PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
             if (player && player->token == 0) {
+                _idxPlayerComponent += index;
                 player->token = _token;
+
+                if (_idxPlayerComponent < DrawComponentArray.size()) {
+                    DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[_idxPlayerComponent].get());
+                    if (draw)
+                        draw->draw = true;
+                }
+
                 break;
             }
         }
@@ -49,8 +66,10 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
         this->sendMessage(initPacket);
         _startReceive(reg);
 
-        std::thread io_thread([this]() { _io_context->run(); });
-        io_thread.detach();
+        if (ON_LINUX) {
+            std::thread io_thread([this]() { _io_context->run(); });
+            io_thread.detach();
+        }
     } catch (const std::exception& e) {
         std::cerr << "Error during connection: " << e.what() << std::endl;
     }
@@ -227,4 +246,9 @@ std::vector<uint8_t> Network::Client::_createPacket()
 int Network::Client::getIdxPlayerComponent()
 {
     return this->_idxPlayerComponent;
+}
+
+int Network::Client::getIdxPlayerServer()
+{
+    return this->_idxPlayerServer;
 }

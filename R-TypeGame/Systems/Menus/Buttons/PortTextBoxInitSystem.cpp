@@ -13,6 +13,7 @@
 #include "Size1DParser.hpp"
 #include "ColourParser.hpp"
 #include "TextComponent.hpp"
+#include "DrawComponent.hpp"
 #include "FontPathParser.hpp"
 #include "ScaleComponent.hpp"
 #include "Size1DComponent.hpp"
@@ -160,9 +161,13 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(buttonTexturePath->getType());
         reg.set_component<IComponent>(idxPacketEntities, buttonTexturePath, buttonTexturePath->getType());
     }
+
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(), "DrawComponent");
 }
 
-extern "C" ISystem* loadSystemInstance()
-{
+extern "C" {
+EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new ButtonInitSystem();
+}
 }

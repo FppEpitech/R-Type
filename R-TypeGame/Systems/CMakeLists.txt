@@ -5,7 +5,13 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_STANDARD 20)
 
 # Set the output directory for the library
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
 
 find_package(jsoncpp REQUIRED)
 
@@ -65,7 +71,9 @@ add_library(system_initPlayerOne SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
+    ../Components/Shoot/ShootComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/LifeParser/LifeParser.cpp
@@ -83,6 +91,7 @@ add_library(system_initPlayerTwo SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
@@ -100,6 +109,7 @@ add_library(system_initPlayerThree SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
@@ -117,6 +127,7 @@ add_library(system_initPlayerFour SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
@@ -139,6 +150,9 @@ add_library(system_initConnectButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ColourComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/NetworkConnectionComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
     ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
@@ -151,15 +165,18 @@ add_library(system_initConnectButton SHARED
     ../Parser/ButtonStateParser/ButtonStateParser.cpp
     ../Parser/ColourParser/ColourParser.cpp
     ../Parser/Size1DParser/Size1DParser.cpp
+    ../Parser/DefaultTextParser/DefaultTextParser.cpp
     ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
 )
 target_link_libraries(system_initConnectButton PRIVATE JsonCpp::JsonCpp)
 
 
 add_library(system_moveRight SHARED Move/MoveSystemRight/MoveSystemRight.cpp)
+target_link_libraries(system_moveRight PRIVATE JsonCpp::JsonCpp)
 add_library(system_moveLeft SHARED Move/MoveSystemLeft/MoveSystemLeft.cpp)
 add_library(system_moveUp SHARED Move/MoveSystemUp/MoveSystemUp.cpp)
 add_library(system_moveDown SHARED Move/MoveSystemDown/MoveSystemDown.cpp)
+target_link_libraries(system_moveDown PRIVATE JsonCpp::JsonCpp)
 add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
 
 add_library(system_shoot SHARED
@@ -169,6 +186,7 @@ add_library(system_shoot SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Shoot/ShootComponent.cpp
@@ -182,7 +200,6 @@ target_link_libraries(system_shoot PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_shootDestroy SHARED
     Shoot/ShootDestroySystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
 )
 
@@ -192,6 +209,7 @@ add_library(system_initBackground SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
@@ -204,6 +222,7 @@ add_library(system_initPlanet SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Planet/PlanetComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
@@ -215,7 +234,6 @@ target_link_libraries(system_initPlanet PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_restartPlanet SHARED
     Background/PlanetRestartSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
     Background/UpdatePlanet.cpp
 )
 
@@ -225,14 +243,18 @@ add_library(system_initMob SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Mob/MobComponent.cpp
+    ../Components/Life/LifeComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
     ../Parser/VelocityParser/VelocityParser.cpp
     ../Parser/MobParser/MobParser.cpp
-    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp)
+    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp
+    ../Parser/LifeParser/LifeParser.cpp
+)
 target_link_libraries(system_initMob PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_shoot_mob SHARED
@@ -242,6 +264,7 @@ add_library(system_shoot_mob SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Shoot/ShootComponent.cpp
@@ -271,6 +294,7 @@ add_library(system_initIpTextButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
     ../Components/Editable/EditableComponent.cpp
@@ -302,6 +326,7 @@ add_library(system_initPortTextButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
     ../Components/Editable/EditableComponent.cpp
@@ -342,3 +367,29 @@ add_library(system_handleTyping SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
 target_link_libraries(system_handleTyping PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_shootDamage SHARED
+    Shoot/ShootDamageSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ../Components/Shoot/ShootComponent.cpp
+    ../Components/Life/LifeComponent.cpp
+    ../Components/Mob/MobComponent.cpp
+    ../Parser/TextureRectParser/TextureRectParser.cpp
+    ../Parser/Position2DParser/Position2DParser.cpp
+)
+target_link_libraries(system_shootDamage PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_initEndLogo SHARED
+        Background/EndLogoInitSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
+        ../Parser/TextureRectParser/TextureRectParser.cpp
+        ../Parser/Position2DParser/Position2DParser.cpp
+        ../Parser/ScaleParser/ScaleParser.cpp
+)
+target_link_libraries(system_initEndLogo PRIVATE JsonCpp::JsonCpp)

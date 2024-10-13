@@ -200,10 +200,19 @@ class Registry {
          */
         void clearSystems();
 
+        /**
+         * @brief Clear all entities.
+         *
+         */
+        void clearEntities();
+
 
 
         uint8_t messageType = 0x00;             // Message Type
         std::vector<uint8_t> payload;    // Payload
+
+        std::vector<std::vector<uint8_t>> _queue_payload;   // Payload queue.
+        std::vector<uint8_t> _queue_messageType;            // MessageType queue
 
     private:
 

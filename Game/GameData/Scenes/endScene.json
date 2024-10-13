@@ -1,0 +1,14 @@
+{
+    "keyBinds": [
+    ],
+    "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initEndLogo.so"
+    ],
+    "systems": [
+    ],
+    "networkUpdate": [
+    ],
+    "menus": {
+    }
+}

@@ -5,7 +5,13 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_STANDARD 20)
 
 # Set the output directory for the library
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
 
 find_package(jsoncpp REQUIRED)
 
@@ -51,6 +57,8 @@ include_directories(
 add_library(update_position_component SHARED
     UpdatePositionSystem/updatePositionSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
 )
 find_package(asio CONFIG REQUIRED)
 target_link_libraries(update_position_component PRIVATE asio::asio JsonCpp::JsonCpp)
@@ -63,6 +71,7 @@ add_library(update_shoot_system SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Shoot/ShootComponent.cpp
@@ -76,3 +85,12 @@ add_library(update_shoot_system SHARED
 )
 find_package(asio CONFIG REQUIRED)
 target_link_libraries(update_shoot_system PRIVATE asio::asio JsonCpp::JsonCpp)
+
+add_library(update_playerConnection_system SHARED
+    UpdatePlayerConnectionSystem/updatePlayerConnectionSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+)
+find_package(asio CONFIG REQUIRED)
+target_link_libraries(update_playerConnection_system PRIVATE asio::asio JsonCpp::JsonCpp)
