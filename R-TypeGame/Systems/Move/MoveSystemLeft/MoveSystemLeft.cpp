@@ -34,6 +34,8 @@ void MoveSystemLeft::updateLeftPosition(ECS::Registry& entityManager, int idxPac
         if (!position || !speed)
             return;
 
+        if (position->x - speed->speedX < 0)
+            return;
         position->x = position->x - speed->speedX;
 
         entityManager.messageType = 0x01;

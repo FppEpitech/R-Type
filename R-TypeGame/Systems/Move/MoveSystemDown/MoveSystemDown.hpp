@@ -9,7 +9,9 @@
 
 #include "ISystem.hpp"
 #include "SpeedComponent.hpp"
+#include "ScaleComponent.hpp"
 #include "Position2DComponent.hpp"
+#include "TextureRectComponent.hpp"
 
 class MoveSystemDown : public ASystem
 {
