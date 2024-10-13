@@ -55,9 +55,9 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
             return;
 
         if (position->x + speed->speedX + textureRect->width * scale->scale > root["window"]["resolutions"][index]["w"].asInt())
-            return;
-
-        position->x += speed->speedX;
+            position->x = root["window"]["resolutions"][index]["w"].asInt() - textureRect->width * scale->scale;
+        else
+            position->x += speed->speedX;
 
         entityManager.messageType = 0x01;
         entityManager.payload.clear();

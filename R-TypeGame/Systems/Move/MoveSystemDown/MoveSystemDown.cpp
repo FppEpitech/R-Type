@@ -55,8 +55,9 @@ void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPac
             return;
 
         if (position->y + speed->speedY + textureRect->height * scale->scale > root["window"]["resolutions"][index]["h"].asInt())
-            return;
-        position->y += speed->speedY;
+            position->y = root["window"]["resolutions"][index]["h"].asInt() - textureRect->height * scale->scale;
+        else
+            position->y += speed->speedY;
 
         entityManager.messageType = 0x01;
         entityManager.payload.clear();
