@@ -7,6 +7,7 @@
 
 #include "MobComponent.hpp"
 #include "LifeComponent.hpp"
+#include "DrawComponent.hpp"
 #include "ScaleComponent.hpp"
 #include "ShootComponent.hpp"
 #include "PlayerComponent.hpp"
@@ -50,7 +51,8 @@ template <typename TYPE>
 static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootType, float rectRatio,
             ECS::SparseArray<IComponent> entities, ECS::SparseArray<IComponent> shoots,
             ECS::SparseArray<IComponent> positions, ECS::SparseArray<IComponent> textures,
-            ECS::SparseArray<IComponent> scales, ECS::SparseArray<IComponent> lives)
+            ECS::SparseArray<IComponent> scales, ECS::SparseArray<IComponent> lives,
+            ECS::SparseArray<IComponent> draws)
 {
     for (std::size_t entity = 0; entity < entities.size() && entity < lives.size() && entity < positions.size() && entity < textures.size() && entity < scales.size(); entity++) {
         std::shared_ptr<TYPE> entityComp = std::dynamic_pointer_cast<TYPE>(entities[entity]);
@@ -58,7 +60,8 @@ static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootTyp
         std::shared_ptr<Position2DComponent> entityPos = std::dynamic_pointer_cast<Position2DComponent>(positions[entity]);
         std::shared_ptr<TextureRectComponent> entityTexture = std::dynamic_pointer_cast<TextureRectComponent>(textures[entity]);
         std::shared_ptr<ScaleComponent> entityScale = std::dynamic_pointer_cast<ScaleComponent>(scales[entity]);
-        if (!entityComp || !entityLife || !entityPos || !entityTexture || !entityScale)
+        std::shared_ptr<DrawComponent> entityDraw = std::dynamic_pointer_cast<DrawComponent>(draws[entity]);
+        if (!entityComp || !entityLife || !entityPos || !entityTexture || !entityScale || !entityDraw || !entityDraw->draw)
             continue;
         for (std::size_t shoot = 0; shoot < shoots.size() && shoot < positions.size() && shoot < textures.size() && shoot < scales.size(); shoot++) {
             std::shared_ptr<ShootComponent> shootComp = std::dynamic_pointer_cast<ShootComponent>(shoots[shoot]);
@@ -97,9 +100,10 @@ void ShootDamageSystem::_shootDamage(ECS::Registry &reg, int idxPacketEntities)
         ECS::SparseArray<IComponent> textures = reg.get_components<IComponent>("TextureRectComponent");
         ECS::SparseArray<IComponent> scales = reg.get_components<IComponent>("ScaleComponent");
         ECS::SparseArray<IComponent> lives = reg.get_components<IComponent>("LifeComponent");
+        ECS::SparseArray<IComponent> draws = reg.get_components<IComponent>("DrawComponent");
 
-        areEntityShot<MobComponent>(reg, ShootComponent::ShootType::PLAYER, 0.8, mobs, shoots, positions, textures, scales, lives);
-        areEntityShot<PlayerComponent>(reg, ShootComponent::ShootType::MOB, 1.0, players, shoots, positions, textures, scales, lives);
+        areEntityShot<MobComponent>(reg, ShootComponent::ShootType::PLAYER, 0.8, mobs, shoots, positions, textures, scales, lives, draws);
+        areEntityShot<PlayerComponent>(reg, ShootComponent::ShootType::MOB, 1.0, players, shoots, positions, textures, scales, lives, draws);
     } catch (const std::exception &e) {
     }
 }

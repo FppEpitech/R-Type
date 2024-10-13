@@ -53,6 +53,10 @@
         {
             "component": "ShootSystem",
             "path": "libupdate_shoot_system.so"
+        },
+        {
+            "component": "DrawComponent",
+            "path": "libupdate_playerConnection_system.so"
         }
     ],
     "menus": {
