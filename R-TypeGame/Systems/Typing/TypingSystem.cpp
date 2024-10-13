@@ -21,6 +21,7 @@ TypingSystem::TypingSystem() : ASystem("TypingSystem") {}
 
 void TypingSystem::_handleTyping(ECS::Registry &reg, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
         std::shared_ptr<IGraphic> lib = getGraphicalLibrary();
         if (!lib)

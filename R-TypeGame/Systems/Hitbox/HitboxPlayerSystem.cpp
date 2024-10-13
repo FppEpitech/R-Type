@@ -25,6 +25,7 @@ HitboxPlayerSystem::HitboxPlayerSystem() :
 
 void HitboxPlayerSystem::_hitboxPlayer(ECS::Registry& reg, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
         ECS::SparseArray<IComponent> players = reg.get_components<IComponent>("PlayerComponent");
         ECS::SparseArray<IComponent> planets = reg.get_components<IComponent>("PlanetComponent");
@@ -84,4 +85,3 @@ EXPORT_SYMBOL ISystem* loadSystemInstance() {
     return new HitboxPlayerSystem();
 }
 }
-

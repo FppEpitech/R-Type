@@ -23,6 +23,7 @@ DrawTextureRectSystem::DrawTextureRectSystem() :
 
 void DrawTextureRectSystem::_drawTextureRect(ECS::Registry& reg, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
 
     ECS::SparseArray<IComponent> texturerectComponents = reg.get_components<IComponent>("TextureRectComponent");

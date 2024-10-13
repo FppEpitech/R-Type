@@ -14,6 +14,8 @@
 #include <stdexcept>
 #include <functional>
 #include <unordered_map>
+#include <thread>
+#include <mutex>
 
 /**
  * @brief Entity component system namespace.
@@ -213,6 +215,8 @@ class Registry {
 
         std::vector<std::vector<uint8_t>> _queue_payload;   // Payload queue.
         std::vector<uint8_t> _queue_messageType;            // MessageType queue
+
+        std::mutex _myBeautifulMutex;
 
     private:
 

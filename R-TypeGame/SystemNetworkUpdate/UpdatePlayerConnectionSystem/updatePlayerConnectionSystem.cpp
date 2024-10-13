@@ -10,6 +10,7 @@
 
 void UpdatePlayerConnectionSystem::_updatePlayerConnection(Network::UDPPacket packet, ECS::Registry& reg)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
         uint32_t componentTypeLength = static_cast<size_t>(packet.getPayload()[0]);
 

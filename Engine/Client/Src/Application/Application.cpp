@@ -22,8 +22,8 @@ void Application::_packetHandler(Network::UDPPacket packet, ECS::Registry& reg)
                             (packet.getPayload()[3 + componentTypeLength] << 8)  |
                             packet.getPayload()[4 + componentTypeLength];
 
-    if (idxPacketEntities == this->_client->getIdxPlayerServer())
-        return;
+    // if (idxPacketEntities == this->_client->getIdxPlayerServer())
+    //     return;
 
     _sceneManager->processUpdate(componentType, packet);
 }

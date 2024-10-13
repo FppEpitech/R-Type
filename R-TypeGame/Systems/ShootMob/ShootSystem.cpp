@@ -20,6 +20,7 @@ ShootSystem::ShootSystem() :
 
 void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> mobs = reg.get_components<IComponent>("MobComponent");
