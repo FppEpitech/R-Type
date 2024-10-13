@@ -8,6 +8,7 @@
 #include "SpeedComponent.hpp"
 #include "ShootInitSystem.hpp"
 #include "ScaleComponent.hpp"
+#include "DrawComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "VelocityComponent.hpp"
@@ -74,4 +75,6 @@ void ShootInitSystem::_initShoot(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(shoot->getType());
         reg.set_component<IComponent>(idxPacketEntities, shoot, shoot->getType());
     }
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(), "DrawComponent");
 }

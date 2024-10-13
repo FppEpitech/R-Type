@@ -9,6 +9,7 @@
 #include "LifeParser.hpp"
 #include "ScaleParser.hpp"
 #include "MobComponent.hpp"
+#include "DrawComponent.hpp"
 #include "MobInitSystem.hpp"
 #include "LifeComponent.hpp"
 #include "ScaleComponent.hpp"
@@ -74,10 +75,13 @@ void MobInitSystem::_initMob(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(life->getType());
         reg.set_component<IComponent>(idxPacketEntities, life, life->getType());
     }
+
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(), "DrawComponent");
 }
 
 extern "C"
-{   
+{
     EXPORT_SYMBOL ISystem *loadSystemInstance()
     {
         return new MobInitSystem();

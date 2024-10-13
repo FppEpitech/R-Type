@@ -9,6 +9,7 @@
 #include "PlayerComponent.hpp"
 #include "PlayerInitSystem.hpp"
 #include "ScaleComponent.hpp"
+#include "DrawComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "../../Components/Life/LifeComponent.hpp"
@@ -66,6 +67,8 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(speed->getType());
         reg.set_component<IComponent>(idxPacketEntities, speed, speed->getType());
     }
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(), "DrawComponent");
 }
 
 extern "C" {

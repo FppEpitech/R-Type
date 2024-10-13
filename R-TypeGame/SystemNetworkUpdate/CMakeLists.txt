@@ -71,6 +71,7 @@ add_library(update_shoot_system SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Shoot/ShootComponent.cpp

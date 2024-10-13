@@ -7,6 +7,7 @@
 
 #include "SpeedComponent.hpp"
 #include "PlayerComponent.hpp"
+#include "DrawComponent.hpp"
 #include "PlayerInitSystem.hpp"
 #include "ScaleComponent.hpp"
 #include "TextureRectComponent.hpp"
@@ -78,6 +79,9 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(animation->getType());
         reg.set_component<IComponent>(idxPacketEntities, animation, animation->getType());
     }
+
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(), "DrawComponent");
 }
 
 extern "C" {

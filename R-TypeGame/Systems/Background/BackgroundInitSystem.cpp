@@ -9,6 +9,7 @@
 #include "ScaleComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "Position2DComponent.hpp"
+#include "DrawComponent.hpp"
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
@@ -50,6 +51,9 @@ void BackgroundSystem::_initBackground(ECS::Registry& reg, int idxPacketEntities
         reg.register_component<IComponent>(animation->getType());
         reg.set_component<IComponent>(idxPacketEntities, animation, animation->getType());
     }
+
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(), "DrawComponent");
 }
 
 extern "C" {
