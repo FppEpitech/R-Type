@@ -62,6 +62,7 @@ void Application::_keyboardHandler(std::size_t key)
 
 void Application::_connectServer()
 {
+    std::lock_guard<std::mutex> lock(this->_registry->_myBeautifulMutex);
     try {
         ECS::SparseArray<IComponent> players = this->_registry->get_components<IComponent>("PlayerComponent");
         ECS::SparseArray<IComponent> buttonNetworkConnection = this->_registry->get_components<IComponent>("NetworkConnectionComponent");

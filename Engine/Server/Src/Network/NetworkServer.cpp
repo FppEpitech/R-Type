@@ -36,6 +36,7 @@ uint32_t Network::Server::_generateToken(void)
 
 void Network::Server::_startAccept(std::shared_ptr<ECS::Registry> reg)
 {
+    std::lock_guard<std::mutex> lock(reg->_myBeautifulMutex);
     auto socket = std::make_shared<asio::ip::tcp::socket>(*_io_context);
 
     _tcp_acceptor->async_accept(*socket, [this, socket, reg](const asio::error_code& error) {
@@ -200,7 +201,7 @@ std::unordered_map<uint32_t, asio::ip::udp::endpoint>& Network::Server::getClien
 
 void Network::Server::_getAllClientConnected(std::shared_ptr<ECS::Registry> reg, asio::ip::udp::endpoint token)
 {
-
+    std::lock_guard<std::mutex> lock(reg->_myBeautifulMutex);
     ECS::SparseArray<IComponent> PlayerComponentArray = reg->get_components<IComponent>("PlayerComponent");
     ECS::SparseArray<IComponent> DrawComponentArray = reg->get_components<IComponent>("DrawComponent");
 

@@ -147,6 +147,7 @@ GameEngine::Application::Application()
 
 bool GameEngine::Application::noPlayerConnected()
 {
+    std::lock_guard<std::mutex> lock(_registries->_myBeautifulMutex);
     ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
     for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
         PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());

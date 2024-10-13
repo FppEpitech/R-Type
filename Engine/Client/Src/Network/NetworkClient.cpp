@@ -5,13 +5,6 @@
 ** NetworkClient
 */
 
-#ifdef _WIN32
-    #define ON_LINUX false
-#else
-    #define ON_LINUX true
-#endif
-
-
 #include "NetworkClient.hpp"
 
 Network::Client::Client(const std::string& server_ip, int tcp_port, int udp_port)
@@ -24,6 +17,27 @@ Network::Client::Client(const std::string& server_ip, int tcp_port, int udp_port
     _udp_socket = std::make_shared<asio::ip::udp::socket>(*_io_context);
     _messageId = 0x0000;
     _token = 0;
+}
+
+void Network::Client::_connectLock(ECS::Registry& reg, uint32_t token, int &idxPlayerComponent)
+{
+    ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+    ECS::SparseArray<IComponent> DrawComponentArray = reg.get_components<IComponent>("DrawComponent");
+    for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+        PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+        if (player && player->token == 0) {
+            idxPlayerComponent += index;
+            player->token = token;
+
+            if (idxPlayerComponent < DrawComponentArray.size()) {
+                DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[idxPlayerComponent].get());
+                if (draw)
+                    draw->draw = true;
+            }
+
+            break;
+        }
+    }
 }
 
 void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
@@ -40,23 +54,7 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
         std::cout << "Connected to server with index player component: " << _idxPlayerComponent << std::endl;
 
         _idxPlayerServer = _idxPlayerComponent;
-        ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
-        ECS::SparseArray<IComponent> DrawComponentArray = reg.get_components<IComponent>("DrawComponent");
-        for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-            PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-            if (player && player->token == 0) {
-                _idxPlayerComponent += index;
-                player->token = _token;
-
-                if (_idxPlayerComponent < DrawComponentArray.size()) {
-                    DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[_idxPlayerComponent].get());
-                    if (draw)
-                        draw->draw = true;
-                }
-
-                break;
-            }
-        }
+        _connectLock(reg, _token, _idxPlayerComponent);
 
         _udp_socket->open(asio::ip::udp::v4());
         _server_endpoint = asio::ip::udp::endpoint(asio::ip::address::from_string(_server_ip), _udp_port);
@@ -66,10 +64,8 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
         this->sendMessage(initPacket);
         _startReceive(reg);
 
-        if (ON_LINUX) {
-            std::thread io_thread([this]() { _io_context->run(); });
-            io_thread.detach();
-        }
+        std::thread io_thread([this]() { _io_context->run(); });
+        io_thread.detach();
     } catch (const std::exception& e) {
         std::cerr << "Error during connection: " << e.what() << std::endl;
     }
