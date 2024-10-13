@@ -115,6 +115,7 @@ static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootTyp
 
 void ShootDamageSystem::_shootDamage(ECS::Registry &reg, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
         ECS::SparseArray<IComponent> mobs = reg.get_components<IComponent>("MobComponent");
         ECS::SparseArray<IComponent> players = reg.get_components<IComponent>("PlayerComponent");

@@ -19,6 +19,7 @@ MouseSystem::MouseSystem() : ASystem("MouseSystem") {}
 
 void MouseSystem::_handleMouse(ECS::Registry &reg, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
         std::shared_ptr<IGraphic> lib = getGraphicalLibrary();
 

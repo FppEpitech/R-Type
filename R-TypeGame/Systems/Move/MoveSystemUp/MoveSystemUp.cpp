@@ -21,6 +21,7 @@ std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemUp::get
 
 void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(entityManager._myBeautifulMutex);
     try {
         ECS::SparseArray<IComponent> DrawComponentArray = entityManager.get_components<IComponent>("DrawComponent");
         if (DrawComponentArray.size() <= idxPacketEntities)

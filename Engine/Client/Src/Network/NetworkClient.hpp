@@ -135,6 +135,15 @@ class Network::Client
          */
         bool _SendSpecialKey(KEY_MAP key, std::vector<uint8_t> packet);
 
+        /**
+         * @brief Connect a player with a guard to prevent multithread
+         *
+         * @param reg ECS Registry.
+         * @param token Player token.
+         * @param idxPlayerComponent Index of the new player.
+         */
+        void _connectLock(ECS::Registry& reg, uint32_t token, int &idxPlayerComponent);
+
         std::string                             _server_ip;         // Server IP
         int                                     _tcp_port;          // TCP port on witch we can connect to the server.
         int                                     _udp_port;          // UDP port on witch we can communicate to the server.

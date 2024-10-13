@@ -18,6 +18,7 @@ MoveMobsSystem::MoveMobsSystem() :
 
 void MoveMobsSystem::_moveMobs(ECS::Registry& reg, int idxPacketMobs)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> velocities = reg.get_components<IComponent>("VelocityComponent");

@@ -22,6 +22,7 @@ DrawOBJSystem::DrawOBJSystem() :
 
 void DrawOBJSystem::_drawOBJ(ECS::Registry& reg, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
 
     ECS::SparseArray<IComponent> objPathComponents = reg.get_components<IComponent>("ObjPathComponent");

@@ -18,6 +18,7 @@ ShootSystem::ShootSystem() :
 
 void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
         ECS::SparseArray<IComponent> draws = reg.get_components<IComponent>("DrawComponent");
 

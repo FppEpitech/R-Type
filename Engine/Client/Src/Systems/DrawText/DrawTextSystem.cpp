@@ -23,6 +23,7 @@ DrawTextSystem::DrawTextSystem() :
 
 void DrawTextSystem::_drawText(ECS::Registry& reg, int idxPacketEntities)
 {
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
 
     ECS::SparseArray<IComponent> textComponents = reg.get_components<IComponent>("TextComponent");
