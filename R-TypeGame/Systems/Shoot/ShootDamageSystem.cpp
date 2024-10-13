@@ -18,6 +18,26 @@
 ShootDamageSystem::ShootDamageSystem() :
     ASystem("ShootDamageSystem") {}
 
+static void _updatePlayerDeath(ECS::Registry &reg, int idxPacketEntities)
+{
+    reg._queue_messageType.push_back(0x01);
+    std::vector<uint8_t> payload;
+
+    std::string componentType = "DrawComponent";
+    payload.push_back(static_cast<uint8_t>(componentType.size()));
+    payload.insert(payload.end(), componentType.begin(), componentType.end());
+
+    payload.push_back(static_cast<uint8_t>(idxPacketEntities >> 24) & 0xFF);
+    payload.push_back(static_cast<uint8_t>((idxPacketEntities >> 16) & 0xFF));
+    payload.push_back(static_cast<uint8_t>((idxPacketEntities >> 8) & 0xFF));
+    payload.push_back(static_cast<uint8_t>((idxPacketEntities) & 0xFF));
+
+    bool drawable = false;
+    uint8_t* xBytes = reinterpret_cast<uint8_t*>(&drawable);
+    payload.insert(payload.end(), xBytes, xBytes + sizeof(bool));
+    reg._queue_payload.push_back(payload);
+}
+
 static bool isColliding(float rectRatio,
         std::shared_ptr<Position2DComponent> pos1, std::shared_ptr<ScaleComponent> scale1, std::shared_ptr<TextureRectComponent> texture1,
         std::shared_ptr<Position2DComponent> pos2, std::shared_ptr<ScaleComponent> scale2, std::shared_ptr<TextureRectComponent> texture2)
@@ -79,8 +99,11 @@ static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootTyp
                 else
                     entityLife->life -= shootComp->damage;
                 if (entityLife->life == 0) {
-                    if (std::is_same_v<TYPE,PlayerComponent>)
+                    if (std::is_same_v<TYPE,PlayerComponent>) {
                         ((PlayerComponent *)entityObject.get())->isAlive = false;
+                        entityDraw->draw = false;
+                        _updatePlayerDeath(reg, entity);
+                    }
                     else
                         reg.kill_entity(entity);
                 }
