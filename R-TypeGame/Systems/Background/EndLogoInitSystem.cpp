@@ -6,6 +6,7 @@
 */
 
 #include "ScaleParser.hpp"
+#include "DrawComponent.hpp"
 #include "ScaleComponent.hpp"
 #include "Position2DParser.hpp"
 #include "EndLogoInitSystem.hpp"
@@ -37,6 +38,9 @@ void EndLogoInitSystem::_initEndLogo(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(position2D->getType());
         reg.set_component<IComponent>(idxPacketEntities, position2D, position2D->getType());
     }
+
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(), "DrawComponent");
 }
 
 extern "C" {

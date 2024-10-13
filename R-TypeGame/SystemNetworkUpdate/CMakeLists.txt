@@ -71,6 +71,7 @@ add_library(update_shoot_system SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Shoot/ShootComponent.cpp
@@ -84,3 +85,12 @@ add_library(update_shoot_system SHARED
 )
 find_package(asio CONFIG REQUIRED)
 target_link_libraries(update_shoot_system PRIVATE asio::asio JsonCpp::JsonCpp)
+
+add_library(update_playerConnection_system SHARED
+    UpdatePlayerConnectionSystem/updatePlayerConnectionSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+)
+find_package(asio CONFIG REQUIRED)
+target_link_libraries(update_playerConnection_system PRIVATE asio::asio JsonCpp::JsonCpp)

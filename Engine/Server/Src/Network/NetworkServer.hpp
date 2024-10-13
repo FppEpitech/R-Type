@@ -15,6 +15,7 @@
 #include <unordered_map>
 
 #include "Registry.hpp"
+#include "DrawComponent.hpp"
 #include "NetworkPacket.hpp"
 #include "Player/PlayerComponent.hpp"
 
@@ -107,6 +108,12 @@ class Network::Server
          * @return uint32_t Token generate.
          */
         uint32_t _generateToken(void);
+
+        /**
+         * @brief Send all client already connected to the new Client.
+         *
+         */
+        void _getAllClientConnected(std::shared_ptr<ECS::Registry> reg, asio::ip::udp::endpoint token);
 
         std::shared_ptr<asio::io_context>                           _io_context;        // Shared pointer to the io_context object, used to manage asynchronous I/O operations.
         std::shared_ptr<asio::ip::tcp::acceptor>                    _tcp_acceptor;      // Shared pointer to the TCP acceptor object, used to accept incoming TCP connections.

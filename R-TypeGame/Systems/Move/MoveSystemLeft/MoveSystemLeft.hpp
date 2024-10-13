@@ -10,6 +10,7 @@
 #include "ISystem.hpp"
 #include "SpeedComponent.hpp"
 #include "Position2DComponent.hpp"
+#include "DrawComponent.hpp"
 
 class MoveSystemLeft : public ASystem
 {

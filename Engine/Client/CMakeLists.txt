@@ -22,6 +22,7 @@ set(EXE_INCLUDE_PATH "Include")
 
 # Define component source files
 set(COMPONENT_SRC_FILE
+    ../Shared/Component/DrawComponent.cpp
     ../Shared/Component/FontPathComponent.cpp
     ../Shared/Component/ObjPathComponent.cpp
     ../Shared/Component/TexturePathComponent.cpp

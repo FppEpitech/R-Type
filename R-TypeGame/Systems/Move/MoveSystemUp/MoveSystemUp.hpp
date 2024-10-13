@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "ISystem.hpp"
+#include "DrawComponent.hpp"
 #include "SpeedComponent.hpp"
 #include "Position2DComponent.hpp"
 

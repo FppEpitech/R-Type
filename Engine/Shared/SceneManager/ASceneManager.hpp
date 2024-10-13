@@ -14,6 +14,7 @@
 #include "../Interface/ISystem.hpp"
 #include "../Enum/StringKeyMap.hpp"
 #include "TextComponent.hpp"
+#include "DrawComponent.hpp"
 #include "ScaleComponent.hpp"
 #include "ColourComponent.hpp"
 #include "Size1DComponent.hpp"

@@ -41,11 +41,19 @@ void Network::Client::connect(MessageHandler callback, ECS::Registry& reg)
 
         _idxPlayerServer = _idxPlayerComponent;
         ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
+        ECS::SparseArray<IComponent> DrawComponentArray = reg.get_components<IComponent>("DrawComponent");
         for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
             PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
             if (player && player->token == 0) {
                 _idxPlayerComponent += index;
                 player->token = _token;
+
+                if (_idxPlayerComponent < DrawComponentArray.size()) {
+                    DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[_idxPlayerComponent].get());
+                    if (draw)
+                        draw->draw = true;
+                }
+
                 break;
             }
         }

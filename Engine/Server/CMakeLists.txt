@@ -31,6 +31,7 @@ set(SRC_EXE
     ${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
     ../Shared/SceneManager/ASceneManager.cpp
+    ../Shared/Component/DrawComponent.cpp
     ../Shared/Component/FontPathComponent.cpp
     ../Shared/Component/ObjPathComponent.cpp
     ../Shared/Component/TexturePathComponent.cpp

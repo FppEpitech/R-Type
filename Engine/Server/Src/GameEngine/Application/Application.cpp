@@ -29,6 +29,7 @@ void GameEngine::Application::_handleArrowKey(uint8_t keyCode, int idxPlayerPack
             asio::ip::udp::endpoint& endpoint = it->second;
             this->_server->sendMessage(packet, endpoint);
         }
+        _registries->payload.clear();
     }
 }
 
@@ -53,6 +54,7 @@ void GameEngine::Application::_handleAlphaKey(uint8_t keyCode, int idxPlayerPack
             asio::ip::udp::endpoint& endpoint = it->second;
             this->_server->sendMessage(packet, endpoint);
         }
+        _registries->payload.clear();
     }
 }
 
@@ -73,6 +75,7 @@ void GameEngine::Application::_handleNumberKey(uint8_t keyCode, int idxPlayerPac
             asio::ip::udp::endpoint& endpoint = it->second;
             this->_server->sendMessage(packet, endpoint);
         }
+        _registries->payload.clear();
     }
 }
 
@@ -95,6 +98,7 @@ void GameEngine::Application::_handleSpecialKey(uint8_t keyCode, int idxPlayerPa
             asio::ip::udp::endpoint& endpoint = it->second;
             this->_server->sendMessage(packet, endpoint);
         }
+        _registries->payload.clear();
     }
 }
 
@@ -160,5 +164,17 @@ void GameEngine::Application::run()
             _registries->run_systems(-1);
         else
             SLEEP(0.5);
+        // TODO : put this in a thread for better optimization
+        if (!_registries->_queue_payload.empty()) {
+            for (std::size_t index = 0; index < _registries->_queue_payload.size() && index < _registries->_queue_messageType.size(); index++) {
+                std::vector<uint8_t> packet = this->_server->createPacket(_registries->_queue_messageType[index], this->_registries->_queue_payload[index]);
+                for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
+                    asio::ip::udp::endpoint& endpoint = it->second;
+                    this->_server->sendMessage(packet, endpoint);
+                }
+                _registries->_queue_messageType.erase(_registries->_queue_messageType.begin() + index);
+                _registries->_queue_payload.erase(_registries->_queue_payload.begin() + index);
+            }
+        }
     }
 }

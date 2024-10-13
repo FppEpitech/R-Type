@@ -7,6 +7,7 @@
 
 #include "SpeedComponent.hpp"
 #include "PlayerComponent.hpp"
+#include "DrawComponent.hpp"
 #include "PlayerInitSystem.hpp"
 #include "ScaleComponent.hpp"
 #include "TextureRectComponent.hpp"
@@ -61,11 +62,8 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
         reg.set_component<IComponent>(idxPacketEntities, life, life->getType());
     }
 
-    std::shared_ptr<PlayerComponent> player = parsePlayer(PATH_JSON);
-    if (player) {
-        reg.register_component<IComponent>(player->getType());
-        reg.set_component<IComponent>(idxPacketEntities, player, player->getType());
-    }
+    reg.register_component<IComponent>("PlayerComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<PlayerComponent>(), "PlayerComponent");
 
     std::shared_ptr<SpeedComponent> speed = parseSpeed(PATH_JSON);
     if (speed) {
@@ -78,6 +76,9 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
         reg.register_component<IComponent>(animation->getType());
         reg.set_component<IComponent>(idxPacketEntities, animation, animation->getType());
     }
+
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(false), "DrawComponent");
 }
 
 extern "C" {

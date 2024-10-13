@@ -71,6 +71,7 @@ add_library(system_initPlayerOne SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Components/Shoot/ShootComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
@@ -90,6 +91,7 @@ add_library(system_initPlayerTwo SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
@@ -107,6 +109,7 @@ add_library(system_initPlayerThree SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
@@ -124,6 +127,7 @@ add_library(system_initPlayerFour SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
@@ -148,6 +152,7 @@ add_library(system_initConnectButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/NetworkConnectionComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
     ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
@@ -181,6 +186,7 @@ add_library(system_shoot SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Shoot/ShootComponent.cpp
@@ -203,6 +209,7 @@ add_library(system_initBackground SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
@@ -215,6 +222,7 @@ add_library(system_initPlanet SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Planet/PlanetComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
@@ -235,6 +243,7 @@ add_library(system_initMob SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/SpriteSheetAnimationComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Mob/MobComponent.cpp
     ../Components/Life/LifeComponent.cpp
@@ -255,6 +264,7 @@ add_library(system_shoot_mob SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Shoot/ShootComponent.cpp
@@ -284,6 +294,7 @@ add_library(system_initIpTextButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
     ../Components/Editable/EditableComponent.cpp
@@ -315,6 +326,7 @@ add_library(system_initPortTextButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Size1DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextPosition2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DefaultTextComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ../Components/CallBack/CallBackComponent.cpp
     ../Components/Editable/EditableComponent.cpp
@@ -375,6 +387,7 @@ add_library(system_initEndLogo SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
         ../Parser/TextureRectParser/TextureRectParser.cpp
         ../Parser/Position2DParser/Position2DParser.cpp
         ../Parser/ScaleParser/ScaleParser.cpp

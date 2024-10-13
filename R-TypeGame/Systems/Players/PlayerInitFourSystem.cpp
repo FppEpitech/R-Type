@@ -9,6 +9,7 @@
 #include "PlayerComponent.hpp"
 #include "PlayerInitSystem.hpp"
 #include "ScaleComponent.hpp"
+#include "DrawComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "../../Components/Life/LifeComponent.hpp"
@@ -55,17 +56,16 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
         reg.set_component<IComponent>(idxPacketEntities, life, life->getType());
     }
 
-    std::shared_ptr<PlayerComponent> player = parsePlayer(PATH_JSON);
-    if (player) {
-        reg.register_component<IComponent>(player->getType());
-        reg.set_component<IComponent>(idxPacketEntities, player, player->getType());
-    }
+    reg.register_component<IComponent>("PlayerComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<PlayerComponent>(), "PlayerComponent");
 
     std::shared_ptr<SpeedComponent> speed = parseSpeed(PATH_JSON);
     if (speed) {
         reg.register_component<IComponent>(speed->getType());
         reg.set_component<IComponent>(idxPacketEntities, speed, speed->getType());
     }
+    reg.register_component<IComponent>("DrawComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(false), "DrawComponent");
 }
 
 extern "C" {
