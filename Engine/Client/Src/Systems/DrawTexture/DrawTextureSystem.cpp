@@ -9,6 +9,7 @@
 #include "Position2DComponent.hpp"
 #include "ScaleComponent.hpp"
 #include "TexturePathComponent.hpp"
+#include "DrawComponent.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
 
@@ -26,8 +27,15 @@ void DrawTextureSystem::_drawTexture(ECS::Registry& reg, int idxPacketEntities)
     ECS::SparseArray<IComponent> texturePathComponents = reg.get_components<IComponent>("TexturePathComponent");
     ECS::SparseArray<IComponent> position2DComponents = reg.get_components<IComponent>("Position2DComponent");
     ECS::SparseArray<IComponent> scaleComponents = reg.get_components<IComponent>("ScaleComponent");
+    ECS::SparseArray<IComponent> drawComponents = reg.get_components<IComponent>("DrawComponent");
 
     for (ECS::entity_t entity = 0; texturePathComponents.size() >= entity + 1; entity++) {
+        std::shared_ptr<DrawComponent> draw = (drawComponents.size() >= entity + 1) ?
+            std::dynamic_pointer_cast<DrawComponent>(drawComponents[entity]) : nullptr;
+
+        if (!draw || !draw->draw)
+            continue;
+
         std::shared_ptr<TexturePathComponent> texture = std::dynamic_pointer_cast<TexturePathComponent>(texturePathComponents[entity]);
 
         std::shared_ptr<Position2DComponent> pos = (position2DComponents.size() >= entity + 1) ?

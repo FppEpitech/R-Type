@@ -9,6 +9,7 @@
 #include "Position2DComponent.hpp"
 #include "ScaleComponent.hpp"
 #include "TextureRectComponent.hpp"
+#include "DrawComponent.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
 
@@ -28,8 +29,15 @@ void DrawTextureRectSystem::_drawTextureRect(ECS::Registry& reg, int idxPacketEn
     ECS::SparseArray<IComponent> position2DComponents = reg.get_components<IComponent>("Position2DComponent");
     ECS::SparseArray<IComponent> scaleComponents = reg.get_components<IComponent>("ScaleComponent");
     ECS::SparseArray<IComponent> colourComponents = reg.get_components<IComponent>("ColourComponent");
+    ECS::SparseArray<IComponent> drawComponents = reg.get_components<IComponent>("DrawComponent");
 
     for (ECS::entity_t entity = 0; texturerectComponents.size() >= entity + 1; entity++) {
+        std::shared_ptr<DrawComponent> draw = (drawComponents.size() >= entity + 1) ?
+            std::dynamic_pointer_cast<DrawComponent>(drawComponents[entity]) : nullptr;
+
+        if (!draw || !draw->draw)
+            continue;
+
         std::shared_ptr<TextureRectComponent> texture = std::dynamic_pointer_cast<TextureRectComponent>(texturerectComponents[entity]);
         if (!texture)
             continue;
