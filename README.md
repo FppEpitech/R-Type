@@ -43,34 +43,34 @@ Meet the architects of this digital madness:
 
 
 ### **[Alban PERALTA](https://github.com/Peralban)** – *Master of Visual Sorcery*
-**Role**: Graphics Enchanter and Client Architect  
+**Role**: Graphics Enchanter and Client Architect
 From the darkest depths of the rendering engine, Alban weaves pixels into mesmerizing worlds.
 With his arcane knowledge of graphics, he conjures stunning visuals and ensures that every frame is a painting.
 On the client side, he stands as the gatekeeper, ensuring all interactions flow as smoothly as a well-timed dodge roll.
 
 
 ### **[Mathieu ROBERT](https://github.com/mathieurobert1)** – *Architect of Reality (or What's Left of It)*
-**Role**: ECS Overlord and Keeper of Code Structure  
+**Role**: ECS Overlord and Keeper of Code Structure
 Mathieu commands the entity-component-system (ECS) architecture, where chaos and order collide.
 He builds the very foundation upon which the universe of our games stands.
 Like a dungeon master crafting intricate maps, he designs systems that bend but never break, ensuring that every piece of logic has its place in the abyss of complexity.
 
 
 ### **[Thomas BOUÉ](https://github.com/Thomaltarix)** – *Warden of Game Structure and Balance*
-**Role**: Game Mechanic Architect  
+**Role**: Game Mechanic Architect
 Thomas is the keeper of the sacred scrolls of game design.
 He oversees the structure of the worlds we create, balancing gameplay mechanics like a seasoned warrior balances a sword.
 Whether it's combat flow, level progression, or difficulty curves that induce just the right amount of suffering, Thomas ensures that the experience is both brutal and rewarding.
 
 
 ### **[Axel FRADET](https://github.com/AxelF44)** – *The Phantom Weaver of Connections*
-**Role**: Network Architect, Server/Client Whisperer  
+**Role**: Network Architect, Server/Client Whisperer
 Axel works in the shadows, unseen, yet his work ties everything together.
 He breathes life into the network, ensuring that players can invade, assist, or duel from distant realms. His intricate knowledge of server and client interactions ensures that the multiplayer experience is seamless until the lag strikes, and chaos reigns (by design, of course).
 
 
 ### **[Théophile Jérôme-Rocher](https://github.com/theophile-jr)** – *The Unseen Arbiter of Continuous Chaos*
-**Role**: Master of Continuous Integration (CI)  
+**Role**: Master of Continuous Integration (CI)
 Théophile, the unseen force that ensures all runs smoothly behind the scenes, governs the automated realms of CI. Like a benevolent deity, he ensures that every piece of code we push undergoes relentless testing, only allowing the worthy to see the light of production. His role is thankless yet critical he is the watcher of all builds, the breaker of errors.
 
 
@@ -165,15 +165,13 @@ Run the following command to install the dependencies:
 
 - For linux:
 ```bash
-cd tools
-chmod +x install.sh   # Make the script executable
-./install.sh           # Run the installation script
+chmod +x ./tools/install-linux.sh   # Make the script executable
+./tools/install-linux.sh           # Run the installation script
 ```
 
 - For Windows:
 ```powershell
-cd tools
-.\install.bat     # Run the installation script
+.\tools\install-windows.bat     # Run the installation script
 ```
 
 This script will handle all the necessary installations and prepare your environment for building the project.
@@ -184,15 +182,13 @@ Once the installation is complete, you can build the project. Execute the build 
 
 - For linux:
 ```bash
-cd tools
-chmod +x build.sh   # Make the script executable
-./build.sh           # Run the build script
+chmod +x ./tools/build-linux.sh   # Make the script executable
+./tools/build-linux.sh           # Run the build script
 ```
 
 - For Windows:
 ```powershell
-cd tools
-.\build.bat      # Run the build script
+.\tools\build-windows.bat      # Run the build script
 ```
 
 The build process will compile the project and generate the necessary files for both development mode and plugin usage.
@@ -218,7 +214,7 @@ chmod +x ./tools/install-linux.sh
 ./tools/install-linux.sh
 ```
 
-or 
+or
 
 **For Windows:**
 ```powershell
@@ -269,7 +265,8 @@ After that, you will be able to play the game with your friends.
 First, download the repository from Github, then compile it with:
 ```
 git clone git@github.com:FppEpitech/R-Type.git
-./tools/build.sh
+chmod +x ./tools/build-linux.sh
+./tools/build-linux.sh
 ```
 Then, go to the **build/tests/** folder and run:
 ```
