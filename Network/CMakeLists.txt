@@ -9,7 +9,7 @@ set(LIB_SRC_PATH ".")
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRC_LIB
-    ${LIB_SRC_PATH}/ABINetwork.cpp
+    ${LIB_SRC_PATH}/ABI/ABINetwork.cpp
 )
 
 add_library(${LIB} STATIC ${SRC_LIB})
