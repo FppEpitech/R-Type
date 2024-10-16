@@ -20,6 +20,7 @@ option(BUILD_TESTS "Build the tests" ON)
 
 # Add subdirectories for different components of the project
 add_subdirectory(R-TypeGame)     # R-Type Game
+add_subdirectory(Network)        # ABI Network
 add_subdirectory(GraphicLibrary) # Graphic Library
 add_subdirectory(Engine)         # Engine
 
