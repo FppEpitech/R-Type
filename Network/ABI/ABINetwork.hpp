@@ -32,7 +32,7 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit where the message will be queued.
      * @param message A shared pointer to the message to be added to the queue.
      */
-    void setMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit, std::shared_ptr<IMessage> message);
+    void setMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit, std::vector<asio::detail::buffered_stream_storage::byte_type> message);
 
     /**
      * @brief Retrieves the next message from the network unit's message queue.
