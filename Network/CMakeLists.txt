@@ -22,7 +22,11 @@ set(SRC_LIB
     ${LIB_SRC_PATH}/ABI/ABIServer.cpp
     ${LIB_SRC_PATH}/ABI/ABIClient.cpp
 
+    ${LIB_SRC_PATH}/Units/ANetworkUnit/ANetworkUnit.cpp
     ${LIB_SRC_PATH}/Units/Client/Client.cpp
+
+    ${LIB_SRC_PATH}/Messages/AMessage/AMessage.cpp
+    ${LIB_SRC_PATH}/Messages/Auth/Auth.cpp
 )
 
 add_library(${LIB} STATIC ${SRC_LIB})
