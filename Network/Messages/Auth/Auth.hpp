@@ -84,6 +84,10 @@ class AuthMessage : public AMessage
          * @return uint32_t Token of the player logout.
          */
         uint32_t getLogoutInfoFromPacket();
+
+        private:
+
+            std::vector<asio::detail::buffered_stream_storage::byte_type> _payload;     // Content of the message in the packet.
 };
 
 }

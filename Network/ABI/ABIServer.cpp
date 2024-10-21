@@ -5,8 +5,10 @@
 ** ABIServer
 */
 
+// #include "ABINetwork.hpp"
 #include "Auth/Auth.hpp"
 #include "ABIError.hpp"
+#include "Server.hpp"
 
 namespace ABINetwork
 {
@@ -36,6 +38,11 @@ uint32_t getLogoutInfoFromPacket()
     if (!message)
         throw ABIError("Failed to create AuthMessage class");
     return message->getLogoutInfoFromPacket();
+}
+
+std::shared_ptr<INetworkUnit> createServer(std::size_t numberMaxPlayer)
+{
+    return std::make_shared<Server>(numberMaxPlayer);
 }
 
 }
