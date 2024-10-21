@@ -60,6 +60,7 @@ include_directories(
     ../Systems/Shoot/
     ../../Engine/Shared/Ecs/Src/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
+    Menus/Buttons/AButton/
 )
 
 # Add a shared library target 'system_initPlayer'
@@ -141,7 +142,8 @@ target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
 add_library(system_moveMobs SHARED MoveSystem/MoveMobs/MoveMobsSystem.cpp)
 
 add_library(system_initConnectButton SHARED
-    Menus/Buttons/ConnectButtonInitSystem.cpp
+    Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
@@ -284,7 +286,8 @@ add_library(system_hitboxPlayer SHARED
 )
 
 add_library(system_initIpTextButton SHARED
-    Menus/Buttons/IpTextBoxInitSystem.cpp
+    Menus/Buttons/IpTextBox/IpTextBoxInitSystem.cpp
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
@@ -316,7 +319,8 @@ add_library(system_initIpTextButton SHARED
 target_link_libraries(system_initIpTextButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initPortTextButton SHARED
-    Menus/Buttons/PortTextBoxInitSystem.cpp
+        Menus/Buttons/PortTextBox/PortTextBoxInitSystem.cpp
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
