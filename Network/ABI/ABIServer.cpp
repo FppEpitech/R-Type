@@ -10,8 +10,8 @@
 
 namespace ABINetwork
 {
-    std::shared_ptr<INetworkUnit> createServer()
+    std::shared_ptr<INetworkUnit> createServer(std::size_t numberMaxPlayer)
     {
-        return std::make_shared<Server>();
+        return std::make_shared<Server>(numberMaxPlayer);
     }
 }
