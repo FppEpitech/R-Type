@@ -91,10 +91,7 @@ bool UDPPacket::validateChecksum()
     for (uint8_t byte : _payload)
         sum += byte;
 
-    if (static_cast<uint16_t>(sum & 0xFFFF) == _checksum)
-        return true;
-    else
-        return false;
+    return static_cast<uint16_t>(sum & 0xFFFF) == _checksum;
 }
 
 void UDPPacket::displayPacket(void)
