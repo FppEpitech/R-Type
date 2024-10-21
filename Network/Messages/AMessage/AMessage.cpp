@@ -36,9 +36,8 @@ std::vector<uint8_t> AMessage::_creatPacket(uint8_t messageType, const std::vect
     packet.insert(packet.end(), payload.begin(), payload.end());
 
     uint16_t checksum = 0;
-    for (const auto& byte : packet) {
+    for (const auto& byte : packet)
         checksum += byte;
-    }
     packet.push_back(static_cast<uint8_t>(checksum >> 8));
     packet.push_back(static_cast<uint8_t>(checksum & 0xFF));
     return packet;
