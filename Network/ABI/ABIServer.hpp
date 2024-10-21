@@ -15,11 +15,14 @@
  */
 namespace ABINetwork
 {
+
+
     /**
      * @brief Creates a server network unit.
      * This function initializes and returns a network unit that acts as a server.
      *
+     * @param numberMaxPlayer Number of player max.
      * @return A shared pointer to the created network unit representing the server.
      */
-    std::shared_ptr<INetworkUnit> createServer();
+    std::shared_ptr<INetworkUnit> createServer(std::size_t numberMaxPlayer);
 }
