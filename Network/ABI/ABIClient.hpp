@@ -5,6 +5,8 @@
 ** ABIClient
 */
 
+#pragma once
+
 #include "ABINetwork.hpp"
 
 /**
@@ -17,10 +19,11 @@ namespace ABINetwork
      * @brief Creates a client network unit to connect to a server.
      *
      * @param ipServer The IP address of the server to connect to.
-     * @param portServer The port number of the server to connect to.
+     * @param tcp_port The port number of the server to connect to by tcp.
+     * @param udp_port The port number of the server to connect to by udp.
      * @return A shared pointer to the created network unit.
      */
-    std::shared_ptr<INetworkUnit> createClient(std::string ipServer, std::string portServer);
+    std::shared_ptr<INetworkUnit> createClient(std::string ipServer, int tcp_port, int udp_port);
 
     /**
      * @brief Sends a registration packet to the server.

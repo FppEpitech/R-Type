@@ -5,6 +5,8 @@
 ** Server
 */
 
+#pragma once
+
 #include "ANetworkUnit.hpp"
 
 /**
