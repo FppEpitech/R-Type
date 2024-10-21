@@ -7,15 +7,15 @@
 
 #include <iostream>
 
-#include "KeyMap.hpp"
+#include "KeyMaps/KeyMap.hpp"
 #include "TypingSystem.hpp"
-#include "TextComponent.hpp"
-#include "CallBackComponent.hpp"
-#include "EditableComponent.hpp"
-#include "TextLimitComponent.hpp"
-#include "GetGraphicalLibrary.hpp"
-#include "ButtonStateComponent.hpp"
-#include "DefaultTextComponent.hpp"
+#include "Text/TextComponent.hpp"
+#include "CallBack/CallBackComponent.hpp"
+#include "Editable/EditableComponent.hpp"
+#include "TextLimit/TextLimitComponent.hpp"
+#include "GetGraphicalLibrary/GetGraphicalLibrary.hpp"
+#include "ButtonState/ButtonStateComponent.hpp"
+#include "DefaultText/DefaultTextComponent.hpp"
 
 TypingSystem::TypingSystem() : ASystem("TypingSystem") {}
 

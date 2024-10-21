@@ -9,7 +9,7 @@
 
 #include <chrono>
 
-#include "../../../Engine/Shared/Interface/IComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/IComponent.hpp"
 
 /**
  * @brief Component Velocity for R-Type Game.

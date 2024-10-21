@@ -17,10 +17,10 @@ find_package(jsoncpp REQUIRED)
 
 # Include directories for header files
 include_directories(
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Include/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Include/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Interface/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/
     ../Components/Speed/
     ../Components/Life/
     ../Components/Shoot/
@@ -34,14 +34,10 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
     ../Systems/Background/
     ../Systems/Shoot/
-    ../../Engine/Shared/Ecs/Src/
+    ../../Engine/Ecs/Src/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
     Shoot/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/
-    Shoot/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
     ../Components/Speed/
     ../Components/Velocity/
     ../Components/Shoot/
@@ -58,7 +54,7 @@ add_library(update_position_component SHARED
     UpdatePositionSystem/updatePositionSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
 )
 find_package(asio CONFIG REQUIRED)
 target_link_libraries(update_position_component PRIVATE asio::asio JsonCpp::JsonCpp)
@@ -66,12 +62,12 @@ target_link_libraries(update_position_component PRIVATE asio::asio JsonCpp::Json
 add_library(update_shoot_system SHARED
     UpdateShootSystem/updateShootSystem.cpp
     ../Systems/Shoot/ShootSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     ../Systems/Shoot/ShootInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/DrawComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
     ../Components/Speed/SpeedComponent.cpp
     ../Components/Velocity/VelocityComponent.cpp
     ../Components/Shoot/ShootComponent.cpp
@@ -90,7 +86,7 @@ add_library(update_playerConnection_system SHARED
     UpdatePlayerConnectionSystem/updatePlayerConnectionSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Component/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
 )
 find_package(asio CONFIG REQUIRED)
 target_link_libraries(update_playerConnection_system PRIVATE asio::asio JsonCpp::JsonCpp)

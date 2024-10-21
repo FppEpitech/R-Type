@@ -13,8 +13,8 @@
 #include <unordered_map>
 #include <fstream>
 
-#include "IGraphic.hpp"
-#include "IError.hpp"
+#include "../GetGraphicalLibrary/IGraphic.hpp"
+#include "../../../Error/IError.hpp"
 
 
 /**

@@ -9,7 +9,7 @@
 
 #include <memory>
 
-#include "DefaultTextComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/DefaultText/DefaultTextComponent.hpp"
 
 /**
  * @brief Parse a text Json object.

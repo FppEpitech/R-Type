@@ -11,7 +11,7 @@
 #include "ASceneManager.hpp"
 #include "../DLLoader/DLLoader.hpp"
 
-#include "ISystemNetworkUpdate.hpp"
+#include "../DefaultSystems/ISystemNetworkUpdate.hpp"
 
 SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> registry)
 {

@@ -11,7 +11,7 @@
 #include <memory>
 #include <fstream>
 
-#include "Position2DComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
 
 std::shared_ptr<Position2DComponent> parsePosition2D(std::string pathFile)
 {

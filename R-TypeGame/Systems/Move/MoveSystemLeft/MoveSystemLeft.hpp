@@ -7,10 +7,10 @@
 
 #include <iostream>
 
-#include "ISystem.hpp"
+#include "../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
 #include "SpeedComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "DrawComponent.hpp"
+#include "../../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
+#include "../../../../Engine/Shared/DefaultComponent/Draw/DrawComponent.hpp"
 
 class MoveSystemLeft : public ASystem
 {

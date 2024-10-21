@@ -9,9 +9,9 @@
 
 #include <iostream>
 
-#include "ISystem.hpp"
+#include "../../../Engine/Shared/DefaultSystems/ISystem.hpp"
 #include "VelocityComponent.hpp"
-#include "Position2DComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
 
 /**
  * @brief Restart a planet if it leave the screen.

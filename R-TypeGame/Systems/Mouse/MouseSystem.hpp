@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "ISystem.hpp"
+#include "../../../Engine/Shared/DefaultSystems/ISystem.hpp"
 
 /**
  * @brief System to handle mouse events.

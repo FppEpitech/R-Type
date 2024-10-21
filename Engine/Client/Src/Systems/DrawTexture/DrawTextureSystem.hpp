@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "ISystem.hpp"
+#include "../../../../Shared/DefaultSystems/ISystem.hpp"
 
 /**
  * @brief System to draw an Texture.

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../Engine/Shared/Interface/IComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/IComponent.hpp"
 
 #include <chrono>
 #include <ctime>

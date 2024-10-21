@@ -7,7 +7,7 @@
 
 #include "PlayerComponent.hpp"
 #include "VelocityComponent.hpp"
-#include "Position2DComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
 #include "updatePositionSystem.hpp"
 
 void UpdatePositionComponent::_updatePosition(Network::UDPPacket packet, ECS::Registry& reg)

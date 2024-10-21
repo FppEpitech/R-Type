@@ -10,7 +10,7 @@
 
 #include "UpdatePlanet.hpp"
 #include "VelocityComponent.hpp"
-#include "Position2DComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
 
 static std::mt19937::result_type getRandomSeed()
 {

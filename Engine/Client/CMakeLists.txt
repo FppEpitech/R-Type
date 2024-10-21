@@ -22,28 +22,28 @@ set(EXE_INCLUDE_PATH "Include")
 
 # Define component source files
 set(COMPONENT_SRC_FILE
-    ../Shared/Component/DrawComponent.cpp
-    ../Shared/Component/FontPathComponent.cpp
-    ../Shared/Component/ObjPathComponent.cpp
-    ../Shared/Component/TexturePathComponent.cpp
-    ../Shared/Component/TextureRectComponent.cpp
-    ../Shared/Component/ScaleComponent.cpp
-    ../Shared/Component/ColourComponent.cpp
-    ../Shared/Component/Position3DComponent.cpp
-    ../Shared/Component/Position2DComponent.cpp
-    ../Shared/Component/TextPosition2DComponent.cpp
-    ../Shared/Component/Size1DComponent.cpp
-    ../Shared/Component/TextComponent.cpp
-    ../Shared/Component/MaterialMapComponent.cpp
-    ../Shared/Component/MusicPathComponent.cpp
-    ../Shared/Component/MusicPitchComponent.cpp
-    ../Shared/Component/MusicVolumeComponent.cpp
-    ../Shared/Component/SoundPathComponent.cpp
-    ../Shared/Component/SoundPitchComponent.cpp
-    ../Shared/Component/SoundVolumeComponent.cpp
-    ../Shared/Component/NetworkConnectionComponent.cpp
-    ../Shared/Component/SpriteSheetAnimationComponent.cpp
-    ../Shared/Component/Entities/Player/PlayerComponent.cpp
+    ../Shared/DefaultComponents/Draw/DrawComponent.cpp
+    ../Shared/DefaultComponents/FontPath/FontPathComponent.cpp
+    ../Shared/DefaultComponents/ObjPath/ObjPathComponent.cpp
+    ../Shared/DefaultComponents/TexturePath/TexturePathComponent.cpp
+    ../Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
+    ../Shared/DefaultComponents/Scale/ScaleComponent.cpp
+    ../Shared/DefaultComponents/Colour/ColourComponent.cpp
+    ../Shared/DefaultComponents/Position3D/Position3DComponent.cpp
+    ../Shared/DefaultComponents/Position2D/Position2DComponent.cpp
+    ../Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
+    ../Shared/DefaultComponents/Size1D/Size1DComponent.cpp
+    ../Shared/DefaultComponents/Text/TextComponent.cpp
+    ../Shared/DefaultComponents/MaterialMap/MaterialMapComponent.cpp
+    ../Shared/DefaultComponents/MusicPath/MusicPathComponent.cpp
+    ../Shared/DefaultComponents/MusicPitch/MusicPitchComponent.cpp
+    ../Shared/DefaultComponents/MusicVolume/MusicVolumeComponent.cpp
+    ../Shared/DefaultComponents/SoundPath/SoundPathComponent.cpp
+    ../Shared/DefaultComponents/SoundPitch/SoundPitchComponent.cpp
+    ../Shared/DefaultComponents/SoundVolume/SoundVolumeComponent.cpp
+    ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
+    ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
+    ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
 )
 
 # Define system source files
@@ -78,9 +78,9 @@ include_directories(
     ${EXE_SRC_PATH}/Systems
     ../Shared/GraphicalLoad
     ../Shared/Component
-    ../Shared/Component/Entities
-    ../Shared/Component/Entities/Player
-    ../Shared/Ecs/Src
+    ../Shared/DefaultComponents/Entities
+    ../Shared/DefaultComponents/Entities/Player
+        ../Ecs/Src
     ../Shared/Interface
     ../Shared/SceneManager
     ../Shared/DLLoader

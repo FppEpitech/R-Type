@@ -12,7 +12,7 @@
 #define POS_PLAYER_X 155
 #define POS_PLAYER_Y 50
 
-#include "ISystem.hpp"
+#include "../../../Engine/Shared/DefaultSystems/ISystem.hpp"
 
 /**
  * @brief Destroy a shot if the bullet leave the screen.

@@ -7,13 +7,13 @@
 
 #include "MobComponent.hpp"
 #include "LifeComponent.hpp"
-#include "DrawComponent.hpp"
-#include "ScaleComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Draw/DrawComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Scale/ScaleComponent.hpp"
 #include "ShootComponent.hpp"
 #include "PlayerComponent.hpp"
 #include "ShootDamageSystem.hpp"
-#include "Position2DComponent.hpp"
-#include "TextureRectComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/TextureRect/TextureRectComponent.hpp"
 
 ShootDamageSystem::ShootDamageSystem() :
     ASystem("ShootDamageSystem") {}

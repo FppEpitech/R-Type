@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "ISystemNetworkUpdate.hpp"
+#include "../../../Engine/Shared/DefaultSystems/ISystemNetworkUpdate.hpp"
 
 /**
  * @brief Update player connection system.

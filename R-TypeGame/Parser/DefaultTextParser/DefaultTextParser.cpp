@@ -9,7 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "DefaultTextComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/DefaultText/DefaultTextComponent.hpp"
 
 std::shared_ptr<DefaultTextComponent> parseDefaultText(std::string pathFile)
 {

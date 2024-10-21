@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "ScaleComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Scale/ScaleComponent.hpp"
 
 #include <memory>
 

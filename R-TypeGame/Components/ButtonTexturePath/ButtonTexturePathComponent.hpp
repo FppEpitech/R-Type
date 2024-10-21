@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "IComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/IComponent.hpp"
 
 /**
  * @brief ButtonTexturePathComponent class

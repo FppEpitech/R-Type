@@ -6,10 +6,10 @@
 */
 
 #include "DrawOBJSystem.hpp"
-#include "ObjPathComponent.hpp"
-#include "Position3DComponent.hpp"
-#include "ScaleComponent.hpp"
-#include "DrawComponent.hpp"
+#include "../../../../Shared/DefaultComponent/ObjPath/ObjPathComponent.hpp"
+#include "../../../../Shared/DefaultComponent/Position3D/Position3DComponent.hpp"
+#include "../../../../Shared/DefaultComponent/Scale/ScaleComponent.hpp"
+#include "../../../../Shared/DefaultComponent/Draw/DrawComponent.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
 

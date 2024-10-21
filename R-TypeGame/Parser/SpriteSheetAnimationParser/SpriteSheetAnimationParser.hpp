@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "SpriteSheetAnimationComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
 
 #include <memory>
 

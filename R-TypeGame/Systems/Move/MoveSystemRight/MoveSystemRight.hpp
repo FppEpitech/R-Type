@@ -7,12 +7,12 @@
 
 #include <iostream>
 
-#include "ISystem.hpp"
-#include "DrawComponent.hpp"
+#include "../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
+#include "../../../../Engine/Shared/DefaultComponent/Draw/DrawComponent.hpp"
 #include "SpeedComponent.hpp"
-#include "ScaleComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "TextureRectComponent.hpp"
+#include "../../../../Engine/Shared/DefaultComponent/Scale/ScaleComponent.hpp"
+#include "../../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
+#include "../../../../Engine/Shared/DefaultComponent/TextureRect/TextureRectComponent.hpp"
 
 class MoveSystemRight : public ASystem
 {

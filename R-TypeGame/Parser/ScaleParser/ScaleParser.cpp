@@ -11,7 +11,7 @@
 #include <memory>
 #include <fstream>
 
-#include "ScaleComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Scale/ScaleComponent.hpp"
 
 std::shared_ptr<ScaleComponent> parseScale(std::string pathFile)
 {

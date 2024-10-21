@@ -6,10 +6,10 @@
 */
 
 #include "PlanetInitSystem.hpp"
-#include "ScaleComponent.hpp"
-#include "DrawComponent.hpp"
-#include "TextureRectComponent.hpp"
-#include "Position2DComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Scale/ScaleComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Draw/DrawComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/TextureRect/TextureRectComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"

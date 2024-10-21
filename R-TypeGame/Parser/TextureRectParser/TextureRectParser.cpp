@@ -11,7 +11,7 @@
 #include <memory>
 #include <fstream>
 
-#include "TextureRectComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/TextureRect/TextureRectComponent.hpp"
 
 std::shared_ptr<TextureRectComponent> parseTextureRect(std::string pathFile)
 {

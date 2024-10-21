@@ -9,7 +9,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "Size1DComponent.hpp"
+#include "../../../Engine/Shared/DefaultComponent/Size1D/Size1DComponent.hpp"
 
 std::shared_ptr<Size1DComponent> parseSize1D(std::string pathFile)
 {

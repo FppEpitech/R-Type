@@ -12,7 +12,7 @@ set(SRC_LIB
 )
 
 include_directories(
-    ../../../Shared/Ecs/Src/
+        ../../../Ecs/Src/
     ../../../Shared/Component/Entities/Player/
 )
 

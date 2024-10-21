@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "ISystem.hpp"
+#include "../../../Engine/Shared/DefaultSystems/ISystem.hpp"
 
 /**
  * @brief Initialize a mob entity.
