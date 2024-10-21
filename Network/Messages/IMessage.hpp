@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <cstdint>
+#include <asio.hpp>
 
 #define VERSION 0x01
 
@@ -56,14 +57,15 @@ class IMessage
         virtual ~IMessage() = default;
 
         /**
-         * @brief Retrieves the message in packet format.
+         * @brief Create a packet for a message.
          *
-         * This method must be implemented by any class that inherits from `IMessage`.
-         * It should return the message as a vector of bytes, ready to be sent over a network.
-         *
-         * @return A vector of bytes representing the message packet.
+         * @param messageType Type of the message using the enum MessageType
+         * @param payload Payload related to the Message type.
+         * @param messageId Id of Message.
+         * @param token Token's User who send the message to.
+         * @return std::vector<uint8_t> Packet to send.
          */
-        virtual std::vector<uint8_t> getMessagePacket() = 0;
+        virtual std::vector<uint8_t> _creatPacket(uint8_t messageType, const std::vector<uint8_t>& payload, uint32_t &messageId, uint32_t token) = 0;
 };
 
 }
