@@ -4,6 +4,7 @@
       "asio",
       "raylib",
       "jsoncpp",
-      "sqlite3"
+      "sqlite3",
+      "jwt-cpp"
     ]
 }
