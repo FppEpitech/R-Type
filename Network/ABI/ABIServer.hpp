@@ -5,6 +5,8 @@
 ** ABIServer
 */
 
+#pragma once
+
 #include "ABINetwork.hpp"
 
 /**

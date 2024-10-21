@@ -5,6 +5,13 @@
 ** Client
 */
 
+#pragma once
+
+#include <string>
+#include <cstdint>
+#include <asio.hpp>
+
+#include "ABIError.hpp"
 #include "ANetworkUnit.hpp"
 
 /**
@@ -25,6 +32,8 @@ class Client : public ANetworkUnit
 
     public:
 
+        Client(std::string ipServer, int tcp_port, int udp_port);
+
         /**
          * @brief Destructor.
          *
@@ -32,6 +41,29 @@ class Client : public ANetworkUnit
          * of this class is destroyed.
          */
         ~Client() = default;
+
+
+    private:
+
+        uint32_t                                    _token;             // Token of client (used to be identify on server)
+        std::string                                 _serverIp;          // Server ip adress.
+        int                                         _tcpPort;           // TCP port on witch we can connect to the server.
+        int                                         _udpPort;           // UDP port on witch we can communicate to the server.
+
+        std::shared_ptr<asio::io_context>           _io_context;        // Shared pointer to the io_context object, used to manage asynchronous I/O operations.
+        std::shared_ptr<asio::ip::tcp::socket>      _tcp_socket;        // Shared pointer to the TCP acceptor object, used to accept incoming TCP connections.
+        std::shared_ptr<asio::ip::udp::socket>      _udp_socket;        // Shared pointer to the UDP socket object, used for sending and receiving UDP datagrams.
+        std::shared_ptr<asio::ip::udp::endpoint>    _server_endpoint;   // Server endpoint (used to communicate with the server).
+
+        uint32_t                                    _messageId;         // Current Message ID (auto-incremente every send of message)
+
+        /**
+         * @brief Function to connect the client to the server.
+         *
+         * @return true Connection worked.
+         * @return false Connection failed.
+         */
+        bool _connect();
 };
 
 }

@@ -5,6 +5,8 @@
 ** ABINetwork
 */
 
+#pragma once
+
 #include <thread>
 #include <random>
 #include <vector>

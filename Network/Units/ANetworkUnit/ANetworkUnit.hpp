@@ -5,6 +5,8 @@
 ** ANetworkUnit
 */
 
+#pragma once
+
 #include "INetworkUnit.hpp"
 
 /**
