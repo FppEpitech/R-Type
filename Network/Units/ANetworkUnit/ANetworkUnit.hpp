@@ -7,6 +7,10 @@
 
 #pragma once
 
+#include <list>
+#include <vector>
+#include <cstdint>
+
 #include "INetworkUnit.hpp"
 
 /**
@@ -34,6 +38,16 @@ class ANetworkUnit : public INetworkUnit
          * an object of this class is destroyed.
          */
         ~ANetworkUnit() = default;
+
+        /**
+         * @brief Get the Message To Send Queue object
+         *
+         * @return std::list<std::vector<uint8_t>>.
+         */
+        std::list<std::vector<uint8_t>>& getMessageToSendQueue() override;
+
+    protected:
+        std::list<std::vector<uint8_t>>       _queueMessageToSend;         // Message to send queue
 };
 
 }
