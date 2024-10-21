@@ -29,6 +29,10 @@ class IMessage
 {
     public:
 
+        /**
+         * @brief Enum for message Type.
+         * The message type will be sent in the payload.
+         */
         enum class MessageType : uint8_t {
             LOGIN               = 0x00,
             REGISTER            = 0x01,

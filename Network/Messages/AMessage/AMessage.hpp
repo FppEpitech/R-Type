@@ -42,6 +42,15 @@ class AMessage : public IMessage
 
     protected:
 
+        /**
+         * @brief Create a packet for a message.
+         *
+         * @param messageType Type of the message using the enum MessageType
+         * @param payload Payload related to the Message type.
+         * @param messageId Id of Message.
+         * @param token Token's User who send the message to.
+         * @return std::vector<uint8_t> Packet to send.
+         */
         std::vector<uint8_t> _creatPacket(uint8_t messageType, const std::vector<uint8_t>& payload, uint32_t messageId, uint32_t token);
 };
 
