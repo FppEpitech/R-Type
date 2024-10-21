@@ -14,15 +14,15 @@
  * @brief Interface for error handling
  *
  */
-class IError : public std::exception {
+class IErrorNetwork : public std::exception {
 
     public:
 
         /**
-         * @brief Construct a new IError object
+         * @brief Construct a new IErrorNetwork object
          *
          */
-        virtual ~IError() = default;
+        virtual ~IErrorNetwork() = default;
 
         /**
          * @brief Get the error message
@@ -36,21 +36,21 @@ class IError : public std::exception {
  * @brief Abstract class for error handling
  *
  */
-class AError : public IError {
+class AErrorNetwork : public IErrorNetwork {
 
     public:
 
         /**
-         * @brief Construct a new AError object
+         * @brief Construct a new AErrorNetwork object
          *
          */
-        AError(const std::string &message) : _message(message) {}
+        AErrorNetwork(const std::string &message) : _message(message) {}
 
         /**
-         * @brief Destroy the AError object
+         * @brief Destroy the AErrorNetwork object
          *
          */
-        virtual ~AError() = default;
+        virtual ~AErrorNetwork() = default;
 
         /**
          * @brief Get the error message

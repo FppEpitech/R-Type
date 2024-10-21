@@ -14,6 +14,7 @@ include_directories(
     ${LIB_SRC_PATH}/Units/Client/
     ${LIB_SRC_PATH}/Units/ANetworkUnit/
     ${LIB_SRC_PATH}/ABI/
+    ${LIB_SRC_PATH}/Errors
 )
 
 set(SRC_LIB

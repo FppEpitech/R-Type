@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <asio.hpp>
 
+#include "ABIError.hpp"
 #include "ANetworkUnit.hpp"
 
 /**

@@ -24,7 +24,8 @@ Client::Client(std::string ipServer, int tcp_port, int udp_port)
     _server_endpoint = nullptr;
     _messageId = 0x0000;
     _token = 0;
-    _connect();
+    if (!_connect())
+        throw ABIError("Failed to connect to the server");
 }
 
 bool Client::_connect()
@@ -42,6 +43,8 @@ bool Client::_connect()
 
         _udp_socket->open(asio::ip::udp::v4());
         _server_endpoint = std::make_shared<asio::ip::udp::endpoint>(asio::ip::address::from_string(_serverIp), _udpPort);
+
+        // TODO: When we will be able to send messages
 
         // this->_messageHandler = std::move(callback);
         // std::vector<uint8_t> initPacket = _createPacket();
