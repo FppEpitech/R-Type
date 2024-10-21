@@ -11,6 +11,7 @@ User::User(std::string path) {
     if (_rc != SQLITE_OK) {
         std::cerr << "OPEN DB ERR: " << sqlite3_errmsg(_db) << std::endl;
     }
+    this->createTable();
 }
 
 User::~User() {
@@ -18,11 +19,12 @@ User::~User() {
 }
 
 bool User::userIdExists(int id) {
-    std::string req("SELECT COUNT(*) FROM users WHERE id = " + std::to_string(id) + ";");
+    std::string req("SELECT COUNT(*) FROM users WHERE id = ?;");
     sqlite3_stmt* stmt;
     bool exists = false;
 
     _rc = sqlite3_prepare_v2(_db, req.c_str(), -1, &stmt, nullptr);
+    sqlite3_bind_text(stmt, 1, std::to_string(id).c_str(), -1, SQLITE_STATIC);
     if (_rc != SQLITE_OK)
         std::cerr << "USER ID EXIST ERR: " << sqlite3_errmsg(_db) << std::endl;
     _rc = sqlite3_step(stmt);
@@ -37,28 +39,49 @@ bool User::userIdExists(int id) {
     return exists;
 }
 
-std::string User::registerUser(std::string username, std::string password) {
+int User::registerUser(std::string username, std::string password) { //saltpwd
     std::string req("INSERT INTO users (username, password) VALUES ('" + username + "', '" + password + "');");
     _rc = sqlite3_exec(_db, req.c_str(), 0, 0, 0);
     if (_rc != SQLITE_OK) {
         std::cerr << "REGISTER USER ERR: " << sqlite3_errmsg(_db) << std::endl;
-        return "";
+        return -1;
     }
-    return "fkdqmfjkdlqmfjdklqfjldmf";
+    return (int)sqlite3_last_insert_rowid(_db);
 }
 
-std::string User::loginUser(std::string username, std::string password) {
-    std::string req("SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "';");
-    _rc = sqlite3_exec(_db, req.c_str(), 0, 0, 0);
+int User::loginUser(std::string username, std::string password) {
+    sqlite3_stmt* stmt;
+    const char* sql = "SELECT id, username, password FROM users WHERE username = ?";
+
+    _rc = sqlite3_prepare_v2(_db, sql, -1, &stmt, 0);
     if (_rc != SQLITE_OK) {
-        std::cerr << "LOGIN USER ERR : " << sqlite3_errmsg(_db) << std::endl;
-        return "";
+        std::cerr << "PREP LOGIN USER ERR: " << sqlite3_errmsg(_db) << std::endl;
+        return -1;
     }
-    return "fkdqmfjkdlqmfjdklqfjldmf";
+    sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
+    _rc = sqlite3_step(stmt);
+    if (_rc == SQLITE_ROW) {
+        int userId = sqlite3_column_int(stmt, 0);
+        const char *pwd = (const char *)sqlite3_column_text(stmt, 2);
+
+        if (std::string(pwd) == password) {
+            sqlite3_finalize(stmt);
+            return userId;
+        } else {
+            std::cerr << "Got the user, but not the right pwd";
+            return -1;
+        }
+    } else if (_rc == SQLITE_DONE) {
+        std::cerr << "LOGIN USER ERR: User not found or incorrect password." << std::endl;
+    } else {
+        std::cerr << "LOGIN USER EXECUTE ERR: " << sqlite3_errmsg(_db) << std::endl;
+    }
+    sqlite3_finalize(stmt);
+    return -1;
 }
 
 bool User::createTable() {
-    std::string req("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL);");
+    std::string req("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL);");
     _rc = sqlite3_exec(_db, req.c_str(), 0, 0, 0);
     if (_rc != SQLITE_OK) {
         std::cerr << "CREATE TABLE ERR: " << sqlite3_errmsg(_db) << std::endl;
@@ -67,12 +90,15 @@ bool User::createTable() {
     return true;
 }
 
-int main() {
-    User userSystem("users.db");
-    userSystem.registerUser("theophile", "test");
-    userSystem.loginUser("fjdkqm","jfdqlm");
-    userSystem.userIdExists(433);
+std::string User::createToken(int id) {
+    return "jfkdlqmfjdklmqfjdqfklm"; // real token system + check token system
 }
 
+int main() {
+    User userSystem("users.db"); //should move the db start to another file ?
+    userSystem.registerUser("theophile", "test");
+    userSystem.loginUser("theophile","test");
+    std::cout << userSystem.userIdExists(1);
+}
 
-//token / db not from this / token management / splitregister token etc- comments
+// comments && throwerr

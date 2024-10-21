@@ -16,11 +16,13 @@ class User {
 
         bool userIdExists(int id);
 
-        std::string registerUser(std::string username, std::string password);
+        int registerUser(std::string username, std::string password);
 
-        std::string loginUser(std::string username, std::string password);
+        int loginUser(std::string username, std::string password);
 
         bool createTable();
+
+        std::string createToken(int id);
 
     private:
 
