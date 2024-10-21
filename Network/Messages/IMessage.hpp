@@ -29,6 +29,20 @@ class IMessage
 {
     public:
 
+        enum class MessageType : uint8_t {
+            LOGIN               = 0x00,
+            REGISTER            = 0x01,
+            LOGOUT              = 0x02,
+            CHAT_BOX_MESSAGE    = 0x03,
+            CREATE_ENTITY       = 0x04,
+            UPDATE_ENTITY       = 0x05,
+            DELETE_ENTITY       = 0x06,
+            CREATE_ROOM         = 0x07,
+            DELETE_ROOM         = 0x08,
+            JOIN_ROOM           = 0x09,
+            LEAVE_ROOM          = 0x0A
+        };
+
         /**
          * @brief Virtual destructor.
          *
