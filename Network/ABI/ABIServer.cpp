@@ -13,31 +13,31 @@
 namespace ABINetwork
 {
 
-std::pair<std::string, std::string> getLoginInfoFromPacket()
+std::pair<std::string, std::string> getLoginInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
     if (!message)
         throw ABIError("Failed to create AuthMessage class");
-    return message->getLoginInfoFromPacket();
+    return message->getLoginInfoFromPacket(packet);
 }
 
-std::pair<std::string, std::string> getRegisterInfoFromPacket()
+std::pair<std::string, std::string> getRegisterInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
     if (!message)
         throw ABIError("Failed to create AuthMessage class");
-    return message->getRegisterInfoFromPacket();
+    return message->getRegisterInfoFromPacket(packet);
 }
 
-uint32_t getLogoutInfoFromPacket()
+uint32_t getLogoutInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
     if (!message)
         throw ABIError("Failed to create AuthMessage class");
-    return message->getLogoutInfoFromPacket();
+    return message->getLogoutInfoFromPacket(packet);
 }
 
 std::shared_ptr<INetworkUnit> createServer(std::size_t numberMaxPlayer)

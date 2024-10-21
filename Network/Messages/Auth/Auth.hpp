@@ -12,6 +12,7 @@
 #include <string>
 
 #include "AMessage/AMessage.hpp"
+#include "UDPPacket/UDPPacket.hpp"
 
 /**
  * @namespace ABINetwork
@@ -53,7 +54,7 @@ class AuthMessage : public AMessage
          *
          * @return std::pair<std::string, std::string> UserName and Password.
          */
-        std::pair<std::string, std::string> getLoginInfoFromPacket();
+        std::pair<std::string, std::string> getLoginInfoFromPacket(UDPPacket packet);
 
         /**
          * @brief Create a Register Payload object.
@@ -69,7 +70,7 @@ class AuthMessage : public AMessage
          *
          * @return std::pair<std::string, std::string> UserName and PAssword.
          */
-        std::pair<std::string, std::string> getRegisterInfoFromPacket();
+        std::pair<std::string, std::string> getRegisterInfoFromPacket(UDPPacket packet);
 
         /**
          * @brief Create a Logout Payload object.
@@ -83,7 +84,7 @@ class AuthMessage : public AMessage
          *
          * @return uint32_t Token of the player logout.
          */
-        uint32_t getLogoutInfoFromPacket();
+        uint32_t getLogoutInfoFromPacket(UDPPacket packet);
 
         private:
 

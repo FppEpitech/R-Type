@@ -39,19 +39,30 @@ std::vector<asio::detail::buffered_stream_storage::byte_type> & AuthMessage::cre
     return _payload;
 }
 
-std::pair<std::string, std::string> AuthMessage::getLoginInfoFromPacket()
+std::pair<std::string, std::string> AuthMessage::getLoginInfoFromPacket(UDPPacket packet)
 {
-    return std::make_pair<std::string, std::string>("", "");
+
+    // TODO: Verify if it works :)
+
+    std::string userName;
+    uint32_t userNameLength;
+    std::memcpy(&userName, &packet.getPayload()[0], sizeof(std::string));
+
+    std::string password;
+    std::memcpy(&password, &packet.getPayload()[0 + sizeof(std::string)], sizeof(std::string));
+
+    std::pair<std::string, std::string> infos(userName, password);
+    return infos;
 }
 
-std::pair<std::string, std::string> AuthMessage::getRegisterInfoFromPacket()
+std::pair<std::string, std::string> AuthMessage::getRegisterInfoFromPacket(UDPPacket packet)
 {
-    return std::make_pair<std::string, std::string>("", "");
+    return getLoginInfoFromPacket(packet);
 }
 
-uint32_t AuthMessage::getLogoutInfoFromPacket()
+uint32_t AuthMessage::getLogoutInfoFromPacket(UDPPacket packet)
 {
-    return 0;
+    return packet.getToken();
 }
 
 }
