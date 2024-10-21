@@ -3,6 +3,7 @@
     "dependencies": [
       "asio",
       "raylib",
-      "jsoncpp"
+      "jsoncpp",
+      "sqlite3"
     ]
 }
