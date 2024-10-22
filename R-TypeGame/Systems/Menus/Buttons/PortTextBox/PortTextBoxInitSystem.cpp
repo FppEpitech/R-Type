@@ -14,8 +14,10 @@
 #include "DefaultTextParser.hpp"
 #include "FontPathComponent.hpp"
 #include "EditableComponent.hpp"
+#include "DefaultTextParser.hpp"
 #include "TextLimitComponent.hpp"
 #include "ButtonStateComponent.hpp"
+#include "DefaultTextComponent.hpp"
 #include "PortTextBoxInitSystem.hpp"
 #include "ButtonTexturePathParser.hpp"
 #include "ButtonTexturePathComponent.hpp"
@@ -79,6 +81,12 @@ void PortTextBoxInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntitie
     if (textLimit) {
         reg.register_component<IComponent>(textLimit->getType());
         reg.set_component<IComponent>(idxPacketEntities, textLimit, textLimit->getType());
+    }
+
+    std::shared_ptr<DefaultTextComponent> defaultText = parseDefaultText(PATH_JSON);
+    if (defaultText) {
+        reg.register_component<IComponent>(defaultText->getType());
+        reg.set_component<IComponent>(idxPacketEntities, defaultText, defaultText->getType());
     }
 
     std::shared_ptr<ButtonTexturePathComponent> buttonTexturePath = parseButtonTexturePath(PATH_JSON);

@@ -280,4 +280,12 @@ class IGraphic {
          * @return new scale of the object.
          */
         virtual float getScaleWithWindow(float scale) = 0;
+
+        /**
+         * @brief Close the window.
+         *
+         * @return true Window closed.
+         * @return false Window open.
+         */
+        virtual bool closeWindow() = 0;
 };

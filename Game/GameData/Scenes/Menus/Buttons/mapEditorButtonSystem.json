@@ -1,0 +1,33 @@
+{
+    "TextureRectComponent":{
+        "path":"./Assets/BaseRectangleButton.png",
+        "left":0,
+        "top":0,
+        "width":410,
+        "height":110
+    },
+    "ScaleComponent":0.8,
+    "Position2DComponent":{
+        "x":280,
+        "y":615
+    },
+    "TextPosition2DComponent":{
+        "x":380,
+        "y":650
+    },
+    "ColourComponent":{
+        "r":255,
+        "g":255,
+        "b":255,
+        "a":255
+    },
+    "TextComponent": "Map Editor",
+    "Size1DComponent": 24,
+    "FontPathComponent": "",
+    "ButtonStateComponent": "NONE",
+    "ButtonTexturePathComponent": {
+        "None": "./Assets/BaseRectangleButton.png",
+        "Hover": "./Assets/HoverRectangleButton.png",
+        "Clicked": "./Assets/PressedRectangleButton.png"
+    }
+}

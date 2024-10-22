@@ -71,6 +71,8 @@ std::size_t GraphicLib::getKeyPressedInput()
 
 void GraphicLib::drawOBJ(std::string objPath, float posx, float posy, float posz, float scale)
 {
+    if (!windowIsOpen())
+        return;
     if (_models.find(objPath) == _models.end())
         _models[objPath] = LoadModel(objPath.c_str());
 
@@ -89,6 +91,8 @@ void GraphicLib::drawOBJ(std::string objPath, float posx, float posy, float posz
 
 void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, float scale)
 {
+    if (!windowIsOpen())
+        return;
     if (_textures.find(texturePath) == _textures.end())
         _textures[texturePath] = LoadTexture(texturePath.c_str());
 
@@ -104,6 +108,8 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
 
 void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy, float left, float top, float width, float height, float scale, unsigned char r = 255, unsigned char g = 255, unsigned char b = 255, unsigned char a = 255)
 {
+    if (!windowIsOpen())
+        return;
     if (_textures.find(texturePath) == _textures.end())
         _textures[texturePath] = LoadTexture(texturePath.c_str());
 
@@ -131,6 +137,8 @@ void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy
 void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
     unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
+    if (!windowIsOpen())
+        return;
     if (_font.find(fontPath) == _font.end() && fontPath != "")
         _font[fontPath] = LoadFont(fontPath.c_str());
 
@@ -154,6 +162,8 @@ void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize
 
 void GraphicLib::initShaderWithMap(std::unordered_map <std::string, std::string> shaders)
 {
+    if (!windowIsOpen())
+        return;
     try {
         for (auto shader : shaders) {
             Shader shaderLoaded = LoadShader(0, shader.second.c_str());
@@ -181,6 +191,8 @@ void GraphicLib::initCurrentShader(std::string name)
 
 void GraphicLib::initShaderIntensity(float intensity)
 {
+    if (!windowIsOpen())
+        return;
     for (auto shader : _shaders) {
         SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
     }
@@ -188,6 +200,8 @@ void GraphicLib::initShaderIntensity(float intensity)
 
 void GraphicLib::changeShaderIntensity(float intensity)
 {
+    if (!windowIsOpen())
+        return;
     Json::Value root;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
     settingsFile >> root;
@@ -226,6 +240,8 @@ void GraphicLib::changeCurrentShader(std::string name)
 
 void GraphicLib::resetShader()
 {
+    if (!windowIsOpen())
+        return;
     for (auto shader : _shaders)
         UnloadShader(_shaders[shader.first]);
     _shaders.clear();
@@ -234,11 +250,15 @@ void GraphicLib::resetShader()
 
 void GraphicLib::startDraw()
 {
+    if (!windowIsOpen())
+        return;
     BeginDrawing();
 }
 
 void GraphicLib::endDraw()
 {
+    if (!windowIsOpen())
+        return;
     EndDrawing();
 }
 
@@ -321,6 +341,15 @@ float GraphicLib::getScaleWithWindow(float scale)
     float windowScaleX = (float)GetScreenWidth() / DEFAULT_WINDOW_WIDTH;
     float windowScaleY = (float)GetScreenHeight() / DEFAULT_WINDOW_HEIGHT;
     return (windowScaleX < windowScaleY) ? windowScaleX * scale : windowScaleY * scale;
+}
+
+bool GraphicLib::closeWindow()
+{
+    if (windowIsOpen()) {
+        CloseWindow();
+        return true;
+    }
+    return false;
 }
 
 bool GraphicLib::_isShaderReady()

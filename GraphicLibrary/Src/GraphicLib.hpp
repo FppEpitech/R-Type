@@ -306,6 +306,14 @@ class GraphicLib : public IGraphic {
          */
         float getScaleWithWindow(float scale);
 
+        /**
+         * @brief Close the window.
+         *
+         * @return true The window is closed.
+         * @return false The window is not closed.
+         */
+         bool closeWindow();
+
     private:
 
         /**
