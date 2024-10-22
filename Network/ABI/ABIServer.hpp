@@ -48,6 +48,13 @@ namespace ABINetwork
     uint32_t getLogoutInfoFromPacket(UDPPacket packet);
 
     /**
+     * @brief Get the keyPressed Info From Packet object.
+     *
+     * @return int KeyPressed.
+     */
+    int getKeyPressedInfoFromPacket(UDPPacket packet);
+
+    /**
      * @brief Get the ChatBox Info From Packet object.
      *
      * @return std::pair<std::string, std::string> With userName and chat.

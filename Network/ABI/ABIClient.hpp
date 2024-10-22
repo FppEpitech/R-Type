@@ -44,6 +44,14 @@ namespace ABINetwork
     void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password);
 
     /**
+     * @brief Sends a key packet to the server.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param key Client's key pressed.
+     */
+    void sendPacketKey(std::shared_ptr<INetworkUnit> networkUnit, int key);
+
+    /**
      * @brief Sends a logout packet to the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
