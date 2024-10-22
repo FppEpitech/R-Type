@@ -27,6 +27,7 @@ set(SRC_LIB
 
     ${LIB_SRC_PATH}/Messages/AMessage/AMessage.cpp
     ${LIB_SRC_PATH}/Messages/Auth/Auth.cpp
+    ${LIB_SRC_PATH}/Messages/ChatBox/ChatBox.cpp
     ${LIB_SRC_PATH}/Messages/UDPPacket/UDPPacket.cpp
 
     ${LIB_SRC_PATH}/Units/ANetworkUnit/ANetworkUnit.cpp

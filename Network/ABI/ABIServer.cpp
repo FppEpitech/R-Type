@@ -5,8 +5,8 @@
 ** ABIServer
 */
 
-// #include "ABINetwork.hpp"
 #include "Auth/Auth.hpp"
+#include "ChatBox/ChatBox.hpp"
 #include "ABIError.hpp"
 #include "Server.hpp"
 
@@ -43,6 +43,15 @@ uint32_t getLogoutInfoFromPacket(UDPPacket packet)
 std::shared_ptr<INetworkUnit> createServer(std::size_t numberMaxPlayer)
 {
     return std::make_shared<Server>(numberMaxPlayer);
+}
+
+std::pair<std::string, std::string> getChatBoxInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<ChatBoxMessage> message = std::make_shared<ChatBoxMessage>();
+
+    if (!message)
+        throw ABIError("Failed to create ChatBoxMessage class");
+    return message->getChatBoxInfoFromPacket(packet);
 }
 
 }
