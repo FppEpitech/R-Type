@@ -42,5 +42,5 @@ class IpTextBoxInitSystem : public AButtonInitSystem, public ASystem {
 
     private:
 
-        void _initButton(ECS::Registry& reg, int idxPacketEntities);
+        void _initButton(ECS::Registry& reg, int idxPacketEntities); //< Function to init the button.
 };
