@@ -93,4 +93,11 @@ namespace ABINetwork
      */
     void deleteRoom(std::shared_ptr<INetworkUnit> networkUnit);
 
+    /**
+     * @brief Get the ChatBox Info From Packet object.
+     *
+     * @return std::tuple<std::string, float, float> With EntityComponent and PosX and PosY.
+     */
+    std::tuple<std::string, float, float> getEntityCreationInfoFromPacket(UDPPacket packet);
+
 }

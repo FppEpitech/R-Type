@@ -12,7 +12,7 @@
 #include <asio.hpp>
 
 #define VERSION 0x01
-#define Payload std::vector<asio::detail::buffered_stream_storage::byte_type>
+#define Payload std::vector<uint8_t>
 
 /**
  * @namespace ABINetwork
@@ -41,7 +41,7 @@ class IMessage
             LOGOUT              = 0x02,
             CHAT_BOX_MESSAGE    = 0x03,
             CREATE_ENTITY       = 0x04,
-            UPDATE_ENTITY       = 0x05,
+            UPDATE_COMPONENT    = 0x05,
             DELETE_ENTITY       = 0x06,
             CREATE_ROOM         = 0x07,
             DELETE_ROOM         = 0x08,
