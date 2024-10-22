@@ -11,7 +11,6 @@
 #include "TextComponent.hpp"
 #include "DrawComponent.hpp"
 #include "TextLimitParser.hpp"
-#include "CallBackComponent.hpp"
 #include "FontPathComponent.hpp"
 #include "EditableComponent.hpp"
 #include "TextLimitComponent.hpp"
@@ -40,15 +39,15 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 static void handleOthers(ECS::Registry& reg, int idxPacketEntities)
 {
     ECS::SparseArray<IComponent> states = reg.get_components<IComponent>("ButtonStateComponent");
-    ECS::SparseArray<IComponent> callbacks = reg.get_components<IComponent>("CallBackComponent");
+    ECS::SparseArray<IComponent> clickables = reg.get_components<IComponent>("ClickableComponent");
     ECS::SparseArray<IComponent> texts = reg.get_components<IComponent>("TextComponent");
     ECS::SparseArray<IComponent> defaultTexts = reg.get_components<IComponent>("DefaultTextComponent");
-    for (int i = 0; i < states.size() && i < callbacks.size() && i < texts.size() && i < defaultTexts.size(); i++) {
+    for (int i = 0; i < states.size() && i < clickables.size() && i < texts.size() && i < defaultTexts.size(); i++) {
         std::shared_ptr<ButtonStateComponent> newState = std::dynamic_pointer_cast<ButtonStateComponent>(states[i]);
-        std::shared_ptr<CallBackComponent> callback = std::dynamic_pointer_cast<CallBackComponent>(callbacks[i]);
+        std::shared_ptr<ClickableComponent> clickable = std::dynamic_pointer_cast<ClickableComponent>(clickables[i]);
         std::shared_ptr<TextComponent> newText = std::dynamic_pointer_cast<TextComponent>(texts[i]);
         std::shared_ptr<DefaultTextComponent> newDefaultText = std::dynamic_pointer_cast<DefaultTextComponent>(defaultTexts[i]);
-        if (!newState || !callback || !newText || !newDefaultText)
+        if (!newState || !clickable || !newText || !newDefaultText)
             continue;
         if (newState->state == ButtonStateComponent::ButtonState::CLICKED && i != idxPacketEntities) {
             newState->state = ButtonStateComponent::ButtonState::NONE;

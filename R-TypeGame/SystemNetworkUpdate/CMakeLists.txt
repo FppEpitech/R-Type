@@ -27,7 +27,7 @@ include_directories(
     ../Components/Planet/
     ../Components/Editable/
     ../Components/ButtonState/
-    ../Components/CallBack/
+        ../Components/Clickable/
     ../Components/TextLimit/
     ../Components/Velocity/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
