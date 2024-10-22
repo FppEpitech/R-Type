@@ -23,7 +23,7 @@
     },
     "TextComponent": "Connect to server",
     "DefaultTextComponent": "Connect to server",
-    "Size1DComponent": 18,
+    "Size1DComponent": 24,
     "FontPathComponent": "",
     "ButtonStateComponent": "NONE",
     "ButtonTexturePathComponent": {

@@ -24,7 +24,7 @@
     "TextComponent": "Write the server IP",
     "TextLimitComponent": 15,
     "DefaultTextComponent": "Write the server IP",
-    "Size1DComponent": 18,
+    "Size1DComponent": 24,
     "FontPathComponent": "",
     "ButtonStateComponent": "NONE",
     "ButtonTexturePathComponent": {
