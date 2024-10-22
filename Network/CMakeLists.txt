@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories(
     ${LIB_SRC_PATH}/Messages/UDPPacket
     ${LIB_SRC_PATH}/Messages/
+    ${LIB_SRC_PATH}/Messages/CreateEntity
     ${LIB_SRC_PATH}/Units/
     ${LIB_SRC_PATH}/Units/Client/
     ${LIB_SRC_PATH}/Units/Server/

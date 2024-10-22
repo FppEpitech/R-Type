@@ -56,7 +56,7 @@ class CreateEntityMessage : public AMessage
          * @param packet Packet receive.
          * @return std::tuple<std::string, float, float> Data receive in packet payload.
          */
-        std::tuple<std::string, float, float> CreateEntityMessage::getEntityPayload(UDPPacket packet);
+        std::tuple<std::string, float, float> getEntityPayload(UDPPacket packet);
 
         private:
 
