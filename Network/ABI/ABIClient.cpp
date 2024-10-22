@@ -8,6 +8,7 @@
 #include "ABINetwork.hpp"
 #include "Client.hpp"
 #include "Auth/Auth.hpp"
+#include "ChatBox/ChatBox.hpp"
 
 namespace ABINetwork
 {
@@ -42,6 +43,15 @@ void sendPacketLogout(std::shared_ptr<INetworkUnit> networkUnit)
     if (!message)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::LOGOUT), message->createLogoutPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
+}
+
+void sendPacketChatbox(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string chat)
+{
+    std::shared_ptr<ChatBoxMessage> message = std::make_shared<ChatBoxMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::CHAT_BOX_MESSAGE), message->createChatBoxPayload(userName, chat), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
 }

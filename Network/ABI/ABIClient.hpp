@@ -51,6 +51,13 @@ namespace ABINetwork
     void sendPacketLogout(std::shared_ptr<INetworkUnit> networkUnit);
 
     /**
+     * @brief Sends a Chatbox packet to the server.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketChatbox(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string chat);
+
+    /**
      * @brief Creates a new room on the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
