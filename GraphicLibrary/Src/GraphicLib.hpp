@@ -289,6 +289,23 @@ class GraphicLib : public IGraphic {
          */
         void changeFullscreen();
 
+        /**
+         * @brief Returns the size of an object with the window size.
+         *
+         * @param width The width of the object.
+         * @param height The height of the object.
+         * @return std::pair<float, float> The size of the object.
+         */
+        std::pair<float, float> getSizeWithWindow(float width, float height);
+
+        /**
+         * @brief Returns the scale of an object with the window size.
+         *
+         * @param scale The scale of the object.
+         * @return float The new scale of the object.
+         */
+        float getScaleWithWindow(float scale);
+
     private:
 
         /**
@@ -298,23 +315,6 @@ class GraphicLib : public IGraphic {
          * @return true The shader is ready.
          */
         bool _isShaderReady();
-
-        /**
-         * @brief Returns the size of an object with the window size.
-         *
-         * @param width The width of the object.
-         * @param height The height of the object.
-         * @return std::pair<float, float> The size of the object.
-         */
-        Vector2 _getSizeWithWindow(Vector2 size);
-
-        /**
-         * @brief Returns the scale of an object with the window size.
-         *
-         * @param scale The scale of the object.
-         * @return float The new scale of the object.
-         */
-        float _getScaleWithWindow(float scale);
 
         Camera                                      _camera;        //< Player camera.
         std::unordered_map<std::string, Model>      _models;        //< List of Models loaded.

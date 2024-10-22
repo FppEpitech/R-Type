@@ -234,11 +234,6 @@ void GraphicLib::endDraw()
     EndDrawing();
 }
 
-bool GraphicLib::_isShaderReady()
-{
-    return _currentShader != "none";
-}
-
 std::pair<int, int> GraphicLib::getWindowSize()
 {
     return std::make_pair<int, int>(GetScreenWidth(), GetScreenHeight());
@@ -308,14 +303,19 @@ void GraphicLib::changeFullscreen()
     settingsFileOut.close();
 }
 
-Vector2 GraphicLib::_getSizeWithWindow(Vector2 size)
+std::pair<float, float> GraphicLib::getSizeWithWindow(float width, float height)
 {
-    return Vector2{size.x * GetScreenWidth() / DEFAULT_WINDOW_WIDTH, size.y * GetScreenHeight() / DEFAULT_WINDOW_HEIGHT};
+    return std::pair<float, float>{width * GetScreenWidth() / DEFAULT_WINDOW_WIDTH, height * GetScreenHeight() / DEFAULT_WINDOW_HEIGHT};
 }
 
-float GraphicLib::_getScaleWithWindow(float scale)
+float GraphicLib::getScaleWithWindow(float scale)
 {
     float windowScaleX = (float)GetScreenWidth() / DEFAULT_WINDOW_WIDTH;
     float windowScaleY = (float)GetScreenHeight() / DEFAULT_WINDOW_HEIGHT;
     return (windowScaleX < windowScaleY) ? windowScaleX * scale : windowScaleY * scale;
+}
+
+bool GraphicLib::_isShaderReady()
+{
+    return _currentShader != "none";
 }
