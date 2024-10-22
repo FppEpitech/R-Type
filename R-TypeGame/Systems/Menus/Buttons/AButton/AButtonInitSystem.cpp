@@ -19,7 +19,6 @@
 #include "ScaleComponent.hpp"
 #include "Size1DComponent.hpp"
 #include "ColourComponent.hpp"
-#include "CallBackComponent.hpp"
 #include "AButtonInitSystem.hpp"
 #include "Position2DParser.hpp"
 #include "DefaultTextParser.hpp"
@@ -98,11 +97,11 @@ void AButtonInitSystem::_setButtonProprieties(ECS::Registry &reg, int idxPacketE
         reg.set_component<IComponent>(idxPacketEntities, position2D, position2D->getType());
     }
 
-    std::shared_ptr<CallBackComponent> callbackComponent = std::make_shared<CallBackComponent>([callback](ECS::Registry& reg, int idxPacketEntities){
+    std::shared_ptr<ClickableComponent> clickableComponent = std::make_shared<ClickableComponent>([callback](ECS::Registry& reg, int idxPacketEntities){
         callback(reg, idxPacketEntities);
     });
-    reg.register_component<IComponent>(callbackComponent->getType());
-    reg.set_component<IComponent>(idxPacketEntities, callbackComponent, callbackComponent->getType());
+    reg.register_component<IComponent>(clickableComponent->getType());
+    reg.set_component<IComponent>(idxPacketEntities, clickableComponent, clickableComponent->getType());
 
 
     std::shared_ptr<ButtonTexturePathComponent> buttonTexturePath = parseButtonTexturePath(filePath);

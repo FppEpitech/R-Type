@@ -52,7 +52,7 @@ include_directories(
     ../Components/Planet/
     ../Components/Editable/
     ../Components/ButtonState/
-    ../Components/CallBack/
+        ../Components/Clickable/
     ../Components/TextLimit/
     ../Components/Velocity/
     ../Components/Editable/
@@ -188,7 +188,7 @@ add_library(system_initConnectButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
-    ../Components/CallBack/CallBackComponent.cpp
+        ../Components/Clickable/ClickableComponent.cpp
     ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
     ../Parser/TextureRectParser/TextureRectParser.cpp
     ../Parser/Position2DParser/Position2DParser.cpp
@@ -339,7 +339,7 @@ add_library(system_initIpTextButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/DefaultText/DefaultTextComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
-    ../Components/CallBack/CallBackComponent.cpp
+        ../Components/Clickable/ClickableComponent.cpp
     ../Components/Editable/EditableComponent.cpp
     ../Components/TextLimit/TextLimitComponent.cpp
     ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
@@ -373,7 +373,7 @@ add_library(system_initPortTextButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/DefaultText/DefaultTextComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
-    ../Components/CallBack/CallBackComponent.cpp
+        ../Components/Clickable/ClickableComponent.cpp
     ../Components/Editable/EditableComponent.cpp
     ../Components/TextLimit/TextLimitComponent.cpp
     ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
@@ -399,7 +399,7 @@ add_library(system_handleMouse SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ../Components/CallBack/CallBackComponent.cpp
+    ../Components/Clickable/ClickableComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
 target_link_libraries(system_handleMouse PRIVATE JsonCpp::JsonCpp)
