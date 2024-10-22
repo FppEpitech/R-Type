@@ -174,6 +174,7 @@ add_library(system_moveMobs SHARED MoveSystem/MoveMobs/MoveMobsSystem.cpp)
 
 add_library(system_initConnectButton SHARED
     ../Error/AError.cpp
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
     Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
@@ -325,6 +326,7 @@ add_library(system_hitboxPlayer SHARED
 
 add_library(system_initIpTextButton SHARED
     ../Error/AError.cpp
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
     Menus/Buttons/IpTextBox/IpTextBoxInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
