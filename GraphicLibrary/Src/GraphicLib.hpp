@@ -15,6 +15,9 @@
 #include <iostream>
 #include <unordered_map>
 
+#define DEFAULT_WINDOW_WIDTH 1920
+#define DEFAULT_WINDOW_HEIGHT 1080
+
 /**
  * @brief Raylib graphical library.
  *  This library will be compile into a .so file
@@ -285,6 +288,23 @@ class GraphicLib : public IGraphic {
          * @brief Toggle the fullscreen mode of the window.
          */
         void changeFullscreen();
+
+        /**
+         * @brief Returns the size of an object with the window size.
+         *
+         * @param width The width of the object.
+         * @param height The height of the object.
+         * @return std::pair<float, float> The size of the object.
+         */
+        std::pair<float, float> getSizeWithWindow(float width, float height);
+
+        /**
+         * @brief Returns the scale of an object with the window size.
+         *
+         * @param scale The scale of the object.
+         * @return float The new scale of the object.
+         */
+        float getScaleWithWindow(float scale);
 
     private:
 

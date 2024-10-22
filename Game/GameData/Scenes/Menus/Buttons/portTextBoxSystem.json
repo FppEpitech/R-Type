@@ -24,7 +24,7 @@
     "TextLimitComponent": 15,
     "TextComponent": "Write the server Port",
     "DefaultTextComponent": "Write the server Port",
-    "Size1DComponent": 18,
+    "Size1DComponent": 24,
     "FontPathComponent": "",
     "ButtonStateComponent": "NONE",
     "ButtonTexturePathComponent": {

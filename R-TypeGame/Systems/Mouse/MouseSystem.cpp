@@ -25,7 +25,7 @@ void MouseSystem::_handleMouse(ECS::Registry &reg, int idxPacketEntities)
 
         if (!lib)
             return;
-        std::pair<int, int> mousePos = lib->getMousePosition();
+        std::pair<float, float> mousePos = lib->getMousePosition();
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> texturesRect = reg.get_components<IComponent>("TextureRectComponent");
         ECS::SparseArray<IComponent> clickables = reg.get_components<IComponent>("ClickableComponent");
@@ -40,7 +40,9 @@ void MouseSystem::_handleMouse(ECS::Registry &reg, int idxPacketEntities)
             std::shared_ptr<ButtonTexturePathComponent> buttonTexturePath = std::dynamic_pointer_cast<ButtonTexturePathComponent>(buttonTexturePaths[entity]);
             if (!position || !textureRect || !clickable || !scale || !buttonTexturePath)
                 continue;
-            if (mousePos.first >= position->x && mousePos.first <= position->x + textureRect->width * scale->scale && mousePos.second >= position->y && mousePos.second <= position->y + textureRect->height * scale->scale) {
+            std::pair<float, float> firstCorner = lib->getSizeWithWindow(position->x, position->y);
+            std::pair<float, float> secondCorner = lib->getSizeWithWindow(position->x + textureRect->width * scale->scale, position->y + textureRect->height * scale->scale);
+            if (mousePos.first >= firstCorner.first && mousePos.first <= secondCorner.first && mousePos.second >= firstCorner.second && mousePos.second <= secondCorner.second) {
                 textureRect->path = buttonTexturePath->hoverTexturePath;
                 if (lib->isMouseButtonDown(IGraphic::MouseButtons::MOUSE_LEFT))
                     textureRect->path = buttonTexturePath->clickedTexturePath;

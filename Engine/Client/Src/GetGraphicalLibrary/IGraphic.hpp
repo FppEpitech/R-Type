@@ -263,4 +263,21 @@ class IGraphic {
          * @brief Toggle the fullscreen mode of the window.
          */
         virtual void changeFullscreen() = 0;
+
+        /**
+         * @brief Get the size of an object with the window size.
+         *
+         * @param width Width of the object.
+         * @param height Height of the object.
+         * @return new size of the object.
+         */
+        virtual std::pair<float, float> getSizeWithWindow(float width, float height) = 0;
+
+        /**
+         * @brief Get the scale of an object with the window size.
+         *
+         * @param scale Scale of the object.
+         * @return new scale of the object.
+         */
+        virtual float getScaleWithWindow(float scale) = 0;
 };

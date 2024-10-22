@@ -92,11 +92,12 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
     if (_textures.find(texturePath) == _textures.end())
         _textures[texturePath] = LoadTexture(texturePath.c_str());
 
-    Vector2 position = { posx, posy };
+    std::pair<float, float> positionPair = getSizeWithWindow(posx, posy);
+    Vector2 position = {positionPair.first, positionPair.second};
 
     if (_isShaderReady())
         BeginShaderMode(_shaders[_currentShader]);
-    DrawTextureEx(_textures[texturePath], position, 0, scale, WHITE);
+    DrawTextureEx(_textures[texturePath], position, 0, getScaleWithWindow(scale), WHITE);
     if (_isShaderReady())
         EndShaderMode();
 }
@@ -107,7 +108,16 @@ void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy
         _textures[texturePath] = LoadTexture(texturePath.c_str());
 
     Rectangle rect = {left, top, width, height};
-    Rectangle rectDest = {posx, posy, width * scale, height * scale};
+
+    std::pair<float, float> firstCornerPair = getSizeWithWindow(posx, posy);
+    std::pair<float, float> newSizePair = getSizeWithWindow(width * scale, height * scale);
+
+    Vector2 firstCorner = {firstCornerPair.first, firstCornerPair.second};
+    Vector2 newSize = {newSizePair.first, newSizePair.second};
+    Vector2 secondCorner = {newSize.x, newSize.y};
+
+    Rectangle rectDest = {firstCorner.x, firstCorner.y, secondCorner.x, secondCorner.y};
+
     Vector2 origin = { 0, 0 };
     Color color = {r, g, b, a};
 
@@ -129,11 +139,14 @@ void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize
     if (_isShaderReady())
         BeginShaderMode(_shaders[_currentShader]);
 
+    std::pair<float, float> positionPair = getSizeWithWindow(posx, posy);
+    Vector2 position = {positionPair.first, positionPair.second};
+    fontSize = (int)getScaleWithWindow((float)fontSize);
+
     if (fontPath != "") {
-        Vector2 position = { posx, posy };
         DrawTextEx(_font[fontPath], text.c_str(), position, fontSize, 2, color);
     } else
-        DrawText(text.c_str(), posx, posy, 24, color);
+        DrawText(text.c_str(), (int)position.x, (int)position.y, fontSize, color);
 
     if (_isShaderReady())
         EndShaderMode();
@@ -229,11 +242,6 @@ void GraphicLib::endDraw()
     EndDrawing();
 }
 
-bool GraphicLib::_isShaderReady()
-{
-    return _currentShader != "none";
-}
-
 std::pair<int, int> GraphicLib::getWindowSize()
 {
     return std::make_pair<int, int>(GetScreenWidth(), GetScreenHeight());
@@ -301,4 +309,21 @@ void GraphicLib::changeFullscreen()
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
     settingsFileOut << Json::writeString(writer, root);
     settingsFileOut.close();
+}
+
+std::pair<float, float> GraphicLib::getSizeWithWindow(float width, float height)
+{
+    return std::pair<float, float>{width * GetScreenWidth() / DEFAULT_WINDOW_WIDTH, height * GetScreenHeight() / DEFAULT_WINDOW_HEIGHT};
+}
+
+float GraphicLib::getScaleWithWindow(float scale)
+{
+    float windowScaleX = (float)GetScreenWidth() / DEFAULT_WINDOW_WIDTH;
+    float windowScaleY = (float)GetScreenHeight() / DEFAULT_WINDOW_HEIGHT;
+    return (windowScaleX < windowScaleY) ? windowScaleX * scale : windowScaleY * scale;
+}
+
+bool GraphicLib::_isShaderReady()
+{
+    return _currentShader != "none";
 }
