@@ -29,15 +29,19 @@ namespace ABINetwork
      * @brief Sends a registration packet to the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param userName Client UserName to log with.
+     * @param password Client Password to log with.
      */
-    void sendPacketRegister(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketRegister(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password);
 
     /**
      * @brief Sends a login packet to the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param userName Client UserName to log with.
+     * @param password Client Password to log with.
      */
-    void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password);
 
     /**
      * @brief Sends a logout packet to the server.
