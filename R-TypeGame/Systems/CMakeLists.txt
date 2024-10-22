@@ -87,10 +87,12 @@ include_directories(
     ../../Engine/Ecs/Src/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
     Menus/Buttons/AButton/
+    ../Error/
 )
 
 # Add a shared library target 'system_initPlayer'
 add_library(system_initPlayerOne SHARED
+    ../Error/AError.cpp
     Players/PlayerInitOneSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
@@ -112,6 +114,7 @@ add_library(system_initPlayerOne SHARED
 target_link_libraries(system_initPlayerOne PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initPlayerTwo SHARED
+    ../Error/AError.cpp
     Players/PlayerInitTwoSystem.cpp
     ../Components/Life/LifeComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -144,6 +147,7 @@ add_library(system_initPlayerThree SHARED
     ../Parser/PlayerParser/PlayerParser.cpp
     ../Parser/SpeedParser/SpeedParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
+    ../Error/AError.cpp
 )
 target_link_libraries(system_initPlayerThree PRIVATE JsonCpp::JsonCpp)
 
@@ -162,12 +166,14 @@ add_library(system_initPlayerFour SHARED
     ../Parser/PlayerParser/PlayerParser.cpp
     ../Parser/SpeedParser/SpeedParser.cpp
     ../Parser/ScaleParser/ScaleParser.cpp
+    ../Error/AError.cpp
 )
 target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_moveMobs SHARED MoveSystem/MoveMobs/MoveMobsSystem.cpp)
 
 add_library(system_initConnectButton SHARED
+    ../Error/AError.cpp
     Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
@@ -207,6 +213,7 @@ target_link_libraries(system_moveDown PRIVATE JsonCpp::JsonCpp)
 add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
 
 add_library(system_shoot SHARED
+    ../Error/AError.cpp
     Shoot/ShootSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     Shoot/ShootInitSystem.cpp
@@ -226,11 +233,13 @@ add_library(system_shoot SHARED
 target_link_libraries(system_shoot PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_shootDestroy SHARED
+    ../Error/AError.cpp
     Shoot/ShootDestroySystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
 
 add_library(system_initBackground SHARED
+    ../Error/AError.cpp
     Background/BackgroundInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
@@ -245,6 +254,7 @@ add_library(system_initBackground SHARED
 target_link_libraries(system_initBackground PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initPlanet SHARED
+    ../Error/AError.cpp
     Background/PlanetInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
@@ -265,6 +275,7 @@ add_library(system_restartPlanet SHARED
 )
 
 add_library(system_initMob SHARED
+    ../Error/AError.cpp
     Mob/MobInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
@@ -285,6 +296,7 @@ add_library(system_initMob SHARED
 target_link_libraries(system_initMob PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_shoot_mob SHARED
+    ../Error/AError.cpp
     ShootMob/ShootSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     ShootMob/ShootInitSystem.cpp
@@ -308,9 +320,11 @@ add_library(system_hitboxPlayer SHARED
     Hitbox/HitboxPlayerSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     Background/UpdatePlanet.cpp
+    ../Error/AError.cpp
 )
 
 add_library(system_initIpTextButton SHARED
+    ../Error/AError.cpp
     Menus/Buttons/IpTextBox/IpTextBoxInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
@@ -343,6 +357,7 @@ add_library(system_initIpTextButton SHARED
 target_link_libraries(system_initIpTextButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initPortTextButton SHARED
+    ../Error/AError.cpp
     Menus/Buttons/AButton/AButtonInitSystem.cpp
     Menus/Buttons/PortTextBox/PortTextBoxInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -376,6 +391,7 @@ add_library(system_initPortTextButton SHARED
 target_link_libraries(system_initPortTextButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_handleMouse SHARED
+    ../Error/AError.cpp
     Mouse/MouseSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -387,6 +403,7 @@ add_library(system_handleMouse SHARED
 target_link_libraries(system_handleMouse PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_handleTyping SHARED
+    ../Error/AError.cpp
     Typing/TypingSystem.cpp
     ../Components/Editable/EditableComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
@@ -397,6 +414,7 @@ add_library(system_handleTyping SHARED
 target_link_libraries(system_handleTyping PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_shootDamage SHARED
+    ../Error/AError.cpp
     Shoot/ShootDamageSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -411,6 +429,7 @@ add_library(system_shootDamage SHARED
 target_link_libraries(system_shootDamage PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initEndLogo SHARED
+        ../Error/AError.cpp
         Background/EndLogoInitSystem.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
