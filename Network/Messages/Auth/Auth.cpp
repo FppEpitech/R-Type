@@ -14,7 +14,7 @@
 namespace ABINetwork
 {
 
-std::vector<asio::detail::buffered_stream_storage::byte_type> & AuthMessage::createLoginPayload(std::string userName, std::string password)
+Payload & AuthMessage::createLoginPayload(std::string userName, std::string password)
 {
     _payload.clear();
 
@@ -27,12 +27,12 @@ std::vector<asio::detail::buffered_stream_storage::byte_type> & AuthMessage::cre
     return _payload;
 }
 
-std::vector<asio::detail::buffered_stream_storage::byte_type> & AuthMessage::createRegisterPayload(std::string userName, std::string password)
+Payload & AuthMessage::createRegisterPayload(std::string userName, std::string password)
 {
     return createLoginPayload(userName, password);
 }
 
-std::vector<asio::detail::buffered_stream_storage::byte_type> & AuthMessage::createLogoutPayload()
+Payload & AuthMessage::createLogoutPayload()
 {
     _payload.clear();
 

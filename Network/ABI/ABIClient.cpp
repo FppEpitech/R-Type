@@ -23,7 +23,7 @@ void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit, std::string user
 
     if (!message)
         return;
-    setMessageInQueue(networkUnit, message->_creatPacket(uint8_t(IMessage::MessageType::LOGIN), message->createLoginPayload(userName, password), networkUnit->getIdMessage(), networkUnit->getToken()));
+    setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::LOGIN), message->createLoginPayload(userName, password), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
 void sendPacketRegister(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password)
@@ -32,7 +32,7 @@ void sendPacketRegister(std::shared_ptr<INetworkUnit> networkUnit, std::string u
 
     if (!message)
         return;
-    setMessageInQueue(networkUnit, message->_creatPacket(uint8_t(IMessage::MessageType::REGISTER), message->createRegisterPayload(userName, password), networkUnit->getIdMessage(), networkUnit->getToken()));
+    setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::REGISTER), message->createRegisterPayload(userName, password), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
 void sendPacketLogout(std::shared_ptr<INetworkUnit> networkUnit)
@@ -41,7 +41,7 @@ void sendPacketLogout(std::shared_ptr<INetworkUnit> networkUnit)
 
     if (!message)
         return;
-    setMessageInQueue(networkUnit, message->_creatPacket(uint8_t(IMessage::MessageType::LOGOUT), message->createLogoutPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
+    setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::LOGOUT), message->createLogoutPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
 }

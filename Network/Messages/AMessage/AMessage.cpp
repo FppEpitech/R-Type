@@ -10,7 +10,7 @@
 namespace ABINetwork
 {
 
-std::vector<uint8_t> AMessage::_creatPacket(uint8_t messageType, const std::vector<uint8_t>& payload, uint32_t &messageId, uint32_t token)
+std::vector<uint8_t> AMessage::_createPacket(uint8_t messageType, const std::vector<uint8_t>& payload, uint32_t &messageId, uint32_t token)
 {
     std::vector<uint8_t> packet;
 

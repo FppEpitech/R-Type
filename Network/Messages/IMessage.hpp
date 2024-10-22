@@ -12,6 +12,7 @@
 #include <asio.hpp>
 
 #define VERSION 0x01
+#define Payload std::vector<asio::detail::buffered_stream_storage::byte_type>
 
 /**
  * @namespace ABINetwork
@@ -65,7 +66,7 @@ class IMessage
          * @param token Token's User who send the message to.
          * @return std::vector<uint8_t> Packet to send.
          */
-        virtual std::vector<uint8_t> _creatPacket(uint8_t messageType, const std::vector<uint8_t>& payload, uint32_t &messageId, uint32_t token) = 0;
+        virtual std::vector<uint8_t> _createPacket(uint8_t messageType, const std::vector<uint8_t>& payload, uint32_t &messageId, uint32_t token) = 0;
 };
 
 }

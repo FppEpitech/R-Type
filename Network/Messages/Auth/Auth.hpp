@@ -45,9 +45,10 @@ class AuthMessage : public AMessage
          *
          * @param userName Client username to log with.
          * @param password Client password to log with.
-         * @return std::vector<asio::detail::buffered_stream_storage::byte_type>& Payload for Login.
+         * @return Payload for Login.
          */
-        std::vector<asio::detail::buffered_stream_storage::byte_type> &createLoginPayload(std::string userName, std::string password);
+
+        Payload &createLoginPayload(std::string userName, std::string password);
 
         /**
          * @brief Get the Login Info From Packet object.
@@ -61,9 +62,9 @@ class AuthMessage : public AMessage
          *
          * @param userName Client username to register with.
          * @param password Client password to register log with.
-         * @return std::vector<asio::detail::buffered_stream_storage::byte_type>& Payload for Register.
+         * @return Payload for Register.
          */
-        std::vector<asio::detail::buffered_stream_storage::byte_type> &createRegisterPayload(std::string userName, std::string password);
+        Payload &createRegisterPayload(std::string userName, std::string password);
 
         /**
          * @brief Get the Register Info From Packet object.
@@ -75,9 +76,9 @@ class AuthMessage : public AMessage
         /**
          * @brief Create a Logout Payload object.
          *
-         * @return std::vector<asio::detail::buffered_stream_storage::byte_type>& Payload for logout.
+         * @return Payload for logout.
          */
-        std::vector<asio::detail::buffered_stream_storage::byte_type> &createLogoutPayload();
+        Payload &createLogoutPayload();
 
         /**
          * @brief Get the Logout Info From Packet object.
@@ -88,7 +89,7 @@ class AuthMessage : public AMessage
 
         private:
 
-            std::vector<asio::detail::buffered_stream_storage::byte_type> _payload;     // Content of the message in the packet.
+            Payload _payload;     // Content of the message in the packet.
 };
 
 }
