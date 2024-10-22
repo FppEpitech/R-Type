@@ -2,39 +2,42 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** ButtonInitSystem.hpp
+** ConnectButtonInitSystem.hpp
 */
 
 #pragma once
 
-#include "../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
+#include "ISystem.hpp"
+#include "AButtonInitSystem.hpp"
+
+#define PATH_JSON "GameData/Scenes/Menus/Buttons/connectButtonSystem.json"
 
 /**
- * @brief Initialize a button entity.
- * Set position, scale, texture rect, a text, a font, a state and a callback.
+ * @brief ConnectButtonInitSystem class
+ *
  */
-class ButtonInitSystem : public ASystem {
+class ConnectButtonInitSystem : public AButtonInitSystem, public ASystem {
 
     public:
 
         /**
-         * @brief Construct a new Button Init System object.
+         * @brief Construct a new ConnectButtonInitSystem object
          *
          */
-        ButtonInitSystem();
+        ConnectButtonInitSystem();
 
         /**
-         * @brief Destroy the Button Init System object.
+         * @brief Destroy the ConnectButtonInitSystem object
          *
          */
-        ~ButtonInitSystem() = default;
+        ~ConnectButtonInitSystem() = default;
 
         /**
          * @brief Get the Function object.
          *
          * @return std::function<void(ECS::Registry& reg, int idxPacketEntities)>
          */
-        std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction()
+        std::function<void(ECS::Registry &reg, int idxPacketEntities)> getFunction()
         {
             return [this](ECS::Registry& reg, int idxPacketEntities) {
                 _initButton(reg, idxPacketEntities);

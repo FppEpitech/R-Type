@@ -85,6 +85,7 @@ include_directories(
     Shoot/
     ../../Engine/Ecs/Src/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
+    Menus/Buttons/AButton/
 )
 
 # Add a shared library target 'system_initPlayer'
