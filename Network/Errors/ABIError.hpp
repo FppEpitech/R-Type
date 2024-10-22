@@ -13,7 +13,7 @@
  * @brief Abstract class for ABI errors.
  *
  */
-class ABIError : public AError {
+class ABIError : public AErrorNetwork {
 
     public:
 
@@ -21,7 +21,7 @@ class ABIError : public AError {
          * @brief Construct a new ABIError object.
          *
          */
-        ABIError(const std::string &message) : AError(message) {}
+        ABIError(const std::string &message) : AErrorNetwork(message) {}
 
         /**
          * @brief Destroy the ABIError object.

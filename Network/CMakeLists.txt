@@ -8,8 +8,32 @@ set(LIB_SRC_PATH ".")
 
 set(CMAKE_CXX_STANDARD 20)
 
+include_directories(
+    ${LIB_SRC_PATH}/Messages/UDPPacket
+    ${LIB_SRC_PATH}/Messages/
+    ${LIB_SRC_PATH}/Units/
+    ${LIB_SRC_PATH}/Units/Client/
+    ${LIB_SRC_PATH}/Units/Server/
+    ${LIB_SRC_PATH}/Units/ANetworkUnit/
+    ${LIB_SRC_PATH}/ABI/
+    ${LIB_SRC_PATH}/ABI/
+    ${LIB_SRC_PATH}/Errors
+)
+
 set(SRC_LIB
     ${LIB_SRC_PATH}/ABI/ABINetwork.cpp
+    ${LIB_SRC_PATH}/ABI/ABIServer.cpp
+    ${LIB_SRC_PATH}/ABI/ABIClient.cpp
+
+    ${LIB_SRC_PATH}/Messages/AMessage/AMessage.cpp
+    ${LIB_SRC_PATH}/Messages/Auth/Auth.cpp
+    ${LIB_SRC_PATH}/Messages/KeyPressed/KeyPressed.cpp
+    ${LIB_SRC_PATH}/Messages/ChatBox/ChatBox.cpp
+    ${LIB_SRC_PATH}/Messages/UDPPacket/UDPPacket.cpp
+
+    ${LIB_SRC_PATH}/Units/ANetworkUnit/ANetworkUnit.cpp
+    ${LIB_SRC_PATH}/Units/Client/Client.cpp
+    ${LIB_SRC_PATH}/Units/Server/Server.cpp
 )
 
 add_library(${LIB} STATIC ${SRC_LIB})

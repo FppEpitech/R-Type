@@ -5,6 +5,8 @@
 ** ABIClient
 */
 
+#pragma once
+
 #include "ABINetwork.hpp"
 
 /**
@@ -17,24 +19,37 @@ namespace ABINetwork
      * @brief Creates a client network unit to connect to a server.
      *
      * @param ipServer The IP address of the server to connect to.
-     * @param portServer The port number of the server to connect to.
+     * @param tcp_port The port number of the server to connect to by tcp.
+     * @param udp_port The port number of the server to connect to by udp.
      * @return A shared pointer to the created network unit.
      */
-    std::shared_ptr<INetworkUnit> createClient(std::string ipServer, std::string portServer);
+    std::shared_ptr<INetworkUnit> createClient(std::string ipServer, int tcp_port, int udp_port);
 
     /**
      * @brief Sends a registration packet to the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param userName Client UserName to log with.
+     * @param password Client Password to log with.
      */
-    void sendPacketRegister(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketRegister(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password);
 
     /**
      * @brief Sends a login packet to the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param userName Client UserName to log with.
+     * @param password Client Password to log with.
      */
-    void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password);
+
+    /**
+     * @brief Sends a key packet to the server.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param key Client's key pressed.
+     */
+    void sendPacketKey(std::shared_ptr<INetworkUnit> networkUnit, int key);
 
     /**
      * @brief Sends a logout packet to the server.
@@ -42,6 +57,13 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      */
     void sendPacketLogout(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Sends a Chatbox packet to the server.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketChatbox(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string chat);
 
     /**
      * @brief Creates a new room on the server.
