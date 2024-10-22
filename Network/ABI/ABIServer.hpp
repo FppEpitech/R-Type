@@ -60,4 +60,14 @@ namespace ABINetwork
      * @return std::pair<std::string, std::string> With userName and chat.
      */
     std::pair<std::string, std::string> getChatBoxInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Send the information of to client to create new entity.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param componentType COmponent type used to call system associeted.
+     * @param posX Pos X of new Entity.
+     * @param posY Pos Y of new Entity.
+     */
+    void sendPacketEntity(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, float posX, float posY);
 }
