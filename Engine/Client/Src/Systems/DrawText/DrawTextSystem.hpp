@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "../../../../Shared/DefaultSystems/ISystem.hpp"
+#include "ISystem.hpp"
 
 /**
  * @brief System to draw a Text.

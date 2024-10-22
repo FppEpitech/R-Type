@@ -14,7 +14,7 @@
 #include <fstream>
 
 #include "../GetGraphicalLibrary/IGraphic.hpp"
-#include "../../../Error/IError.hpp"
+#include "../../../Error/AError.hpp"
 
 
 /**

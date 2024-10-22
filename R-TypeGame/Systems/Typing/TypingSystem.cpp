@@ -13,7 +13,7 @@
 #include "CallBack/CallBackComponent.hpp"
 #include "Editable/EditableComponent.hpp"
 #include "TextLimit/TextLimitComponent.hpp"
-#include "GetGraphicalLibrary/GetGraphicalLibrary.hpp"
+#include "GetGraphicalLibrary.hpp"
 #include "ButtonState/ButtonStateComponent.hpp"
 #include "DefaultText/DefaultTextComponent.hpp"
 

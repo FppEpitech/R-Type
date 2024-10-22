@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../Error/IError.hpp"
+#include "../../../Error/AError.hpp"
 
 /**
  * @brief Abstract class for client errors.

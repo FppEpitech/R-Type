@@ -9,7 +9,7 @@
 
 #include <string>
 
-#include "../../Error/IError.hpp"
+#include "../../Error/AError.hpp"
 
 /**
  * @brief Interface class for ECS components.

@@ -8,9 +8,9 @@
 #include <iostream>
 
 #include "../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
-#include "../../../../Engine/Shared/DefaultComponent/Draw/DrawComponent.hpp"
+#include "../Draw/DrawComponent.hpp"
 #include "SpeedComponent.hpp"
-#include "../../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
+#include "../Position2D/Position2DComponent.hpp"
 
 class MoveSystemUp : public ASystem
 {

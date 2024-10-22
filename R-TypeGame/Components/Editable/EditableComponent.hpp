@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../Engine/Shared/DefaultComponent/IComponent.hpp"
+#include "IComponent.hpp"
 
 /**
  * @brief Editable component.

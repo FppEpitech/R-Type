@@ -9,7 +9,7 @@
 
 #include <memory>
 
-#include "../../../Engine/Shared/DefaultComponent/Colour/ColourComponent.hpp"
+#include "Colour/ColourComponent.hpp"
 
 /**
  * @brief Parse a Colour Json object.

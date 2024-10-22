@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../Engine/Shared/DefaultComponent/IComponent.hpp"
+#include "IComponent.hpp"
 
 /**
 * @brief TextLimitComponent class, used to limit the number of characters in a text

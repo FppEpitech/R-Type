@@ -17,7 +17,7 @@
 #include "GetGraphicalLibrary.hpp"
 #include "DrawOBJ/DrawOBJSystem.hpp"
 #include "DrawText/DrawTextSystem.hpp"
-#include "../../../Shared/DefaultComponent/NetworkConnection/NetworkConnectionComponent.hpp"
+#include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "DrawTexture/DrawTextureSystem.hpp"
 #include "DrawTextureRect/DrawTextureRectSystem.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationSystem.hpp"

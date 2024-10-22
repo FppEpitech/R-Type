@@ -6,9 +6,7 @@
 */
 
 #include <json/json.h>
-#include <exception>
 #include <iostream>
-#include <memory>
 #include <fstream>
 
 #include "MobComponent.hpp"

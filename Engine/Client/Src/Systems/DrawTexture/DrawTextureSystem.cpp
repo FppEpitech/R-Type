@@ -6,10 +6,10 @@
 */
 
 #include "DrawTextureSystem.hpp"
-#include "../../../../Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
-#include "../../../../Shared/DefaultComponent/Scale/ScaleComponent.hpp"
-#include "../../../../Shared/DefaultComponent/TexturePath/TexturePathComponent.hpp"
-#include "../../../../Shared/DefaultComponent/Draw/DrawComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
+#include "TexturePath/TexturePathComponent.hpp"
+#include "Draw/DrawComponent.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
 

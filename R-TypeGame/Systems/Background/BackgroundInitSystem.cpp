@@ -6,15 +6,15 @@
 */
 
 #include "BackgroundInitSystem.hpp"
-#include "../../../Engine/Shared/DefaultComponent/Scale/ScaleComponent.hpp"
-#include "../../../Engine/Shared/DefaultComponent/TextureRect/TextureRectComponent.hpp"
-#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
-#include "../../../Engine/Shared/DefaultComponent/Draw/DrawComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
+#include "Draw/DrawComponent.hpp"
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
 #include "SpriteSheetAnimationParser.hpp"
-#include "../../../Engine/Shared/DefaultComponent/SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
+#include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
 
 #include <fstream>
 #include <json/json.h>

@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "../../../Engine/Shared/DefaultSystems/ISystem.hpp"
+#include "ISystem.hpp"
 
 /**
  * @brief Destroy a shot if the bullet leave the screen.

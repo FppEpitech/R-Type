@@ -6,15 +6,15 @@
 */
 
 #include "DrawTextureRectSystem.hpp"
-#include "../../../../Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
-#include "../../../../Shared/DefaultComponent/Scale/ScaleComponent.hpp"
-#include "../../../../Shared/DefaultComponent/TextureRect/TextureRectComponent.hpp"
-#include "../../../../Shared/DefaultComponent/Draw/DrawComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
+#include "Draw/DrawComponent.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
+#include "Colour/ColourComponent.hpp"
 
 #include <exception>
-#include <ColourComponent.hpp>
 
 DrawTextureRectSystem::DrawTextureRectSystem() :
     ASystem("DrawTextureRectSystem")

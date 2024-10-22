@@ -17,6 +17,9 @@ find_package(jsoncpp REQUIRED)
 
 # Include directories for header files
 include_directories(
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
@@ -55,6 +58,7 @@ include_directories(
     ../Components/ButtonTexturePath/
     ../Components/Velocity/
     ../Components/Mob/
+    ../Components/
     ../Parser/ScaleParser/
     ../Parser/Position2DParser/
     ../Parser/LifeParser/

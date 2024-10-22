@@ -10,7 +10,7 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "../../../Engine/Shared/DefaultSystems/ISystem.hpp"
+#include "ISystem.hpp"
 
 #define PATH_JSON_PLANET "GameData/Entities/Planet.json"
 #define PATH_JSON_PLANET_SMALL "GameData/Entities/Planet-small.json"

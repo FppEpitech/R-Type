@@ -8,8 +8,8 @@
 #pragma once
 
 #include "raylib.h"
-#include "../../Engine/Error/IError.hpp"
-#include "../../Engine/Client/Src/GetGraphicalLibrary/IGraphic.hpp"
+#include "../../Engine/Error/AError.hpp"
+#include "IGraphic.hpp"
 
 #include <vector>
 #include <iostream>

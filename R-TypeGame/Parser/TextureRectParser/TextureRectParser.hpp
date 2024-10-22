@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../Engine/Shared/DefaultComponent/TextureRect/TextureRectComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
 
 #include <memory>
 

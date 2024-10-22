@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "../../../Engine/Shared/DefaultSystems/ISystem.hpp"
+#include "ISystem.hpp"
 /**
  * @brief Handle hitbox for players.
  *

@@ -9,7 +9,7 @@
 #include "ShootInitSystem.hpp"
 #include "PlayerComponent.hpp"
 #include "updateShootSystem.hpp"
-#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
 
 void UpdateShootSystem::_updateShootSystem(Network::UDPPacket packet, ECS::Registry& reg)
 {

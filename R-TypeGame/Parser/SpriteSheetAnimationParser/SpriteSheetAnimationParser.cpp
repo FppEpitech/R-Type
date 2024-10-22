@@ -11,7 +11,7 @@
 #include <memory>
 #include <fstream>
 
-#include "../../../Engine/Shared/DefaultComponent/SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
+#include "SpriteSheetAnimationComponent.hpp"
 
 std::shared_ptr<SpriteSheetAnimationComponent> parseSpriteSheetAnimation(std::string pathFile)
 {

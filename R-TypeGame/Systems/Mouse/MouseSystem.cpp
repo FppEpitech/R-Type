@@ -8,11 +8,11 @@
 #include <iostream>
 
 #include "MouseSystem.hpp"
-#include "../../../Engine/Shared/DefaultComponent/Scale/ScaleComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
 #include "../../Components/CallBack/CallBackComponent.hpp"
-#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
 #include "../../../Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.hpp"
-#include "../../../Engine/Shared/DefaultComponent/TextureRect/TextureRectComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
 #include "../../Components/ButtonTexturePath/ButtonTexturePathComponent.hpp"
 
 MouseSystem::MouseSystem() : ASystem("MouseSystem") {}

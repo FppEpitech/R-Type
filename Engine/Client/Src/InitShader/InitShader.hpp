@@ -12,7 +12,7 @@
 #include <memory>
 
 #include "../GetGraphicalLibrary/IGraphic.hpp"
-#include "../../../Error/IError.hpp"
+#include "../../../Error/AError.hpp"
 
 /**
  * @brief System to draw a Shader.

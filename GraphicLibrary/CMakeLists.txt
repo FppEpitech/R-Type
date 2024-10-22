@@ -16,7 +16,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Libs/Graphic)
 
 # Include directories for header files
 include_directories(
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Interface/
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary
 )
 
 # Add a shared library target 'graphic_raylib'

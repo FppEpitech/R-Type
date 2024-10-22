@@ -9,7 +9,7 @@
 
 #include <functional>
 
-#include "../../../Engine/Shared/DefaultComponent/IComponent.hpp"
+#include "IComponent.hpp"
 #include "Registry.hpp"
 
 /**

@@ -12,7 +12,7 @@
 #include  <memory>
 
 #include "VelocityComponent.hpp"
-#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
 
 /**
  * @brief Update the positions for planets.

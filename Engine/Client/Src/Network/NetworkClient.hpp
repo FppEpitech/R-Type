@@ -12,7 +12,7 @@
 #include <asio.hpp>
 #include <iostream>
 
-#include "../../../Shared/DefaultComponent/Draw/DrawComponent.hpp"
+#include "Draw/DrawComponent.hpp"
 #include "NetworkPacket.hpp"
 #include "PlayerComponent.hpp"
 #include "ClientSceneManager.hpp"

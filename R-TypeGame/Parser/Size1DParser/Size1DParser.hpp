@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../Engine/Shared/DefaultComponent/Size1D/Size1DComponent.hpp"
+#include "Size1D/Size1DComponent.hpp"
 
 #include <memory>
 

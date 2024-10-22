@@ -9,7 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "../../../Engine/Shared/DefaultComponent/TextPosition2D/TextPosition2DComponent.hpp"
+#include "TextPosition2D/TextPosition2DComponent.hpp"
 
 std::shared_ptr<TextPosition2DComponent> parseTextPosition2D(std::string pathFile)
 {

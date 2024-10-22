@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../Engine/Shared/DefaultSystems/ISystem.hpp"
+#include "ISystem.hpp"
 
 /**
  * @brief System to handle typing.

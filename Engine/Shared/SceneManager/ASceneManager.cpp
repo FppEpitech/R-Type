@@ -9,9 +9,9 @@
 #include <algorithm>
 
 #include "ASceneManager.hpp"
-#include "../DLLoader/DLLoader.hpp"
+#include "DLLoader/DLLoader.hpp"
 
-#include "../DefaultSystems/ISystemNetworkUpdate.hpp"
+#include "DefaultSystems/ISystemNetworkUpdate.hpp"
 
 SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> registry)
 {

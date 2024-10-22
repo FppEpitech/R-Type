@@ -8,11 +8,11 @@
 #include <iostream>
 
 #include "../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
-#include "../../../../Engine/Shared/DefaultComponent/Draw/DrawComponent.hpp"
+#include "../Draw/DrawComponent.hpp"
 #include "SpeedComponent.hpp"
-#include "../../../../Engine/Shared/DefaultComponent/Scale/ScaleComponent.hpp"
-#include "../../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
-#include "../../../../Engine/Shared/DefaultComponent/TextureRect/TextureRectComponent.hpp"
+#include "../Scale/ScaleComponent.hpp"
+#include "../Position2D/Position2DComponent.hpp"
+#include "../TextureRect/TextureRectComponent.hpp"
 
 class MoveSystemDown : public ASystem
 {

@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "../../../Engine/Shared/DefaultSystems/ISystemNetworkUpdate.hpp"
+#include "ISystemNetworkUpdate.hpp"
 
 /**
  * @brief Update position system.

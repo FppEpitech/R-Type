@@ -17,6 +17,9 @@ find_package(jsoncpp REQUIRED)
 
 # Include directories for header files
 include_directories(
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Include/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Interface/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
@@ -30,6 +33,10 @@ include_directories(
     ../Components/CallBack/
     ../Components/TextLimit/
     ../Components/Velocity/
+    ../Components/
+    ../../../Engine/Shared/DefaultSystems
+    ../../../Engine/Shared/DefaultComponents
+    ../../../Engine/Client/Src
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
     ../Systems/Background/

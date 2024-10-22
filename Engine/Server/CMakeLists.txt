@@ -31,6 +31,7 @@ set(SRC_EXE
     ${EXE_SRC_PATH}/main.cpp
     ${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
+    ../Error/AError.cpp
     ../Shared/SceneManager/ASceneManager.cpp
     ../Shared/DefaultComponents/Draw/DrawComponent.cpp
     ../Shared/DefaultComponents/FontPath/FontPathComponent.cpp
@@ -62,11 +63,14 @@ include_directories(
     ${EXE_SRC_PATH}/GameEngine/Errors
     ${EXE_SRC_PATH}/GameEngine/Application
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager
-        ../Ecs/Src
+    ../Ecs/Src
     ../Shared/Interface
     ../Shared/SceneManager
     ../Shared/Network/Packet
     ../Shared/Component
+    ../Shared
+    ../Shared/DefaultComponents/
+    ../Shared/DefaultSystems/
     ../Shared/DefaultComponents/Entities
     ../Shared/DefaultComponents/Entities/Player
     ${EXE_INCLUDE_PATH}

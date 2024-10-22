@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "../DefaultSystems/KeyMaps/StringKeyMap.hpp"
-#include "../../Error/IError.hpp"
+#include "KeyMaps/StringKeyMap.hpp"
+#include "../../Error/AError.hpp"
 
 /**
  * @brief Namespace for the scene manager.

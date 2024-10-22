@@ -6,12 +6,10 @@
 */
 
 #include <json/json.h>
-#include <exception>
 #include <iostream>
-#include <memory>
 #include <fstream>
 
-#include "../../../Engine/Shared/DefaultComponent/Position2D/Position2DComponent.hpp"
+#include "Position2DParser.hpp"
 
 std::shared_ptr<Position2DComponent> parsePosition2D(std::string pathFile)
 {

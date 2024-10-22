@@ -34,7 +34,7 @@ public:
      *
      * @return const char* Error message
      */
-    virtual const char *what() const noexcept override;
+    virtual const char *what() const noexcept override { return _message.c_str(); }
 
 private:
 
