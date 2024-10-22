@@ -92,11 +92,12 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
     if (_textures.find(texturePath) == _textures.end())
         _textures[texturePath] = LoadTexture(texturePath.c_str());
 
-    Vector2 position = _getSizeWithWindow(Vector2{posx, posy});
+    std::pair<float, float> positionPair = getSizeWithWindow(posx, posy);
+    Vector2 position = {positionPair.first, positionPair.second};
 
     if (_isShaderReady())
         BeginShaderMode(_shaders[_currentShader]);
-    DrawTextureEx(_textures[texturePath], position, 0, _getScaleWithWindow(scale), WHITE);
+    DrawTextureEx(_textures[texturePath], position, 0, getScaleWithWindow(scale), WHITE);
     if (_isShaderReady())
         EndShaderMode();
 }
@@ -107,10 +108,16 @@ void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy
         _textures[texturePath] = LoadTexture(texturePath.c_str());
 
     Rectangle rect = {left, top, width, height};
-    Vector2 firstCorner = _getSizeWithWindow(Vector2{posx, posy});
-    Vector2 newSize = _getSizeWithWindow(Vector2{width * scale, height * scale});
+
+    std::pair<float, float> firstCornerPair = getSizeWithWindow(posx, posy);
+    std::pair<float, float> newSizePair = getSizeWithWindow(width * scale, height * scale);
+
+    Vector2 firstCorner = {firstCornerPair.first, firstCornerPair.second};
+    Vector2 newSize = {newSizePair.first, newSizePair.second};
     Vector2 secondCorner = {newSize.x, newSize.y};
+
     Rectangle rectDest = {firstCorner.x, firstCorner.y, secondCorner.x, secondCorner.y};
+
     Vector2 origin = { 0, 0 };
     Color color = {r, g, b, a};
 
@@ -132,8 +139,9 @@ void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize
     if (_isShaderReady())
         BeginShaderMode(_shaders[_currentShader]);
 
-    Vector2 position = _getSizeWithWindow(Vector2{posx, posy});
-    fontSize = (int)_getScaleWithWindow((float)fontSize);
+    std::pair<float, float> positionPair = getSizeWithWindow(posx, posy);
+    Vector2 position = {positionPair.first, positionPair.second};
+    fontSize = (int)getScaleWithWindow((float)fontSize);
 
     if (fontPath != "") {
         DrawTextEx(_font[fontPath], text.c_str(), position, fontSize, 2, color);
