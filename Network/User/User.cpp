@@ -39,7 +39,7 @@ bool User::userIdExists(int id) {
     return exists;
 }
 
-int User::registerUser(std::string username, std::string password) { //saltpwd
+int User::registerUser(std::string username, std::string password) {
     std::string req("INSERT INTO users (username, password) VALUES ('" + username + "', '" + password + "');");
     _rc = sqlite3_exec(_db, req.c_str(), 0, 0, 0);
     if (_rc != SQLITE_OK) {
@@ -64,7 +64,7 @@ int User::loginUser(std::string username, std::string password) {
         int userId = sqlite3_column_int(stmt, 0);
         const char *pwd = (const char *)sqlite3_column_text(stmt, 2);
 
-        if (std::string(pwd) == password) {
+        if (password == std::string(pwd)) {
             sqlite3_finalize(stmt);
             return userId;
         } else {
@@ -90,15 +90,5 @@ bool User::createTable() {
     return true;
 }
 
-std::string User::createToken(int id) {
-    return "jfkdlqmfjdklmqfjdqfklm"; // real token system + check token system
-}
+// TODO : throwerr && dbsplit ? & hashgpwd
 
-int main() {
-    User userSystem("users.db"); //should move the db start to another file ?
-    userSystem.registerUser("theophile", "test");
-    userSystem.loginUser("theophile","test");
-    std::cout << userSystem.userIdExists(1);
-}
-
-// comments && throwerr
