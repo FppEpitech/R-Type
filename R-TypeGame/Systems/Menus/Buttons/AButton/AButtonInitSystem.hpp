@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "CallBackComponent.hpp"
+#include "ClickableComponent.hpp"
 
 /**
  * @brief AButtonInitSystem class

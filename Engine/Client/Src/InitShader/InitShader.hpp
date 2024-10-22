@@ -11,8 +11,8 @@
 #include <iostream>
 #include <memory>
 
-#include "IGraphic.hpp"
-#include "IError.hpp"
+#include "../GetGraphicalLibrary/IGraphic.hpp"
+#include "../../../Error/AError.hpp"
 
 /**
  * @brief System to draw a Shader.

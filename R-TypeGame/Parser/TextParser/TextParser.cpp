@@ -9,7 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "TextComponent.hpp"
+#include "Text/TextComponent.hpp"
 
 std::shared_ptr<TextComponent> parseText(std::string pathFile)
 {

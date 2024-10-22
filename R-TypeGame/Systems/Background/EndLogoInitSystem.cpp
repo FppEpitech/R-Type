@@ -6,13 +6,13 @@
 */
 
 #include "ScaleParser.hpp"
-#include "DrawComponent.hpp"
-#include "ScaleComponent.hpp"
+#include "Draw/DrawComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
 #include "Position2DParser.hpp"
 #include "EndLogoInitSystem.hpp"
 #include "TextureRectParser.hpp"
-#include "Position2DComponent.hpp"
-#include "TextureRectComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
 
 #define PATH_JSON "GameData/Entities/EndLogo.json"
 

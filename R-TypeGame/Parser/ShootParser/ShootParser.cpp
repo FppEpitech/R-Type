@@ -8,7 +8,6 @@
 #include <memory>
 #include <fstream>
 #include <iostream>
-#include <exception>
 #include <json/json.h>
 #include <unordered_map>
 

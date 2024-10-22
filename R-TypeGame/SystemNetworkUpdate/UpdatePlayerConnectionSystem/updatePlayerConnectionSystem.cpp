@@ -5,7 +5,7 @@
 ** UpdatePlayerConnectionSystem
 */
 
-#include "DrawComponent.hpp"
+#include "Draw/DrawComponent.hpp"
 #include "updatePlayerConnectionSystem.hpp"
 
 void UpdatePlayerConnectionSystem::_updatePlayerConnection(Network::UDPPacket packet, ECS::Registry& reg)
