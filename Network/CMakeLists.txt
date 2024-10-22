@@ -25,6 +25,8 @@ set(SRC_LIB
     ${LIB_SRC_PATH}/ABI/ABIServer.cpp
     ${LIB_SRC_PATH}/ABI/ABIClient.cpp
 
+    ${LIB_SRC_PATH}/Messages/AMessage/AMessage.cpp
+    ${LIB_SRC_PATH}/Messages/Auth/Auth.cpp
     ${LIB_SRC_PATH}/Messages/UDPPacket/UDPPacket.cpp
 
     ${LIB_SRC_PATH}/Units/ANetworkUnit/ANetworkUnit.cpp

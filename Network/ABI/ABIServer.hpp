@@ -25,4 +25,25 @@ namespace ABINetwork
      * @return A shared pointer to the created network unit representing the server.
      */
     std::shared_ptr<INetworkUnit> createServer(std::size_t numberMaxPlayer);
+
+    /**
+     * @brief Get the Login Info From Packet object.
+     *
+     * @return std::pair<std::string, std::string> With userName and password.
+     */
+    std::pair<std::string, std::string> getLoginInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Get the Register Info From Packet object.
+     *
+     * @return std::pair<std::string, std::string> With userName and password.
+     */
+    std::pair<std::string, std::string> getRegisterInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Get the Logout Info From Packet object.
+     *
+     * @return uint32_t Token of the Client.
+     */
+    uint32_t getLogoutInfoFromPacket(UDPPacket packet);
 }

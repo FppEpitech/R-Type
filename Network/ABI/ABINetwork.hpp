@@ -20,6 +20,7 @@
 
 #include "IMessage.hpp"
 #include "INetworkUnit.hpp"
+#include "UDPPacket/UDPPacket.hpp"
 
 /**
  * @namespace ABINetwork

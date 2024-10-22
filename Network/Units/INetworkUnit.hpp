@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <cstdint>
+
 /**
  * @namespace ABINetwork
  * @brief Contains functions to manage network communication and operations.
@@ -41,6 +43,20 @@ class INetworkUnit
          * @return A list of message vectors to be sent.
          */
         virtual std::list<std::vector<uint8_t>>& getMessageToSendQueue() = 0;
+
+        /**
+         * @brief Get the Token object.
+         *
+         * @return uint32_t
+         */
+        virtual uint32_t getToken() = 0;
+
+        /**
+         * @brief Get the Id Message object.
+         *
+         * @return uint32_t
+         */
+        virtual uint32_t &getIdMessage() = 0;
 };
 
 }

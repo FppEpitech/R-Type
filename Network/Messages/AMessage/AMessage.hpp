@@ -36,13 +36,6 @@ class AMessage : public IMessage
         virtual ~AMessage() = default;
 
         /**
-         * @brief Retrieves the message in packet format.
-         */
-        virtual std::vector<uint8_t> getMessagePacket() = 0;
-
-    protected:
-
-        /**
          * @brief Create a packet for a message.
          *
          * @param messageType Type of the message using the enum MessageType
@@ -51,7 +44,11 @@ class AMessage : public IMessage
          * @param token Token's User who send the message to.
          * @return std::vector<uint8_t> Packet to send.
          */
-        std::vector<uint8_t> _creatPacket(uint8_t messageType, const std::vector<uint8_t>& payload, uint32_t messageId, uint32_t token);
+        std::vector<uint8_t> _createPacket(uint8_t messageType, const std::vector<uint8_t>& payload, uint32_t &messageId, uint32_t token);
+
+    protected:
+
+        std::vector<uint8_t> _packet; // Packet to send.
 };
 
 }
