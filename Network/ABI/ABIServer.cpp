@@ -66,14 +66,14 @@ std::pair<std::string, std::string> getChatBoxInfoFromPacket(UDPPacket packet)
     return message->getChatBoxInfoFromPacket(packet);
 }
 
-void sendPacketEntity(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, float posX, float posY)
+void sendPacketEntity(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int idxEntity)
 {
     std::shared_ptr<CreateEntityMessage> message = std::make_shared<CreateEntityMessage>();
 
     if (!message)
         return;
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ENTITY),
-                                    message->createEntityPayload(componentType, posX, posY),
+                                    message->createEntityPayload(componentType, idxEntity),
                                     networkUnit->getIdMessage(),
                                     networkUnit->getToken()));
 }

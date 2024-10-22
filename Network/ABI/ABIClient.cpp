@@ -65,7 +65,7 @@ void sendPacketChatbox(std::shared_ptr<INetworkUnit> networkUnit, std::string us
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::CHAT_BOX_MESSAGE), message->createChatBoxPayload(userName, chat), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
-std::tuple<std::string, float, float> getEntityCreationInfoFromPacket(UDPPacket packet)
+std::pair<std::string, int> getEntityCreationInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<CreateEntityMessage> message = std::make_shared<CreateEntityMessage>();
 

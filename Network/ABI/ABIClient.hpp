@@ -96,8 +96,8 @@ namespace ABINetwork
     /**
      * @brief Get the ChatBox Info From Packet object.
      *
-     * @return std::tuple<std::string, float, float> With EntityComponent and PosX and PosY.
+     * @return std::tuple<std::string, int> With EntityComponent and idxEntity.
      */
-    std::tuple<std::string, float, float> getEntityCreationInfoFromPacket(UDPPacket packet);
+    std::pair<std::string, int> getEntityCreationInfoFromPacket(UDPPacket packet);
 
 }
