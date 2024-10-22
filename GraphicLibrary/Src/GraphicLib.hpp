@@ -15,6 +15,9 @@
 #include <iostream>
 #include <unordered_map>
 
+#define DEFAULT_WINDOW_WIDTH 1920
+#define DEFAULT_WINDOW_HEIGHT 1080
+
 /**
  * @brief Raylib graphical library.
  *  This library will be compile into a .so file
@@ -295,6 +298,23 @@ class GraphicLib : public IGraphic {
          * @return true The shader is ready.
          */
         bool _isShaderReady();
+
+        /**
+         * @brief Returns the size of an object with the window size.
+         *
+         * @param width The width of the object.
+         * @param height The height of the object.
+         * @return std::pair<float, float> The size of the object.
+         */
+        Vector2 _getSizeWithWindow(Vector2 size);
+
+        /**
+         * @brief Returns the scale of an object with the window size.
+         *
+         * @param scale The scale of the object.
+         * @return float The new scale of the object.
+         */
+        float _getScaleWithWindow(float scale);
 
         Camera                                      _camera;        //< Player camera.
         std::unordered_map<std::string, Model>      _models;        //< List of Models loaded.

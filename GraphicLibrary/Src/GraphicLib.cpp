@@ -92,11 +92,11 @@ void GraphicLib::drawTexture(std::string texturePath, float posx, float posy, fl
     if (_textures.find(texturePath) == _textures.end())
         _textures[texturePath] = LoadTexture(texturePath.c_str());
 
-    Vector2 position = { posx, posy };
+    Vector2 position = _getSizeWithWindow(Vector2{posx, posy});
 
     if (_isShaderReady())
         BeginShaderMode(_shaders[_currentShader]);
-    DrawTextureEx(_textures[texturePath], position, 0, scale, WHITE);
+    DrawTextureEx(_textures[texturePath], position, 0, _getScaleWithWindow(scale), WHITE);
     if (_isShaderReady())
         EndShaderMode();
 }
@@ -107,7 +107,10 @@ void GraphicLib::drawTextureRect(std::string texturePath, float posx, float posy
         _textures[texturePath] = LoadTexture(texturePath.c_str());
 
     Rectangle rect = {left, top, width, height};
-    Rectangle rectDest = {posx, posy, width * scale, height * scale};
+    Vector2 firstCorner = _getSizeWithWindow(Vector2{posx, posy});
+    Vector2 newSize = _getSizeWithWindow(Vector2{width * scale, height * scale});
+    Vector2 secondCorner = {newSize.x, newSize.y};
+    Rectangle rectDest = {firstCorner.x, firstCorner.y, secondCorner.x, secondCorner.y};
     Vector2 origin = { 0, 0 };
     Color color = {r, g, b, a};
 
@@ -129,11 +132,13 @@ void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize
     if (_isShaderReady())
         BeginShaderMode(_shaders[_currentShader]);
 
+    Vector2 position = _getSizeWithWindow(Vector2{posx, posy});
+    fontSize = (int)_getScaleWithWindow((float)fontSize);
+
     if (fontPath != "") {
-        Vector2 position = { posx, posy };
         DrawTextEx(_font[fontPath], text.c_str(), position, fontSize, 2, color);
     } else
-        DrawText(text.c_str(), posx, posy, 24, color);
+        DrawText(text.c_str(), (int)position.x, (int)position.y, fontSize, color);
 
     if (_isShaderReady())
         EndShaderMode();
@@ -301,4 +306,16 @@ void GraphicLib::changeFullscreen()
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
     settingsFileOut << Json::writeString(writer, root);
     settingsFileOut.close();
+}
+
+Vector2 GraphicLib::_getSizeWithWindow(Vector2 size)
+{
+    return Vector2{size.x * GetScreenWidth() / DEFAULT_WINDOW_WIDTH, size.y * GetScreenHeight() / DEFAULT_WINDOW_HEIGHT};
+}
+
+float GraphicLib::_getScaleWithWindow(float scale)
+{
+    float windowScaleX = (float)GetScreenWidth() / DEFAULT_WINDOW_WIDTH;
+    float windowScaleY = (float)GetScreenHeight() / DEFAULT_WINDOW_HEIGHT;
+    return (windowScaleX < windowScaleY) ? windowScaleX * scale : windowScaleY * scale;
 }
