@@ -5,9 +5,9 @@
 ** ABIServer
 */
 
-// #include "ABINetwork.hpp"
 #include "Auth/Auth.hpp"
 #include "KeyPressed/KeyPressed.hpp"
+#include "ChatBox/ChatBox.hpp"
 #include "ABIError.hpp"
 #include "Server.hpp"
 
@@ -53,6 +53,15 @@ int getKeyPressedInfoFromPacket(UDPPacket packet)
     if (!message)
         throw ABIError("Failed to create KeyPressedMessage class");
     return message->getKeyPressedInfoFromPacket(packet);
+}
+
+std::pair<std::string, std::string> getChatBoxInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<ChatBoxMessage> message = std::make_shared<ChatBoxMessage>();
+
+    if (!message)
+        throw ABIError("Failed to create ChatBoxMessage class");
+    return message->getChatBoxInfoFromPacket(packet);
 }
 
 }

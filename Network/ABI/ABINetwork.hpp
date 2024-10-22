@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <list>
 #include <thread>
 #include <random>
 #include <vector>
@@ -41,6 +42,6 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit from which the message will be retrieved.
      * @return A shared pointer to the next message in the queue, or nullptr if the queue is empty.
      */
-    std::shared_ptr<IMessage> getMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit);
+    std::vector<uint8_t> getMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit);
 
 }

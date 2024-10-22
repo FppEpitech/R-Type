@@ -35,6 +35,16 @@ class INetworkUnit
         virtual ~INetworkUnit() = default;
 
         /**
+         * @brief Pure virtual function to get the message queue to send.
+         *
+         * This function must be overridden by derived classes to provide the actual
+         * implementation for fetching the message queue.
+         *
+         * @return A list of message vectors to be sent.
+         */
+        virtual std::list<std::vector<uint8_t>>& getMessageToSendQueue() = 0;
+
+        /**
          * @brief Get the Token object.
          *
          * @return uint32_t
