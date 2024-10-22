@@ -13,10 +13,11 @@
 #include "TextLimitParser.hpp"
 #include "FontPathComponent.hpp"
 #include "EditableComponent.hpp"
+#include "DefaultTextParser.hpp"
 #include "TextLimitComponent.hpp"
+#include "IpTextBoxInitSystem.hpp"
 #include "ButtonStateComponent.hpp"
 #include "DefaultTextComponent.hpp"
-#include "IpTextBoxInitSystem.hpp"
 
 IpTextBoxInitSystem::IpTextBoxInitSystem() :
         ASystem("ButtonInitSystem") {}
@@ -74,6 +75,12 @@ void IpTextBoxInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
     if (textLimit) {
         reg.register_component<IComponent>(textLimit->getType());
         reg.set_component<IComponent>(idxPacketEntities, textLimit, textLimit->getType());
+    }
+
+    std::shared_ptr<DefaultTextComponent> defaultText = parseDefaultText(PATH_JSON);
+    if (defaultText) {
+        reg.register_component<IComponent>(defaultText->getType());
+        reg.set_component<IComponent>(idxPacketEntities, defaultText, defaultText->getType());
     }
 
     reg.register_component<IComponent>("DrawComponent");
