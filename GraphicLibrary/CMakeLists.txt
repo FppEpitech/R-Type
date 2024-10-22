@@ -20,7 +20,10 @@ include_directories(
 )
 
 # Add a shared library target 'graphic_raylib'
-add_library(graphic_raylib SHARED Src/GraphicLib.cpp)
+add_library(graphic_raylib SHARED
+        Src/GraphicLib.cpp
+        Error/AError.cpp
+)
 
 # Find the 'jsoncpp' package
 find_package(jsoncpp REQUIRED)
