@@ -66,6 +66,13 @@ class ANetworkUnit : public INetworkUnit
          */
         uint32_t &getIdMessage() override;
 
+        /**
+         * @brief Send all messages of the queue.
+         *
+         * @param message Message to send.
+         */
+        virtual void sendMessage(std::vector<uint8_t> message) = 0;
+
     protected:
 
         uint32_t                                _token;                      // Token of client (used to be identify on server)

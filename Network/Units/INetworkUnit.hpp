@@ -57,6 +57,13 @@ class INetworkUnit
          * @return uint32_t
          */
         virtual uint32_t &getIdMessage() = 0;
+
+        /**
+         * @brief Send a message of the queue.
+         *
+         * @param message Message to send
+         */
+        virtual void sendMessage(std::vector<uint8_t> message) = 0;
 };
 
 }

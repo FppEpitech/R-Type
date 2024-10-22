@@ -12,6 +12,8 @@ namespace ABINetwork
 
     void setMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit, std::vector<uint8_t> message)
     {
+        if (!networkUnit)
+            return;
         std::list<std::vector<uint8_t>> listMessage = networkUnit->getMessageToSendQueue();
 
         listMessage.push_back(message);
@@ -19,6 +21,8 @@ namespace ABINetwork
 
     std::vector<uint8_t> getMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit)
     {
+        if (!networkUnit)
+            return {};
         std::list<std::vector<uint8_t>> listMessage = networkUnit->getMessageToSendQueue();
 
         if (!listMessage.empty()) {
@@ -26,8 +30,14 @@ namespace ABINetwork
             listMessage.pop_front();
             return firstMessage;
         }
-
         return {};
     }
 
+    void sendMessages(std::shared_ptr<INetworkUnit> networkUnit)
+    {
+        if (!networkUnit)
+            return;
+        while (!networkUnit->getMessageToSendQueue().empty())
+            networkUnit->sendMessage(getMessageInQueue(networkUnit));
+    }
 }
