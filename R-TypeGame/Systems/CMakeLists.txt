@@ -34,6 +34,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/MusicVolume/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/NetworkConnection
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/ObjPath/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position3D/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/
@@ -167,7 +168,7 @@ target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
 add_library(system_moveMobs SHARED MoveSystem/MoveMobs/MoveMobsSystem.cpp)
 
 add_library(system_initConnectButton SHARED
-    Menus/Buttons/ConnectButtonInitSystem.cpp
+    Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
@@ -310,7 +311,7 @@ add_library(system_hitboxPlayer SHARED
 )
 
 add_library(system_initIpTextButton SHARED
-    Menus/Buttons/IpTextBoxInitSystem.cpp
+    Menus/Buttons/IpTextBox/IpTextBoxInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
@@ -342,7 +343,7 @@ add_library(system_initIpTextButton SHARED
 target_link_libraries(system_initIpTextButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initPortTextButton SHARED
-    Menus/Buttons/PortTextBoxInitSystem.cpp
+    Menus/Buttons/PortTextBox/PortTextBoxInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
@@ -374,7 +375,7 @@ add_library(system_initPortTextButton SHARED
 target_link_libraries(system_initPortTextButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_handleMouse SHARED
-        Mouse/MouseSystem.cpp
+    Mouse/MouseSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
@@ -385,7 +386,7 @@ add_library(system_handleMouse SHARED
 target_link_libraries(system_handleMouse PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_handleTyping SHARED
-        Typing/TypingSystem.cpp
+    Typing/TypingSystem.cpp
     ../Components/Editable/EditableComponent.cpp
     ../Components/ButtonState/ButtonStateComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
