@@ -12,7 +12,6 @@
 #include "DrawComponent.hpp"
 #include "TextLimitParser.hpp"
 #include "CallBackComponent.hpp"
-#include "FontPathComponent.hpp"
 #include "EditableComponent.hpp"
 #include "TextLimitComponent.hpp"
 #include "ButtonStateComponent.hpp"

@@ -343,6 +343,7 @@ add_library(system_initIpTextButton SHARED
 target_link_libraries(system_initIpTextButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initPortTextButton SHARED
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
     Menus/Buttons/PortTextBox/PortTextBoxInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp

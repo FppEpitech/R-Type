@@ -13,7 +13,6 @@
 #include "TextLimitParser.hpp"
 #include "DefaultTextParser.hpp"
 #include "CallBackComponent.hpp"
-#include "FontPathComponent.hpp"
 #include "EditableComponent.hpp"
 #include "TextLimitComponent.hpp"
 #include "ButtonStateComponent.hpp"
