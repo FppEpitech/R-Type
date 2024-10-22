@@ -121,4 +121,11 @@ std::unordered_map<uint32_t, asio::ip::udp::endpoint>& Server::getClientsList()
     return _clients;
 }
 
+void Server::sendMessage(std::vector<uint8_t> message)
+{
+    for (auto clientEndpoint : _clients)
+        _udp_socket->async_send_to(asio::buffer(message), clientEndpoint.second, [](const asio::error_code&, std::size_t) {});
+}
+
+
 }

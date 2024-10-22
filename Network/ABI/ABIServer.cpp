@@ -8,8 +8,10 @@
 #include "Auth/Auth.hpp"
 #include "KeyPressed/KeyPressed.hpp"
 #include "ChatBox/ChatBox.hpp"
+#include "CreateEntity/CreateEntity.hpp"
 #include "ABIError.hpp"
 #include "Server.hpp"
+#include "ABINetwork.hpp"
 
 namespace ABINetwork
 {
@@ -62,6 +64,18 @@ std::pair<std::string, std::string> getChatBoxInfoFromPacket(UDPPacket packet)
     if (!message)
         throw ABIError("Failed to create ChatBoxMessage class");
     return message->getChatBoxInfoFromPacket(packet);
+}
+
+void sendPacketEntity(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, float posX, float posY)
+{
+    std::shared_ptr<CreateEntityMessage> message = std::make_shared<CreateEntityMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ENTITY),
+                                    message->createEntityPayload(componentType, posX, posY),
+                                    networkUnit->getIdMessage(),
+                                    networkUnit->getToken()));
 }
 
 }

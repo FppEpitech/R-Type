@@ -64,6 +64,13 @@ class Server : public ANetworkUnit
          */
         std::unordered_map<uint32_t, asio::ip::udp::endpoint>& getClientsList();
 
+        /**
+         * @brief Send all messages of the queue.
+         *
+         * @param message Message to send.
+         */
+        void sendMessage(std::vector<uint8_t> message) override;
+
     private:
 
         /**
