@@ -44,4 +44,10 @@ namespace ABINetwork
      */
     std::vector<uint8_t> getMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit);
 
+    /**
+     * @brief Take all messages in queue and send them to the given targets.
+     *
+     * @param networkUnit A shared pointer to the network unit from which the message will be retrieved.
+     */
+    void sendMessages(std::shared_ptr<INetworkUnit> networkUnit);
 }

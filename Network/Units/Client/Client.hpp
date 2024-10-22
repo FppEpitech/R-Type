@@ -42,6 +42,12 @@ class Client : public ANetworkUnit
          */
         ~Client() = default;
 
+        /**
+         * @brief Send all messages of the queue.
+         *
+         * @param message MEssage to send.
+         */
+        void sendMessage(std::vector<uint8_t> message) override;
 
     private:
 
