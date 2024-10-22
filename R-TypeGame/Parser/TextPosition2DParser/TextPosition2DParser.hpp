@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "TextPosition2DComponent.hpp"
+#include "TextPosition2D/TextPosition2DComponent.hpp"
 
 #include <memory>
 

@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "IGraphic.hpp"
+#include "../GetGraphicalLibrary/IGraphic.hpp"
 #include "Registry.hpp"
 #include "ClientErrors.hpp"
 #include "NetworkClient.hpp"
@@ -17,7 +17,7 @@
 #include "GetGraphicalLibrary.hpp"
 #include "DrawOBJ/DrawOBJSystem.hpp"
 #include "DrawText/DrawTextSystem.hpp"
-#include "NetworkConnectionComponent.hpp"
+#include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "DrawTexture/DrawTextureSystem.hpp"
 #include "DrawTextureRect/DrawTextureRectSystem.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationSystem.hpp"

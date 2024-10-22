@@ -12,7 +12,6 @@
 #include "DrawComponent.hpp"
 #include "TextLimitParser.hpp"
 #include "DefaultTextParser.hpp"
-#include "ClickableComponent.hpp"
 #include "FontPathComponent.hpp"
 #include "EditableComponent.hpp"
 #include "TextLimitComponent.hpp"

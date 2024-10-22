@@ -6,8 +6,8 @@
 */
 
 #include "SpriteSheetAnimationSystem.hpp"
-#include "TextureRectComponent.hpp"
-#include "SpriteSheetAnimationComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
+#include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
 
