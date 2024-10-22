@@ -45,7 +45,6 @@ std::pair<std::string, std::string> AuthMessage::getLoginInfoFromPacket(UDPPacke
     // TODO: Verify if it works :)
 
     std::string userName;
-    uint32_t userNameLength;
     std::memcpy(&userName, &packet.getPayload()[0], sizeof(std::string));
 
     std::string password;

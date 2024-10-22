@@ -7,6 +7,7 @@
 
 // #include "ABINetwork.hpp"
 #include "Auth/Auth.hpp"
+#include "KeyPressed/KeyPressed.hpp"
 #include "ABIError.hpp"
 #include "Server.hpp"
 
@@ -43,6 +44,15 @@ uint32_t getLogoutInfoFromPacket(UDPPacket packet)
 std::shared_ptr<INetworkUnit> createServer(std::size_t numberMaxPlayer)
 {
     return std::make_shared<Server>(numberMaxPlayer);
+}
+
+int getKeyPressedInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<KeyPressedMessage> message = std::make_shared<KeyPressedMessage>();
+
+    if (!message)
+        throw ABIError("Failed to create KeyPressedMessage class");
+    return message->getKeyPressedInfoFromPacket(packet);
 }
 
 }

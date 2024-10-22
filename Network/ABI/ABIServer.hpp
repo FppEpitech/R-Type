@@ -46,4 +46,11 @@ namespace ABINetwork
      * @return uint32_t Token of the Client.
      */
     uint32_t getLogoutInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Get the keyPressed Info From Packet object.
+     *
+     * @return int KeyPressed.
+     */
+    int getKeyPressedInfoFromPacket(UDPPacket packet);
 }
