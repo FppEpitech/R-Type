@@ -8,39 +8,24 @@
 #include <fstream>
 #include <json/json.h>
 
-#include "TextParser.hpp"
-#include "ScaleParser.hpp"
-#include "Size1DParser.hpp"
-#include "ColourParser.hpp"
 #include "TextComponent.hpp"
 #include "DrawComponent.hpp"
-#include "FontPathParser.hpp"
-#include "ScaleComponent.hpp"
-#include "Size1DComponent.hpp"
-#include "ColourComponent.hpp"
 #include "TextLimitParser.hpp"
-#include "ButtonInitSystem.hpp"
-#include "Position2DParser.hpp"
 #include "DefaultTextParser.hpp"
 #include "CallBackComponent.hpp"
 #include "FontPathComponent.hpp"
-#include "ButtonStateParser.hpp"
-#include "TextureRectParser.hpp"
 #include "EditableComponent.hpp"
 #include "TextLimitComponent.hpp"
-#include "Position2DComponent.hpp"
 #include "ButtonStateComponent.hpp"
-#include "TextureRectComponent.hpp"
-#include "TextPosition2DParser.hpp"
-#include "TextPosition2DComponent.hpp"
+#include "PortTextBoxInitSystem.hpp"
 #include "ButtonTexturePathParser.hpp"
 #include "ButtonTexturePathComponent.hpp"
 
+
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/portTextBoxSystem.json"
 
-ButtonInitSystem::ButtonInitSystem() :
-        ASystem("ButtonInitSystem")
-{}
+PortTextBoxInitSystem::PortTextBoxInitSystem() :
+        ASystem("ButtonInitSystem") {}
 
 static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 {
@@ -78,73 +63,14 @@ static void handleOther(ECS::Registry& reg, int idxPacketEntities)
     }
 }
 
-void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
+void PortTextBoxInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
 {
-    std::shared_ptr<TextComponent> text = parseText(PATH_JSON);
-    if (text) {
-        reg.register_component<IComponent>(text->getType());
-        reg.set_component<IComponent>(idxPacketEntities, text, text->getType());
-    }
-
-    std::shared_ptr<DefaultTextComponent> defaultText = parseDefaultText(PATH_JSON);
-    if (defaultText) {
-        reg.register_component<IComponent>(defaultText->getType());
-        reg.set_component<IComponent>(idxPacketEntities, defaultText, defaultText->getType());
-    }
-
-    std::shared_ptr<FontPathComponent> font = parseFontPath(PATH_JSON);
-    if (font) {
-        reg.register_component<IComponent>(font->getType());
-        reg.set_component<IComponent>(idxPacketEntities, font, font->getType());
-    }
-
-    std::shared_ptr<Size1DComponent> size1D = parseSize1D(PATH_JSON);
-    if (size1D) {
-        reg.register_component<IComponent>(size1D->getType());
-        reg.set_component<IComponent>(idxPacketEntities, size1D, size1D->getType());
-    }
-
-    std::shared_ptr<TextPosition2DComponent> textPosition2D = parseTextPosition2D(PATH_JSON);
-    if (textPosition2D) {
-        reg.register_component<IComponent>(textPosition2D->getType());
-        reg.set_component<IComponent>(idxPacketEntities, textPosition2D, textPosition2D->getType());
-    }
-
-    std::shared_ptr<ColourComponent> colour = parseColour(PATH_JSON);
-    if (colour) {
-        reg.register_component<IComponent>(colour->getType());
-        reg.set_component<IComponent>(idxPacketEntities, colour, colour->getType());
-    }
-
-    std::shared_ptr<ButtonStateComponent> state = parseButtonState(PATH_JSON);
-    if (state) {
-        reg.register_component<IComponent>(state->getType());
-        reg.set_component<IComponent>(idxPacketEntities, state, state->getType());
-    }
-
-    std::shared_ptr<ScaleComponent> scale = parseScale(PATH_JSON);
-    if (scale) {
-        reg.register_component<IComponent>(scale->getType());
-        reg.set_component<IComponent>(idxPacketEntities, scale, scale->getType());
-    }
-
-    std::shared_ptr<TextureRectComponent> textureRect = parseTextureRect(PATH_JSON);
-    if (textureRect) {
-        reg.register_component<IComponent>(textureRect->getType());
-        reg.set_component<IComponent>(idxPacketEntities, textureRect, textureRect->getType());
-    }
-
-    std::shared_ptr<Position2DComponent> position2D = parsePosition2D(PATH_JSON);
-    if (position2D) {
-        reg.register_component<IComponent>(position2D->getType());
-        reg.set_component<IComponent>(idxPacketEntities, position2D, position2D->getType());
-    }
-    std::shared_ptr<CallBackComponent> callback = std::make_shared<CallBackComponent>([](ECS::Registry& reg, int idxPacketEntities) {
+    std::function<void(ECS::Registry& reg, int idxPacketEntities)> callback = [](ECS::Registry& reg, int idxPacketEntities) {
         handleThis(reg, idxPacketEntities);
         handleOther(reg, idxPacketEntities);
-    });
-    reg.register_component<IComponent>(callback->getType());
-    reg.set_component<IComponent>(idxPacketEntities, callback, callback->getType());
+    };
+
+    this->_setButtonProprieties(reg, idxPacketEntities, PATH_JSON, callback);
 
     std::shared_ptr<EditableComponent> editable = std::make_shared<EditableComponent>();
     reg.register_component<IComponent>(editable->getType());
@@ -167,7 +93,7 @@ void ButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
 }
 
 extern "C" {
-EXPORT_SYMBOL ISystem* loadSystemInstance() {
-    return new ButtonInitSystem();
-}
+    EXPORT_SYMBOL ISystem* loadSystemInstance() {
+        return new PortTextBoxInitSystem();
+    }
 }
