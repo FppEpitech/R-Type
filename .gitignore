@@ -50,3 +50,5 @@ vcpkg.zip
 .idea/
 .vscode/
 
+#db
+users.db
