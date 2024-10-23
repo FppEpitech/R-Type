@@ -35,7 +35,7 @@ public:
     SIZE_T ComputeRAMInfo() const;
 #else
     ~ConsumptionCompute() = default;
-    int ComputeRAMInfo() const;
+    int ComputeRAMInfo();
 #endif
     void ComputeNETInfo();
 private:

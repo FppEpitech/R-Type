@@ -117,7 +117,6 @@ double ConsumptionCompute::ComputeCPUInfo()
     now = times(&timeSample);
     if (now <= _lastCPU || timeSample.tms_stime < _lastSysCPU ||
         timeSample.tms_utime < _lastUserCPU) {
-        // Overflow detection. Just skip this value.
         percent = -1.0;
     } else {
         percent = (timeSample.tms_stime - _lastSysCPU) +
@@ -129,6 +128,8 @@ double ConsumptionCompute::ComputeCPUInfo()
     _lastCPU = now;
     _lastSysCPU = timeSample.tms_stime;
     _lastUserCPU = timeSample.tms_utime;
+    if (percent == -1)
+        percent = 0.0;
     return percent;
 }
 
