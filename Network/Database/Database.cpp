@@ -5,6 +5,7 @@
 ** User
 */
 #include "Database.hpp"
+#include <sodium.h>
 
 Database::Database(std::string path) {
     sqlite3* db = nullptr;
@@ -17,6 +18,8 @@ Database::Database(std::string path) {
         std::cerr << "OPEN DB ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
     }
     this->createTables();
+    if (sodium_init() < 0)
+        std::cerr << "SODIUM START ERR" << std::endl;
 }
 
 bool Database::userIdExists(int id) {
@@ -41,7 +44,7 @@ bool Database::userIdExists(int id) {
 }
 
 int Database::registerUser(std::string username, std::string password) {
-    std::string req("INSERT INTO users (username, password) VALUES ('" + username + "', '" + password + "');");
+    std::string req("INSERT INTO users (username, password) VALUES ('" + username + "', '" + this->hashPassword(password) + "');");
     _rc = sqlite3_exec(_db.get(), req.c_str(), 0, 0, 0);
     if (_rc != SQLITE_OK) {
         std::cerr << "REGISTER USER ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
@@ -65,7 +68,7 @@ int Database::loginUser(std::string username, std::string password) {
         int userId = sqlite3_column_int(stmt, 0);
         const char *pwd = (const char *)sqlite3_column_text(stmt, 2);
 
-        if (password == std::string(pwd)) {
+        if (this->verifyPassword(password, std::string(pwd))) {
             sqlite3_finalize(stmt);
             return userId;
         } else {
@@ -91,5 +94,23 @@ bool Database::createTables() {
     return true;
 }
 
+std::string Database::hashPassword(std::string password) {
 
-// TODO : throwerr && dbsplit ? & hashgpwd & leaderboard
+    char hashed[crypto_pwhash_STRBYTES];
+    int res = crypto_pwhash_str(
+        hashed,
+        password.c_str(),
+        password.size(),
+        crypto_pwhash_OPSLIMIT_INTERACTIVE,
+        crypto_pwhash_MEMLIMIT_INTERACTIVE
+    );
+    if (res != 0)
+        return "";
+    return std::string(hashed);
+}
+
+bool Database::verifyPassword(std::string password, std::string hash) {
+    return crypto_pwhash_str_verify(hash.c_str(), password.c_str(), password.size()) == 0;
+}
+
+// TODO : throwerr & leaderboard-odata - perfStrucEtc...

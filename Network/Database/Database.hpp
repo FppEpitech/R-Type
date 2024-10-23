@@ -33,7 +33,6 @@ class Database {
          */
         bool userIdExists(int id);
 
-
         /**
          * @brief Register a user
          *
@@ -59,6 +58,22 @@ class Database {
          * @return false
          */
         bool createTables();
+
+        /**
+         * @brief Hash a password
+         *
+         * @param password
+         * @return std::string
+         */
+        std::string hashPassword(std::string password);
+
+        /**
+         * @brief Check if a hashed pwd is another clear pwd.
+         *
+         * @param password
+         * @return bool
+         */
+        bool verifyPassword(std::string password, std::string hash);
 
     private:
 

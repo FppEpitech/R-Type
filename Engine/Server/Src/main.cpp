@@ -6,7 +6,7 @@
 */
 
 #include "Application/Application.hpp"
-#include "User.hpp"
+#include "Database.hpp"
 
 int main()
 {
@@ -17,11 +17,12 @@ int main()
     //     std::cerr << "Exception: " << e.what() << std::endl;
     // }
 
-    User user("users.db");
+    Database db("db.db");
 
-    std::cout << user.registerUser("theophile", "test") << std::endl;
 
-    std::cout << user.loginUser("theophile", "test") << std::endl;
+    std::cout << db.registerUser("theophile", "test") << std::endl;
+
+    std::cout << db.loginUser("theophile", "test"  ) << std::endl;
 
     return 0;
 }
