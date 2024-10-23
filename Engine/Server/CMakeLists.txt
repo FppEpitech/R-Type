@@ -55,6 +55,7 @@ set(SRC_EXE
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+    ../../Network/User/User.cpp
 )
 
 # Include directories for header files
@@ -73,6 +74,7 @@ include_directories(
     ../Shared/DefaultSystems/
     ../Shared/DefaultComponents/Entities
     ../Shared/DefaultComponents/Entities/Player
+    ../../Network/User
     ${EXE_INCLUDE_PATH}
 )
 
@@ -89,11 +91,15 @@ target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
 find_package(asio REQUIRED)
 find_package(jsoncpp REQUIRED)
 
+find_package(asio CONFIG REQUIRED)
+find_package(unofficial-sqlite3 CONFIG REQUIRED)
+
 # Link libraries to the executable target
 target_link_libraries(
     ${EXE}
     PRIVATE asio::asio
     JsonCpp::JsonCpp
+    PRIVATE unofficial::sqlite3::sqlite3
     r-type_ecs
     r-type_network_server
 )

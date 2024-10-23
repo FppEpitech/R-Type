@@ -2,27 +2,27 @@
 ** EPITECH PROJECT, 2024
 ** R-Type Network
 ** File description:
-** User
+** Db
 */
 #include <iostream>
 #include <sqlite3.h>
 #include <memory>
 
-class User {
+class Database {
     public:
 
         /**
-         * @brief Construct a new User object
+         * @brief Construct a new db object
          *
-         * @param path Path to the database.
+         * @param path Path to the Database.
          */
-        User(std::string path);
+        Database(std::string path);
 
         /**
-         * @brief Destroy the User object
+         * @brief Destroy the Database object
          *
          */
-        ~User() = default;
+        ~Database() = default;
 
         /**
          * @brief Check if a user id exists
@@ -58,7 +58,7 @@ class User {
          * @return true
          * @return false
          */
-        bool createTable();
+        bool createTables();
 
     private:
 

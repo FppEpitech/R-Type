@@ -4,9 +4,9 @@
 ** File description:
 ** User
 */
-#include "User.hpp"
+#include "Database.hpp"
 
-User::User(std::string path) {
+Database::Database(std::string path) {
     sqlite3* db = nullptr;
 
     _rc = sqlite3_open(path.c_str(), &db);
@@ -16,10 +16,10 @@ User::User(std::string path) {
     if (_rc != SQLITE_OK) {
         std::cerr << "OPEN DB ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
     }
-    this->createTable();
+    this->createTables();
 }
 
-bool User::userIdExists(int id) {
+bool Database::userIdExists(int id) {
     std::string req("SELECT COUNT(*) FROM users WHERE id = ?;");
     sqlite3_stmt* stmt;
     bool exists = false;
@@ -40,7 +40,7 @@ bool User::userIdExists(int id) {
     return exists;
 }
 
-int User::registerUser(std::string username, std::string password) {
+int Database::registerUser(std::string username, std::string password) {
     std::string req("INSERT INTO users (username, password) VALUES ('" + username + "', '" + password + "');");
     _rc = sqlite3_exec(_db.get(), req.c_str(), 0, 0, 0);
     if (_rc != SQLITE_OK) {
@@ -50,7 +50,7 @@ int User::registerUser(std::string username, std::string password) {
     return (int)sqlite3_last_insert_rowid(_db.get());
 }
 
-int User::loginUser(std::string username, std::string password) {
+int Database::loginUser(std::string username, std::string password) {
     sqlite3_stmt* stmt;
     const char* sql = "SELECT id, username, password FROM users WHERE username = ?";
 
@@ -81,7 +81,7 @@ int User::loginUser(std::string username, std::string password) {
     return -1;
 }
 
-bool User::createTable() {
+bool Database::createTables() {
     std::string req("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL);");
     _rc = sqlite3_exec(_db.get(), req.c_str(), 0, 0, 0);
     if (_rc != SQLITE_OK) {
@@ -91,4 +91,5 @@ bool User::createTable() {
     return true;
 }
 
-// TODO : throwerr && dbsplit ? & hashgpwd
+
+// TODO : throwerr && dbsplit ? & hashgpwd & leaderboard
