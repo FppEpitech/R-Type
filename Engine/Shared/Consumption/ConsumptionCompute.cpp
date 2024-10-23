@@ -5,36 +5,39 @@
 ** DESCRIPTION
 */
 
+#include <iostream>
+
 #include "ConsumptionCompute.hpp"
 
 #ifdef _WIN32
 
 ConsumptionCompute::ConsumptionCompute()
 {
-    HANDLE _self = GetCurrentProcess();
     SYSTEM_INFO sysInfo;
-    FILETIME ftime;
-    FILETIME fsys;
-    FILETIME fuser;
+    FILETIME ftime, fsys, fuser;
 
-    // Get the number of processors
     GetSystemInfo(&sysInfo);
     _numProcessors = sysInfo.dwNumberOfProcessors;
 
-    // Get the current time as a FILETIME and store it in _lastCPU
+    // Initialize process handle
+    _self = GetCurrentProcess();
+
+    // Get the current time and process times
     GetSystemTimeAsFileTime(&ftime);
     std::memcpy(&_lastCPU, &ftime, sizeof(FILETIME));
 
-    // Get the current process handle
-    self = GetCurrentProcess();
-
-    // Get the process times (system and user times)
-    GetProcessTimes(self, &ftime, &ftime, &fsys, &fuser);
-    std::memcpy(&lastSysCPU, &fsys, sizeof(FILETIME));
-    std::memcpy(&lastUserCPU, &fuser, sizeof(FILETIME));
+    GetProcessTimes(_self, &ftime, &ftime, &fsys, &fuser);
+    std::memcpy(&_lastSysCPU, &fsys, sizeof(FILETIME));
+    std::memcpy(&_lastUserCPU, &fuser, sizeof(FILETIME));
 }
 
-double ConsumptionCompute::ComputeCPUInfo() {
+ConsumptionCompute::~ConsumptionCompute()
+{
+    CloseHandle(_self);
+}
+
+double ConsumptionCompute::ComputeCPUInfo()
+{
     FILETIME ftime, fsys, fuser;
     ULARGE_INTEGER now, sys, user;
     double percent;
@@ -44,9 +47,17 @@ double ConsumptionCompute::ComputeCPUInfo() {
     std::memcpy(&now, &ftime, sizeof(FILETIME));
 
     // Get the current process times (system and user times)
-    GetProcessTimes(self, &ftime, &ftime, &fsys, &fuser);
+    if (!GetProcessTimes(_self, &ftime, &ftime, &fsys, &fuser)) {
+        std::cerr << "Failed to get process times." << std::endl;
+        return 0.0;
+    }
     std::memcpy(&sys, &fsys, sizeof(FILETIME));
     std::memcpy(&user, &fuser, sizeof(FILETIME));
+
+    // Ensure no division by zero
+    if ((now.QuadPart - _lastCPU.QuadPart) == 0) {
+        return 0.0;  // Prevent division by zero
+    }
 
     // Calculate CPU usage percentage
     percent = (sys.QuadPart - _lastSysCPU.QuadPart) +
@@ -58,23 +69,20 @@ double ConsumptionCompute::ComputeCPUInfo() {
     _lastCPU = now;
     _lastUserCPU = user;
     _lastSysCPU = sys;
-    return percent * 100;
+
+    return percent;
 }
 
-void ConsumptionCompute::ComputeRAMInfo() {
+SIZE_T ConsumptionCompute::ComputeRAMInfo()
+{
     PROCESS_MEMORY_COUNTERS_EX pmc;
+    SIZE_T physMemUsedByMe;
 
-    if (GetProcessMemoryInfo(_self, (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc))) {
-        SIZE_T physMemUsedByMe = pmc.WorkingSetSize;  // Physical RAM used by current _self
-        SIZE_T virtualMemUsedByMe = pmc.PrivateUsage;  // Virtual memory used by current _self
-
-        std::cout << "Physical Memory Used by Current Process: " << physMemUsedByMe / (1024 * 1024) << " MB" << std::endl;
-        std::cout << "Virtual Memory Used by Current Process: " << virtualMemUsedByMe / (1024 * 1024) << " MB" << std::endl;
-    } else {
+    if (GetProcessMemoryInfo(_self, (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc)))
+        physMemUsedByMe = pmc.WorkingSetSize;  // Physical RAM used by current _self
+    else
         std::cerr << "Error retrieving process memory information!" << std::endl;
-    }
-
-    CloseHandle(process);
+    return physMemUsedByMe / (1024 * 1024);
 }
 
 #else

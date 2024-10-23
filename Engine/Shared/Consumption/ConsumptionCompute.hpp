@@ -20,22 +20,22 @@
 #include <cstdio>
 #include <cstring>
 #include <sys/times.h>
-#include <iostream>
 #include <fstream>
 #endif
-
 
 class ConsumptionCompute {
 public:
     ConsumptionCompute();
-    ~ConsumptionCompute() = default;
+    ~ConsumptionCompute();
 
     double ComputeCPUInfo();
 
     void ComputeGPUInfo();
-
+#ifdef WIN32;
+    SIZE_T ComputeRAMInfo();
+#else
     int ComputeRAMInfo();
-
+#endif
     void ComputeNETInfo();
 private:
 #ifdef _WIN32

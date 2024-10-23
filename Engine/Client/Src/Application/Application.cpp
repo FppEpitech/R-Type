@@ -6,6 +6,7 @@
 */
 
 #include "Application.hpp"
+#include "ConsumptionCompute.hpp"
 
 void Application::_packetHandler(Network::UDPPacket packet, ECS::Registry& reg)
 {
@@ -102,10 +103,13 @@ void Application::run()
         throw ClientError("Failed to load graphic library");
     InitWindow InitWindow(libGraphic);
     InitShader InitShader(libGraphic);
+    ConsumptionCompute consumptionCompute;
 
     while (libGraphic->windowIsOpen()) {
         _connectServer();
         _keyboardHandler(libGraphic->getKeyDownInput());
+        std::cout << consumptionCompute.ComputeCPUInfo() << " this was cpu info in jsp" << std::endl;
+        std::cout << consumptionCompute.ComputeRAMInfo() << " this was ram info in mb" << std::endl;
         libGraphic->startDraw();
         libGraphic->clear();
         _registry->run_systems(-1);
