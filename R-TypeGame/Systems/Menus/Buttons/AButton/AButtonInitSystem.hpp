@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "ClickableComponent.hpp"
+#include "Registry.hpp"
 
 /**
  * @brief AButtonInitSystem class
@@ -32,12 +32,12 @@ class AButtonInitSystem {
     protected:
 
         /**
-         * @brief Set the Button Proprieties object
+         * @brief Set the Button Properties object
          *
          * @param reg The registry to fill
          * @param idxPacketEntities The index of the packet entities
          * @param filePath The path to the json file
          * @param callback The callback to set
          */
-        void _setButtonProprieties(ECS::Registry &reg, int idxPacketEntities, const std::string &filePath, std::function<void(ECS::Registry &reg, int idxPacketEntities)> callback);
+        void _setButtonProperties(ECS::Registry &reg, int idxPacketEntities, const std::string &filePath, std::function<void(ECS::Registry &reg, int idxPacketEntities)> callback);
 };

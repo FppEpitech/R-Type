@@ -34,7 +34,7 @@ void MultiplayerButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketE
         handleOther(reg, idxPacketEntities);
     };
 
-    this->_setButtonProprieties(reg, idxPacketEntities, PATH_JSON, callback);
+    this->_setButtonProperties(reg, idxPacketEntities, PATH_JSON, callback);
 }
 
 extern "C" {
