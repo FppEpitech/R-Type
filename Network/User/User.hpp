@@ -6,6 +6,7 @@
 */
 #include <iostream>
 #include <sqlite3.h>
+#include <memory>
 
 class User {
     public:
@@ -21,7 +22,7 @@ class User {
          * @brief Destroy the User object
          *
          */
-        ~User();
+        ~User() = default;
 
         /**
          * @brief Check if a user id exists
@@ -61,6 +62,6 @@ class User {
 
     private:
 
-        sqlite3 *_db = nullptr; // Database.
+        std::shared_ptr<sqlite3>_db = nullptr; // Database.
         int _rc = 0; // Return code of db.
 };
