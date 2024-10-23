@@ -1,0 +1,19 @@
+{
+    "keyBinds": [
+    ],
+    "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initConnectButton.so",
+        "libsystem_initIpTextButton.so",
+        "libsystem_initPortTextButton.so",
+        "libsystem_initServerConnectionText.so"
+    ],
+    "systems": [
+        "libsystem_handleMouse.so",
+        "libsystem_handleTyping.so"
+    ],
+    "menus": {
+        "keyBinds": [
+        ]
+    }
+}
