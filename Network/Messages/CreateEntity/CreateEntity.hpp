@@ -44,19 +44,18 @@ class CreateEntityMessage : public AMessage
          * @brief Create a Entity Payload object
          *
          * @param componentType Component Type for call system
-         * @param posX Position X of entity.
-         * @param posY Position Y of entity.
+         * @param idxEntity Entity who want to create the new entity.
          * @return Payload& The payload.
          */
-        Payload &createEntityPayload(std::string componentType, float posX, float posY);
+        Payload &createEntityPayload(std::string componentType, int idxEntity);
 
         /**
          * @brief Create a Entity Message::get Entity Payload object.
          *
          * @param packet Packet receive.
-         * @return std::tuple<std::string, float, float> Data receive in packet payload.
+         * @return std::tuple<std::string, int> Data receive in packet payload.
          */
-        std::tuple<std::string, float, float> getEntityPayload(UDPPacket packet);
+        std::pair<std::string, int> getEntityPayload(UDPPacket packet);
 
         private:
 

@@ -10,6 +10,7 @@
 #include "Auth/Auth.hpp"
 #include "KeyPressed/KeyPressed.hpp"
 #include "CreateEntity/CreateEntity.hpp"
+#include "UpdateComponent/UpdateComponent.hpp"
 #include "ChatBox/ChatBox.hpp"
 
 namespace ABINetwork
@@ -65,13 +66,22 @@ void sendPacketChatbox(std::shared_ptr<INetworkUnit> networkUnit, std::string us
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::CHAT_BOX_MESSAGE), message->createChatBoxPayload(userName, chat), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
-std::tuple<std::string, float, float> getEntityCreationInfoFromPacket(UDPPacket packet)
+std::pair<std::string, int> getEntityCreationInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<CreateEntityMessage> message = std::make_shared<CreateEntityMessage>();
 
     if (!message)
         throw ABIError("Failed to create CreateEntityMessage class");
     return message->getEntityPayload(packet);
+}
+
+std::pair<std::string, std::vector<std::variant<int, float, std::string>>> getUpdateComponentInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<UpdateComponentMessage> message = std::make_shared<UpdateComponentMessage>();
+
+    if (!message)
+        throw ABIError("Failed to create CreateEntityMessage class");
+    return message->getUpdateComponentPayload(packet);
 }
 
 }
