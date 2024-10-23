@@ -11,6 +11,8 @@ User::User(std::string path) {
 
     _rc = sqlite3_open(path.c_str(), &db);
     _db = std::shared_ptr<sqlite3>(db, sqlite3_close);
+    if (!_db)
+        std::cerr << "OPEN DB ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
     if (_rc != SQLITE_OK) {
         std::cerr << "OPEN DB ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
     }
