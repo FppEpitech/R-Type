@@ -87,10 +87,16 @@ int Database::loginUser(std::string username, std::string password) {
 }
 
 bool Database::createTables() {
-    std::string req("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL);");
-    _rc = sqlite3_exec(_db.get(), req.c_str(), 0, 0, 0);
+    std::string reqUsers("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, daltonian_mode FLOAT, res_width INT, res_height INT);");
+    _rc = sqlite3_exec(_db.get(), reqUsers.c_str(), 0, 0, 0);
     if (_rc != SQLITE_OK) {
-        std::cerr << "CREATE TABLE ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
+        std::cerr << "CREATE TABLE ERR users: " << sqlite3_errmsg(_db.get()) << std::endl;
+        return false;
+    }
+    std::string reqScores("CREATE TABLE IF NOT EXISTS scores (id INTEGER NOT NULL, username TEXT NOT NULL);");
+    _rc = sqlite3_exec(_db.get(), reqScores.c_str(), 0, 0, 0);
+    if (_rc != SQLITE_OK) {
+        std::cerr << "CREATE TABLE ERR score: " << sqlite3_errmsg(_db.get()) << std::endl;
         return false;
     }
     return true;
@@ -115,3 +121,5 @@ std::string Database::hashPassword(std::string password) {
 bool Database::verifyPassword(std::string password, std::string hash) {
     return crypto_pwhash_str_verify(hash.c_str(), password.c_str(), password.size()) == 0;
 }
+
+//mode daltonien : float for level, resolution - scores

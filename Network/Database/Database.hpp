@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sqlite3.h>
 #include <memory>
+#include <vector>
 
 class Database {
     public:
@@ -74,6 +75,59 @@ class Database {
          * @return bool
          */
         bool verifyPassword(std::string password, std::string hash);
+
+        /**
+         * @brief Add a score to a user.
+         *
+         * @param id
+         * @param score
+         * @return true
+         * @return false
+         */
+        bool addScore(int id, int score);
+
+        /**
+         * @brief Get the score of a user.
+         *
+         * @param id
+         * @return int
+         */
+        int getUserBestScore(int id);
+
+        /**
+         * @brief Get the leaderboard
+         *
+         * @return std::vector<int>
+         */
+        std::vector<int> getLeaderboard();
+
+        /**
+         * @brief Get the user data
+         *
+         * @param id
+         */
+        void getUserData(int id); // TO DEFINE -----------------------
+
+        /**
+         * @brief Set the user data
+         *
+         * @param width_res
+         * @param height_res
+         * @param daltonian_mode
+         * @return true
+         * @return false
+         */
+        bool setUserData(int width_res, int height_res, float daltonian_mode);
+
+        /**
+         * @brief Set the User Settings object
+         *
+         * @param id
+         * @param res_width
+         * @param res_height
+         * @param daltonian_mode
+         */
+        void setUserSettings(int id, int res_width, int res_height, float daltonian_mode);
 
     private:
 
