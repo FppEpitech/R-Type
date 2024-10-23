@@ -21,7 +21,6 @@ set(EXE_SRC_PATH "Src")
 set(EXE_INCLUDE_PATH
     "Include"
     "Src/GameEngine"
-    "Src/Network"
     "Src/GameEngine/ServerSceneManager"
 )
 
@@ -57,22 +56,26 @@ set(SRC_EXE
 
 # Include directories for header files
 include_directories(
-    ${EXE_SRC_PATH}/Network
     ${EXE_SRC_PATH}/GameEngine/Errors
     ${EXE_SRC_PATH}/GameEngine/Application
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager
     ../Shared/Ecs/Src
     ../Shared/Interface
     ../Shared/SceneManager
-    ../Shared/Network/Packet
     ../Shared/Component
     ../Shared/Component/Entities
     ../Shared/Component/Entities/Player
     ${EXE_INCLUDE_PATH}
+
+    ${CMAKE_SOURCE_DIR}/Network/Errors
+    ${CMAKE_SOURCE_DIR}/Network/ABI
+    ${CMAKE_SOURCE_DIR}/Network/Units/Server/
+    ${CMAKE_SOURCE_DIR}/Network/Units/
+    ${CMAKE_SOURCE_DIR}/Network/Units/ANetworkUnit
+    ${CMAKE_SOURCE_DIR}/Network/Messages
 )
 
 # Add subdirectory for network sources
-add_subdirectory(${EXE_SRC_PATH}/Network)
 
 # Add the executable target
 add_executable(${EXE} ${SRC_EXE})
@@ -90,5 +93,5 @@ target_link_libraries(
     PRIVATE asio::asio
     JsonCpp::JsonCpp
     r-type_ecs
-    r-type_network_server
+    r-type_abi_network
 )

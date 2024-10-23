@@ -13,11 +13,16 @@ namespace ABINetwork
 Server::Server(std::size_t numberMaxPlayer)
 {
     _io_context = std::make_shared<asio::io_context>();
-    _tcp_acceptor = std::make_shared<asio::ip::tcp::acceptor>(*_io_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), 0));
-    _udp_socket = std::make_shared<asio::ip::udp::socket>(*_io_context, asio::ip::udp::endpoint(asio::ip::udp::v4(), 0));
+    if (!_io_context)
+        throw ABIError("Failed to create the server");
+    _tcp_acceptor = std::make_shared<asio::ip::tcp::acceptor>(*_io_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), SERVER_TCP_PORT));
+    _udp_socket = std::make_shared<asio::ip::udp::socket>(*_io_context, asio::ip::udp::endpoint(asio::ip::udp::v4(), SERVER_UDP_PORT));
+    if (!_tcp_acceptor || !_udp_socket)
+        throw ABIError("Failed to create the server");
     _messageId = 0x0000;
     _numberMaxPlayer = numberMaxPlayer;
     _currentNumberPlayer = 0;
+    start();
 }
 
 void Server::start()
@@ -48,6 +53,7 @@ void Server::_startAccept()
 
                     _queueConnection.push_back(token);
 
+                    asio::write(*socket, asio::buffer(&token, sizeof(token)));
                     _startReadDisconnection(socket, token);
                     _startAccept();
                 } else {
