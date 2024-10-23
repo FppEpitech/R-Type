@@ -17,8 +17,12 @@
 #include <stdexcept>
 #include <unordered_map>
 
+#include "ABIError.hpp"
 #include "UDPPacket.hpp"
 #include "ANetworkUnit.hpp"
+
+#define SERVER_TCP_PORT 4444       // 0 for random port
+#define SERVER_UDP_PORT 4445       // 0 for random port
 
 /**
  * @namespace ABINetwork
@@ -116,7 +120,13 @@ class Server : public ANetworkUnit
         asio::ip::udp::endpoint                                     _remoteEndpoint;       // The remote client’s UDP endpoint, representing the client’s IP address and port.
 
         std::vector<uint32_t>                                       _queueConnection;      // Connection queue
-        std::vector<UDPPacket>                                      _queueMessage;         // Message queue
+
+        /**
+         * @brief Add a packet received to the queue.
+         *
+         * @param packet Packet received.
+         */
+        void _addPacketToQueueReceived(UDPPacket packet);
 };
 
 }

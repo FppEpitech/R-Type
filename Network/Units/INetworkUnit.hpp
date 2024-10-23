@@ -9,6 +9,8 @@
 
 #include <cstdint>
 
+#include "UDPPacket/UDPPacket.hpp"
+
 /**
  * @namespace ABINetwork
  * @brief Contains functions to manage network communication and operations.
@@ -45,6 +47,27 @@ class INetworkUnit
         virtual std::list<std::vector<uint8_t>>& getMessageToSendQueue() = 0;
 
         /**
+         * @brief Pure virtual function to set a message in the queue.
+         *
+         * @param message Message to send.
+         */
+        virtual void setMessageToSendQueue(std::vector<uint8_t> message) = 0;
+
+        /**
+         * @brief Get the Message In Queue object.
+         *
+         * @return std::vector<uint8_t> Message.
+         */
+        virtual std::vector<uint8_t> getMessageInQueue() = 0;
+
+        /**
+         * @brief Get the Received Messages.
+         *
+         * @return std::vector<UDPPacket> List of messages Received.
+         */
+        virtual std::vector<UDPPacket> getReceivedMessages() = 0;
+
+        /**
          * @brief Get the Token object.
          *
          * @return uint32_t
@@ -64,6 +87,13 @@ class INetworkUnit
          * @param message Message to send
          */
         virtual void sendMessage(std::vector<uint8_t> message) = 0;
+
+        /**
+         * @brief Get the Mutex object.
+         *
+         * @return std::mutex Mutex to lock inter thread datas.
+         */
+        virtual std::mutex &getMutex() = 0;
 };
 
 }
