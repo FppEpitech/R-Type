@@ -108,8 +108,6 @@ void Application::run()
     while (libGraphic->windowIsOpen()) {
         _connectServer();
         _keyboardHandler(libGraphic->getKeyDownInput());
-        std::cout << consumptionCompute.ComputeCPUInfo() << " this was cpu info in jsp" << std::endl;
-        std::cout << consumptionCompute.ComputeRAMInfo() << " this was ram info in mb" << std::endl;
         libGraphic->startDraw();
         libGraphic->clear();
         _registry->run_systems(-1);

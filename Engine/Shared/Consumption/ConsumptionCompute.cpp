@@ -70,10 +70,10 @@ double ConsumptionCompute::ComputeCPUInfo()
     _lastUserCPU = user;
     _lastSysCPU = sys;
 
-    return percent;
+    return percent * 100;
 }
 
-SIZE_T ConsumptionCompute::ComputeRAMInfo()
+SIZE_T ConsumptionCompute::ComputeRAMInfo() const
 {
     PROCESS_MEMORY_COUNTERS_EX pmc;
     SIZE_T physMemUsedByMe;

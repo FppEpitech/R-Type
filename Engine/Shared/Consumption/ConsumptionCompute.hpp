@@ -32,10 +32,10 @@ public:
     void ComputeGPUInfo();
 #ifdef WIN32
     ~ConsumptionCompute();
-    SIZE_T ComputeRAMInfo();
+    SIZE_T ComputeRAMInfo() const;
 #else
     ~ConsumptionCompute() = default;
-    int ComputeRAMInfo();
+    int ComputeRAMInfo() const;
 #endif
     void ComputeNETInfo();
 private:
