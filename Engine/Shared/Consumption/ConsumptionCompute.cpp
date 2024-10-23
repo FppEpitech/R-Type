@@ -157,6 +157,8 @@ int ConsumptionCompute::ComputeRAMInfo()
     } else {
         std::cerr << "Unable to open /proc/self/status" << std::endl;
     }
+    if (result != -1)
+        result /= 1024;
     return result;
 }
 #endif

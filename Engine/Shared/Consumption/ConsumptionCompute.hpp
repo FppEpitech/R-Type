@@ -26,14 +26,15 @@
 class ConsumptionCompute {
 public:
     ConsumptionCompute();
-    ~ConsumptionCompute();
 
     double ComputeCPUInfo();
 
     void ComputeGPUInfo();
-#ifdef WIN32;
+#ifdef WIN32
+    ~ConsumptionCompute();
     SIZE_T ComputeRAMInfo();
 #else
+    ~ConsumptionCompute() = default;
     int ComputeRAMInfo();
 #endif
     void ComputeNETInfo();
