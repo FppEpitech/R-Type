@@ -19,6 +19,7 @@
 #include "ButtonStateParser.hpp"
 #include "TextureRectParser.hpp"
 #include "AButtonInitSystem.hpp"
+#include "ClickableComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "DefaultTextComponent.hpp"
@@ -107,7 +108,7 @@ void ConnectButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntit
         handleOther(reg, idxPacketEntities);
     };
 
-    this->_setButtonProprieties(reg, idxPacketEntities, PATH_JSON, callback);
+    this->_setButtonProperties(reg, idxPacketEntities, PATH_JSON, callback);
 
     reg.register_component<IComponent>("NetworkConnectionComponent");
     reg.set_component<IComponent>(idxPacketEntities, std::make_shared<NetworkConnectionComponent>(), "NetworkConnectionComponent");

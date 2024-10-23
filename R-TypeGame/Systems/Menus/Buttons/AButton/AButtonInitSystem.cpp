@@ -19,10 +19,11 @@
 #include "ScaleComponent.hpp"
 #include "Size1DComponent.hpp"
 #include "ColourComponent.hpp"
-#include "AButtonInitSystem.hpp"
 #include "Position2DParser.hpp"
+#include "AButtonInitSystem.hpp"
 #include "ButtonStateParser.hpp"
 #include "TextureRectParser.hpp"
+#include "ClickableComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "ButtonStateComponent.hpp"
 #include "TextureRectComponent.hpp"
@@ -31,7 +32,7 @@
 #include "ButtonTexturePathParser.hpp"
 #include "ButtonTexturePathComponent.hpp"
 
-void AButtonInitSystem::_setButtonProprieties(ECS::Registry &reg, int idxPacketEntities, const std::string &filePath, std::function<void(ECS::Registry &, int)> callback)
+void AButtonInitSystem::_setButtonProperties(ECS::Registry &reg, int idxPacketEntities, const std::string &filePath, std::function<void(ECS::Registry &, int)> callback)
 {
     std::shared_ptr<TextComponent> text = parseText(filePath);
     if (text) {

@@ -12,10 +12,9 @@
 #include "DrawComponent.hpp"
 #include "TextLimitParser.hpp"
 #include "DefaultTextParser.hpp"
-#include "FontPathComponent.hpp"
 #include "EditableComponent.hpp"
-#include "DefaultTextParser.hpp"
 #include "TextLimitComponent.hpp"
+#include "ClickableComponent.hpp"
 #include "ButtonStateComponent.hpp"
 #include "DefaultTextComponent.hpp"
 #include "PortTextBoxInitSystem.hpp"
@@ -71,7 +70,7 @@ void PortTextBoxInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntitie
         handleOther(reg, idxPacketEntities);
     };
 
-    this->_setButtonProprieties(reg, idxPacketEntities, PATH_JSON, callback);
+    this->_setButtonProperties(reg, idxPacketEntities, PATH_JSON, callback);
 
     std::shared_ptr<EditableComponent> editable = std::make_shared<EditableComponent>();
     reg.register_component<IComponent>(editable->getType());

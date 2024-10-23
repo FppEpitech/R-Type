@@ -88,6 +88,8 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
     Menus/Buttons/AButton/
     ../Error/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
+    AText/
 )
 
 # Add a shared library target 'system_initPlayer'
@@ -326,6 +328,7 @@ add_library(system_hitboxPlayer SHARED
 
 add_library(system_initIpTextButton SHARED
     ../Error/AError.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     Menus/Buttons/AButton/AButtonInitSystem.cpp
     Menus/Buttons/IpTextBox/IpTextBoxInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -360,6 +363,7 @@ target_link_libraries(system_initIpTextButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initPortTextButton SHARED
     ../Error/AError.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     Menus/Buttons/AButton/AButtonInitSystem.cpp
     Menus/Buttons/PortTextBox/PortTextBoxInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -445,6 +449,7 @@ target_link_libraries(system_initEndLogo PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initExitButton SHARED
         ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/ExitButton/ExitButtonInitSystem.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -475,6 +480,7 @@ target_link_libraries(system_initExitButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initSingleplayerButton SHARED
         ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/SingleplayerButton/SingleplayerButtonInitSystem.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -505,6 +511,7 @@ target_link_libraries(system_initSingleplayerButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initMultiplayerButton SHARED
         ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/MultiplayerButton/MultiplayerButtonInitSystem.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -535,6 +542,7 @@ target_link_libraries(system_initMultiplayerButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initMapEditorButton SHARED
         ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/MapEditorButton/MapEditorButtonInitSystem.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
@@ -562,3 +570,22 @@ add_library(system_initMapEditorButton SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
 target_link_libraries(system_initMapEditorButton PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_initServerConnectionText SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        AText/ATextInitSystem.cpp
+        Menus/Texts/ServerConnection/ServerConnectionTextInitSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
+        ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
+        ../Parser/FontPathParser/FontPathParser.cpp
+        ../Parser/TextParser/TextParser.cpp
+        ../Parser/ColourParser/ColourParser.cpp
+        ../Parser/Size1DParser/Size1DParser.cpp
+)
+target_link_libraries(system_initServerConnectionText PRIVATE JsonCpp::JsonCpp)

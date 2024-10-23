@@ -11,9 +11,9 @@
 #include "TextComponent.hpp"
 #include "DrawComponent.hpp"
 #include "TextLimitParser.hpp"
-#include "FontPathComponent.hpp"
 #include "EditableComponent.hpp"
 #include "DefaultTextParser.hpp"
+#include "ClickableComponent.hpp"
 #include "TextLimitComponent.hpp"
 #include "IpTextBoxInitSystem.hpp"
 #include "ButtonStateComponent.hpp"
@@ -65,7 +65,7 @@ void IpTextBoxInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
         handleOthers(reg, idxPacketEntities);
     };
 
-    this->_setButtonProprieties(reg, idxPacketEntities, PATH_JSON, callback);
+    this->_setButtonProperties(reg, idxPacketEntities, PATH_JSON, callback);
 
     std::shared_ptr<EditableComponent> editable = std::make_shared<EditableComponent>();
     reg.register_component<IComponent>(editable->getType());
