@@ -67,6 +67,13 @@ class ANetworkUnit : public INetworkUnit
         std::vector<uint8_t> getMessageInQueue() override;
 
         /**
+         * @brief Get the Received Messages.
+         *
+         * @return std::vector<UDPPacket> List of messages Received.
+         */
+        std::vector<UDPPacket> getReceivedMessages() override;
+
+        /**
          * @brief Get the Token object.
          *
          * @return uint32_t
@@ -87,11 +94,20 @@ class ANetworkUnit : public INetworkUnit
          */
         virtual void sendMessage(std::vector<uint8_t> message) = 0;
 
+        /**
+         * @brief Get the Mutex object.
+         *
+         * @return std::mutex Mutex to lock inter thread data.
+         */
+        std::mutex &getMutex() override;
+
     protected:
 
         uint32_t                                _token;                      // Token of client (used to be identify on server)
         uint32_t                                _messageId;                  // Current Message ID (auto-incremente every send of message)
         std::list<std::vector<uint8_t>>         _queueMessageToSend;         // Message to send queue
+        std::vector<UDPPacket>                  _queueMessage;               // Message queue
+        std::mutex                              _mutex;                      // Mutex to lock inter threads data.
 };
 
 }

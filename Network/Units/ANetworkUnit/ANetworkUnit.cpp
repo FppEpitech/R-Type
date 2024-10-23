@@ -36,6 +36,14 @@ namespace ABINetwork
         return {};
     }
 
+    std::vector<UDPPacket> ANetworkUnit::getReceivedMessages()
+    {
+        std::vector<UDPPacket> messages = _queueMessage;
+
+        _queueMessage.clear();
+        return messages;
+    }
+
     uint32_t ANetworkUnit::getToken()
     {
         return _token;
@@ -44,6 +52,11 @@ namespace ABINetwork
     uint32_t &ANetworkUnit::getIdMessage()
     {
         return _messageId;
+    }
+
+    std::mutex &ANetworkUnit::getMutex()
+    {
+        return _mutex;
     }
 
 } // namespace ABINetwork

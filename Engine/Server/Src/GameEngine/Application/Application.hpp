@@ -87,13 +87,10 @@ class Application {
         void _handleSpecialKey(uint8_t keyCode, int idxPlayerPacket);
 
         /**
-         * @brief Callback function who handle the packet receive.
+         * @brief Function who handle the packets received.
          *
-         * @param packet Packet to be handle in this function.
-         * @param endpoint Endpoint of the client who send the packet.
-         * @param reg Registry with list of Component and system.
          */
-        void _packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg);
+        void _packetHandler();
 
         /**
          * @brief Check if no player are connected.

@@ -86,6 +86,11 @@ void Server::_startReadDisconnection(std::shared_ptr<asio::ip::tcp::socket> sock
         });
 }
 
+void Server::_addPacketToQueueReceived(UDPPacket packet)
+{
+    std::lock_guard<std::mutex> lock(_mutex);
+    _queueMessage.push_back(packet);
+}
 
 void Server::_startReceive()
 {
@@ -102,7 +107,7 @@ void Server::_startReceive()
                         if (it->second == asio::ip::udp::endpoint()) {
                             _clients[packet.getToken()] = _remoteEndpoint;
                         }
-                        _queueMessage.push_back(packet);
+                        _addPacketToQueueReceived(packet);
                     }
                 } catch (const std::exception& e) {
                     _startReceive();
