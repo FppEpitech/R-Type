@@ -9,6 +9,7 @@
 #include "KeyPressed/KeyPressed.hpp"
 #include "ChatBox/ChatBox.hpp"
 #include "CreateEntity/CreateEntity.hpp"
+#include "UpdateComponent/UpdateComponent.hpp"
 #include "ABIError.hpp"
 #include "Server.hpp"
 #include "ABINetwork.hpp"
@@ -66,7 +67,7 @@ std::pair<std::string, std::string> getChatBoxInfoFromPacket(UDPPacket packet)
     return message->getChatBoxInfoFromPacket(packet);
 }
 
-void sendPacketEntity(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int idxEntity)
+void sendPacketCreateEntity(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int idxEntity)
 {
     std::shared_ptr<CreateEntityMessage> message = std::make_shared<CreateEntityMessage>();
 
@@ -74,6 +75,26 @@ void sendPacketEntity(std::shared_ptr<INetworkUnit> networkUnit, std::string com
         return;
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ENTITY),
                                     message->createEntityPayload(componentType, idxEntity),
+                                    networkUnit->getIdMessage(),
+                                    networkUnit->getToken()));
+}
+
+void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, ...)
+{
+    std::shared_ptr<UpdateComponentMessage> message = std::make_shared<UpdateComponentMessage>();
+
+    if (!message)
+        return;
+
+    va_list args;
+    va_start(args, nbArgs);
+
+    Payload payload = message->createUpdateComponentPayload(componentType, nbArgs, args);
+
+    va_end(args);
+
+    setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::UPDATE_COMPONENT),
+                                    payload,
                                     networkUnit->getIdMessage(),
                                     networkUnit->getToken()));
 }

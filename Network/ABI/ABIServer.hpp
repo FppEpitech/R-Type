@@ -68,5 +68,15 @@ namespace ABINetwork
      * @param componentType COmponent type used to call system associeted.
      * @param idxEntity Entity who want to create the new entity.
      */
-    void sendPacketEntity(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int idxEntity);
+    void sendPacketCreateEntity(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int idxEntity);
+
+    /**
+     * @brief Send Update Component Information.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param componentType COmponent type used to call system associeted.
+     * @param nbArgs Number of args in variadic list.
+     * @param ... Variadic List.
+     */
+    void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, ...);
 }
