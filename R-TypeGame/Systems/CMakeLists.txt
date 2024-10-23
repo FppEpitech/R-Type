@@ -572,6 +572,7 @@ add_library(system_initMapEditorButton SHARED
 target_link_libraries(system_initMapEditorButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initServerConnectionText SHARED
+        ../Error/AError.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         AText/ATextInitSystem.cpp
         Menus/Texts/ServerConnection/ServerConnectionTextInitSystem.cpp
