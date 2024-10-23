@@ -122,4 +122,50 @@ bool Database::verifyPassword(std::string password, std::string hash) {
     return crypto_pwhash_str_verify(hash.c_str(), password.c_str(), password.size()) == 0;
 }
 
-//mode daltonien : float for level, resolution - scores
+
+bool Database::addScore(int id, int score) {
+    std::string req("INSERT INTO scores (id, score) VALUES (?, ?);");
+    sqlite3_stmt* stmt;
+    sqlite3_prepare_v2(_db.get(), req.c_str(), -1, &stmt, nullptr);
+    sqlite3_bind_int(stmt, 1, id);
+    sqlite3_bind_int(stmt, 2, score);
+    _rc = sqlite3_step(stmt);
+    if (_rc != SQLITE_DONE) {
+        std::cerr << "ADD SCORE ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
+        return false;
+    }
+    sqlite3_finalize(stmt);
+    return true;
+}
+
+int Database::getUserBestScore(int id) {
+    std::string req("SELECT MAX(score) FROM scores WHERE id = ?;");
+    sqlite3_stmt* stmt;
+    int score = 0;
+
+    _rc = sqlite3_prepare_v2(_db.get(), req.c_str(), -1, &stmt, nullptr);
+    sqlite3_bind_int(stmt, 1, id);
+    _rc = sqlite3_step(stmt);
+
+    if (_rc == SQLITE_ROW) {
+        score = sqlite3_column_int(stmt, 0);
+    } else if (_rc != SQLITE_DONE) {
+        std::cerr << "USER BEST SCORE ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
+        return -1;
+    }
+    sqlite3_finalize(stmt);
+    return score;
+}
+
+std::vector<int> Database::getLeaderboard() {
+
+}
+
+Database::userSettings Database::getUserSettings(int id) {
+
+}
+
+bool Database::setUserSettings(int id, int res_width, int res_height, float daltonian_mode) {
+
+}
+//  check prep ?  // max all & end data handling -> push, cleanify

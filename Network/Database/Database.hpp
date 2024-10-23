@@ -10,6 +10,13 @@
 #include <vector>
 
 class Database {
+
+    struct userSettings {
+        int res_width;
+        int res_height;
+        float daltonian_mode;
+    };
+
     public:
 
         /**
@@ -105,19 +112,9 @@ class Database {
          * @brief Get the user data
          *
          * @param id
+         * @return userSettings
          */
-        void getUserData(int id); // TO DEFINE -----------------------
-
-        /**
-         * @brief Set the user data
-         *
-         * @param width_res
-         * @param height_res
-         * @param daltonian_mode
-         * @return true
-         * @return false
-         */
-        bool setUserData(int width_res, int height_res, float daltonian_mode);
+        Database::userSettings getUserSettings(int id);
 
         /**
          * @brief Set the User Settings object
@@ -127,7 +124,7 @@ class Database {
          * @param res_height
          * @param daltonian_mode
          */
-        void setUserSettings(int id, int res_width, int res_height, float daltonian_mode);
+        bool setUserSettings(int id, int res_width, int res_height, float daltonian_mode);
 
     private:
 
