@@ -75,6 +75,7 @@ include_directories(
     ../Shared/DefaultComponents/Entities
     ../Shared/DefaultComponents/Entities/Player
     ../../Network/Database
+    ../../Network/Errors
     ${EXE_INCLUDE_PATH}
 )
 

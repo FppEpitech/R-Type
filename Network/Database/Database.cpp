@@ -6,20 +6,19 @@
 */
 #include "Database.hpp"
 #include <sodium.h>
+#include "DbError.hpp"
 
 Database::Database(std::string path) {
     sqlite3* db = nullptr;
 
     _rc = sqlite3_open(path.c_str(), &db);
     _db = std::shared_ptr<sqlite3>(db, sqlite3_close);
-    if (!_db)
-        std::cerr << "OPEN DB ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
-    if (_rc != SQLITE_OK) {
-        std::cerr << "OPEN DB ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
-    }
+    if (!_db || _rc != SQLITE_OK)
+        throw new DbError("Issues opening the sqlite db...");
+
     this->createTables();
     if (sodium_init() < 0)
-        std::cerr << "SODIUM START ERR" << std::endl;
+        throw new DbError("Couldn't load sodium...");
 }
 
 bool Database::userIdExists(int id) {
@@ -29,8 +28,10 @@ bool Database::userIdExists(int id) {
 
     _rc = sqlite3_prepare_v2(_db.get(), req.c_str(), -1, &stmt, nullptr);
     sqlite3_bind_text(stmt, 1, std::to_string(id).c_str(), -1, SQLITE_STATIC);
-    if (_rc != SQLITE_OK)
+    if (_rc != SQLITE_OK) {
         std::cerr << "USER ID EXIST ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
+        return false;
+    }
     _rc = sqlite3_step(stmt);
 
     if (_rc == SQLITE_ROW) {
@@ -38,6 +39,7 @@ bool Database::userIdExists(int id) {
         exists = (count > 0);
     } else if (_rc != SQLITE_DONE) {
         std::cerr << "USER ID EXIST ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
+        return false;
     }
     sqlite3_finalize(stmt);
     return exists;
@@ -104,6 +106,7 @@ std::string Database::hashPassword(std::string password) {
         crypto_pwhash_OPSLIMIT_INTERACTIVE,
         crypto_pwhash_MEMLIMIT_INTERACTIVE
     );
+
     if (res != 0)
         return "";
     return std::string(hashed);
@@ -112,5 +115,3 @@ std::string Database::hashPassword(std::string password) {
 bool Database::verifyPassword(std::string password, std::string hash) {
     return crypto_pwhash_str_verify(hash.c_str(), password.c_str(), password.size()) == 0;
 }
-
-// TODO : throwerr & leaderboard-odata - perfStrucEtc...
