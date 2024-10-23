@@ -53,6 +53,20 @@ class ANetworkUnit : public INetworkUnit
         std::list<std::vector<uint8_t>>& getMessageToSendQueue() override;
 
         /**
+         * @brief Set the Message To Send Queue object.
+         *
+         * @param message Message to send.
+         */
+        void setMessageToSendQueue(std::vector<uint8_t> message) override;
+
+        /**
+         * @brief Get the Message In Queue object.
+         *
+         * @return std::vector<uint8_t> Message.
+         */
+        std::vector<uint8_t> getMessageInQueue() override;
+
+        /**
          * @brief Get the Token object.
          *
          * @return uint32_t

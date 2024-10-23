@@ -49,9 +49,8 @@ void Application::_keyboardHandler(std::size_t key)
     try {
         if (key == KEY_NULL || _client == nullptr)
             return;
-    //     if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
-    //         return;
-    //     _client->sendKeyPacket(KEY_MAP(key));
+        // if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
+        //     return;
         ABINetwork::sendPacketKey(_client, key);
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
@@ -115,5 +114,6 @@ void Application::run()
         for (auto defaultSystem : _defaultSystems)
             defaultSystem(*_registry, -1);
         libGraphic->endDraw();
+        ABINetwork::sendMessages(_client);
     }
 }

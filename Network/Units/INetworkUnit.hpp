@@ -45,6 +45,20 @@ class INetworkUnit
         virtual std::list<std::vector<uint8_t>>& getMessageToSendQueue() = 0;
 
         /**
+         * @brief Pure virtual function to set a message in the queue.
+         *
+         * @param message Message to send.
+         */
+        virtual void setMessageToSendQueue(std::vector<uint8_t> message) = 0;
+
+        /**
+         * @brief Get the Message In Queue object.
+         *
+         * @return std::vector<uint8_t> Message.
+         */
+        virtual std::vector<uint8_t> getMessageInQueue() = 0;
+
+        /**
          * @brief Get the Token object.
          *
          * @return uint32_t

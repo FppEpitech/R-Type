@@ -21,6 +21,21 @@ namespace ABINetwork
         return this->_queueMessageToSend;
     }
 
+    void ANetworkUnit::setMessageToSendQueue(std::vector<uint8_t> message)
+    {
+        _queueMessageToSend.push_back(message);
+    }
+
+    std::vector<uint8_t> ANetworkUnit::getMessageInQueue()
+    {
+        if (!_queueMessageToSend.empty()) {
+            std::vector<uint8_t> firstMessage = _queueMessageToSend.front();
+            _queueMessageToSend.pop_front();
+            return firstMessage;
+        }
+        return {};
+    }
+
     uint32_t ANetworkUnit::getToken()
     {
         return _token;
