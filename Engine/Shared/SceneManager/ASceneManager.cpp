@@ -13,9 +13,10 @@
 
 #include "DefaultSystems/ISystemNetworkUpdate.hpp"
 
-SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> registry)
+SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> registry, std::shared_ptr<EventListener> eventListener)
 {
     _registry = registry;
+    _eventListener = eventListener;
     _initialiseDefaultComponents();
 }
 
@@ -65,6 +66,19 @@ void SceneManager::ASceneManager::_loadSceneSystems(Json::Value root, std::size_
             _registry->add_system(system->getFunction());
         else
             throw SceneManagerErrors("Error while loading the system: " + systems[i].asString());
+    }
+}
+
+void SceneManager::ASceneManager::_loadSceneEventHandlers(Json::Value root, std::size_t index)
+{
+    const Json::Value& handlers = root["eventHandlers"];
+
+    for (unsigned int i = 0; i < handlers.size(); i++) {
+        std::shared_ptr<IEventHandler> handler = DLLoader<IEventHandler>::load(_getEventHandlerLibPath() + handlers[i].asString(), "loadEventHandlerInstance");
+        if (handler)
+            _eventListener->addHandler(handler->getEventType(), handler);
+        else
+            throw SceneManagerErrors("Error while loading the event handler: " + handlers[i].asString());
     }
 }
 
