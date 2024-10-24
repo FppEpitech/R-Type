@@ -6,6 +6,7 @@
 */
 
 #include "Application.hpp"
+#include "ConsumptionCompute.hpp"
 
 Application::Application()
 {
@@ -32,6 +33,7 @@ void Application::run()
 {
     InitWindow InitWindow(_libGraphic);
     InitShader InitShader(_libGraphic);
+    ConsumptionCompute consumptionCompute;
 
     while (_libGraphic->windowIsOpen()) {
         _connectServer();
