@@ -32,6 +32,7 @@ set(SRC_EXE
     ${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
     ../Error/AError.cpp
+    ../Shared/Consumption/ConsumptionCompute.cpp
     ../Shared/SceneManager/ASceneManager.cpp
     ../Shared/DefaultComponents/Draw/DrawComponent.cpp
     ../Shared/DefaultComponents/FontPath/FontPathComponent.cpp
@@ -69,6 +70,7 @@ include_directories(
     ../Shared/Network/Packet
     ../Shared/Component
     ../Shared
+    ../Shared/Consumption/
     ../Shared/DefaultComponents/
     ../Shared/DefaultSystems/
     ../Shared/DefaultComponents/Entities
