@@ -9,6 +9,9 @@
 
 #include "ABINetwork.hpp"
 
+#include "Room/Room.hpp"
+
+
 /**
  * @namespace ABINetwork
  * @brief Contains functions to manage network communication and operations.
@@ -79,4 +82,12 @@ namespace ABINetwork
      * @param ... Variadic List.
      */
     void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, ...);
+
+    /**
+     * @brief Get the CreateRoom Info From Packet object
+     *
+     * @param packet
+     * @return roomInfo_t
+     */
+    roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet);
 }

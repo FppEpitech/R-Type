@@ -13,6 +13,7 @@
 #include "ABIError.hpp"
 #include "Server.hpp"
 #include "ABINetwork.hpp"
+#include "Room/Room.hpp"
 
 namespace ABINetwork
 {
@@ -97,6 +98,15 @@ void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string 
                                     payload,
                                     networkUnit->getIdMessage(),
                                     networkUnit->getToken()));
+}
+
+roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        throw ABIError("Failed to create RoomMessage class");
+    return message->getCreateRoomInfoFromPacket(packet);
 }
 
 }

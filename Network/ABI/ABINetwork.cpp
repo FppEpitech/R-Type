@@ -22,14 +22,6 @@ namespace ABINetwork
         if (!networkUnit)
             return {};
         return networkUnit->getMessageInQueue();
-        // std::list<std::vector<uint8_t>> listMessage = networkUnit->getMessageToSendQueue();
-
-        // if (!listMessage.empty()) {
-        //     std::vector<uint8_t> firstMessage = listMessage.front();
-        //     listMessage.pop_front();
-        //     return firstMessage;
-        // }
-        // return {};
     }
 
     void sendMessages(std::shared_ptr<INetworkUnit> networkUnit)

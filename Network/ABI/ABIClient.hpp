@@ -66,11 +66,29 @@ namespace ABINetwork
     void sendPacketChatbox(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string chat);
 
     /**
+     * @brief Send a packet to the server to know all rooms.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketGetRooms(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
      * @brief Creates a new room on the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      */
-    void createRoom(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Creates a new room on the server.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param roomName Name of the room.
+     * @param privateRoom True if the server is private.
+     * @param roomPassword Room password, empty if not private.
+     * @param cheatsRoom Allow or not cheats in the room.
+     * @param playerMaxRoom Set the number of player allowed in the room.
+     */
+    void sendPacketCreateRoom(std::shared_ptr<INetworkUnit> networkUnit, std::string roomName, bool privateRoom, std::string roomPassword, bool cheatsRoom, int playerMaxRoom);
 
     /**
      * @brief Joins an existing room on the server.

@@ -12,6 +12,7 @@
 #include "CreateEntity/CreateEntity.hpp"
 #include "UpdateComponent/UpdateComponent.hpp"
 #include "ChatBox/ChatBox.hpp"
+#include "Room/Room.hpp"
 
 namespace ABINetwork
 {
@@ -82,6 +83,24 @@ std::pair<std::string, std::vector<std::variant<int, float, std::string>>> getUp
     if (!message)
         throw ABIError("Failed to create CreateEntityMessage class");
     return message->getUpdateComponentPayload(packet);
+}
+
+void sendPacketGetRooms(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::GET_ROOM), message->createGetRoomPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
+}
+
+void sendPacketCreateRoom(std::shared_ptr<INetworkUnit> networkUnit, std::string roomName, bool privateRoom, std::string roomPassword, bool cheatsRoom, int playerMaxRoom)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ROOM), message->createCreateRoomPayload(roomName, privateRoom, roomPassword, cheatsRoom, playerMaxRoom), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
 }
