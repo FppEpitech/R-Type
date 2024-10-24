@@ -106,7 +106,7 @@ class Database {
          *
          * @return std::vector<int>
          */
-        std::vector<int> getLeaderboard();
+        std::vector<std::pair<std::string,int>> getLeaderboard();
 
         /**
          * @brief Get the user data
@@ -125,6 +125,22 @@ class Database {
          * @param daltonian_mode
          */
         bool setUserSettings(int id, int res_width, int res_height, float daltonian_mode);
+
+        /**
+         * @brief Get the username by id
+         *
+         * @param id
+         * @return std::string
+         */
+        std::string getUsernameById(int id);
+
+        /**
+         * @brief Prepare a statement
+         *
+         * @param query
+         * @return sqlite3_stmt*
+         */
+        sqlite3_stmt *prepareStmt(std::string query);
 
     private:
 
