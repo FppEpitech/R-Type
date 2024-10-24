@@ -9,7 +9,7 @@
 
 #include "ABINetwork.hpp"
 
-#include "Room/Room.hpp"
+#include "RoomMessage/RoomMessage.hpp"
 
 
 /**

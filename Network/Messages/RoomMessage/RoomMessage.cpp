@@ -5,7 +5,7 @@
 ** RoomMessage
 */
 
-#include "Room/Room.hpp"
+#include "RoomMessage/RoomMessage.hpp"
 
 /**
  * @namespace ABINetwork

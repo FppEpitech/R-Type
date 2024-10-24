@@ -13,7 +13,7 @@
 #include "ABIError.hpp"
 #include "Server.hpp"
 #include "ABINetwork.hpp"
-#include "Room/Room.hpp"
+#include "RoomMessage/RoomMessage.hpp"
 
 namespace ABINetwork
 {

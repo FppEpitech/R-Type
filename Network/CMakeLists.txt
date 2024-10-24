@@ -32,7 +32,7 @@ set(SRC_LIB
     ${LIB_SRC_PATH}/Messages/UpdateComponent/UpdateComponent.cpp
     ${LIB_SRC_PATH}/Messages/KeyPressed/KeyPressed.cpp
     ${LIB_SRC_PATH}/Messages/ChatBox/ChatBox.cpp
-    ${LIB_SRC_PATH}/Messages/Room/Room.cpp
+    ${LIB_SRC_PATH}/Messages/RoomMessage/RoomMessage.cpp
     ${LIB_SRC_PATH}/Messages/UDPPacket/UDPPacket.cpp
 
     ${LIB_SRC_PATH}/Units/ANetworkUnit/ANetworkUnit.cpp

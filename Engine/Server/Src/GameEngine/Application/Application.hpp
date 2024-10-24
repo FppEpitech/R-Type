@@ -7,9 +7,12 @@
 
 #pragma once
 
+#include "Room.hpp"
 #include "Registry.hpp"
 #include "ABIServer.hpp"
 #include "ServerSceneManager.hpp"
+
+#include <queue>
 
 #ifdef _WIN32
         #define SLEEP(x) Sleep(x)
@@ -70,17 +73,14 @@ class Application {
          */
         bool noPlayerConnected();
 
-        /**
-         * @brief Handle Room's messages.
-         *
-         */
-        void _handlePacketsRooms(ABINetwork::UDPPacket);
-
         std::shared_ptr<ECS::Registry>                              _registries;        // vector of registries class for ECS management.
         std::shared_ptr<SceneManager::ServerSceneManager>           _sceneManager;      // load and handle scene in the ECS.
         std::shared_ptr<ABINetwork::INetworkUnit>                   _server;            // Network class for server.
 
         std::size_t                                                 _nbRoom;            // Number of current rooms in the server.
+        std::vector<GameEngine::Room>                               _rooms;             // List of rooms.
+        std::vector<std::shared_ptr<std::thread>>                   _threads;           // Vector of threads
+        std::vector<std::pair<std::shared_ptr<std::queue<std::string>>, std::shared_ptr<std::queue<std::string>>>> _interProcessQueues;
 };
 
 } // namespace GameEngine

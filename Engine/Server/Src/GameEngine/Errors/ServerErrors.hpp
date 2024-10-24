@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../../Error/IError.hpp"
+#include "../../../../Error/AError.hpp"
 
 /**
  * @brief Abstract class for Server errors.
@@ -70,4 +70,25 @@ class SceneManagerJsonError : public SceneManagerError {
          *
          */
         ~SceneManagerJsonError() = default;
+};
+
+/**
+ * @brief Abstract class for Rooms errors.
+ *
+ */
+class RoomError : public AError {
+
+    public:
+
+        /**
+         * @brief Construct a new RoomError object.
+         *
+         */
+        RoomError(const std::string &message) : AError(message) {}
+
+        /**
+         * @brief Destroy the RoomError object.
+         *
+         */
+        ~RoomError() = default;
 };

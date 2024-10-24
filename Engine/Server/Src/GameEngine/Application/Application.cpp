@@ -11,19 +11,6 @@
 #include <windows.h>
 #endif
 
-void GameEngine::Application::_handlePacketsRooms(ABINetwork::UDPPacket)
-{
-    // Note à moi même, faire une map qui call ce handle packet et tous les autres.
-}
-
-static void room()
-{
-    while (true)
-    {
-        std::cout << "yaaaaaaaaaa" << std::endl;
-    }
-}
-
 void GameEngine::Application::_packetHandler()
 {
     std::lock_guard<std::mutex> lock(_server->getMutex());
@@ -64,14 +51,16 @@ void GameEngine::Application::_packetHandler()
             }
             else {
                 ABINetwork::roomInfo_t roomInfo = ABINetwork::getCreateRoomInfoFromPacket(packet);
-                // try {
-                //     GameEngine::Room newRoom(roomInfo);
-                //     _rooms.pushBack(newRoom);
-                //     _nbRoom++;
-                // } catch (const std::exception& e) {
+                try {
+                    GameEngine::Room newRoom(roomInfo);
+                    _rooms.push_back(newRoom);
+                    _nbRoom++;
+                    _threads.push_back(std::make_shared<std::thread>(newRoom.run));
+                } catch (const std::exception& e) {
                 //     sendErrorRoomPacket();
-                //     return;
-                // }
+                    std::cerr << e.what() << std::endl;
+                    return;
+                }
             }
         }
     }
@@ -82,29 +71,12 @@ GameEngine::Application::Application()
     // _registries = std::make_shared<ECS::Registry>();
     // _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
     _server = ABINetwork::createServer(100);
-}
-
-bool GameEngine::Application::noPlayerConnected()
-{
-    // std::lock_guard<std::mutex> lock(_registries->_myBeautifulMutex);
-    // ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
-    // for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-    //     PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-    //     if (player && player->token != 0) {
-    //         return false;
-    //     }
-    // }
-    return true;
+    _nbRoom = 0;
 }
 
 void GameEngine::Application::run()
 {
     while (true) {
-
         _packetHandler();
-        // // if (!noPlayerConnected())
-        //     _registries->run_systems(-1);
-        // // else
-        //     // SLEEP(0.5);
     }
 }

@@ -12,7 +12,7 @@
 #include "CreateEntity/CreateEntity.hpp"
 #include "UpdateComponent/UpdateComponent.hpp"
 #include "ChatBox/ChatBox.hpp"
-#include "Room/Room.hpp"
+#include "RoomMessage/RoomMessage.hpp"
 
 namespace ABINetwork
 {
