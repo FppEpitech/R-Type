@@ -18,7 +18,7 @@
 
 #include "AMessage/AMessage.hpp"
 #include "UDPPacket/UDPPacket.hpp"
-#include "UDPPacket/UDPPacket.hpp"
+#include "ABINetwork.hpp"
 
 /**
  * @namespace ABINetwork
@@ -32,12 +32,6 @@ namespace ABINetwork
  */
 class UpdateComponentMessage : public AMessage
 {
-
-    enum Type {
-        Int = 1,
-        Float,
-        String
-    };
 
     public:
 
@@ -69,7 +63,7 @@ class UpdateComponentMessage : public AMessage
          * @param packet Packet receive.
          * @return std::pair<std::string, std::vector<std::variant<int, float, std::string>>> Data receive in packet payload.
          */
-        std::pair<std::string, std::vector<std::variant<int, float, std::string>>> getUpdateComponentPayload(UDPPacket packet);
+        std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> getUpdateComponentPayload(UDPPacket packet);
 
         private:
             Payload _payload;     // Content of the message in the packet.

@@ -28,6 +28,14 @@
  */
 namespace ABINetwork
 {
+
+    enum Type {
+        Int = 1,
+        Float,
+        String,
+        Bool
+    };
+
     /**
      * @brief Adds a message to the network unit's message queue.
      *

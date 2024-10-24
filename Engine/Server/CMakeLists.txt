@@ -73,6 +73,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Network/Units/
     ${CMAKE_SOURCE_DIR}/Network/Units/ANetworkUnit
     ${CMAKE_SOURCE_DIR}/Network/Messages
+    ${CMAKE_SOURCE_DIR}/Network/Messages/UDPPacket
 )
 
 # Add subdirectory for network sources

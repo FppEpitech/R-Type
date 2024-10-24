@@ -75,7 +75,7 @@ std::pair<std::string, int> getEntityCreationInfoFromPacket(UDPPacket packet)
     return message->getEntityPayload(packet);
 }
 
-std::pair<std::string, std::vector<std::variant<int, float, std::string>>> getUpdateComponentInfoFromPacket(UDPPacket packet)
+std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> getUpdateComponentInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<UpdateComponentMessage> message = std::make_shared<UpdateComponentMessage>();
 

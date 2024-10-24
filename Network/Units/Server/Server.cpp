@@ -138,5 +138,10 @@ void Server::sendMessage(std::vector<uint8_t> message)
         _udp_socket->async_send_to(asio::buffer(message), clientEndpoint.second, [](const asio::error_code&, std::size_t) {});
 }
 
+std::vector<uint32_t>& Server::getqueueConnection()
+{
+    return _queueConnection;
+}
+
 
 }

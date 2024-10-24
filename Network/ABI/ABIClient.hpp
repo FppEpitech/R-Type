@@ -105,6 +105,6 @@ namespace ABINetwork
      *
      * @return std::tuple<std::string, int> With EntityComponent and idxEntity.
      */
-    std::pair<std::string, std::vector<std::variant<int, float, std::string>>> getUpdateComponentInfoFromPacket(UDPPacket packet);
+    std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> getUpdateComponentInfoFromPacket(UDPPacket packet);
 
 }

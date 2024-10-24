@@ -40,6 +40,9 @@ namespace ABINetwork
                 std::string value = std::string(va_arg(args, char *));
                 _payload.push_back(static_cast<uint8_t>(value.size()));
                 _payload.insert(_payload.end(), value.begin(), value.end());
+            } else if (type == Type::Bool) {
+                int value = va_arg(args, int);
+                _payload.push_back(static_cast<uint8_t>(value));
             } else {
                 continue;
             }
@@ -50,7 +53,7 @@ namespace ABINetwork
         return _payload;
     }
 
-    std::pair<std::string, std::vector<std::variant<int, float, std::string>>> UpdateComponentMessage::getUpdateComponentPayload(UDPPacket packet)
+    std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> UpdateComponentMessage::getUpdateComponentPayload(UDPPacket packet)
     {
 
         size_t index = 0;
@@ -80,6 +83,9 @@ namespace ABINetwork
                 std::string value(reinterpret_cast<const char*>(&packet.getPayload()[index]), stringSize);
                 arguments.push_back(value);
                 index += stringSize;
+            } else if (type == Type::Bool) {
+                bool value = static_cast<bool>(packet.getPayload()[index++]);
+                arguments.push_back(value);
             } else {
                 continue;
             }

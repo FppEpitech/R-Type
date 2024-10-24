@@ -75,6 +75,13 @@ class Server : public ANetworkUnit
          */
         void sendMessage(std::vector<uint8_t> message) override;
 
+        /**
+         * @brief Function to get the queue Connection.
+         *
+         * @return std::vector<uint32_t>& The COnnection Queue.
+         */
+        std::vector<uint32_t>& getqueueConnection();
+
     private:
 
         /**
@@ -104,6 +111,13 @@ class Server : public ANetworkUnit
          */
         uint32_t _generateToken(void);
 
+        /**
+         * @brief Add a packet received to the queue.
+         *
+         * @param packet Packet received.
+         */
+        void _addPacketToQueueReceived(UDPPacket packet);
+
         std::shared_ptr<asio::io_context>                           _io_context;            // Shared pointer to the io_context object, used to manage asynchronous I/O operations.
         std::shared_ptr<asio::ip::tcp::acceptor>                    _tcp_acceptor;          // Shared pointer to the TCP acceptor object, used to accept incoming TCP connections.
         std::shared_ptr<asio::ip::udp::socket>                      _udp_socket;            // Shared pointer to the UDP socket object, used for sending and receiving UDP datagrams.
@@ -120,13 +134,6 @@ class Server : public ANetworkUnit
         asio::ip::udp::endpoint                                     _remoteEndpoint;       // The remote client’s UDP endpoint, representing the client’s IP address and port.
 
         std::vector<uint32_t>                                       _queueConnection;      // Connection queue
-
-        /**
-         * @brief Add a packet received to the queue.
-         *
-         * @param packet Packet received.
-         */
-        void _addPacketToQueueReceived(UDPPacket packet);
 };
 
 }

@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "Server.hpp"
 #include "Registry.hpp"
 #include "ABIServer.hpp"
 #include "ServerSceneManager.hpp"
@@ -59,6 +60,12 @@ class Application {
          *
          */
         void _packetHandler();
+
+        /**
+         * @brief Function who handle the connection received.
+         *
+         */
+        void _connectionHandler();
 
         /**
          * @brief Check if no player are connected.

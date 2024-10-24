@@ -15,8 +15,6 @@
  */
 namespace ABINetwork
 {
-
-
     /**
      * @brief Creates a server network unit.
      * This function initializes and returns a network unit that acts as a server.
