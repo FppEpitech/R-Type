@@ -20,6 +20,6 @@ cmake . -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" -B
 
 cd build
 
-make -j 10
+make -j 8
 
 cd ..

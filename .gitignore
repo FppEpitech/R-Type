@@ -51,4 +51,4 @@ vcpkg.zip
 .vscode/
 
 #db
-users.db
+*.db
