@@ -19,9 +19,45 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
     _passwordRoom = roomInfo.password;
     _maxPlayers = roomInfo.playerMax;
     _cheats = roomInfo.cheats;
+
+    _roomServer = ABINetwork::createServer(_maxPlayers);
+    _registries = std::make_shared<ECS::Registry>();
+    _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
+    _isRoomOpen = true;
+}
+
+void GameEngine::Room::_packetHandler()
+{
+    std::lock_guard<std::mutex> lock(_roomServer->getMutex());
+
+    std::vector<ABINetwork::UDPPacket> messages = _roomServer->getReceivedMessages();
+
+    for (auto packet : messages) {
+
+        auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
+
+        if (ABINetwork::IMessage::MessageType(messageType) == ABINetwork::IMessage::MessageType::KEY) {
+
+            int idxPlayerPacket = -1;
+            ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
+            for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+                PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+                if (player && player->token == packet.getToken()) {
+                    idxPlayerPacket = index;
+                    break;
+                }
+            }
+            uint8_t keyCode = packet.getPayload()[0];
+            _sceneManager->processInput(KEY_MAP(keyCode), idxPlayerPacket);
+            continue;
+        }
+    }
 }
 
 void GameEngine::Room::run()
 {
-
+    while (_isRoomOpen) {
+        _packetHandler();
+        _registries->run_systems(-1);
+    }
 }
