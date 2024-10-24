@@ -13,6 +13,7 @@
 
 #define LIB_COMPONENTS_PATH "Engine/"
 #define LIB_SYSTEMS_PATH "Engine/"
+#define LIB_EVENT_HANDLER_PATH "Engine/"
 #define SCENE_PATH "GameData/Scenes/"
 
 /**
@@ -33,7 +34,7 @@ namespace SceneManager {
              * @brief Construct a new ClientSceneManager object.
              * @param registries Registries for each scene.
              */
-            ClientSceneManager(std::shared_ptr<ECS::Registry> registries);
+            ClientSceneManager(std::shared_ptr<ECS::Registry> registries, std::shared_ptr<EventListener> eventListener);
 
             /**
              * @brief Destroy the ClientSceneManager object.
@@ -53,6 +54,12 @@ namespace SceneManager {
              * @return The path to the system libraries.
              */
             std::string _getSystemLibPath() const override;
+
+            /**
+             * @brief Get the Event Handler Lib Path.
+             * @return The path to the event handler libraries.
+             */
+            std::string _getEventHandlerLibPath() const override;
 
             /**
              * @brief Get the Scenes Path.

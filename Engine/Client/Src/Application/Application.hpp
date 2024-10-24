@@ -9,20 +9,21 @@
 
 #include <iostream>
 
-#include "../GetGraphicalLibrary/IGraphic.hpp"
 #include "Registry.hpp"
+#include "InitShader.hpp"
+#include "InitWindow.hpp"
 #include "ClientErrors.hpp"
 #include "NetworkClient.hpp"
+#include "EventListener.hpp"
 #include "ClientSceneManager.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "DrawOBJ/DrawOBJSystem.hpp"
 #include "DrawText/DrawTextSystem.hpp"
-#include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "DrawTexture/DrawTextureSystem.hpp"
+#include "../GetGraphicalLibrary/IGraphic.hpp"
 #include "DrawTextureRect/DrawTextureRectSystem.hpp"
+#include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationSystem.hpp"
-#include "InitShader.hpp"
-#include "InitWindow.hpp"
 
 /**
  * @brief Application class
@@ -78,8 +79,10 @@ class Application {
          */
         void _initDefaultGraphicSystems();
 
-        std::shared_ptr<ECS::Registry> _registry;                                        // Registries for each scene.
-        std::shared_ptr<Network::Client>            _client;                                            // Network class for client.
+        std::shared_ptr<ECS::Registry>                                              _registry;          // Registries for each scene.
+        std::shared_ptr<Network::Client>                                            _client;            // Network class for client.
         std::vector<std::function<void(ECS::Registry& reg, int idxPacketEntities)>> _defaultSystems;    // Default system.
-        std::shared_ptr<SceneManager::ClientSceneManager>       _sceneManager;                          // load and handle scene in the ECS.
+        std::shared_ptr<SceneManager::ClientSceneManager>                           _sceneManager;      // load and handle scene in the ECS.
+        std::shared_ptr<EventListener>                                              _eventListener;     // Event listener for the client.
+        std::shared_ptr<IGraphic>                                                   _libGraphic;        // Graphic library.
 };

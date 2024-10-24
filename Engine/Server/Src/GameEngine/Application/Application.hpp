@@ -9,6 +9,7 @@
 
 #include "Registry.hpp"
 #include "NetworkServer.hpp"
+#include "EventListener.hpp"
 #include "ServerSceneManager.hpp"
 
 #ifdef _WIN32
@@ -103,9 +104,10 @@ class Application {
          */
         bool noPlayerConnected();
 
-        std::shared_ptr<ECS::Registry>             _registries;        // vector of registries class for ECS management.
+        std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
         std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
         std::shared_ptr<Network::Server>                        _server;            // Network class for server.
+        std::shared_ptr<EventListener>                          _eventListener;     // Event listener for the server.
 };
 
 } // namespace GameEngine

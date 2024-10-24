@@ -10,18 +10,21 @@
 #include <json/json.h>
 #include <unordered_map>
 
-#include "ISceneManager.hpp"
 #include "ISystem.hpp"
-#include "KeyMaps/StringKeyMap.hpp"
+#include "ISceneManager.hpp"
+#include "EventListener.hpp"
+#include "PlayerComponent.hpp"
 #include "Text/TextComponent.hpp"
 #include "Draw/DrawComponent.hpp"
 #include "Scale/ScaleComponent.hpp"
+#include "KeyMaps/StringKeyMap.hpp"
 #include "Colour/ColourComponent.hpp"
 #include "Size1D/Size1DComponent.hpp"
 #include "ObjPath/ObjPathComponent.hpp"
 #include "FontPath/FontPathComponent.hpp"
 #include "MusicPath/MusicPathComponent.hpp"
 #include "SoundPath/SoundPathComponent.hpp"
+#include "Network/Packet/NetworkPacket.hpp"
 #include "MusicPitch/MusicPitchComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
 #include "Position3D/Position3DComponent.hpp"
@@ -31,11 +34,10 @@
 #include "SoundVolume/SoundVolumeComponent.hpp"
 #include "TexturePath/TexturePathComponent.hpp"
 #include "TextureRect/TextureRectComponent.hpp"
+#include "../DefaultEventHandlers/IEventHandler.hpp"
 #include "TextPosition2D/TextPosition2DComponent.hpp"
 #include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
-#include "PlayerComponent.hpp"
-#include "Network/Packet/NetworkPacket.hpp"
 
 #define CONFIG_SUFFIX ".json"
 
@@ -61,7 +63,7 @@ namespace SceneManager {
              * @brief Construct a new ASceneManager object.
              * @param registries Registries for each scene.
              */
-            ASceneManager(std::shared_ptr<ECS::Registry> registry);
+            ASceneManager(std::shared_ptr<ECS::Registry> registry, std::shared_ptr<EventListener> eventListener);
 
             /**
              * @brief Destroy the ASceneManager object.
@@ -93,12 +95,14 @@ namespace SceneManager {
 
             std::shared_ptr<ECS::Registry>                                                  _registry; // Registries for each scene.
             ECS::Registry                                                                   _defaultRegistry; // Default registry for the scene manager.
-            std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>              _keysSystems; // Keys to load a system for each scene.
-            std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>   _keysScenes; // Keys to load a scene for each scene.
+            std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>                           _keysSystems; // Keys to load a system for each scene.
+            std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>                _keysScenes; // Keys to load a scene for each scene.
 
             std::unordered_map<std::string, std::function<void(Network::UDPPacket packet, ECS::Registry& reg)>>   _updateNetworkSystems; // Keys to load a scene for each scene.
 
             std::size_t                                                                     _nextIndex; // Index of the next empty registry.
+
+            std::shared_ptr<EventListener>                                                  _eventListener; // Event listener for the scene manager.
 
             /**
              * @brief Get the component lib path.
@@ -111,6 +115,12 @@ namespace SceneManager {
              * @return std::string Path to the system lib.
              */
             virtual std::string _getSystemLibPath() const = 0;
+
+            /**
+             * @brief Get the event handler lib path.
+             * @return std::string Path to the event handler lib.
+             */
+            virtual std::string _getEventHandlerLibPath() const = 0;
 
             /**
              * @brief Get the scenes path.
@@ -140,6 +150,13 @@ namespace SceneManager {
             void _loadSceneSystems(Json::Value root, std::size_t index);
 
             /**
+             * @brief Load the event handlers of a scene.
+             * @param root Json root of the scene.
+             * @param index Index of the registry to load the scene.
+             */
+            void _loadSceneEventHandlers(Json::Value root, std::size_t index);
+
+            /**
              * @brief Load the keys of a scene.
              * @param root Json root of the scene.
              * @param index Index of the registry to load the scene.
@@ -162,7 +179,7 @@ namespace SceneManager {
              */
             void _loadSceneKeysSystem(std::string key, std::string system, std::size_t index);
 
-                        /**
+            /**
              * @brief Load the systems to change component from server.
              * @param root Json root of the scene.
              * @param index Index of the registry to load the scene.

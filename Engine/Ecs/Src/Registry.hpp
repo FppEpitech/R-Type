@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "Events/IEvent.hpp"
 #include "SparseArray.hpp"
 
 #include <any>
@@ -16,6 +17,7 @@
 #include <unordered_map>
 #include <thread>
 #include <mutex>
+#include <queue>
 
 /**
  * @brief Entity component system namespace.
@@ -208,6 +210,25 @@ class Registry {
          */
         void clearEntities();
 
+        /**
+         * @brief Add an event to the event queue.
+         *
+         * @param event Event to add.
+         */
+        void addEvent(std::shared_ptr<IEvent> event);
+
+        /**
+         * @brief Pop the first event of the event queue.
+         *
+         */
+        void popEvent();
+
+        /**
+         * @brief Get the event queue.
+         *
+         * @return std::queue<IEvent> Event queue.
+         */
+        std::queue<std::shared_ptr<IEvent>> getEventQueue();
 
 
         uint8_t messageType = 0x00;             // Message Type
@@ -229,7 +250,9 @@ class Registry {
         std::vector<entity_t>                                               _dead_entities;             // Array of dead Entities indexes.
         entity_t                                                            _next_entity = 0;           // Index for the next Entity to create.
 
-        std::vector<std::function<void(Registry&, int)>>            _systems;                   // Array of systems.
+        std::vector<std::function<void(Registry&, int)>>                    _systems;                   // Array of systems.
+
+        std::queue<std::shared_ptr<IEvent>>                                                  _eventQueue;                // Event queue.
 };
 
 } // namespace ECS

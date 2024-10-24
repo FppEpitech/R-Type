@@ -11,6 +11,46 @@
 #include <windows.h>
 #endif
 
+GameEngine::Application::Application()
+{
+    _registries = std::make_shared<ECS::Registry>();
+
+    // TODO: Add the network unit to the event listener
+    _eventListener = std::make_shared<EventListener>(_registries, nullptr, nullptr, nullptr);
+
+    _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries, _eventListener);
+
+    _eventListener->setSceneManager(_sceneManager);
+
+    _server = std::make_shared<Network::Server>(4444, 4445);
+    _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg) {
+        this->_packetHandler(std::move(packet), endpoint, reg);
+    }, _registries);
+}
+
+void GameEngine::Application::run()
+{
+    while (true) {
+        if (!noPlayerConnected()) {
+            _registries->run_systems(-1);
+            _eventListener->listen();
+        } else
+            SLEEP(0.5);
+        // TODO : put this in a thread for better optimization
+        if (!_registries->_queue_payload.empty()) {
+            for (std::size_t index = 0; index < _registries->_queue_payload.size() && index < _registries->_queue_messageType.size(); index++) {
+                std::vector<uint8_t> packet = this->_server->createPacket(_registries->_queue_messageType[index], this->_registries->_queue_payload[index]);
+                for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
+                    asio::ip::udp::endpoint& endpoint = it->second;
+                    this->_server->sendMessage(packet, endpoint);
+                }
+                _registries->_queue_messageType.erase(_registries->_queue_messageType.begin() + index);
+                _registries->_queue_payload.erase(_registries->_queue_payload.begin() + index);
+            }
+        }
+    }
+}
+
 void GameEngine::Application::_handleArrowKey(uint8_t keyCode, int idxPlayerPacket)
 {
     std::unordered_map<uint8_t, KEY_MAP> arrowKeyMap = {
@@ -134,17 +174,6 @@ void GameEngine::Application::_packetHandler(Network::UDPPacket packet, const as
         std::cout << "Bad MessageType" << std::endl;
 }
 
-GameEngine::Application::Application()
-{
-    _registries = std::make_shared<ECS::Registry>();
-    _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
-
-    _server = std::make_shared<Network::Server>(4444, 4445);
-    _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg) {
-        this->_packetHandler(std::move(packet), endpoint, reg);
-    }, _registries);
-}
-
 bool GameEngine::Application::noPlayerConnected()
 {
     std::lock_guard<std::mutex> lock(_registries->_myBeautifulMutex);
@@ -156,26 +185,4 @@ bool GameEngine::Application::noPlayerConnected()
         }
     }
     return true;
-}
-
-void GameEngine::Application::run()
-{
-    while (true) {
-        if (!noPlayerConnected())
-            _registries->run_systems(-1);
-        else
-            SLEEP(0.5);
-        // TODO : put this in a thread for better optimization
-        if (!_registries->_queue_payload.empty()) {
-            for (std::size_t index = 0; index < _registries->_queue_payload.size() && index < _registries->_queue_messageType.size(); index++) {
-                std::vector<uint8_t> packet = this->_server->createPacket(_registries->_queue_messageType[index], this->_registries->_queue_payload[index]);
-                for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
-                    asio::ip::udp::endpoint& endpoint = it->second;
-                    this->_server->sendMessage(packet, endpoint);
-                }
-                _registries->_queue_messageType.erase(_registries->_queue_messageType.begin() + index);
-                _registries->_queue_payload.erase(_registries->_queue_payload.begin() + index);
-            }
-        }
-    }
 }

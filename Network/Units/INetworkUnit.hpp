@@ -5,6 +5,8 @@
 ** INetworkUnit
 */
 
+#pragma once
+
 /**
  * @namespace ABINetwork
  * @brief Contains functions to manage network communication and operations.

@@ -12,6 +12,8 @@
         "libsystem_handleMouse.so",
         "libsystem_handleTyping.so"
     ],
+    "eventHandlers": [
+    ],
     "menus": {
         "keyBinds": [
         ]
