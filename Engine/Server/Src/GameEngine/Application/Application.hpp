@@ -68,6 +68,12 @@ class Application {
          */
         bool noPlayerConnected();
 
+        /**
+         * @brief Handle Room's messages.
+         *
+         */
+        void _handlePacketsRooms(ABINetwork::UDPPacket);
+
         std::shared_ptr<ECS::Registry>                              _registries;        // vector of registries class for ECS management.
         std::shared_ptr<SceneManager::ServerSceneManager>           _sceneManager;      // load and handle scene in the ECS.
         std::shared_ptr<ABINetwork::INetworkUnit>                   _server;            // Network class for server.

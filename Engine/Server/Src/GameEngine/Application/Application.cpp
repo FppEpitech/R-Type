@@ -11,6 +11,11 @@
 #include <windows.h>
 #endif
 
+void GameEngine::Application::_handlePacketsRooms(ABINetwork::UDPPacket)
+{
+    // Note à moi même, faire une map qui call ce handle packet et tous les autres.
+}
+
 void GameEngine::Application::_packetHandler()
 {
     std::lock_guard<std::mutex> lock(_server->getMutex());
@@ -20,7 +25,6 @@ void GameEngine::Application::_packetHandler()
     for (auto packet : messages) {
 
         auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
-        uint8_t keyCode = packet.getPayload()[0];
 
         if (ABINetwork::IMessage::MessageType(messageType) == ABINetwork::IMessage::MessageType::KEY) {
 
@@ -33,8 +37,12 @@ void GameEngine::Application::_packetHandler()
                     break;
                 }
             }
+            uint8_t keyCode = packet.getPayload()[0];
             _sceneManager->processInput(KEY_MAP(keyCode), idxPlayerPacket);
+            continue;
         }
+
+        _handlePacketsRooms(packet);
     }
 }
 
@@ -67,17 +75,5 @@ void GameEngine::Application::run()
             _registries->run_systems(-1);
         // else
             // SLEEP(0.5);
-    //     // TODO : put this in a thread for better optimization
-    //     if (!_registries->_queue_payload.empty()) {
-    //         for (std::size_t index = 0; index < _registries->_queue_payload.size() && index < _registries->_queue_messageType.size(); index++) {
-    //             std::vector<uint8_t> packet = this->_server->createPacket(_registries->_queue_messageType[index], this->_registries->_queue_payload[index]);
-    //             for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
-    //                 asio::ip::udp::endpoint& endpoint = it->second;
-    //                 this->_server->sendMessage(packet, endpoint);
-    //             }
-    //             _registries->_queue_messageType.erase(_registries->_queue_messageType.begin() + index);
-    //             _registries->_queue_payload.erase(_registries->_queue_payload.begin() + index);
-    //         }
-        // }
     }
 }
