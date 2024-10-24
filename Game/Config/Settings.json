@@ -25,7 +25,7 @@
 	},
 	"window" : 
 	{
-		"fullscreen" : false,
+		"fullscreen" : true,
 		"resolutionIndex" : 0,
 		"resolutions" : 
 		[
