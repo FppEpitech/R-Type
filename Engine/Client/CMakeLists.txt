@@ -67,6 +67,7 @@ set(SRC_EXE
     ${EXE_SRC_PATH}/InitShader/InitShader.cpp
     ${EXE_SRC_PATH}/InitWindow/InitWindow.cpp
     ../Error/AError.cpp
+    ../Shared/EventListener/EventListener.cpp
 )
 
 # Include directories for header files
@@ -91,6 +92,8 @@ include_directories(
     ${EXE_SRC_PATH}/InitShader/
     ${EXE_SRC_PATH}/InitWindow/
     ${EXE_INCLUDE_PATH}/Components/ShaderComponent
+    ../Shared/EventListener/
+    ../Shared/DefaultEventHandlers/
 )
 
 # Add subdirectory for network sources
