@@ -7,6 +7,45 @@
 
 #include "Application.hpp"
 
+Application::Application()
+{
+    _registry = std::make_shared<ECS::Registry>();
+
+    try {
+        _libGraphic = getGraphicalLibrary();
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+
+    // TODO: Add the network unit to the event listener
+    _eventListener = std::make_shared<EventListener>(_registry, nullptr, nullptr, _libGraphic);
+
+    _sceneManager = std::make_shared<SceneManager::ClientSceneManager>(_registry, _eventListener);
+
+    _eventListener->setSceneManager(_sceneManager);
+    _initDefaultGraphicSystems();
+
+    _client = nullptr;
+}
+
+void Application::run()
+{
+    InitWindow InitWindow(_libGraphic);
+    InitShader InitShader(_libGraphic);
+
+    while (_libGraphic->windowIsOpen()) {
+        _connectServer();
+        _keyboardHandler(_libGraphic->getKeyDownInput());
+        _libGraphic->startDraw();
+        _libGraphic->clear();
+        _registry->run_systems(-1);
+        for (auto defaultSystem : _defaultSystems)
+            defaultSystem(*_registry, -1);
+        _eventListener->listen();
+        _libGraphic->endDraw();
+    }
+}
+
 void Application::_packetHandler(Network::UDPPacket packet, ECS::Registry& reg)
 {
     uint32_t componentTypeLength = static_cast<size_t>(packet.getPayload()[0]);
@@ -26,38 +65,6 @@ void Application::_packetHandler(Network::UDPPacket packet, ECS::Registry& reg)
     //     return;
 
     _sceneManager->processUpdate(componentType, packet);
-}
-
-Application::Application()
-{
-    _registry = std::make_shared<ECS::Registry>();
-    _sceneManager = std::make_shared<SceneManager::ClientSceneManager>(_registry);
-
-    _initDefaultGraphicSystems();
-
-    _client = nullptr;
-}
-
-void Application::_initDefaultGraphicSystems()
-{
-    _defaultSystems.push_back(DrawOBJSystem().getFunction());
-    _defaultSystems.push_back(DrawTextureSystem().getFunction());
-    _defaultSystems.push_back(DrawTextureRectSystem().getFunction());
-    _defaultSystems.push_back(DrawTextSystem().getFunction());
-    _defaultSystems.push_back(SpriteSheetAnimationSystem().getFunction());
-}
-
-void Application::_keyboardHandler(std::size_t key)
-{
-    try {
-        if (key == KEY_NULL || _client == nullptr)
-            return;
-        if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
-            return;
-        _client->sendKeyPacket(KEY_MAP(key));
-    } catch (const std::exception& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
 }
 
 void Application::_connectServer()
@@ -95,22 +102,24 @@ void Application::_connectServer()
     }
 }
 
-void Application::run()
+void Application::_keyboardHandler(std::size_t key)
 {
-    std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
-    if (!libGraphic)
-        throw ClientError("Failed to load graphic library");
-    InitWindow InitWindow(libGraphic);
-    InitShader InitShader(libGraphic);
-
-    while (libGraphic->windowIsOpen()) {
-        _connectServer();
-        _keyboardHandler(libGraphic->getKeyDownInput());
-        libGraphic->startDraw();
-        libGraphic->clear();
-        _registry->run_systems(-1);
-        for (auto defaultSystem : _defaultSystems)
-            defaultSystem(*_registry, -1);
-        libGraphic->endDraw();
+    try {
+        if (key == KEY_NULL || _client == nullptr)
+            return;
+        if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
+            return;
+        _client->sendKeyPacket(KEY_MAP(key));
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
     }
+}
+
+void Application::_initDefaultGraphicSystems()
+{
+    _defaultSystems.push_back(DrawOBJSystem().getFunction());
+    _defaultSystems.push_back(DrawTextureSystem().getFunction());
+    _defaultSystems.push_back(DrawTextureRectSystem().getFunction());
+    _defaultSystems.push_back(DrawTextSystem().getFunction());
+    _defaultSystems.push_back(SpriteSheetAnimationSystem().getFunction());
 }
