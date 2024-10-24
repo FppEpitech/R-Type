@@ -56,6 +56,7 @@ set(SRC_EXE
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
     ../../Network/Database/Database.cpp
+    ../../Network/Database/Models/Scores/Scores.cpp
 )
 
 # Include directories for header files
@@ -76,6 +77,7 @@ include_directories(
     ../Shared/DefaultComponents/Entities/Player
     ../../Network/Database
     ../../Network/Errors
+    ../../Network/Database/Models/Scores
     ${EXE_INCLUDE_PATH}
 )
 

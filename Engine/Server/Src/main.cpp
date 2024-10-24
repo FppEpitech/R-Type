@@ -7,6 +7,7 @@
 
 #include "Application/Application.hpp"
 #include "Database.hpp"
+#include "Scores.hpp"
 
 int main()
 {
@@ -18,17 +19,23 @@ int main()
     // }
 
     Database db("db.db");
+    Scores scores(&db);
 
     std::cout << db.registerUser("theophile", "test") << std::endl;
 
     std::cout << db.loginUser("theophile", "test"  ) << std::endl;
 
-    db.setUserSettings(1, 1920, 1080, 0.5f);
+    for (auto i : scores.getLeaderboard()) {
+        std::cout << i.first << " " << i.second << std::endl;
+    }
 
-    auto settings = db.getUserSettings(1);
-    std::cout << settings.daltonian_mode << std::endl;
-    std::cout << settings.res_height << std::endl;
-    std::cout << settings.res_width << std::endl;
+
+    // db.setUserSettings(1, 1920, 1080, 0.5f);
+
+    // auto settings = db.getUserSettings(1);
+    // std::cout << settings.daltonian_mode << std::endl;
+    // std::cout << settings.res_height << std::endl;
+    // std::cout << settings.res_width << std::endl;
 
     return 0;
 }

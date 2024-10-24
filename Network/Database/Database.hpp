@@ -4,10 +4,16 @@
 ** File description:
 ** Db
 */
+
+#pragma once
+
 #include <iostream>
 #include <sqlite3.h>
 #include <memory>
 #include <vector>
+// #include "Scores.hpp"
+    
+
 
 class Database {
 
@@ -119,5 +125,5 @@ class Database {
 
         std::shared_ptr<sqlite3>_db = nullptr; // Database.
         std::shared_ptr<int> _rc = std::make_shared<int>(0); // Return code of db.
-        Scores score = new Scores(this); //The scores model
+        // Scores scores = Scores(this); //The scores model
 };

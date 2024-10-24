@@ -4,6 +4,9 @@
 ** File description:
 ** Scores
 */
+
+#pragma once
+
 #include "Database.hpp"
 
 class Scores {
@@ -14,7 +17,9 @@ class Scores {
          *
          * @param db
          */
-        Scores(Database db) : _dbcore(db), _db(db._db), _rc(db._rc) {};
+        Scores(Database *db) : _dbcore(db), _db(db->_db), _rc(db->_rc) {
+            createScoresTable();
+        };
 
         /**
          * @brief Destroy the Scores object.
@@ -56,7 +61,8 @@ class Scores {
         std::vector<std::pair<std::string,int>> getLeaderboard();
 
     private:
-        Database _dbcore; // Database object
+        Database *_dbcore; // Database object
         std::shared_ptr<sqlite3> _db; // Database pointer
         std::shared_ptr<int> _rc; // Database return code
 };
+    

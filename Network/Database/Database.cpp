@@ -7,7 +7,6 @@
 #include "Database.hpp"
 #include <sodium.h>
 #include "DbError.hpp"
-#include "Scores.hpp"
 
 Database::Database(std::string path) {
     sqlite3* db = nullptr;
@@ -90,7 +89,7 @@ bool Database::createTables() {
         std::cerr << "CREATE TABLE ERR users: " << sqlite3_errmsg(_db.get()) << std::endl;
         return false;
     }
-    scores.createScoresTable();
+    // scores.createScoresTable();
     return true;
 }
 
