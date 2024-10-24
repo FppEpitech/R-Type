@@ -7,13 +7,14 @@
 #include "Database.hpp"
 #include <sodium.h>
 #include "DbError.hpp"
+#include "Scores.hpp"
 
 Database::Database(std::string path) {
     sqlite3* db = nullptr;
 
-    _rc = sqlite3_open(path.c_str(), &db);
+    *_rc = sqlite3_open(path.c_str(), &db);
     _db = std::shared_ptr<sqlite3>(db, sqlite3_close);
-    if (!_db || _rc != SQLITE_OK)
+    if (!_db || *_rc != SQLITE_OK)
         throw new DbError("Issues opening the sqlite db...");
     this->createTables();
     if (sodium_init() < 0)
@@ -23,8 +24,8 @@ Database::Database(std::string path) {
 sqlite3_stmt *Database::prepareStmt(std::string query) {
     sqlite3_stmt *stmt;
 
-    _rc = sqlite3_prepare_v2(_db.get(), query.c_str(), -1, &stmt, nullptr);
-    if (_rc != SQLITE_OK) {
+    *_rc = sqlite3_prepare_v2(_db.get(), query.c_str(), -1, &stmt, nullptr);
+    if (*_rc != SQLITE_OK) {
         std::cerr << "PREPARE STMT ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
         return nullptr;
     }
@@ -39,11 +40,11 @@ bool Database::userIdExists(int id) {
     if (!stmt)
         return false;
     sqlite3_bind_text(stmt, 1, std::to_string(id).c_str(), -1, SQLITE_STATIC);
-    _rc = sqlite3_step(stmt);
-    if (_rc == SQLITE_ROW) {
+    *_rc = sqlite3_step(stmt);
+    if (*_rc == SQLITE_ROW) {
         int count = sqlite3_column_int(stmt, 0);
         exists = (count > 0);
-    } else if (_rc != SQLITE_DONE) {
+    } else if (*_rc != SQLITE_DONE) {
         std::cerr << "USER ID EXIST ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
         return false;
     }
@@ -53,8 +54,8 @@ bool Database::userIdExists(int id) {
 
 int Database::registerUser(std::string username, std::string password) {
     std::string req("INSERT INTO users (username, password) VALUES ('" + username + "', '" + this->hashPassword(password) + "');");
-    _rc = sqlite3_exec(_db.get(), req.c_str(), 0, 0, 0);
-    if (_rc != SQLITE_OK) {
+    *_rc = sqlite3_exec(_db.get(), req.c_str(), 0, 0, 0);
+    if (*_rc != SQLITE_OK) {
         std::cerr << "REGISTER USER ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
         return -1;
     }
@@ -68,8 +69,8 @@ int Database::loginUser(std::string username, std::string password) {
     if (!stmt)
         return -1;
     sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
-    _rc = sqlite3_step(stmt);
-    if (_rc == SQLITE_ROW) {
+    *_rc = sqlite3_step(stmt);
+    if (*_rc == SQLITE_ROW) {
         int userId = sqlite3_column_int(stmt, 0);
         const char *pwd = (const char *)sqlite3_column_text(stmt, 2);
 
@@ -84,17 +85,12 @@ int Database::loginUser(std::string username, std::string password) {
 
 bool Database::createTables() {
     std::string reqUsers("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, daltonian_mode FLOAT, res_width INT, res_height INT);");
-    _rc = sqlite3_exec(_db.get(), reqUsers.c_str(), 0, 0, 0);
-    if (_rc != SQLITE_OK) {
+    *_rc = sqlite3_exec(_db.get(), reqUsers.c_str(), 0, 0, 0);
+    if (*_rc != SQLITE_OK) {
         std::cerr << "CREATE TABLE ERR users: " << sqlite3_errmsg(_db.get()) << std::endl;
         return false;
     }
-    std::string reqScores("CREATE TABLE IF NOT EXISTS scores (id INTEGER NOT NULL, score INTEGER NOT NULL);");
-    _rc = sqlite3_exec(_db.get(), reqScores.c_str(), 0, 0, 0);
-    if (_rc != SQLITE_OK) {
-        std::cerr << "CREATE TABLE ERR score: " << sqlite3_errmsg(_db.get()) << std::endl;
-        return false;
-    }
+    scores.createScoresTable();
     return true;
 }
 
@@ -119,30 +115,14 @@ bool Database::verifyPassword(std::string password, std::string hash) {
 }
 
 
-bool Database::addScore(int id, int score) {
-    std::string req("INSERT INTO scores (id, score) VALUES (?, ?);");
-    sqlite3_stmt* stmt = prepareStmt(req);
-    if (!stmt)
-        return false;
-    sqlite3_bind_int(stmt, 1, id);
-    sqlite3_bind_int(stmt, 2, score);
-    _rc = sqlite3_step(stmt);
-    if (_rc != SQLITE_DONE) {
-        std::cerr << "ADD SCORE ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
-        sqlite3_finalize(stmt);
-        return false;
-    }
-    sqlite3_finalize(stmt);
-    return true;
-}
 
 std::string Database::getUsernameById(int id) {
     std::string req("SELECT username WHERE id = ?;");
     sqlite3_stmt* stmt = prepareStmt(req);
 
     sqlite3_bind_int(stmt, 1, id);
-    _rc = sqlite3_step(stmt);
-    if (_rc == SQLITE_ROW) {
+    *_rc = sqlite3_step(stmt);
+    if (*_rc == SQLITE_ROW) {
         std::string username((const char*)sqlite3_column_text(stmt, 0));
         sqlite3_finalize(stmt);
         return username;
@@ -152,41 +132,6 @@ std::string Database::getUsernameById(int id) {
     }
 }
 
-int Database::getUserBestScore(int id) {
-    std::string req("SELECT MAX(score) FROM scores WHERE id = ?;");
-    sqlite3_stmt* stmt = prepareStmt(req);
-    int score = 0;
-
-    if (!stmt)
-        return -1;
-
-    sqlite3_bind_int(stmt, 1, id);
-    _rc = sqlite3_step(stmt);
-
-    if (_rc == SQLITE_ROW) {
-        score = sqlite3_column_int(stmt, 0);
-    } else if (_rc != SQLITE_DONE) {
-        sqlite3_finalize(stmt);
-        return -1;
-    }
-    sqlite3_finalize(stmt);
-    return score;
-}
-
-std::vector<std::pair<std::string,int>> Database::getLeaderboard() { //name
-    std::string req("SElECT id, MAX(score) FROM scores GROUP BY id ORDER BY MAX(score) DESC LIMIT 10;");
-
-    sqlite3_stmt *stmt = prepareStmt(req);
-    if (!stmt)
-        return std::vector<std::pair<std::string,int>>();
-
-    std::vector<std::pair<std::string,int>> scores;
-    while (sqlite3_step(stmt) == SQLITE_ROW)
-        scores.push_back(std::pair(this->getUsernameById(sqlite3_column_int(stmt, 0)), sqlite3_column_int(stmt, 1)));
-    sqlite3_finalize(stmt);
-    return scores;
-}
-
 Database::userSettings Database::getUserSettings(int id) {
     std::string req("SELECT res_width, res_height, daltonian_mode FROM users WHERE id = ?;");
     sqlite3_stmt* stmt = prepareStmt(req);
@@ -194,8 +139,8 @@ Database::userSettings Database::getUserSettings(int id) {
     if (!stmt)
         return {-1, -1, -1.0};
     sqlite3_bind_int(stmt, 1, id);
-    _rc = sqlite3_step(stmt);
-    if (_rc == SQLITE_ROW) {
+    *_rc = sqlite3_step(stmt);
+    if (*_rc == SQLITE_ROW) {
         int res_width = sqlite3_column_int(stmt, 0);
         int res_height = sqlite3_column_int(stmt, 1);
         float daltonian_mode = sqlite3_column_double(stmt, 2);
@@ -216,8 +161,8 @@ bool Database::setUserSettings(int id, int res_width, int res_height, float dalt
     sqlite3_bind_int(stmt, 2, res_height);
     sqlite3_bind_double(stmt, 3, daltonian_mode);
     sqlite3_bind_int(stmt, 4, id);
-    _rc = sqlite3_step(stmt);
-    if (_rc != SQLITE_DONE) {
+    *_rc = sqlite3_step(stmt);
+    if (*_rc != SQLITE_DONE) {
         sqlite3_finalize(stmt);
         std::cerr << "SET USER SETTINGS ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
         return false;
@@ -225,4 +170,4 @@ bool Database::setUserSettings(int id, int res_width, int res_height, float dalt
     sqlite3_finalize(stmt);
     return true;
 }
-//"cln" max all -> push - structmodels
+//"cln" max all -> push - structmodels / chckSpt - nrm

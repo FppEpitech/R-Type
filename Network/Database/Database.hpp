@@ -84,31 +84,6 @@ class Database {
         bool verifyPassword(std::string password, std::string hash);
 
         /**
-         * @brief Add a score to a user.
-         *
-         * @param id
-         * @param score
-         * @return true
-         * @return false
-         */
-        bool addScore(int id, int score);
-
-        /**
-         * @brief Get the score of a user.
-         *
-         * @param id
-         * @return int
-         */
-        int getUserBestScore(int id);
-
-        /**
-         * @brief Get the leaderboard
-         *
-         * @return std::vector<int>
-         */
-        std::vector<std::pair<std::string,int>> getLeaderboard();
-
-        /**
          * @brief Get the user data
          *
          * @param id
@@ -142,8 +117,7 @@ class Database {
          */
         sqlite3_stmt *prepareStmt(std::string query);
 
-    private:
-
         std::shared_ptr<sqlite3>_db = nullptr; // Database.
-        int _rc = 0; // Return code of db.
+        std::shared_ptr<int> _rc = std::make_shared<int>(0); // Return code of db.
+        Scores score = new Scores(this); //The scores model
 };
