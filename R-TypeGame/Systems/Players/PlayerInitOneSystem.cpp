@@ -7,21 +7,19 @@
 
 #include "SpeedComponent.hpp"
 #include "PlayerComponent.hpp"
-#include "DrawComponent.hpp"
+#include "Draw/DrawComponent.hpp"
 #include "PlayerInitSystem.hpp"
-#include "ScaleComponent.hpp"
-#include "TextureRectComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "SpriteSheetAnimationComponent.hpp"
-#include "../../Components/Life/LifeComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
+#include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
+#include "Life/LifeComponent.hpp"
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
 #include "LifeParser.hpp"
-#include "PlayerParser.hpp"
 #include "SpeedParser.hpp"
 #include "SpriteSheetAnimationParser.hpp"
-#include "ShootComponent.hpp"
 
 #include <fstream>
 #include <json/json.h>

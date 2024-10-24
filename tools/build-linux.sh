@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/bash
 ##
 ## EPITECH PROJECT, 2024
 ## R-TYPE
@@ -10,6 +9,7 @@
 VCPKG_ROOT="${PWD}/vcpkg"
 
 rm -f *.exe
+
 rm -rf build/
 
 mkdir build

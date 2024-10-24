@@ -6,11 +6,11 @@
 */
 
 #include "DrawTextSystem.hpp"
-#include "TextPosition2DComponent.hpp"
-#include "TextComponent.hpp"
-#include "Size1DComponent.hpp"
-#include "FontPathComponent.hpp"
-#include "ColourComponent.hpp"
+#include "TextPosition2D/TextPosition2DComponent.hpp"
+#include "Text/TextComponent.hpp"
+#include "Size1D/Size1DComponent.hpp"
+#include "FontPath/FontPathComponent.hpp"
+#include "Colour/ColourComponent.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
 

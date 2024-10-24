@@ -9,7 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "ColourComponent.hpp"
+#include "Colour/ColourComponent.hpp"
 
 std::shared_ptr<ColourComponent> parseColour(std::string pathFile)
 {

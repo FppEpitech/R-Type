@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../Engine/Shared/Interface/IComponent.hpp"
+#include "IComponent.hpp"
 
 /**
  * @brief Component Drawable for R-Type Game.

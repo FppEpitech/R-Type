@@ -11,7 +11,7 @@
 #include <fstream>
 
 #include "InitShader.hpp"
-#include "IGraphic.hpp"
+#include "../GetGraphicalLibrary/IGraphic.hpp"
 
 InitShader::InitShader(std::shared_ptr<IGraphic> graphicLib, std::string settingsPath)
 {
