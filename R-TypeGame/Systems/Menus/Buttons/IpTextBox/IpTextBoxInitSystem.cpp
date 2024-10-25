@@ -28,12 +28,10 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
     std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(reg.get_components<IComponent>("TextComponent")[idxPacketEntities]);
     std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(reg.get_components<IComponent>("DefaultTextComponent")[idxPacketEntities]);
     if (state && text && defaultText) {
-        if (state->state == ButtonStateComponent::ButtonState::CLICKED) {
-            state->state = ButtonStateComponent::ButtonState::NONE;
+        if (state->state == ButtonStateComponent::ButtonState::NONE) {
             if (text->text.empty())
                 text->text = defaultText->text;
-        } else
-            state->state = ButtonStateComponent::ButtonState::CLICKED;
+        }
     }
 }
 

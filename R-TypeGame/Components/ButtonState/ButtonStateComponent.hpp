@@ -23,6 +23,7 @@
          */
         enum ButtonState {
             CLICKED,
+            PRESSED,
             HOVER,
             NONE
         };

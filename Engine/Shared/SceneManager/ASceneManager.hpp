@@ -22,6 +22,7 @@
 #include "Size1D/Size1DComponent.hpp"
 #include "ObjPath/ObjPathComponent.hpp"
 #include "FontPath/FontPathComponent.hpp"
+#include "Editable/EditableComponent.hpp"
 #include "MusicPath/MusicPathComponent.hpp"
 #include "SoundPath/SoundPathComponent.hpp"
 #include "MusicPitch/MusicPitchComponent.hpp"
