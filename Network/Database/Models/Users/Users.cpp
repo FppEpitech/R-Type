@@ -35,10 +35,8 @@ bool Users::userIdExists(int id) {
 int Users::registerUser(std::string username, std::string password) {
     std::string req("INSERT INTO users (username, password) VALUES ('" + username + "', '" + this->hashPassword(password) + "');");
     *_rc = sqlite3_exec(_db.get(), req.c_str(), 0, 0, 0);
-    if (*_rc != SQLITE_OK) {
-        std::cerr << "REGISTER USER ERR: " << sqlite3_errmsg(_db.get()) << std::endl;
+    if (*_rc != SQLITE_OK)
         return -1;
-    }
     return (int)sqlite3_last_insert_rowid(_db.get());
 }
 
@@ -85,7 +83,7 @@ bool Users::verifyPassword(std::string password, std::string hash) {
 }
 
 std::string Users::getUsernameById(int id) {
-    std::string req("SELECT username WHERE id = ?;");
+    std::string req("SELECT username FROM users WHERE id = ?;");
     sqlite3_stmt* stmt = _dbcore->prepareStmt(req);
 
     sqlite3_bind_int(stmt, 1, id);

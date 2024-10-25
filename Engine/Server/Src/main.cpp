@@ -27,6 +27,8 @@ int main()
 
     std::cout << users.loginUser("theophile", "test"  ) << std::endl;
 
+
+    scores.addScore(1, 100);
     for (auto i : scores.getLeaderboard(users)) {
         std::cout << i.first << " " << i.second << std::endl;
     }

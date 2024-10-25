@@ -17,6 +17,19 @@
 class Users {
     public:
         /**
+         * @brief User settings struct.
+         *
+         * @param res_width
+         * @param res_height
+         * @param daltonian_mode
+         */
+        struct userSettings {
+            int res_width;
+            int res_height;
+            float daltonian_mode;
+        };
+
+        /**
          * @brief Construct a new Users object.
          *
          * @param db
@@ -105,19 +118,6 @@ class Users {
          * @return int The id of the user.
          */
         int loginUser(std::string username, std::string password);
-
-        /**
-         * @brief User settings struct.
-         *
-         * @param res_width
-         * @param res_height
-         * @param daltonian_mode
-         */
-        struct userSettings {
-            int res_width;
-            int res_height;
-            float daltonian_mode;
-        };
 
     private:
         Database *_dbcore; // Database object.

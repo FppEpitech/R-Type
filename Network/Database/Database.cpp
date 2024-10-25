@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type Network
 ** File description:
-** User
+** Database
 */
 #include "Database.hpp"
 #include "DbError.hpp"
@@ -26,5 +26,3 @@ sqlite3_stmt *Database::prepareStmt(std::string query) {
     }
     return stmt;
 }
-
-//aaaa - _priv, throw hmm
