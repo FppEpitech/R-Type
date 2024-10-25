@@ -1,30 +1,35 @@
 /*
 ** EPITECH PROJECT, 2024
-** LifeParser
+** ScaleParser
 ** File description:
-** LifeParser
+** ScaleParser
 */
 
 #include <json/json.h>
+#include <exception>
 #include <iostream>
+#include <memory>
 #include <fstream>
 
-#include "../../Components/Life/LifeComponent.hpp"
+#include "../../DefaultComponents/Scale/ScaleComponent.hpp"
 
-std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
+std::shared_ptr<ScaleComponent> parseScale(std::string pathFile)
 {
     try {
         std::ifstream file(pathFile);
         Json::Reader reader;
         Json::Value root;
 
+        if (!file.is_open())
+            return nullptr;
+
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        const Json::Value& life = root["LifeComponent"];
+        const Json::Value& scale = root["ScaleComponent"];
 
-        if (life)
-            return std::make_shared<LifeComponent>(life.asUInt());
+        if (scale)
+            return std::make_shared<ScaleComponent>(scale.asFloat());
         return nullptr;
     } catch (std::exception e) {
         std::cout << e.what() << std::endl;

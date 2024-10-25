@@ -1,17 +1,17 @@
 /*
 ** EPITECH PROJECT, 2024
-** LifeParser
+** PlayerParser
 ** File description:
-** LifeParser
+** PlayerParser
 */
 
 #include <json/json.h>
 #include <iostream>
 #include <fstream>
 
-#include "../../Components/Life/LifeComponent.hpp"
+#include "../../DefaultComponents/Entities/Player/PlayerComponent.hpp"
 
-std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
+std::shared_ptr<PlayerComponent> parsePlayer(std::string pathFile)
 {
     try {
         std::ifstream file(pathFile);
@@ -21,10 +21,10 @@ std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        const Json::Value& life = root["LifeComponent"];
+        const Json::Value& player = root["PlayerComponent"];
 
-        if (life)
-            return std::make_shared<LifeComponent>(life.asUInt());
+        if (player)
+            return std::make_shared<PlayerComponent>(player.asUInt());
         return nullptr;
     } catch (std::exception e) {
         std::cout << e.what() << std::endl;

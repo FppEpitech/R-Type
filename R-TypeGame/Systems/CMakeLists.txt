@@ -5,13 +5,11 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_STANDARD 20)
 
 # Set the output directory for the library
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
+if (UNIX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif()
 
 find_package(jsoncpp REQUIRED)
 
@@ -60,23 +58,23 @@ include_directories(
     ../Components/Velocity/
     ../Components/Mob/
     ../Components/
-    ../Parser/ScaleParser/
-    ../Parser/Position2DParser/
+    ../../Engine/Shared/DefaultParser/ScaleParser/
+    ../../Engine/Shared/DefaultParser/Position2DParser/
     ../Parser/LifeParser/
-    ../Parser/PlayerParser/
+    ../../Engine/Shared/DefaultParser/PlayerParser/
     ../Parser/SpeedParser/
-    ../Parser/TextureRectParser/
+    ../../Engine/Shared/DefaultParser/TextureRectParser/
     ../Parser/VelocityParser/
     ../Parser/ShootParser/
     ../Parser/MobParser/
-    ../Parser/SpriteSheetAnimationParser/
-    ../Parser/FontPathParser/
-    ../Parser/TextParser/
+    ../../Engine/Shared/DefaultParser/SpriteSheetAnimationParser/
+    ../../Engine/Shared/DefaultParser/FontPathParser/
+    ../../Engine/Shared/DefaultParser/TextParser/
     ../Parser/ButtonStateParser/
-    ../Parser/ColourParser/
-    ../Parser/Size1DParser/
-    ../Parser/TextPosition2DParser/
-    ../Parser/DefaultTextParser/
+    ../../Engine/Shared/DefaultParser/ColourParser/
+    ../../Engine/Shared/DefaultParser/Size1DParser/
+    ../../Engine/Shared/DefaultParser/TextPosition2DParser/
+    ../../Engine/Shared/DefaultParser/DefaultTextParser/
     ../Parser/TextLimitParser/
     ../Parser/ButtonTexturePathParser/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/
@@ -93,120 +91,216 @@ include_directories(
     AText/
 )
 
-# Add a shared library target 'system_initPlayer'
+# Compile all component in static lib
+function(create_component_lib component_name)
+    set(COMPONENT_SRC "${CMAKE_SOURCE_DIR}/R-TypeGame/Components/${component_name}/${component_name}Component.cpp")
+    set(COMPONENT_HDR "${CMAKE_SOURCE_DIR}/R-TypeGame/Components/${component_name}/${component_name}Component.hpp")
+
+    set(PARSER_SRC "")
+    set(PARSER_HDR "")
+    if(EXISTS "${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser/${component_name}Parser.cpp")
+        set(PARSER_SRC "${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser/${component_name}Parser.cpp")
+        set(PARSER_HDR "${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser/${component_name}Parser.hpp")
+    endif()
+
+    add_library(${component_name} STATIC ${COMPONENT_SRC} ${COMPONENT_HDR} ${PARSER_SRC} ${PARSER_HDR})
+
+    if(EXISTS "${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser/${component_name}Parser.cpp")
+        target_link_libraries(${component_name} PRIVATE JsonCpp::JsonCpp)
+    endif()
+
+    target_include_directories(${component_name} PUBLIC
+        ${CMAKE_SOURCE_DIR}/R-TypeGame/Components/${component_name}
+        ${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
+    )
+endfunction()
+
+set(COMPONENTS
+        ButtonState
+        ButtonTexturePath
+        Clickable
+        Drawable
+        Editable
+        Gravity
+        Life
+        Mob
+        Planet
+        Shoot
+        Speed
+        TextLimit
+        Velocity
+)
+
+foreach(component ${COMPONENTS})
+    create_component_lib(${component})
+endforeach()
+
+# Compile all default component in static lib
+function(create_default_component_lib component_name)
+    set(COMPONENT_SRC "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/${component_name}/${component_name}Component.cpp")
+    set(COMPONENT_HDR "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/${component_name}/${component_name}Component.hpp")
+
+    set(PARSER_SRC "")
+    set(PARSER_HDR "")
+    if(EXISTS "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
+        set(PARSER_SRC "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
+        set(PARSER_HDR "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.hpp")
+    endif()
+
+    add_library(${component_name} STATIC ${COMPONENT_SRC} ${COMPONENT_HDR} ${PARSER_SRC} ${PARSER_HDR})
+
+    if(EXISTS "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
+        target_link_libraries(${component_name} PRIVATE JsonCpp::JsonCpp)
+    endif()
+
+    target_include_directories(${component_name} PUBLIC
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/${component_name}
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
+    )
+endfunction()
+
+set(COMPONENTS
+        Colour
+        DefaultText
+        Draw
+        FontPath
+        MaterialMap
+        MusicPath
+        MusicPitch
+        MusicVolume
+        NetworkConnection
+        ObjPath
+        Position2D
+        Position3D
+        Scale
+        Size1D
+        SoundPath
+        SoundPitch
+        SoundVolume
+        SpriteSheetAnimation
+        Text
+        TextPosition2D
+        TexturePath
+        TextureRect
+)
+
+foreach(component ${COMPONENTS})
+    create_default_component_lib(${component})
+endforeach()
+
+add_library(Player STATIC
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.hpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/PlayerParser/PlayerParser.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/PlayerParser/PlayerParser.hpp
+)
+
+target_include_directories(Player PUBLIC
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/PlayerParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
+)
+
+target_link_libraries(Player PRIVATE JsonCpp::JsonCpp)
+
+# system_initPlayerOne
 add_library(system_initPlayerOne SHARED
-    ../Error/AError.cpp
-    Players/PlayerInitOneSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/Life/LifeComponent.cpp
-    ../Components/Speed/SpeedComponent.cpp
-    ../Components/Shoot/ShootComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/LifeParser/LifeParser.cpp
-    ../Parser/PlayerParser/PlayerParser.cpp
-    ../Parser/SpeedParser/SpeedParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp
+        ../Error/AError.cpp
+        Players/PlayerInitOneSystem.cpp
 )
-target_link_libraries(system_initPlayerOne PRIVATE JsonCpp::JsonCpp)
 
+target_link_libraries(system_initPlayerOne
+        Position2D
+        Scale
+        TextureRect
+        SpriteSheetAnimation
+        Player
+        Draw
+        Life
+        Speed
+        Shoot
+        JsonCpp::JsonCpp
+)
+
+# system_initPlayerTwo
 add_library(system_initPlayerTwo SHARED
-    ../Error/AError.cpp
-    Players/PlayerInitTwoSystem.cpp
-    ../Components/Life/LifeComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/Speed/SpeedComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/LifeParser/LifeParser.cpp
-    ../Parser/PlayerParser/PlayerParser.cpp
-    ../Parser/SpeedParser/SpeedParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
+        ../Error/AError.cpp
+        Players/PlayerInitTwoSystem.cpp
 )
-target_link_libraries(system_initPlayerTwo PRIVATE JsonCpp::JsonCpp)
 
+target_link_libraries(system_initPlayerTwo
+        Position2D
+        Scale
+        TextureRect
+        Player
+        Draw
+        Life
+        Speed
+        JsonCpp::JsonCpp
+)
+
+# system_initPlayerThree
 add_library(system_initPlayerThree SHARED
-    Players/PlayerInitThreeSystem.cpp
-    ../Components/Life/LifeComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/Speed/SpeedComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/LifeParser/LifeParser.cpp
-    ../Parser/PlayerParser/PlayerParser.cpp
-    ../Parser/SpeedParser/SpeedParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Error/AError.cpp
+        Players/PlayerInitThreeSystem.cpp
+        ../Error/AError.cpp
 )
-target_link_libraries(system_initPlayerThree PRIVATE JsonCpp::JsonCpp)
 
-add_library(system_initPlayerFour SHARED
-    Players/PlayerInitFourSystem.cpp
-    ../Components/Life/LifeComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/Speed/SpeedComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/LifeParser/LifeParser.cpp
-    ../Parser/PlayerParser/PlayerParser.cpp
-    ../Parser/SpeedParser/SpeedParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Error/AError.cpp
+target_link_libraries(system_initPlayerThree
+        Position2D
+        Scale
+        TextureRect
+        Player
+        Draw
+        Life
+        Speed
+        JsonCpp::JsonCpp
 )
-target_link_libraries(system_initPlayerFour PRIVATE JsonCpp::JsonCpp)
+
+# system_initPlayerFour
+add_library(system_initPlayerFour SHARED
+        Players/PlayerInitFourSystem.cpp
+        ../Error/AError.cpp
+)
+
+target_link_libraries(system_initPlayerFour
+        Position2D
+        Scale
+        TextureRect
+        Player
+        Draw
+        Life
+        Speed
+        JsonCpp::JsonCpp
+)
 
 add_library(system_moveMobs SHARED MoveSystem/MoveMobs/MoveMobsSystem.cpp)
 
+# system_initConnectButton
 add_library(system_initConnectButton SHARED
-    ../Error/AError.cpp
-    Menus/Buttons/AButton/AButtonInitSystem.cpp
-    Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/DefaultText/DefaultTextComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/ButtonState/ButtonStateComponent.cpp
-        ../Components/Clickable/ClickableComponent.cpp
-    ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Parser/FontPathParser/FontPathParser.cpp
-    ../Parser/TextParser/TextParser.cpp
-    ../Parser/ButtonStateParser/ButtonStateParser.cpp
-    ../Parser/ColourParser/ColourParser.cpp
-    ../Parser/Size1DParser/Size1DParser.cpp
-    ../Parser/DefaultTextParser/DefaultTextParser.cpp
-    ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
+        ../Error/AError.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
 )
-target_link_libraries(system_initConnectButton PRIVATE JsonCpp::JsonCpp)
 
+target_link_libraries(system_initConnectButton
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        DefaultText
+        NetworkConnection
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
 
 add_library(system_moveRight SHARED Move/MoveSystemRight/MoveSystemRight.cpp)
 target_link_libraries(system_moveRight PRIVATE JsonCpp::JsonCpp)
@@ -221,57 +315,52 @@ add_library(system_shoot SHARED
     Shoot/ShootSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     Shoot/ShootInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/Speed/SpeedComponent.cpp
-    ../Components/Velocity/VelocityComponent.cpp
-    ../Components/Shoot/ShootComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/SpeedParser/SpeedParser.cpp
-    ../Parser/VelocityParser/VelocityParser.cpp
-    ../Parser/ShootParser/ShootParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp)
-target_link_libraries(system_shoot PRIVATE JsonCpp::JsonCpp)
+)
+
+target_link_libraries(system_shoot PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Draw
+        Speed
+        Velocity
+        Shoot
+        JsonCpp::JsonCpp
+)
 
 add_library(system_shootDestroy SHARED
     ../Error/AError.cpp
     Shoot/ShootDestroySystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
-
 add_library(system_initBackground SHARED
     ../Error/AError.cpp
     Background/BackgroundInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp
 )
-target_link_libraries(system_initBackground PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initBackground PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    SpriteSheetAnimation
+    Draw
+    JsonCpp::JsonCpp
+)
 
 add_library(system_initPlanet SHARED
     ../Error/AError.cpp
     Background/PlanetInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/Velocity/VelocityComponent.cpp
-    ../Components/Planet/PlanetComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Parser/VelocityParser/VelocityParser.cpp
 )
-target_link_libraries(system_initPlanet PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initPlanet PRIVATE
+    Planet
+    Position2D
+    Scale
+    TextureRect
+    Draw
+    Velocity
+    JsonCpp::JsonCpp
+)
 
 add_library(system_restartPlanet SHARED
     Background/PlanetRestartSystem.cpp
@@ -281,45 +370,39 @@ add_library(system_restartPlanet SHARED
 add_library(system_initMob SHARED
     ../Error/AError.cpp
     Mob/MobInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/Velocity/VelocityComponent.cpp
-    ../Components/Mob/MobComponent.cpp
-    ../Components/Life/LifeComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Parser/VelocityParser/VelocityParser.cpp
-    ../Parser/MobParser/MobParser.cpp
-    ../Parser/SpriteSheetAnimationParser/SpriteSheetAnimationParser.cpp
-    ../Parser/LifeParser/LifeParser.cpp
 )
-target_link_libraries(system_initMob PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initMob PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    SpriteSheetAnimation
+    Draw
+    Velocity
+    Mob
+    Life
+    JsonCpp::JsonCpp
+)
 
 add_library(system_shoot_mob SHARED
     ../Error/AError.cpp
     ShootMob/ShootSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     ShootMob/ShootInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/Speed/SpeedComponent.cpp
-    ../Components/Velocity/VelocityComponent.cpp
-    ../Components/Shoot/ShootComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/SpeedParser/SpeedParser.cpp
-    ../Parser/VelocityParser/VelocityParser.cpp
-    ../Parser/ShootParser/ShootParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Parser/ColourParser/ColourParser.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp)
-target_link_libraries(system_shoot_mob PRIVATE JsonCpp::JsonCpp)
+)
+
+target_link_libraries(system_shoot_mob PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Draw
+    Speed
+    Velocity
+    Shoot
+    Colour
+    JsonCpp::JsonCpp
+)
+
 add_library(system_hitboxPlayer SHARED
     Hitbox/HitboxPlayerSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
@@ -332,183 +415,158 @@ add_library(system_initIpTextButton SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     Menus/Buttons/AButton/AButtonInitSystem.cpp
     Menus/Buttons/IpTextBox/IpTextBoxInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/DefaultText/DefaultTextComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/ButtonState/ButtonStateComponent.cpp
-        ../Components/Clickable/ClickableComponent.cpp
-    ../Components/Editable/EditableComponent.cpp
-    ../Components/TextLimit/TextLimitComponent.cpp
-    ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Parser/FontPathParser/FontPathParser.cpp
-    ../Parser/TextParser/TextParser.cpp
-    ../Parser/ButtonStateParser/ButtonStateParser.cpp
-    ../Parser/ColourParser/ColourParser.cpp
-    ../Parser/Size1DParser/Size1DParser.cpp
-    ../Parser/DefaultTextParser/DefaultTextParser.cpp
-    ../Parser/TextLimitParser/TextLimitParser.cpp
-    ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
 )
-target_link_libraries(system_initIpTextButton PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initIpTextButton PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    DefaultText
+    Draw
+    ButtonState
+    Clickable
+    Editable
+    TextLimit
+    ButtonTexturePath
+    JsonCpp::JsonCpp
+)
 
 add_library(system_initPortTextButton SHARED
     ../Error/AError.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     Menus/Buttons/AButton/AButtonInitSystem.cpp
     Menus/Buttons/PortTextBox/PortTextBoxInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/DefaultText/DefaultTextComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-    ../Components/ButtonState/ButtonStateComponent.cpp
-        ../Components/Clickable/ClickableComponent.cpp
-    ../Components/Editable/EditableComponent.cpp
-    ../Components/TextLimit/TextLimitComponent.cpp
-    ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
-    ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
-    ../Parser/ScaleParser/ScaleParser.cpp
-    ../Parser/FontPathParser/FontPathParser.cpp
-    ../Parser/TextParser/TextParser.cpp
-    ../Parser/ButtonStateParser/ButtonStateParser.cpp
-    ../Parser/ColourParser/ColourParser.cpp
-    ../Parser/Size1DParser/Size1DParser.cpp
-    ../Parser/DefaultTextParser/DefaultTextParser.cpp
-    ../Parser/TextLimitParser/TextLimitParser.cpp
-    ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
 )
-target_link_libraries(system_initPortTextButton PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initPortTextButton PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    DefaultText
+    Draw
+    ButtonState
+    Clickable
+    Editable
+    TextLimit
+    ButtonTexturePath
+    JsonCpp::JsonCpp
+)
 
 add_library(system_handleMouse SHARED
     ../Error/AError.cpp
     Mouse/MouseSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ../Components/Clickable/ClickableComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
-target_link_libraries(system_handleMouse PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_handleMouse PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Clickable
+    JsonCpp::JsonCpp
+)
 
 add_library(system_handleTyping SHARED
     ../Error/AError.cpp
     Typing/TypingSystem.cpp
-    ../Components/Editable/EditableComponent.cpp
-    ../Components/ButtonState/ButtonStateComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/DefaultText/DefaultTextComponent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
-target_link_libraries(system_handleTyping PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_handleTyping PRIVATE
+    Text
+    DefaultText
+    Editable
+    ButtonState
+    JsonCpp::JsonCpp
+)
 
 add_library(system_shootDamage SHARED
     ../Error/AError.cpp
     Shoot/ShootDamageSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-    ../Components/Shoot/ShootComponent.cpp
-    ../Components/Life/LifeComponent.cpp
-    ../Components/Mob/MobComponent.cpp
-    ../Parser/TextureRectParser/TextureRectParser.cpp
-    ../Parser/Position2DParser/Position2DParser.cpp
 )
-target_link_libraries(system_shootDamage PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_shootDamage PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Shoot
+    Life
+    Mob
+    JsonCpp::JsonCpp
+)
 
 add_library(system_initEndLogo SHARED
-        ../Error/AError.cpp
-        Background/EndLogoInitSystem.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-        ../Parser/TextureRectParser/TextureRectParser.cpp
-        ../Parser/Position2DParser/Position2DParser.cpp
-        ../Parser/ScaleParser/ScaleParser.cpp
+    ../Error/AError.cpp
+    Background/EndLogoInitSystem.cpp
 )
-target_link_libraries(system_initEndLogo PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initEndLogo PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Draw
+    JsonCpp::JsonCpp
+)
 
 add_library(system_initExitButton SHARED
-        ../Error/AError.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-        Menus/Buttons/AButton/AButtonInitSystem.cpp
-        Menus/Buttons/ExitButton/ExitButtonInitSystem.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-        ../Components/ButtonState/ButtonStateComponent.cpp
-        ../Components/Clickable/ClickableComponent.cpp
-        ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
-        ../Parser/TextureRectParser/TextureRectParser.cpp
-        ../Parser/Position2DParser/Position2DParser.cpp
-        ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
-        ../Parser/ScaleParser/ScaleParser.cpp
-        ../Parser/FontPathParser/FontPathParser.cpp
-        ../Parser/TextParser/TextParser.cpp
-        ../Parser/ButtonStateParser/ButtonStateParser.cpp
-        ../Parser/ColourParser/ColourParser.cpp
-        ../Parser/Size1DParser/Size1DParser.cpp
-        ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
+    ../Error/AError.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
+    Menus/Buttons/ExitButton/ExitButtonInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
-target_link_libraries(system_initExitButton PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initExitButton PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    ButtonState
+    Clickable
+    ButtonTexturePath
+    JsonCpp::JsonCpp
+)
 
 add_library(system_initSingleplayerButton SHARED
-        ../Error/AError.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-        Menus/Buttons/AButton/AButtonInitSystem.cpp
-        Menus/Buttons/SingleplayerButton/SingleplayerButtonInitSystem.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-        ../Components/ButtonState/ButtonStateComponent.cpp
-        ../Components/Clickable/ClickableComponent.cpp
-        ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
-        ../Parser/TextureRectParser/TextureRectParser.cpp
-        ../Parser/Position2DParser/Position2DParser.cpp
-        ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
-        ../Parser/ScaleParser/ScaleParser.cpp
-        ../Parser/FontPathParser/FontPathParser.cpp
-        ../Parser/TextParser/TextParser.cpp
-        ../Parser/ButtonStateParser/ButtonStateParser.cpp
-        ../Parser/ColourParser/ColourParser.cpp
-        ../Parser/Size1DParser/Size1DParser.cpp
-        ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
+    ../Error/AError.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
+    Menus/Buttons/SingleplayerButton/SingleplayerButtonInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
-target_link_libraries(system_initSingleplayerButton PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initSingleplayerButton PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    ButtonState
+    Clickable
+    ButtonTexturePath
+    JsonCpp::JsonCpp
+)
 
 add_library(system_initMultiplayerButton SHARED
         ../Error/AError.cpp
@@ -516,78 +574,62 @@ add_library(system_initMultiplayerButton SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/MultiplayerButton/MultiplayerButtonInitSystem.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-        ../Components/ButtonState/ButtonStateComponent.cpp
-        ../Components/Clickable/ClickableComponent.cpp
-        ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
-        ../Parser/TextureRectParser/TextureRectParser.cpp
-        ../Parser/Position2DParser/Position2DParser.cpp
-        ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
-        ../Parser/ScaleParser/ScaleParser.cpp
-        ../Parser/FontPathParser/FontPathParser.cpp
-        ../Parser/TextParser/TextParser.cpp
-        ../Parser/ButtonStateParser/ButtonStateParser.cpp
-        ../Parser/ColourParser/ColourParser.cpp
-        ../Parser/Size1DParser/Size1DParser.cpp
-        ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
-target_link_libraries(system_initMultiplayerButton PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initMultiplayerButton PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    ButtonState
+    Clickable
+    ButtonTexturePath
+    JsonCpp::JsonCpp
+)
 
 add_library(system_initMapEditorButton SHARED
-        ../Error/AError.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-        Menus/Buttons/AButton/AButtonInitSystem.cpp
-        Menus/Buttons/MapEditorButton/MapEditorButtonInitSystem.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-        ../Components/ButtonState/ButtonStateComponent.cpp
-        ../Components/Clickable/ClickableComponent.cpp
-        ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
-        ../Parser/TextureRectParser/TextureRectParser.cpp
-        ../Parser/Position2DParser/Position2DParser.cpp
-        ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
-        ../Parser/ScaleParser/ScaleParser.cpp
-        ../Parser/FontPathParser/FontPathParser.cpp
-        ../Parser/TextParser/TextParser.cpp
-        ../Parser/ButtonStateParser/ButtonStateParser.cpp
-        ../Parser/ColourParser/ColourParser.cpp
-        ../Parser/Size1DParser/Size1DParser.cpp
-        ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
+    ../Error/AError.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
+    Menus/Buttons/MapEditorButton/MapEditorButtonInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
-target_link_libraries(system_initMapEditorButton PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initMapEditorButton PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    ButtonState
+    Clickable
+    ButtonTexturePath
+    JsonCpp::JsonCpp
+)
 
 add_library(system_initServerConnectionText SHARED
-        ../Error/AError.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-        AText/ATextInitSystem.cpp
-        Menus/Texts/ServerConnection/ServerConnectionTextInitSystem.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
-        ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
-        ../Parser/FontPathParser/FontPathParser.cpp
-        ../Parser/TextParser/TextParser.cpp
-        ../Parser/ColourParser/ColourParser.cpp
-        ../Parser/Size1DParser/Size1DParser.cpp
+    ../Error/AError.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    AText/ATextInitSystem.cpp
+    Menus/Texts/ServerConnection/ServerConnectionTextInitSystem.cpp
 )
-target_link_libraries(system_initServerConnectionText PRIVATE JsonCpp::JsonCpp)
+
+target_link_libraries(system_initServerConnectionText PRIVATE
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    JsonCpp::JsonCpp
+)

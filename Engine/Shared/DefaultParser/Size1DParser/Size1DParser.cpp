@@ -1,17 +1,17 @@
 /*
 ** EPITECH PROJECT, 2024
-** LifeParser
+** Size1DParser
 ** File description:
-** LifeParser
+** Size1DParser
 */
 
 #include <json/json.h>
 #include <iostream>
 #include <fstream>
 
-#include "../../Components/Life/LifeComponent.hpp"
+#include "../../DefaultComponents/Size1D/Size1DComponent.hpp"
 
-std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
+std::shared_ptr<Size1DComponent> parseSize1D(std::string pathFile)
 {
     try {
         std::ifstream file(pathFile);
@@ -21,13 +21,12 @@ std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        const Json::Value& life = root["LifeComponent"];
+        const Json::Value& size = root["Size1DComponent"];
 
-        if (life)
-            return std::make_shared<LifeComponent>(life.asUInt());
+        if (size)
+            return std::make_shared<Size1DComponent>(size.asInt());
         return nullptr;
     } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
+        throw ComponentError(e.what());
     }
-    return nullptr;
 }
