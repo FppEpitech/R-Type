@@ -7,7 +7,9 @@ set(CMAKE_CXX_STANDARD 20)
 # Set the output directory for the library
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+if (UNIX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif()
 
 find_package(jsoncpp REQUIRED)
 
@@ -56,23 +58,23 @@ include_directories(
     ../Components/Velocity/
     ../Components/Mob/
     ../Components/
-        ../../Engine/Shared/DefaultParser/ScaleParser/
-        ../../Engine/Shared/DefaultParser/Position2DParser/
-        ../Parser/LifeParser/
-        ../../Engine/Shared/DefaultParser/PlayerParser/
+    ../../Engine/Shared/DefaultParser/ScaleParser/
+    ../../Engine/Shared/DefaultParser/Position2DParser/
+    ../Parser/LifeParser/
+    ../../Engine/Shared/DefaultParser/PlayerParser/
     ../Parser/SpeedParser/
-        ../../Engine/Shared/DefaultParser/TextureRectParser/
+    ../../Engine/Shared/DefaultParser/TextureRectParser/
     ../Parser/VelocityParser/
     ../Parser/ShootParser/
     ../Parser/MobParser/
-        ../../Engine/Shared/DefaultParser/SpriteSheetAnimationParser/
-        ../../Engine/Shared/DefaultParser/FontPathParser/
-        ../../Engine/Shared/DefaultParser/TextParser/
+    ../../Engine/Shared/DefaultParser/SpriteSheetAnimationParser/
+    ../../Engine/Shared/DefaultParser/FontPathParser/
+    ../../Engine/Shared/DefaultParser/TextParser/
     ../Parser/ButtonStateParser/
-        ../../Engine/Shared/DefaultParser/ColourParser/
-        ../../Engine/Shared/DefaultParser/Size1DParser/
-        ../../Engine/Shared/DefaultParser/TextPosition2DParser/
-        ../../Engine/Shared/DefaultParser/DefaultTextParser/
+    ../../Engine/Shared/DefaultParser/ColourParser/
+    ../../Engine/Shared/DefaultParser/Size1DParser/
+    ../../Engine/Shared/DefaultParser/TextPosition2DParser/
+    ../../Engine/Shared/DefaultParser/DefaultTextParser/
     ../Parser/TextLimitParser/
     ../Parser/ButtonTexturePathParser/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/
@@ -95,21 +97,21 @@ function(create_component_lib component_name)
 
     set(PARSER_SRC "")
     set(PARSER_HDR "")
-    if(EXISTS "$${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser/${component_name}Parser.cpp")
+    if(EXISTS "${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser/${component_name}Parser.cpp")
         set(PARSER_SRC "${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser/${component_name}Parser.cpp")
         set(PARSER_HDR "${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser/${component_name}Parser.hpp")
     endif()
 
     add_library(${component_name} STATIC ${COMPONENT_SRC} ${COMPONENT_HDR} ${PARSER_SRC} ${PARSER_HDR})
 
-    if(EXISTS "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
+    if(EXISTS "${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser/${component_name}Parser.cpp")
         target_link_libraries(${component_name} PRIVATE JsonCpp::JsonCpp)
     endif()
 
     target_include_directories(${component_name} PUBLIC
-            ${CMAKE_SOURCE_DIR}/R-TypeGame/Components/${component_name}
-            ${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser
-            ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
+        ${CMAKE_SOURCE_DIR}/R-TypeGame/Components/${component_name}
+        ${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
     )
 endfunction()
 
@@ -350,6 +352,7 @@ add_library(system_initPlanet SHARED
 )
 
 target_link_libraries(system_initPlanet PRIVATE
+    Planet
     Position2D
     Scale
     TextureRect
