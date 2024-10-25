@@ -6,6 +6,11 @@
 */
 #include "Users.hpp"
 
+Users::Users(Database *db) : _dbcore(db), _db(db->db), _rc(db->rc) {
+    createUsersTable();
+    // if (sodium_init() < 0)
+    //     throw new DbError("Couldn't load sodium...");
+};
 
 bool Users::userIdExists(int id) {
     std::string req("SELECT COUNT(*) FROM users WHERE id = ?;");

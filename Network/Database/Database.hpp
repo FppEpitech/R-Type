@@ -13,8 +13,11 @@
 #include <vector>
 
 
-class Scores;
 
+/**
+ * @brief Database class
+ *
+ */
 class Database {
 
 
@@ -49,6 +52,6 @@ class Database {
          */
         sqlite3_stmt *prepareStmt(std::string query);
 
-        std::shared_ptr<sqlite3>_db = nullptr; // Database.
-        std::shared_ptr<int> _rc = std::make_shared<int>(0); // Return code of db.
+        std::shared_ptr<sqlite3> db = nullptr; // Database.
+        std::shared_ptr<int> rc = nullptr; // Return code of db.
 };

@@ -8,28 +8,20 @@
 #pragma once
 
 #include "Database.hpp"
-#include "DbError.hpp"
 #include <sodium.h>
 
+/**
+ * @brief Users class
+ *
+ */
 class Users {
     public:
-
-    struct userSettings {
-        int res_width;
-        int res_height;
-        float daltonian_mode;
-    };
-
         /**
          * @brief Construct a new Users object
          *
          * @param db
          */
-        Users(Database *db) : _dbcore(db), _db(db->_db), _rc(db->_rc) {
-            createUsersTable();
-            // if (sodium_init() < 0)
-            //     throw new DbError("Couldn't load sodium...");
-        };
+        Users(Database *db);
 
         /**
          * @brief Destroy the Users object.
@@ -114,6 +106,18 @@ class Users {
          */
         int loginUser(std::string username, std::string password);
 
+        /**
+         * @brief User settings struct
+         *
+         * @param res_width
+         * @param res_height
+         * @param daltonian_mode
+         */
+        struct userSettings {
+            int res_width;
+            int res_height;
+            float daltonian_mode;
+        };
 
     private:
         Database *_dbcore; // Database object

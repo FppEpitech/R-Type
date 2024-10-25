@@ -10,6 +10,10 @@
 #include "Database.hpp"
 #include "Users.hpp"
 
+/**
+ * @brief Scores class
+ *
+ */
 class Scores {
     public:
 
@@ -18,7 +22,7 @@ class Scores {
          *
          * @param db
          */
-        Scores(Database *db) : _dbcore(db), _db(db->_db), _rc(db->_rc) {
+        Scores(Database *db) : _dbcore(db), _db(db->db), _rc(db->rc) {
             createScoresTable();
         };
 
@@ -62,7 +66,10 @@ class Scores {
         std::vector<std::pair<std::string,int>> getLeaderboard(Users users);
 
     private:
+
         Database *_dbcore; // Database object
+
         std::shared_ptr<sqlite3> _db; // Database pointer
+
         std::shared_ptr<int> _rc; // Database return code
 };
