@@ -3,4 +3,6 @@ cmake_minimum_required(VERSION 3.5)
 
 # Add the 'Systems' subdirectory to the build
 add_subdirectory(Systems)
+
+# Add the 'SystemNetworkUpdate' subdirectory to the build
 add_subdirectory(SystemNetworkUpdate)
