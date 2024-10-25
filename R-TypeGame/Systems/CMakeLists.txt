@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.5)
 # Set the C++ standard to C++20
 set(CMAKE_CXX_STANDARD 20)
 
+
+
 # Set the output directory for the library
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
@@ -288,6 +290,11 @@ add_library(system_initConnectButton SHARED
         ../Error/AError.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
+    ../Error/AError.cpp
+    Menus/Buttons/AButton/AButtonInitSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
 )
 
 target_link_libraries(system_initConnectButton
@@ -480,6 +487,8 @@ target_link_libraries(system_handleMouse PRIVATE
     Scale
     TextureRect
     Clickable
+    Editable
+    ButtonTexturePath
     JsonCpp::JsonCpp
 )
 
@@ -494,6 +503,7 @@ target_link_libraries(system_handleTyping PRIVATE
     DefaultText
     Editable
     ButtonState
+    ButtonTexturePath
     JsonCpp::JsonCpp
 )
 
@@ -638,4 +648,257 @@ target_link_libraries(system_initServerConnectionText PRIVATE
     TextPosition2D
     Draw
     JsonCpp::JsonCpp
+)
+
+add_library(system_initRegisterPageButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/RegisterPageButton/RegisterPageButtonInitSystem.cpp
+)
+target_link_libraries(system_initRegisterPageButton PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    ButtonState
+    Clickable
+    ButtonTexturePath
+    JsonCpp::JsonCpp
+)
+
+add_library(system_initLoginPageButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/LoginPageButton/LoginPageButtonInitSystem.cpp
+)
+target_link_libraries(system_initLoginPageButton PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    ButtonState
+    Clickable
+    ButtonTexturePath
+    JsonCpp::JsonCpp
+)
+
+add_library(system_initAccountManagementText SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        AText/ATextInitSystem.cpp
+        Menus/Texts/AccountManagement/AccountManagementTextInitSystem.cpp
+)
+target_link_libraries(system_initAccountManagementText PRIVATE
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    JsonCpp::JsonCpp
+)
+
+add_library(system_initUsernameTextButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/UsernameTextBox/UsernameTextBoxInitSystem.cpp
+)
+
+target_link_libraries(system_initUsernameTextButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        DefaultText
+        Draw
+        ButtonState
+        Clickable
+        Editable
+        TextLimit
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initPasswordTextButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/PasswordTextBox/PasswordTextBoxInitSystem.cpp
+)
+target_link_libraries(system_initPasswordTextButton PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    DefaultText
+    Draw
+    ButtonState
+    Clickable
+    Editable
+    TextLimit
+    ButtonTexturePath
+    JsonCpp::JsonCpp
+)
+
+add_library(system_initRegisterText SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        AText/ATextInitSystem.cpp
+        Menus/Texts/Register/RegisterTextInitSystem.cpp
+)
+target_link_libraries(system_initRegisterText PRIVATE
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    JsonCpp::JsonCpp
+)
+
+add_library(system_initLoginText SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        AText/ATextInitSystem.cpp
+        Menus/Texts/Login/LoginTextInitSystem.cpp
+)
+target_link_libraries(system_initLoginText PRIVATE
+    Text
+    FontPath
+    Colour
+    Size1D
+    TextPosition2D
+    Draw
+    JsonCpp::JsonCpp
+)
+
+add_library(system_initRegisterButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/RegisterButton/RegisterButtonInitSystem.cpp
+)
+target_link_libraries(system_initRegisterButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initLoginButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/LoginButton/LoginButtonInitSystem.cpp
+)
+target_link_libraries(system_initLoginButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initRoomManagementText SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        AText/ATextInitSystem.cpp
+        Menus/Texts/RoomManagement/RoomManagementTextInitSystem.cpp
+)
+target_link_libraries(system_initRoomManagementText PRIVATE
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initCreateRoomPageButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/CreateRoomPageButton/CreateRoomPageButtonInitSystem.cpp
+)
+target_link_libraries(system_initCreateRoomPageButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initJoinRoomPageButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/JoinRoomPageButton/JoinRoomPageButtonInitSystem.cpp
+)
+target_link_libraries(system_initJoinRoomPageButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
 )
