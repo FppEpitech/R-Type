@@ -13,9 +13,10 @@
 
 #include "DefaultSystems/ISystemNetworkUpdate.hpp"
 
-SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> registry)
+SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> registry, std::shared_ptr<EventListener> eventListener)
 {
     _registry = registry;
+    _eventListener = eventListener;
     _initialiseDefaultComponents();
 }
 
@@ -26,7 +27,7 @@ bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntitie
         return true;
     }
     if (_keysScenes.find(key) != _keysScenes.end()) {
-        _changeScene(_keysScenes.at(key));
+        changeScene(_keysScenes.at(key));
         return true;
     }
     return false;
@@ -65,6 +66,19 @@ void SceneManager::ASceneManager::_loadSceneSystems(Json::Value root, std::size_
             _registry->add_system(system->getFunction());
         else
             throw SceneManagerErrors("Error while loading the system: " + systems[i].asString());
+    }
+}
+
+void SceneManager::ASceneManager::_loadSceneEventHandlers(Json::Value root, std::size_t index)
+{
+    const Json::Value& handlers = root["eventHandlers"];
+
+    for (unsigned int i = 0; i < handlers.size(); i++) {
+        std::shared_ptr<IEventHandler> handler = DLLoader<IEventHandler>::load(_getEventHandlerLibPath() + handlers[i].asString(), "loadEventHandlerInstance");
+        if (handler)
+            _eventListener->addHandler(handler->getEventType(), handler);
+        else
+            throw SceneManagerErrors("Error while loading the event handler: " + handlers[i].asString());
     }
 }
 
@@ -121,7 +135,7 @@ void SceneManager::ASceneManager::_loadSceneKeysSystem(std::string key, std::str
         throw SceneManagerJsonErrors("Error while loading the key: " + key);
 }
 
-void SceneManager::ASceneManager::_changeScene(std::pair<std::size_t, std::string> scene)
+void SceneManager::ASceneManager::changeScene(std::pair<std::size_t, std::string> scene)
 {
     _keysScenes.clear();
     _keysSystems.clear();

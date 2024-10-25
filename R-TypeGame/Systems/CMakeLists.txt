@@ -87,6 +87,7 @@ include_directories(
     Menus/Buttons/AButton/
     ../Error/
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
     AText/
 )
 
@@ -568,11 +569,34 @@ target_link_libraries(system_initSingleplayerButton PRIVATE
 )
 
 add_library(system_initMultiplayerButton SHARED
-    ../Error/AError.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-    Menus/Buttons/AButton/AButtonInitSystem.cpp
-    Menus/Buttons/MultiplayerButton/MultiplayerButtonInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/MultiplayerButton/MultiplayerButtonInitSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/Position2DComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/ScaleComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/TextComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/FontPathComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/ColourComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/Size1DComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/DrawComponent.cpp
+        ../Components/ButtonState/ButtonStateComponent.cpp
+        ../Components/Clickable/ClickableComponent.cpp
+        ../Components/ButtonTexturePath/ButtonTexturePathComponent.cpp
+        ../Parser/TextureRectParser/TextureRectParser.cpp
+        ../Parser/Position2DParser/Position2DParser.cpp
+        ../Parser/TextPosition2DParser/TextPosition2DParser.cpp
+        ../Parser/ScaleParser/ScaleParser.cpp
+        ../Parser/FontPathParser/FontPathParser.cpp
+        ../Parser/TextParser/TextParser.cpp
+        ../Parser/ButtonStateParser/ButtonStateParser.cpp
+        ../Parser/ColourParser/ColourParser.cpp
+        ../Parser/Size1DParser/Size1DParser.cpp
+        ../Parser/ButtonTexturePathParser/ButtonTexturePathParser.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
 
 target_link_libraries(system_initMultiplayerButton PRIVATE

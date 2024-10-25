@@ -6,9 +6,7 @@
 */
 
 #include "Registry.hpp"
-#include <algorithm>
 
-#include <iostream>
 namespace ECS {
 
 entity_t Registry::spawn_entity() {
@@ -80,6 +78,21 @@ void Registry::clearEntities()
     _entities.clear();
     _dead_entities.clear();
     _next_entity = 0;
+}
+
+void Registry::addEvent(std::shared_ptr<IEvent> event)
+{
+    _eventQueue.push(event);
+}
+
+void Registry::popEvent()
+{
+    _eventQueue.pop();
+}
+
+std::queue<std::shared_ptr<IEvent>> Registry::getEventQueue()
+{
+    return _eventQueue;
 }
 
 } // namespace ECS

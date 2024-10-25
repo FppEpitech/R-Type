@@ -6,3 +6,4 @@ add_subdirectory(Systems)
 
 # Add the 'SystemNetworkUpdate' subdirectory to the build
 add_subdirectory(SystemNetworkUpdate)
+add_subdirectory(EventHandlers)
