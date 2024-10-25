@@ -24,6 +24,7 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
     _registries = std::make_shared<ECS::Registry>();
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
     _isRoomOpen = true;
+    _numberPlayers = 0;
 }
 
 void GameEngine::Room::_packetHandler()
@@ -60,4 +61,19 @@ void GameEngine::Room::run()
         _packetHandler();
         _registries->run_systems(-1);
     }
+}
+
+const std::string GameEngine::Room::getPassword()
+{
+    return _passwordRoom;
+}
+
+const int GameEngine::Room::getNumberOfPlayers()
+{
+    return _numberPlayers;
+}
+
+const int GameEngine::Room::getMaxPlayers()
+{
+    return _maxPlayers;
 }

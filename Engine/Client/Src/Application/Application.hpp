@@ -74,6 +74,13 @@ class Application {
         void _handleCreateRoomPacket(ABINetwork::UDPPacket packet);
 
         /**
+         * @brief Handle packet recieved by the server after send join room request.
+         *
+         * @param packet Packet receive by the server.
+         */
+        void _handleJoinRoomPacket(ABINetwork::UDPPacket packet);
+
+        /**
          * @brief Connect to the server.
          *
          */
@@ -98,7 +105,8 @@ class Application {
         std::shared_ptr<SceneManager::ClientSceneManager>                           _sceneManager;      // load and handle scene in the ECS.
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
-            {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoomPacket(packet); }}
+            {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoomPacket(packet); }},
+            {ABINetwork::IMessage::MessageType::JOIN_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleJoinRoomPacket(packet); }}
         };
 
         networkInstance_t _serverInfos; // Informations about the server.

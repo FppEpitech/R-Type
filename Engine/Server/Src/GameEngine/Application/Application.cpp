@@ -17,14 +17,25 @@ GameEngine::Application::Application()
     _nbRoom = 0;
 }
 
+void GameEngine::Application::run()
+{
+    while (true) {
+        _packetHandler();
+    }
+}
+
 void GameEngine::Application::_packetHandler()
 {
     std::lock_guard<std::mutex> lock(_server->getMutex());
     std::vector<ABINetwork::UDPPacket> messages = _server->getReceivedMessages();
 
     for (auto packet : messages) {
-        auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
-        _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
+        try {
+            auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
+            _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+        }
     }
 }
 
@@ -41,10 +52,10 @@ void GameEngine::Application::_handleCreateRoom(ABINetwork::UDPPacket packet)
     else {
         ABINetwork::roomInfo_t roomInfo = ABINetwork::getCreateRoomInfoFromPacket(packet);
         try {
-            GameEngine::Room newRoom(roomInfo);
-            _rooms.push_back(newRoom);
+            std::shared_ptr<GameEngine::Room> newRoom = std::make_shared<GameEngine::Room>(roomInfo);
+            _rooms[roomInfo.name] = newRoom;
             _nbRoom++;
-            _threads.push_back(std::make_shared<std::thread>([&newRoom]() { newRoom.run(); }));
+            _threads.push_back(std::make_shared<std::thread>([&newRoom]() { newRoom->run(); }));
             // TODO: add ports tcp and udp to roomInfo.
             ABINetwork::sendPacketRoomCreated(_server, roomInfo);
         } catch (const std::exception& e) {
@@ -55,9 +66,17 @@ void GameEngine::Application::_handleCreateRoom(ABINetwork::UDPPacket packet)
     }
 }
 
-void GameEngine::Application::run()
+void GameEngine::Application::_handleJoinRoom(ABINetwork::UDPPacket packet)
 {
-    while (true) {
-        _packetHandler();
+    std::pair<std::string, std::string> joinRoomInfos = ABINetwork::getJoinRoomInfoFromPacket(packet);
+
+    if (_rooms[joinRoomInfos.first]->getPassword() != joinRoomInfos.second) {
+        ABINetwork::sendPacketWrongRoomPassword(_server);
+        return;
     }
+    if (_rooms[joinRoomInfos.first]->getMaxPlayers() <= _rooms[joinRoomInfos.first]->getNumberOfPlayers()) {
+        ABINetwork::sendPacketFullRoom(_server);
+        return;
+    }
+    ABINetwork::sendPacketAllowedToJoinRoom(_server);
 }

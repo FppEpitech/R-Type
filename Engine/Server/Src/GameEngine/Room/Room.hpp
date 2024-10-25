@@ -46,6 +46,27 @@ class Room {
          */
         void run();
 
+        /**
+         * @brief Get the Password object.
+         *
+         * @return std::string Password of the room.
+         */
+        const std::string getPassword();
+
+        /**
+         * @brief Get the Number Of Players in the room.
+         *
+         * @return const int Number of players.
+         */
+        const int getNumberOfPlayers();
+
+        /**
+         * @brief Get the Max number of Players allowed to join.
+         *
+         * @return const int Max number of players.
+         */
+        const int getMaxPlayers();
+
     private:
 
         std::string         _nameRoom;          // Room name.
@@ -55,6 +76,7 @@ class Room {
         int                 _maxPlayers;        // Max number of player in the room.
 
         bool                _isRoomOpen;        // False if the room should close.
+        int                 _numberPlayers;     // Number of players in the room.
 
         std::shared_ptr<ABINetwork::INetworkUnit>               _roomServer;        // Network Unit of the Room.
         std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
