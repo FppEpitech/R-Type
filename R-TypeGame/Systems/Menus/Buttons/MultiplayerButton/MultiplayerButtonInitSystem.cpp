@@ -9,6 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
+#include "AEvent.hpp"
 #include "AButtonInitSystem.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "MultiplayerButtonInitSystem.hpp"
@@ -18,9 +19,10 @@ MultiplayerButtonInitSystem::MultiplayerButtonInitSystem() :
 
 static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 {
-    try {
-    } catch (const std::exception& e) {
-    }
+    std::vector<std::any> values = {};
+    values.push_back(std::string(CONNECT_TO_SERVER));
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
+    reg.addEvent(event);
 }
 
 static void handleOther(ECS::Registry& reg, int idxPacketEntities)

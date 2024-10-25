@@ -52,7 +52,7 @@ include_directories(
     ../Components/Planet/
     ../Components/Editable/
     ../Components/ButtonState/
-        ../Components/Clickable/
+    ../Components/Clickable/
     ../Components/TextLimit/
     ../Components/Velocity/
     ../Components/Editable/
@@ -89,6 +89,7 @@ include_directories(
     Menus/Buttons/AButton/
     ../Error/
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
     AText/
 )
 
@@ -511,6 +512,7 @@ target_link_libraries(system_initSingleplayerButton PRIVATE JsonCpp::JsonCpp)
 
 add_library(system_initMultiplayerButton SHARED
         ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/MultiplayerButton/MultiplayerButtonInitSystem.cpp

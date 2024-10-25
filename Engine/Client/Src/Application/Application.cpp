@@ -82,7 +82,7 @@ void Application::_connectServer()
                 continue;
             if (networkInfo->connect == true) {
                 networkInfo->connect = false;
-                _sceneManager->_changeScene(std::make_pair<size_t, std::string>(0, "firstScene.json"));
+                _sceneManager->changeScene(std::make_pair<size_t, std::string>(0, "firstScene.json"));
                  _client = std::make_shared<Network::Client>(networkInfo->serverIp, std::atoi(networkInfo->serverPort.c_str()), 4445);
                 _client->connect([this](Network::UDPPacket packet, ECS::Registry& reg) {
                     this->_packetHandler(std::move(packet), *_registry);
@@ -96,7 +96,7 @@ void Application::_connectServer()
 
             if (player && !player->isAlive) {
                 player->isAlive = true;
-                _sceneManager->_changeScene(std::make_pair<size_t, std::string>(0, "endScene.json"));
+                _sceneManager->changeScene(std::make_pair<size_t, std::string>(0, "endScene.json"));
             }
         }
     } catch(const std::exception& e) {
