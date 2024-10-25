@@ -103,4 +103,22 @@ void sendPacketCreateRoom(std::shared_ptr<INetworkUnit> networkUnit, std::string
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ROOM), message->createCreateRoomPayload(roomName, privateRoom, roomPassword, cheatsRoom, playerMaxRoom), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
+void sendPacketJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, std::string roomName, std::string password)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::JOIN_ROOM), message->createJoinRoomPayload(roomName, password), networkUnit->getIdMessage(), networkUnit->getToken()));
+}
+
+std::tuple<std::string, int, int> getCreatedRoomInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        throw ABIError("Failed to create RoomMessage class");
+    return message->getCreatedRoomInfoFromPacket(packet);
+}
+
 }

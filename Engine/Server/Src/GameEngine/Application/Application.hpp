@@ -67,14 +67,17 @@ class Application {
         void _packetHandler();
 
         /**
-         * @brief Check if no player are connected.
+         * @brief Handle the packet GET_ROOM.
          *
-         * @return true No player connected.
-         * @return false One or more players connected.
+         * @param packet Packet to handle.
          */
-        bool noPlayerConnected();
-
         void _handleGetRoom(ABINetwork::UDPPacket packet);
+
+        /**
+         * @brief Handle the packet CREATE_ROOM.
+         *
+         * @param packet Packet to handle.
+         */
         void _handleCreateRoom(ABINetwork::UDPPacket packet);
 
         std::shared_ptr<ABINetwork::INetworkUnit>                   _server;            // Network class for server.

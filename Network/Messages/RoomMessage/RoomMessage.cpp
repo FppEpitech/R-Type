@@ -92,4 +92,41 @@ Payload &RoomMessage::createCreatedRoomPayload(roomInfo_t infos)
     return _payload;
 }
 
+Payload &RoomMessage::createJoinRoomPayload(std::string roomName, std::string password)
+{
+    _payload.clear();
+
+    uint32_t roomNameLength = roomName.size();
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&roomNameLength), reinterpret_cast<uint8_t*>(&roomNameLength) + sizeof(uint32_t));
+    _payload.insert(_payload.end(), roomName.begin(), roomName.end());
+
+    uint32_t passwordLength = password.size();
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&passwordLength), reinterpret_cast<uint8_t*>(&passwordLength) + sizeof(uint32_t));
+    _payload.insert(_payload.end(), password.begin(), password.end());
+
+    return _payload;
+}
+
+std::tuple<std::string, int, int> RoomMessage::getCreatedRoomInfoFromPacket(UDPPacket packet)
+{
+    size_t offset = 0;
+
+    uint32_t roomNameLength;
+    std::memcpy(&roomNameLength, &packet.getPayload()[offset], sizeof(uint32_t));
+    offset += sizeof(uint32_t);
+    std::string roomName;
+    roomName.assign(reinterpret_cast<const char*>(&packet.getPayload()[offset]), roomNameLength);
+    offset += roomNameLength;
+
+    int tcpPort;
+    std::memcpy(&tcpPort, &packet.getPayload()[offset], sizeof(int));
+    offset += sizeof(int);
+
+    int udpPort;
+    std::memcpy(&udpPort, &packet.getPayload()[offset], sizeof(int));
+    offset += sizeof(int);
+
+    return {roomName, tcpPort, udpPort};
+}
+
 }

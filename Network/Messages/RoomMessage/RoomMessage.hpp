@@ -70,7 +70,7 @@ class RoomMessage : public AMessage
          * @param roomPassword Room password, empty if not private.
          * @param cheatsRoom Allow or not cheats in the room.
          * @param playerMaxRoom Set the number of player allowed in the room.
-         * @return Payload& for createRoom.
+         * @return Payload& for get Room.
          */
         Payload &createCreateRoomPayload(std::string roomName, bool privateRoom, std::string roomPassword, bool cheatsRoom, int playerMaxRoom);
 
@@ -86,9 +86,26 @@ class RoomMessage : public AMessage
          * @brief Create a Create Room Payload object.
          *
          * @param infos Infos about the room created.
-         * @return Payload&
+         * @return Payload& for create room.
          */
         Payload &createCreatedRoomPayload(roomInfo_t infos);
+
+        /**
+         * @brief Create a Join Room Payload object.
+         *
+         * @param roomName Name of the room to join.
+         * @param password Password of the room, empty if no password needed.
+         * @return Payload& for join room.
+         */
+        Payload &createJoinRoomPayload(std::string roomName, std::string password);
+
+        /**
+         * @brief Get the Created Room Info From Packet object.
+         *
+         * @param packet Packet to get infos.
+         * @return std::tuple<std::string, int, int> Infos of created room.
+         */
+        std::tuple<std::string, int, int> getCreatedRoomInfoFromPacket(UDPPacket packet);
 
         private:
 

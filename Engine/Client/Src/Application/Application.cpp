@@ -7,24 +7,6 @@
 
 #include "Application.hpp"
 
-void Application::_packetHandler(Network::UDPPacket packet, ECS::Registry& reg)
-{
-    // uint32_t componentTypeLength = static_cast<size_t>(packet.getPayload()[0]);
-
-    // if (packet.getPayload().size() < 1 + componentTypeLength) {
-    //     std::cerr << "Payload is too small." << std::endl;
-    //     return;
-    // }
-    // std::string componentType(packet.getPayload().begin() + 1, packet.getPayload().begin() + 1 + componentTypeLength);
-
-    // int idxPacketEntities = (packet.getPayload()[1 + componentTypeLength] << 24) |
-    //                         (packet.getPayload()[2 + componentTypeLength] << 16) |
-    //                         (packet.getPayload()[3 + componentTypeLength] << 8)  |
-    //                         packet.getPayload()[4 + componentTypeLength];
-
-    // _sceneManager->processUpdate(componentType, packet);
-}
-
 Application::Application()
 {
     _registry = std::make_shared<ECS::Registry>();
@@ -33,6 +15,25 @@ Application::Application()
     _initDefaultGraphicSystems();
 
     _client = nullptr;
+}
+
+void Application::_packetHandler()
+{
+    std::lock_guard<std::mutex> lock(_client->getMutex());
+    std::vector<ABINetwork::UDPPacket> messages = _client->getReceivedMessages();
+
+    for (auto packet : messages) {
+        auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
+        _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
+    }
+}
+
+void Application::_handleCreateRoomPacket(ABINetwork::UDPPacket packet)
+{
+    std::tuple<std::string, int, int> roomCreated = ABINetwork::getCreatedRoomInfoFromPacket(packet);
+    _roomInfos.tcpPort = std::get<1>(roomCreated);
+    _roomInfos.udpPort = std::get<2>(roomCreated);
+    ABINetwork::sendPacketJoinRoom(_client, std::get<0>(roomCreated), _roomInfos.password);
 }
 
 void Application::_initDefaultGraphicSystems()
@@ -59,8 +60,11 @@ void Application::_keyboardHandler(std::size_t key)
 
 void Application::_connectServer()
 {
-    if (!_client)
+    if (!_client) {
         _client = ABINetwork::createClient("127.0.0.1", 4444, 4445);
+        _serverInfos.tcpPort = 4444;
+        _serverInfos.udpPort = 4445;
+    }
 
 
 
@@ -107,6 +111,7 @@ void Application::run()
 
     while (libGraphic->windowIsOpen()) {
         _connectServer();
+        _packetHandler();
         _keyboardHandler(libGraphic->getKeyDownInput());
         libGraphic->startDraw();
         libGraphic->clear();
