@@ -56,6 +56,7 @@ set(SRC_EXE
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+    ../Shared/EventListener/EventListener.cpp
 )
 
 # Include directories for header files
@@ -75,6 +76,8 @@ include_directories(
     ../Shared/DefaultSystems/
     ../Shared/DefaultComponents/Entities
     ../Shared/DefaultComponents/Entities/Player
+    ../Shared/DefaultEventHandlers/
+    ../Shared/EventListener/
     ${EXE_INCLUDE_PATH}
 )
 
