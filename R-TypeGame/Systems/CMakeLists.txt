@@ -200,6 +200,8 @@ target_include_directories(Player PUBLIC
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
 )
 
+target_link_libraries(Player PRIVATE JsonCpp::JsonCpp)
+
 # system_initPlayerOne
 add_library(system_initPlayerOne SHARED
         ../Error/AError.cpp
@@ -270,7 +272,6 @@ target_link_libraries(system_initPlayerFour
         JsonCpp::JsonCpp
 )
 
-
 add_library(system_moveMobs SHARED MoveSystem/MoveMobs/MoveMobsSystem.cpp)
 
 # system_initConnectButton
@@ -297,8 +298,6 @@ target_link_libraries(system_initConnectButton
         ButtonTexturePath
         JsonCpp::JsonCpp
 )
-
-
 
 add_library(system_moveRight SHARED Move/MoveSystemRight/MoveSystemRight.cpp)
 target_link_libraries(system_moveRight PRIVATE JsonCpp::JsonCpp)
