@@ -18,6 +18,11 @@ EventListener::EventListener(std::shared_ptr<ECS::Registry> registry,
     _sceneManager = sceneManager;
     _networkUnit = networkUnit;
     _graphicLib = graphicLib;
+    if (_registry == nullptr)
+        throw EventListenerErrors("Error: registry is null");
+    // TODO: Uncomment this when the networkUnit is implemented
+    //if (_networkUnit == nullptr)
+       // throw EventListenerErrors("Error: networkUnit is null");
 }
 
 void EventListener::addHandler(const std::string &eventType, std::shared_ptr <IEventHandler> event)

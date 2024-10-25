@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "../../Error/AError.hpp"
 #include "../Client/Src/GetGraphicalLibrary/IGraphic.hpp"
 #include "Registry.hpp"
 #include "../../Network/Units/INetworkUnit.hpp"
@@ -83,4 +84,9 @@ class EventListener {
          * @param event The event to process
          */
         void processEvent(std::shared_ptr<IEvent> event);
+};
+
+class EventListenerErrors : public AError {
+    public:
+        EventListenerErrors(const std::string &message) : AError(message) {}
 };
