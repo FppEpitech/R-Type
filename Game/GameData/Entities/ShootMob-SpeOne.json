@@ -1,0 +1,42 @@
+{
+    "TextureRectComponent":
+    {
+        "path":"./Assets/mob-spe-shot-1.gif",
+        "left": 0,
+        "top": 0,
+        "width": 120,
+        "height": 45
+    },
+    "ScaleComponent": 1,
+    "Position2DComponent":
+    {
+        "x": 100,
+        "y": 100
+    },
+    "SpeedComponent":
+    {
+        "x":2,
+        "y":2
+    },
+    "VelocityComponent":
+    {
+        "vx": -100,
+        "vy": 0
+    },
+    "ShootComponent":
+    {
+        "damage": 50,
+        "friendlyFire": true,
+        "type": "Mob"
+    },
+    "SpriteSheetAnimationComponent":
+    {
+        "nbFrame": 3,
+        "timeFrame": 0.5,
+        "vx": 45,
+        "vy": 0,
+        "startX": 0,
+        "startY": 0,
+        "reverseMod": true
+    }
+}

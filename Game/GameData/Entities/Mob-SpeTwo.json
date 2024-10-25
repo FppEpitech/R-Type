@@ -32,8 +32,5 @@
         "startX": 0,
         "startY": 0,
         "reverseMod": true
-    },
-    "ShootTypeComponent": {
-        "type": "SINGLE"
     }
 }

@@ -12,6 +12,7 @@
 #include <MobComponent.hpp>
 #include <ScaleComponent.hpp>
 #include <TextureRectComponent.hpp>
+#include <ShootTypeComponent.hpp>
 
 ShootSystem::ShootSystem() :
     ASystem("ShootSystemMob")
@@ -24,19 +25,20 @@ void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
     try {
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> mobs = reg.get_components<IComponent>("MobComponent");
+        ECS::SparseArray<IComponent> shootTypes = reg.get_components<IComponent>("ShootTypeComponent");
         std::chrono::high_resolution_clock::time_point currentTime = std::chrono::high_resolution_clock::now();
 
         for (auto entity: reg.getEntities()) {
-            if (entity >= mobs.size() || entity >= positions.size())
+            if (entity >= mobs.size() || entity >= positions.size() || entity >= shootTypes.size())
                 continue;
             std::shared_ptr<MobComponent> mob = std::dynamic_pointer_cast<MobComponent>(mobs[entity]);
             if (!mob)
                 continue;
             std::chrono::duration<float> elapsedTime = std::chrono::duration_cast<std::chrono::duration<float>>(currentTime - mob->clock);
-
             if (elapsedTime.count() >= mob->shootSpeed) {
                 mob->clock = std::chrono::high_resolution_clock::now();
                 std::shared_ptr<Position2DComponent> positionMob = std::dynamic_pointer_cast<Position2DComponent>(positions[entity]);
+                std::shared_ptr<ShootTypeComponent> positionMob = std::dynamic_pointer_cast<Position2DComponent>(positions[entity]);
                 ECS::entity_t shoot = reg.spawn_entity();
                 ShootInitSystem().getFunction()(reg, shoot);
                 positions = reg.get_components<IComponent>("Position2DComponent");

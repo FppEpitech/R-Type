@@ -55,6 +55,8 @@ include_directories(
     ../Components/Velocity/
     ../Components/Editable/
     ../Components/ButtonTexturePath/
+    ../Components/ShootType/
+    ../Parser/ShootTypeParser/
     ../Components/Velocity/
     ../Components/Mob/
     ../Components/
@@ -125,6 +127,7 @@ set(COMPONENTS
         Gravity
         Life
         Mob
+        ShootType
         Planet
         Shoot
         Speed
