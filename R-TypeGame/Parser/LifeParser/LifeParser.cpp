@@ -9,7 +9,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "../../../../R-TypeGame/Components/Life/LifeComponent.hpp"
+#include "../../Components/Life/LifeComponent.hpp"
 
 std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
 {

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../../R-TypeGame/Components/Life/LifeComponent.hpp"
+#include "../../Components/Life/LifeComponent.hpp"
 
 #include <memory>
 

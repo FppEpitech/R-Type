@@ -58,7 +58,7 @@ include_directories(
     ../Components/
         ../../Engine/Shared/DefaultParser/ScaleParser/
         ../../Engine/Shared/DefaultParser/Position2DParser/
-        ../../Engine/Shared/DefaultParser/LifeParser/
+        ../Parser/LifeParser/
         ../../Engine/Shared/DefaultParser/PlayerParser/
     ../Parser/SpeedParser/
         ../../Engine/Shared/DefaultParser/TextureRectParser/
@@ -102,6 +102,10 @@ function(create_component_lib component_name)
 
     add_library(${component_name} STATIC ${COMPONENT_SRC} ${COMPONENT_HDR} ${PARSER_SRC} ${PARSER_HDR})
 
+    if(EXISTS "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
+        target_link_libraries(${component_name} PRIVATE JsonCpp::JsonCpp)
+    endif()
+
     target_include_directories(${component_name} PUBLIC
             ${CMAKE_SOURCE_DIR}/R-TypeGame/Components/${component_name}
             ${CMAKE_SOURCE_DIR}/R-TypeGame/Parser/${component_name}Parser
@@ -142,6 +146,10 @@ function(create_default_component_lib component_name)
     endif()
 
     add_library(${component_name} STATIC ${COMPONENT_SRC} ${COMPONENT_HDR} ${PARSER_SRC} ${PARSER_HDR})
+
+    if(EXISTS "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
+        target_link_libraries(${component_name} PRIVATE JsonCpp::JsonCpp)
+    endif()
 
     target_include_directories(${component_name} PUBLIC
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/${component_name}
