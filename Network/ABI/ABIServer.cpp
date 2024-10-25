@@ -109,4 +109,16 @@ roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet)
     return message->getCreateRoomInfoFromPacket(packet);
 }
 
+void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t infos)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ROOM),
+                                    message->createCreatedRoomPayload(infos),
+                                    networkUnit->getIdMessage(),
+                                    networkUnit->getToken()));
+}
+
 }

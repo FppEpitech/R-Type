@@ -31,6 +31,8 @@ namespace ABINetwork
         std::string password;
         bool cheats;
         int playerMax;
+        int tcpPort = 0;
+        int udpPort = 0;
     } roomInfo_t;
 
 /**
@@ -79,6 +81,14 @@ class RoomMessage : public AMessage
          * @return roomInfo_t Structure of Create room infos.
          */
         roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet);
+
+        /**
+         * @brief Create a Create Room Payload object.
+         *
+         * @param infos Infos about the room created.
+         * @return Payload&
+         */
+        Payload &createCreatedRoomPayload(roomInfo_t infos);
 
         private:
 

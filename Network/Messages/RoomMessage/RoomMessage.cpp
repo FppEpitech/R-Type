@@ -23,44 +23,20 @@ Payload & RoomMessage::createGetRoomPayload()
 
 Payload &RoomMessage::createCreateRoomPayload(std::string roomName, bool privateRoom, std::string roomPassword, bool cheatsRoom, int playerMaxRoom)
 {
-    // _payload.clear();
-
-    // uint8_t* NameBytes = reinterpret_cast<uint8_t*>(&roomName);
-    // _payload.insert(_payload.end(), NameBytes, NameBytes + sizeof(std::string));
-
-    // uint8_t* privateBytes = reinterpret_cast<uint8_t*>(&privateRoom);
-    // _payload.insert(_payload.end(), privateBytes, privateBytes + sizeof(bool));
-
-    // uint8_t* passwordBytes = reinterpret_cast<uint8_t*>(&roomPassword);
-    // _payload.insert(_payload.end(), passwordBytes, passwordBytes + sizeof(std::string));
-
-    // uint8_t* cheatsBytes = reinterpret_cast<uint8_t*>(&cheatsRoom);
-    // _payload.insert(_payload.end(), cheatsBytes, cheatsBytes + sizeof(bool));
-
-    // uint8_t* playerMaxBytes = reinterpret_cast<uint8_t*>(&playerMaxRoom);
-    // _payload.insert(_payload.end(), playerMaxBytes, playerMaxBytes + sizeof(int));
-
-    // return _payload;
-
     _payload.clear();
 
-    // Serialize room name: first the size, then the actual characters
     uint32_t roomNameLength = roomName.size();
     _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&roomNameLength), reinterpret_cast<uint8_t*>(&roomNameLength) + sizeof(uint32_t));
     _payload.insert(_payload.end(), roomName.begin(), roomName.end());
 
-    // Serialize privateRoom (bool)
     _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&privateRoom), reinterpret_cast<uint8_t*>(&privateRoom) + sizeof(bool));
 
-    // Serialize room password: first the size, then the actual characters
     uint32_t roomPasswordLength = roomPassword.size();
     _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&roomPasswordLength), reinterpret_cast<uint8_t*>(&roomPasswordLength) + sizeof(uint32_t));
     _payload.insert(_payload.end(), roomPassword.begin(), roomPassword.end());
 
-    // Serialize cheatsRoom (bool)
     _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&cheatsRoom), reinterpret_cast<uint8_t*>(&cheatsRoom) + sizeof(bool));
 
-    // Serialize playerMaxRoom (int)
     _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&playerMaxRoom), reinterpret_cast<uint8_t*>(&playerMaxRoom) + sizeof(int));
 
     return _payload;
@@ -99,6 +75,21 @@ roomInfo_t RoomMessage::getCreateRoomInfoFromPacket(UDPPacket packet)
     roomInfo_t infos = {roomName, privateRoom, roomPassword, cheatsRoom, playerMaxRoom};
 
     return infos;
+}
+
+Payload &RoomMessage::createCreatedRoomPayload(roomInfo_t infos)
+{
+    _payload.clear();
+
+    uint32_t roomNameLength = infos.name.size();
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&roomNameLength), reinterpret_cast<uint8_t*>(&roomNameLength) + sizeof(uint32_t));
+    _payload.insert(_payload.end(), infos.name.begin(), infos.name.end());
+
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&infos.tcpPort), reinterpret_cast<uint8_t*>(&infos.tcpPort) + sizeof(int));
+
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&infos.udpPort), reinterpret_cast<uint8_t*>(&infos.udpPort) + sizeof(int));
+
+    return _payload;
 }
 
 }

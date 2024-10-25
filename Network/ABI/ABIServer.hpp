@@ -90,4 +90,11 @@ namespace ABINetwork
      * @return roomInfo_t
      */
     roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Send Room created informations.
+     *
+     * @param infos Informations about the room created.
+     */
+    void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t infos);
 }

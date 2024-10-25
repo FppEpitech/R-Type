@@ -45,8 +45,10 @@ void GameEngine::Application::_handleCreateRoom(ABINetwork::UDPPacket packet)
             _rooms.push_back(newRoom);
             _nbRoom++;
             _threads.push_back(std::make_shared<std::thread>([&newRoom]() { newRoom.run(); }));
+            // TODO: add ports tcp and udp to roomInfo.
+            ABINetwork::sendPacketRoomCreated(_server, roomInfo);
         } catch (const std::exception& e) {
-        //     sendErrorRoomPacket();
+            // sendErrorRoomPacket();
             std::cerr << e.what() << std::endl;
             return;
         }
