@@ -17,7 +17,6 @@ namespace ABINetwork
 Payload & RoomMessage::createGetRoomPayload()
 {
     _payload.clear();
-
     return _payload;
 }
 
@@ -127,6 +126,45 @@ std::tuple<std::string, int, int> RoomMessage::getCreatedRoomInfoFromPacket(UDPP
     offset += sizeof(int);
 
     return {roomName, tcpPort, udpPort};
+}
+
+std::pair<std::string, std::string> RoomMessage::getJoinRoomInfoFromPacket(UDPPacket packet)
+{
+    size_t offset = 0;
+
+    uint32_t roomNameLength;
+    std::memcpy(&roomNameLength, &packet.getPayload()[offset], sizeof(uint32_t));
+    offset += sizeof(uint32_t);
+    std::string roomName;
+    roomName.assign(reinterpret_cast<const char*>(&packet.getPayload()[offset]), roomNameLength);
+    offset += roomNameLength;
+
+    uint32_t roomPasswordLength;
+    std::memcpy(&roomPasswordLength, &packet.getPayload()[offset], sizeof(uint32_t));
+    offset += sizeof(uint32_t);
+    std::string roomPassword;
+    roomPassword.assign(reinterpret_cast<const char*>(&packet.getPayload()[offset]), roomPasswordLength);
+    offset += roomPasswordLength;
+
+    return {roomName, roomPassword};
+}
+
+Payload &RoomMessage::createWrongRoomPasswordPayload()
+{
+    _payload.clear();
+    return _payload;
+}
+
+Payload &RoomMessage::createFullRoomPayload()
+{
+    _payload.clear();
+    return _payload;
+}
+
+Payload &RoomMessage::createAllowedToJoinRoomPayload()
+{
+    _payload.clear();
+    return _payload;
 }
 
 }

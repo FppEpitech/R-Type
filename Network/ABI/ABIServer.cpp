@@ -23,7 +23,7 @@ std::pair<std::string, std::string> getLoginInfoFromPacket(UDPPacket packet)
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
     if (!message)
-        throw ABIError("Failed to create AuthMessage class");
+        return {"", ""};
     return message->getLoginInfoFromPacket(packet);
 }
 
@@ -32,7 +32,7 @@ std::pair<std::string, std::string> getRegisterInfoFromPacket(UDPPacket packet)
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
     if (!message)
-        throw ABIError("Failed to create AuthMessage class");
+        return {"", ""};
     return message->getRegisterInfoFromPacket(packet);
 }
 
@@ -41,7 +41,7 @@ uint32_t getLogoutInfoFromPacket(UDPPacket packet)
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
     if (!message)
-        throw ABIError("Failed to create AuthMessage class");
+        return 0;
     return message->getLogoutInfoFromPacket(packet);
 }
 
@@ -55,7 +55,7 @@ int getKeyPressedInfoFromPacket(UDPPacket packet)
     std::shared_ptr<KeyPressedMessage> message = std::make_shared<KeyPressedMessage>();
 
     if (!message)
-        throw ABIError("Failed to create KeyPressedMessage class");
+        return 0;
     return message->getKeyPressedInfoFromPacket(packet);
 }
 
@@ -64,7 +64,7 @@ std::pair<std::string, std::string> getChatBoxInfoFromPacket(UDPPacket packet)
     std::shared_ptr<ChatBoxMessage> message = std::make_shared<ChatBoxMessage>();
 
     if (!message)
-        throw ABIError("Failed to create ChatBoxMessage class");
+        return {"", ""};
     return message->getChatBoxInfoFromPacket(packet);
 }
 
@@ -105,7 +105,7 @@ roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet)
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
     if (!message)
-        throw ABIError("Failed to create RoomMessage class");
+        return {};
     return message->getCreateRoomInfoFromPacket(packet);
 }
 
@@ -117,6 +117,51 @@ void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t
         return;
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ROOM),
                                     message->createCreatedRoomPayload(infos),
+                                    networkUnit->getIdMessage(),
+                                    networkUnit->getToken()));
+}
+
+std::pair<std::string, std::string> getJoinRoomInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return {"", ""};
+    return message->getJoinRoomInfoFromPacket(packet);
+}
+
+void sendPacketWrongRoomPassword(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::WRONG_ROOM_PASSWORD),
+                                    message->createWrongRoomPasswordPayload(),
+                                    networkUnit->getIdMessage(),
+                                    networkUnit->getToken()));
+}
+
+void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::FULL_ROOM),
+                                    message->createFullRoomPayload(),
+                                    networkUnit->getIdMessage(),
+                                    networkUnit->getToken()));
+}
+
+void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::JOIN_ROOM),
+                                    message->createAllowedToJoinRoomPayload(),
                                     networkUnit->getIdMessage(),
                                     networkUnit->getToken()));
 }

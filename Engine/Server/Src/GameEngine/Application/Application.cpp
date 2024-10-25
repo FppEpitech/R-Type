@@ -32,7 +32,8 @@ void GameEngine::Application::_packetHandler()
     for (auto packet : messages) {
         try {
             auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
-            _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
+            if (_handlePacketsMap.find(ABINetwork::IMessage::MessageType(messageType)) != _handlePacketsMap.end())
+                _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
         } catch (const std::exception &e) {
             std::cerr << e.what() << std::endl;
         }

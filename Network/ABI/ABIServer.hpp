@@ -86,7 +86,7 @@ namespace ABINetwork
     /**
      * @brief Get the CreateRoom Info From Packet object
      *
-     * @param packet
+     * @param packet Packet received by the client.
      * @return roomInfo_t
      */
     roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet);
@@ -97,4 +97,33 @@ namespace ABINetwork
      * @param infos Informations about the room created.
      */
     void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t infos);
+
+    /**
+     * @brief Get the Join Room Info From Packet object.
+     *
+     * @param packet Packet received by the client.
+     * @return std::pair<std::string, std::string> With roomName and roomPassword.
+     */
+    std::pair<std::string, std::string> getJoinRoomInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Send wrong room password message.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketWrongRoomPassword(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Send Full room message.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Send authorization to join room.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit);
 }

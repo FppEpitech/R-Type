@@ -67,18 +67,32 @@ class Application {
         void _packetHandler();
 
         /**
-         * @brief Handle packet recieved by the server after room creation.
+         * @brief Handle packet received by the server after room creation.
          *
          * @param packet Packet receive by the server.
          */
         void _handleCreateRoomPacket(ABINetwork::UDPPacket packet);
 
         /**
-         * @brief Handle packet recieved by the server after send join room request.
+         * @brief Handle packet received by the server after send join room request.
          *
          * @param packet Packet receive by the server.
          */
         void _handleJoinRoomPacket(ABINetwork::UDPPacket packet);
+
+        /**
+         * @brief Handle packet received by the server after wrong password room request.
+         *
+         * @param packet Packet receive by the server.
+         */
+        void _handleWrongRoomPasswordPacket(ABINetwork::UDPPacket packet);
+
+        /**
+         * @brief Handle packet received by the server for full room.
+         *
+         * @param packet Packet receive by the server.
+         */
+        void _handleFullRoomPacket(ABINetwork::UDPPacket packet);
 
         /**
          * @brief Connect to the server.
@@ -106,7 +120,9 @@ class Application {
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
             {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoomPacket(packet); }},
-            {ABINetwork::IMessage::MessageType::JOIN_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleJoinRoomPacket(packet); }}
+            {ABINetwork::IMessage::MessageType::JOIN_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleJoinRoomPacket(packet); }},
+            {ABINetwork::IMessage::MessageType::WRONG_ROOM_PASSWORD, [this](ABINetwork::UDPPacket packet) { this->_handleWrongRoomPasswordPacket(packet); }},
+            {ABINetwork::IMessage::MessageType::FULL_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleFullRoomPacket(packet); }}
         };
 
         networkInstance_t _serverInfos; // Informations about the server.

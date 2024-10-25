@@ -26,11 +26,11 @@ namespace ABINetwork
      *
      */
     typedef struct roomInfo_s {
-        std::string name;
-        bool isPrivate;
-        std::string password;
-        bool cheats;
-        int playerMax;
+        std::string name = "";
+        bool isPrivate = false;
+        std::string password = "";
+        bool cheats = false;
+        int playerMax = 0;
         int tcpPort = 0;
         int udpPort = 0;
     } roomInfo_t;
@@ -106,6 +106,35 @@ class RoomMessage : public AMessage
          * @return std::tuple<std::string, int, int> Infos of created room.
          */
         std::tuple<std::string, int, int> getCreatedRoomInfoFromPacket(UDPPacket packet);
+
+        /**
+         * @brief Get the Join Room Info From Packet object.
+         *
+         * @param packet Packet to get infos.
+         * @return std::pair<std::string, std::string> With roomName and roomPassword
+         */
+        std::pair<std::string, std::string> getJoinRoomInfoFromPacket(UDPPacket packet);
+
+        /**
+         * @brief Create a Wrong Room Password Payload object.
+         *
+         * @return Payload& for wrong password.
+         */
+        Payload &createWrongRoomPasswordPayload();
+
+        /**
+         * @brief Create a Full Room Payload object
+         *
+         * @return Payload& for full room.
+         */
+        Payload &createFullRoomPayload();
+
+        /**
+         * @brief Create a Allowed To Join Room Payload object.
+         *
+         * @return Payload& for authorization to join room.
+         */
+        Payload &createAllowedToJoinRoomPayload();
 
         private:
 

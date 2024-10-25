@@ -101,6 +101,16 @@ void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
     _client = room;
 }
 
+void Application::_handleWrongRoomPasswordPacket(ABINetwork::UDPPacket packet)
+{
+    // TODO: display the wrong password menu.
+}
+
+void Application::_handleFullRoomPacket(ABINetwork::UDPPacket packet)
+{
+    // TODO: display the full room menu.
+}
+
 void Application::_connectServer()
 {
     if (!_client) {
@@ -108,8 +118,6 @@ void Application::_connectServer()
         _serverInfos.tcpPort = 4444;
         _serverInfos.udpPort = 4445;
     }
-
-
 
     // std::lock_guard<std::mutex> lock(this->_registry->_myBeautifulMutex);
     // try {
