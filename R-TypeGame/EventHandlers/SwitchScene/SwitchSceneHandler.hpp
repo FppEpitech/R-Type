@@ -8,6 +8,7 @@
 #pragma once
 
 #include "AEventHandler.hpp"
+#include "../Error/AError.hpp"
 
 class SwitchSceneHandler : public AEventHandler {
 
@@ -37,4 +38,16 @@ class SwitchSceneHandler : public AEventHandler {
          * @return false if the event has not been processed
          */
         bool processEvent(std::shared_ptr<IEvent> event, std::shared_ptr<SceneManager::ISceneManager> sceneManager, std::shared_ptr<ABINetwork::INetworkUnit> networkUnit, std::shared_ptr<IGraphic> graphicLib) override;
+};
+
+class SwitchSceneHandlerError : public AError {
+
+    public:
+
+        /**
+         * @brief Construct a new SwitchSceneHandlerError object
+         *
+         * @param message Message
+         */
+        SwitchSceneHandlerError(std::string message);
 };
