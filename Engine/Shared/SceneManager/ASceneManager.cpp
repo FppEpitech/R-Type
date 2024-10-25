@@ -27,7 +27,7 @@ bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntitie
         return true;
     }
     if (_keysScenes.find(key) != _keysScenes.end()) {
-        _changeScene(_keysScenes.at(key));
+        changeScene(_keysScenes.at(key));
         return true;
     }
     return false;
@@ -135,7 +135,7 @@ void SceneManager::ASceneManager::_loadSceneKeysSystem(std::string key, std::str
         throw SceneManagerJsonErrors("Error while loading the key: " + key);
 }
 
-void SceneManager::ASceneManager::_changeScene(std::pair<std::size_t, std::string> scene)
+void SceneManager::ASceneManager::changeScene(std::pair<std::size_t, std::string> scene)
 {
     _keysScenes.clear();
     _keysSystems.clear();
