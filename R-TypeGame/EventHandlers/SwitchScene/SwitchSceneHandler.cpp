@@ -22,7 +22,7 @@ bool SwitchSceneHandler::processEvent(std::shared_ptr<IEvent> event,
         std::pair<std::size_t, std::string> scenePair = std::make_pair(0, sceneName);
         sceneManager->changeScene(scenePair);
     } catch (const std::exception &e) {
-        throw EventHandlerErrors("Error while processing the event: " + e.what());
+        throw EventError("Error while processing the event: " + std::string(e.what()));
     }
     return true;
 }
