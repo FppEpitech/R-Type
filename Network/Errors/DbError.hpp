@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "IError.hpp"
+#include "AError.hpp"
 
 /**
  * @brief Abstract class for Db errors.
