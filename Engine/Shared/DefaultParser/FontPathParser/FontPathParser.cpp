@@ -1,17 +1,17 @@
 /*
 ** EPITECH PROJECT, 2024
-** LifeParser
+** R-Type
 ** File description:
-** LifeParser
+** FontParser.cpp
 */
 
-#include <json/json.h>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <json/json.h>
 
-#include "../../Components/Life/LifeComponent.hpp"
+#include "../../DefaultComponents/ObjPath/FontPathComponent.hpp"
 
-std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
+std::shared_ptr<FontPathComponent> parseFontPath(std::string pathFile)
 {
     try {
         std::ifstream file(pathFile);
@@ -21,10 +21,10 @@ std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
         if (!reader.parse(file, root, false))
             return nullptr;
 
-        const Json::Value& life = root["LifeComponent"];
+        const Json::Value& font = root["FontPathComponent"];
 
-        if (life)
-            return std::make_shared<LifeComponent>(life.asUInt());
+        if (font)
+            return std::make_shared<FontPathComponent>(font.asString());
         return nullptr;
     } catch (std::exception e) {
         std::cout << e.what() << std::endl;

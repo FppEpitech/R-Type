@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "LifeComponent.hpp"
+#include "../../Components/Life/LifeComponent.hpp"
 
 #include <memory>
 
