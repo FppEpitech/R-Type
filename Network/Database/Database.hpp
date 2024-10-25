@@ -15,7 +15,7 @@
 
 
 /**
- * @brief Database class
+ * @brief Database class.
  *
  */
 class Database {
@@ -24,14 +24,14 @@ class Database {
     public:
 
         /**
-         * @brief Construct a new db object
+         * @brief Construct a new db object.
          *
          * @param path Path to the Database.
          */
         Database(std::string path);
 
         /**
-         * @brief Destroy the Database object
+         * @brief Destroy the Database object.
          *
          */
         ~Database() = default;
@@ -45,7 +45,7 @@ class Database {
         // bool createTables();
 
         /**
-         * @brief Prepare a statement
+         * @brief Prepare a statement.
          *
          * @param query
          * @return sqlite3_stmt*

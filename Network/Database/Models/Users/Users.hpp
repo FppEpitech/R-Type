@@ -17,7 +17,7 @@
 class Users {
     public:
         /**
-         * @brief Construct a new Users object
+         * @brief Construct a new Users object.
          *
          * @param db
          */
@@ -37,8 +37,8 @@ class Users {
          */
         bool createUsersTable();
 
-                /**
-         * @brief Hash a password
+        /**
+         * @brief Hash a password.
          *
          * @param password
          * @return std::string
@@ -54,7 +54,7 @@ class Users {
         bool verifyPassword(std::string password, std::string hash);
 
         /**
-         * @brief Get the user data
+         * @brief Get the user data.
          *
          * @param id
          * @return userSettings
@@ -62,7 +62,7 @@ class Users {
         Users::userSettings getUserSettings(int id);
 
         /**
-         * @brief Set the User Settings object
+         * @brief Set the User Settings object.
          *
          * @param id
          * @param res_width
@@ -72,15 +72,15 @@ class Users {
         bool setUserSettings(int id, int res_width, int res_height, float daltonian_mode);
 
         /**
-         * @brief Get the username by id
+         * @brief Get the username by id.
          *
          * @param id
          * @return std::string
          */
         std::string getUsernameById(int id);
 
-                /**
-         * @brief Check if a user id exists
+        /**
+         * @brief Check if a user id exists.
          *
          * @param id
          * @return true
@@ -89,7 +89,7 @@ class Users {
         bool userIdExists(int id);
 
         /**
-         * @brief Register a user
+         * @brief Register a user.
          *
          * @param username
          * @param password
@@ -98,7 +98,7 @@ class Users {
         int registerUser(std::string username, std::string password);
 
         /**
-         * @brief Login a user
+         * @brief Login a user.
          *
          * @param username
          * @param password
@@ -107,7 +107,7 @@ class Users {
         int loginUser(std::string username, std::string password);
 
         /**
-         * @brief User settings struct
+         * @brief User settings struct.
          *
          * @param res_width
          * @param res_height
@@ -120,7 +120,10 @@ class Users {
         };
 
     private:
-        Database *_dbcore; // Database object
-        std::shared_ptr<sqlite3> _db; // Database pointer
-        std::shared_ptr<int> _rc; // Database return code
+        Database *_dbcore; // Database object.
+
+        std::shared_ptr<sqlite3> _db; // Database pointer.
+
+        std::shared_ptr<int> _rc; // Database return code.
+
 };

@@ -18,7 +18,7 @@ class Scores {
     public:
 
         /**
-         * @brief Construct a new Scores object
+         * @brief Construct a new Scores object.
          *
          * @param db
          */
