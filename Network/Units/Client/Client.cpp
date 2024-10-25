@@ -69,4 +69,9 @@ void Client::sendMessage(std::vector<uint8_t> message)
     _udp_socket->async_send_to(asio::buffer(message), *_server_endpoint, [](const asio::error_code&, std::size_t) {});
 }
 
+int Client::getNumberClient()
+{
+    throw ABIError("A client unit can't have client connected.");
+}
+
 }

@@ -104,7 +104,7 @@ namespace ABINetwork
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      */
-    void leaveRoom(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketLeaveRoom(std::shared_ptr<INetworkUnit> networkUnit);
 
     /**
      * @brief Deletes a room from the server.

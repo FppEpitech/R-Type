@@ -49,6 +49,14 @@ class Client : public ANetworkUnit
          */
         void sendMessage(std::vector<uint8_t> message) override;
 
+        /**
+         * @brief Get the Number Client connected.
+         *
+         * @return int Number of client connected.
+         * @throw Error if getNumberClient of a Client Unit.
+         */
+        int getNumberClient() override;
+
     private:
 
         std::string                                 _serverIp;          // Server ip adress.

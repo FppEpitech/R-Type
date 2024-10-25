@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <unordered_map>
+
 #include "Registry.hpp"
 #include "ABIServer.hpp"
 #include "ServerErrors.hpp"
@@ -69,6 +71,26 @@ class Room {
 
     private:
 
+        /**
+         * @brief Function who handle the packets received.
+         *
+         */
+        void _packetHandler();
+
+        /**
+         * @brief Handle the packet KEY.
+         *
+         * @param packet Packet to handle.
+         */
+        void _handleKey(ABINetwork::UDPPacket packet);
+
+        /**
+         * @brief Handle the packet LEAVE_ROOM.
+         *
+         * @param packet Packet to handle.
+         */
+        void _handleLeaveRoom(ABINetwork::UDPPacket packet);
+
         std::string         _nameRoom;          // Room name.
         std::string         _passwordRoom;      // Room password if private.
         bool                _cheats;            // True if cheats are allowed.
@@ -82,11 +104,10 @@ class Room {
         std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
         std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
 
-        /**
-         * @brief Function who handle the packets received.
-         *
-         */
-        void _packetHandler();
+        std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
+            {ABINetwork::IMessage::MessageType::KEY, [this](ABINetwork::UDPPacket packet) { this->_handleKey(packet); }},
+            {ABINetwork::IMessage::MessageType::LEAVE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleLeaveRoom(packet); }}
+        };
 };
 
 } // namespace GameEngine

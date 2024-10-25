@@ -106,6 +106,12 @@ Payload &RoomMessage::createJoinRoomPayload(std::string roomName, std::string pa
     return _payload;
 }
 
+Payload &RoomMessage::createLeaveRoomPayload()
+{
+    _payload.clear();
+    return _payload;
+}
+
 std::tuple<std::string, int, int> RoomMessage::getCreatedRoomInfoFromPacket(UDPPacket packet)
 {
     size_t offset = 0;

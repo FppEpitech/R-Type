@@ -94,6 +94,14 @@ class INetworkUnit
          * @return std::mutex Mutex to lock inter thread datas.
          */
         virtual std::mutex &getMutex() = 0;
+
+        /**
+         * @brief Get the Number Client connected.
+         *
+         * @return int Number of client connected.
+         * @throw Error if getNumberClient of a Client Unit.
+         */
+        virtual int getNumberClient() = 0;
 };
 
 }

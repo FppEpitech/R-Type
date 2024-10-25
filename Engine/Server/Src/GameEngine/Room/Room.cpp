@@ -27,6 +27,15 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
     _numberPlayers = 0;
 }
 
+void GameEngine::Room::run()
+{
+    while (_isRoomOpen) {
+        _numberPlayers = _roomServer->getNumberClient();
+        _packetHandler();
+        _registries->run_systems(-1);
+    }
+}
+
 void GameEngine::Room::_packetHandler()
 {
     std::lock_guard<std::mutex> lock(_roomServer->getMutex());
@@ -35,31 +44,40 @@ void GameEngine::Room::_packetHandler()
 
     for (auto packet : messages) {
 
-        auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
-
-        if (ABINetwork::IMessage::MessageType(messageType) == ABINetwork::IMessage::MessageType::KEY) {
-
-            int idxPlayerPacket = -1;
-            ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
-            for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-                PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-                if (player && player->token == packet.getToken()) {
-                    idxPlayerPacket = index;
-                    break;
-                }
-            }
-            uint8_t keyCode = packet.getPayload()[0];
-            _sceneManager->processInput(KEY_MAP(keyCode), idxPlayerPacket);
-            continue;
+        try {
+            auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
+            if (_handlePacketsMap.find(ABINetwork::IMessage::MessageType(messageType)) != _handlePacketsMap.end())
+                _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
         }
     }
 }
 
-void GameEngine::Room::run()
+void GameEngine::Room::_handleKey(ABINetwork::UDPPacket packet)
 {
-    while (_isRoomOpen) {
-        _packetHandler();
-        _registries->run_systems(-1);
+    int idxPlayerPacket = -1;
+    ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
+    for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+        PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+        if (player && player->token == packet.getToken()) {
+            idxPlayerPacket = index;
+            break;
+        }
+    }
+    uint8_t keyCode = packet.getPayload()[0];
+    _sceneManager->processInput(KEY_MAP(keyCode), idxPlayerPacket);
+}
+
+void GameEngine::Room::_handleLeaveRoom(ABINetwork::UDPPacket packet)
+{
+    ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
+    for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+        PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+        if (player && player->token == packet.getToken()) {
+            player->token = 0;
+            break;
+        }
     }
 }
 

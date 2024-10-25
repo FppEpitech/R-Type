@@ -101,6 +101,14 @@ class ANetworkUnit : public INetworkUnit
          */
         std::mutex &getMutex() override;
 
+        /**
+         * @brief Get the Number Client connected.
+         *
+         * @return int Number of client connected.
+         * @throw Error if getNumberClient of a Client Unit.
+         */
+        virtual int getNumberClient() = 0;
+
     protected:
 
         uint32_t                                _token;                      // Token of client (used to be identify on server)

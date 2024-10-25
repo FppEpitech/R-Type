@@ -100,6 +100,13 @@ class RoomMessage : public AMessage
         Payload &createJoinRoomPayload(std::string roomName, std::string password);
 
         /**
+         * @brief Create a Leave Room Payload object.
+         *
+         * @return Payload& for leaving room.
+         */
+        Payload & createLeaveRoomPayload();
+
+        /**
          * @brief Get the Created Room Info From Packet object.
          *
          * @param packet Packet to get infos.
