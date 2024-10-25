@@ -89,8 +89,6 @@ include_directories(
 )
 
 # Compile all component in static lib
-
-# Fonction pour créer les bibliothèques statiques
 function(create_component_lib component_name)
     set(COMPONENT_SRC "${CMAKE_SOURCE_DIR}/R-TypeGame/Components/${component_name}/${component_name}Component.cpp")
     set(COMPONENT_HDR "${CMAKE_SOURCE_DIR}/R-TypeGame/Components/${component_name}/${component_name}Component.hpp")
@@ -127,17 +125,15 @@ set(COMPONENTS
         Velocity
 )
 
-# Boucle sur chaque composant pour créer la bibliothèque
 foreach(component ${COMPONENTS})
     create_component_lib(${component})
 endforeach()
 
+# Compile all default component in static lib
 function(create_default_component_lib component_name)
-    # Chemin vers les fichiers sources et headers du composant
     set(COMPONENT_SRC "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/${component_name}/${component_name}Component.cpp")
     set(COMPONENT_HDR "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/${component_name}/${component_name}Component.hpp")
 
-    # Vérifie si un parser existe pour ce composant
     set(PARSER_SRC "")
     set(PARSER_HDR "")
     if(EXISTS "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
@@ -154,7 +150,6 @@ function(create_default_component_lib component_name)
     )
 endfunction()
 
-# Liste des composants à compiler
 set(COMPONENTS
         Colour
         DefaultText
@@ -180,7 +175,6 @@ set(COMPONENTS
         TextureRect
 )
 
-# Boucle sur chaque composant pour créer la bibliothèque
 foreach(component ${COMPONENTS})
     create_default_component_lib(${component})
 endforeach()
@@ -198,14 +192,12 @@ target_include_directories(Player PUBLIC
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
 )
 
-# Add a shared library target 'system_initPlayer'
 # system_initPlayerOne
 add_library(system_initPlayerOne SHARED
         ../Error/AError.cpp
         Players/PlayerInitOneSystem.cpp
 )
 
-# Lier les bibliothèques statiques des composants
 target_link_libraries(system_initPlayerOne
         Position2D
         Scale
@@ -216,7 +208,7 @@ target_link_libraries(system_initPlayerOne
         Life
         Speed
         Shoot
-        JsonCpp::JsonCpp # Dépendance à jsoncpp
+        JsonCpp::JsonCpp
 )
 
 # system_initPlayerTwo
@@ -225,7 +217,6 @@ add_library(system_initPlayerTwo SHARED
         Players/PlayerInitTwoSystem.cpp
 )
 
-# Lier les bibliothèques statiques des composants
 target_link_libraries(system_initPlayerTwo
         Position2D
         Scale
@@ -234,7 +225,7 @@ target_link_libraries(system_initPlayerTwo
         Draw
         Life
         Speed
-        JsonCpp::JsonCpp # Dépendance à jsoncpp
+        JsonCpp::JsonCpp
 )
 
 # system_initPlayerThree
@@ -243,7 +234,6 @@ add_library(system_initPlayerThree SHARED
         ../Error/AError.cpp
 )
 
-# Lier les bibliothèques statiques des composants
 target_link_libraries(system_initPlayerThree
         Position2D
         Scale
@@ -252,7 +242,7 @@ target_link_libraries(system_initPlayerThree
         Draw
         Life
         Speed
-        JsonCpp::JsonCpp # Dépendance à jsoncpp
+        JsonCpp::JsonCpp
 )
 
 # system_initPlayerFour
@@ -261,7 +251,6 @@ add_library(system_initPlayerFour SHARED
         ../Error/AError.cpp
 )
 
-# Lier les bibliothèques statiques des composants
 target_link_libraries(system_initPlayerFour
         Position2D
         Scale
@@ -270,20 +259,19 @@ target_link_libraries(system_initPlayerFour
         Draw
         Life
         Speed
-        JsonCpp::JsonCpp # Dépendance à jsoncpp
+        JsonCpp::JsonCpp
 )
 
 
 add_library(system_moveMobs SHARED MoveSystem/MoveMobs/MoveMobsSystem.cpp)
 
-# Bibliothèque partagée pour system_initConnectButton
+# system_initConnectButton
 add_library(system_initConnectButton SHARED
         ../Error/AError.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
 )
 
-# Lier les bibliothèques statiques compilées précédemment (signature plain)
 target_link_libraries(system_initConnectButton
         Position2D
         Scale
