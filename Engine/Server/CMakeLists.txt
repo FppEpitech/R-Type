@@ -65,7 +65,7 @@ set(SRC_EXE
 # Include directories for header files
 include_directories(
     ${EXE_SRC_PATH}/Network
-    ${EXE_SRC_PATH}/GameEngine/Errors
+    # ${EXE_SRC_PATH}/GameEngine/Errors
     ${EXE_SRC_PATH}/GameEngine/Application
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager
     ../Ecs/Src
