@@ -46,7 +46,7 @@ int Scores::getUserBestScore(int id) {
     return score;
 }
 
-std::vector<std::pair<std::string,int>> Scores::getLeaderboard() {
+std::vector<std::pair<std::string,int>> Scores::getLeaderboard(Users users) {
     std::string req("SElECT id, MAX(score) FROM scores GROUP BY id ORDER BY MAX(score) DESC LIMIT 10;");
 
     sqlite3_stmt *stmt = _dbcore->prepareStmt(req);
@@ -55,7 +55,7 @@ std::vector<std::pair<std::string,int>> Scores::getLeaderboard() {
 
     std::vector<std::pair<std::string,int>> scores;
     while (sqlite3_step(stmt) == SQLITE_ROW)
-        scores.push_back(std::pair(_dbcore->getUsernameById(sqlite3_column_int(stmt, 0)), sqlite3_column_int(stmt, 1)));
+        scores.push_back(std::pair(users.getUsernameById(sqlite3_column_int(stmt, 0)), sqlite3_column_int(stmt, 1)));
     sqlite3_finalize(stmt);
     return scores;
 }

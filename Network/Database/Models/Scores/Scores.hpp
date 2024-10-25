@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Database.hpp"
+#include "Users.hpp"
 
 class Scores {
     public:
@@ -58,11 +59,10 @@ class Scores {
          *
          * @return std::vector<int>
          */
-        std::vector<std::pair<std::string,int>> getLeaderboard();
+        std::vector<std::pair<std::string,int>> getLeaderboard(Users users);
 
     private:
         Database *_dbcore; // Database object
         std::shared_ptr<sqlite3> _db; // Database pointer
         std::shared_ptr<int> _rc; // Database return code
 };
-    

@@ -57,6 +57,7 @@ set(SRC_EXE
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
     ../../Network/Database/Database.cpp
     ../../Network/Database/Models/Scores/Scores.cpp
+    ../../Network/Database/Models/Users/Users.cpp
 )
 
 # Include directories for header files
@@ -78,6 +79,7 @@ include_directories(
     ../../Network/Database
     ../../Network/Errors
     ../../Network/Database/Models/Scores
+    ../../Network/Database/Models/Users
     ${EXE_INCLUDE_PATH}
 )
 

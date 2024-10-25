@@ -8,6 +8,7 @@
 #include "Application/Application.hpp"
 #include "Database.hpp"
 #include "Scores.hpp"
+#include "Users.hpp"
 
 int main()
 {
@@ -20,12 +21,13 @@ int main()
 
     Database db("db.db");
     Scores scores(&db);
+    Users users(&db);
 
-    std::cout << db.registerUser("theophile", "test") << std::endl;
+    std::cout << users.registerUser("theophile", "test") << std::endl;
 
-    std::cout << db.loginUser("theophile", "test"  ) << std::endl;
+    std::cout << users.loginUser("theophile", "test"  ) << std::endl;
 
-    for (auto i : scores.getLeaderboard()) {
+    for (auto i : scores.getLeaderboard(users)) {
         std::cout << i.first << " " << i.second << std::endl;
     }
 
