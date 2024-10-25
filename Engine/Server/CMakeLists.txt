@@ -32,6 +32,7 @@ set(SRC_EXE
     ${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
     ../Error/AError.cpp
+    ../Shared/Consumption/ConsumptionCompute.cpp
     ../Shared/SceneManager/ASceneManager.cpp
     ../Shared/DefaultComponents/Draw/DrawComponent.cpp
     ../Shared/DefaultComponents/FontPath/FontPathComponent.cpp
@@ -58,6 +59,7 @@ set(SRC_EXE
     ../../Network/Database/Database.cpp
     ../../Network/Database/Models/Scores/Scores.cpp
     ../../Network/Database/Models/Users/Users.cpp
+    ../Shared/EventListener/EventListener.cpp
 )
 
 # Include directories for header files
@@ -72,6 +74,7 @@ include_directories(
     ../Shared/Network/Packet
     ../Shared/Component
     ../Shared
+    ../Shared/Consumption/
     ../Shared/DefaultComponents/
     ../Shared/DefaultSystems/
     ../Shared/DefaultComponents/Entities
@@ -80,6 +83,8 @@ include_directories(
     ../../Network/Errors
     ../../Network/Database/Models/Scores
     ../../Network/Database/Models/Users
+    ../Shared/DefaultEventHandlers/
+    ../Shared/EventListener/
     ${EXE_INCLUDE_PATH}
 )
 
