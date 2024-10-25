@@ -12,7 +12,7 @@ Application::Application()
     _registry = std::make_shared<ECS::Registry>();
     _sceneManager = std::make_shared<SceneManager::ClientSceneManager>(_registry);
 
-    _initDefaultGraphicSystems();
+    // _initDefaultGraphicSystems();
 
     _client = nullptr;
 }
@@ -31,9 +31,9 @@ void Application::run()
         _keyboardHandler(libGraphic->getKeyDownInput());
         libGraphic->startDraw();
         libGraphic->clear();
-        _registry->run_systems(-1);
-        for (auto defaultSystem : _defaultSystems)
-            defaultSystem(*_registry, -1);
+        // _registry->run_systems(-1);
+        // for (auto defaultSystem : _defaultSystems)
+        //     defaultSystem(*_registry, -1);
         libGraphic->endDraw();
         ABINetwork::sendMessages(_client);
     }
@@ -55,7 +55,8 @@ void Application::_keyboardHandler(std::size_t key)
             return;
         // if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
         //     return;
-        ABINetwork::sendPacketKey(_client, key);
+        // ABINetwork::sendPacketKey(_client, key);
+        ABINetwork::sendPacketCreateRoom(_client, "BOB", false, "", false, 9);
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }

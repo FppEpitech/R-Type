@@ -7,8 +7,10 @@
 
 #include "Room.hpp"
 
-GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
+GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo, std::vector<std::tuple<std::string, int, int>> queueInterProcess, std::mutex &mutex)
 {
+    std::cout << "start" << std::endl;
+    std::lock_guard<std::mutex> lock(mutex);
     if (roomInfo.name.empty())
         throw RoomError("A room must has a name");
     if (roomInfo.isPrivate && roomInfo.password.empty())
@@ -20,38 +22,42 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
     _maxPlayers = roomInfo.playerMax;
     _cheats = roomInfo.cheats;
 
-    _roomServer = ABINetwork::createServer(_maxPlayers);
+    // _roomServer = ABINetwork::createServer(_maxPlayers);
     _registries = std::make_shared<ECS::Registry>();
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
     _isRoomOpen = true;
     _numberPlayers = 0;
+
+    _queueInterProcess = queueInterProcess;
+    _queueInterProcess.push_back({_nameRoom, 2, 3});
+    std::cout << "end" << std::endl;
 }
 
 void GameEngine::Room::run()
 {
     while (_isRoomOpen) {
-        _numberPlayers = _roomServer->getNumberClient();
-        _packetHandler();
-        _registries->run_systems(-1);
+    // //     // _numberPlayers = _roomServer->getNumberClient();
+    //     _packetHandler();
+    // //     _registries->run_systems(-1);
     }
 }
 
 void GameEngine::Room::_packetHandler()
 {
-    std::lock_guard<std::mutex> lock(_roomServer->getMutex());
+    // std::lock_guard<std::mutex> lock(_roomServer->getMutex());
 
-    std::vector<ABINetwork::UDPPacket> messages = _roomServer->getReceivedMessages();
+    // std::vector<ABINetwork::UDPPacket> messages = _roomServer->getReceivedMessages();
 
-    for (auto packet : messages) {
+    // for (auto packet : messages) {
 
-        try {
-            auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
-            if (_handlePacketsMap.find(ABINetwork::IMessage::MessageType(messageType)) != _handlePacketsMap.end())
-                _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
-        } catch (const std::exception &e) {
-            std::cerr << e.what() << std::endl;
-        }
-    }
+    //     try {
+    //         auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
+    //         if (_handlePacketsMap.find(ABINetwork::IMessage::MessageType(messageType)) != _handlePacketsMap.end())
+    //             _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
+    //     } catch (const std::exception &e) {
+    //         std::cerr << e.what() << std::endl;
+    //     }
+    // }
 }
 
 void GameEngine::Room::_handleKey(ABINetwork::UDPPacket packet)

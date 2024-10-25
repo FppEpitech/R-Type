@@ -21,7 +21,22 @@ void GameEngine::Application::run()
 {
     while (true) {
         _packetHandler();
+        _waitingForRoomCreation();
     }
+}
+
+void GameEngine::Application::_waitingForRoomCreation()
+{
+    // std::lock_guard<std::mutex> lock(_server->getMutex());
+    // for (auto queue : _interProcessQueues) {
+    //     if (_playerWaitingRoomCreation.find(std::get<0>(queue)) == _playerWaitingRoomCreation.end())
+    //         continue;
+    //     std::cout << "YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
+    //     _playerWaitingRoomCreation[std::get<0>(queue)].second.tcpPort = std::get<1>(queue);
+    //     _playerWaitingRoomCreation[std::get<0>(queue)].second.udpPort = std::get<2>(queue);
+    //     ABINetwork::sendPacketRoomCreated(_server, _playerWaitingRoomCreation[std::get<0>(queue)].second);
+    //     _playerWaitingRoomCreation.erase(std::get<0>(queue));
+    // }
 }
 
 void GameEngine::Application::_packetHandler()
@@ -53,12 +68,12 @@ void GameEngine::Application::_handleCreateRoom(ABINetwork::UDPPacket packet)
     else {
         ABINetwork::roomInfo_t roomInfo = ABINetwork::getCreateRoomInfoFromPacket(packet);
         try {
-            std::shared_ptr<GameEngine::Room> newRoom = std::make_shared<GameEngine::Room>(roomInfo);
-            _rooms[roomInfo.name] = newRoom;
-            _nbRoom++;
+            std::shared_ptr<GameEngine::Room> newRoom = std::make_shared<GameEngine::Room>(roomInfo, _interProcessQueues, _roomCreationMutex);
+            // _rooms[roomInfo.name] = newRoom;
+            // _nbRoom++;
             _threads.push_back(std::make_shared<std::thread>([&newRoom]() { newRoom->run(); }));
-            // TODO: add ports tcp and udp to roomInfo.
-            ABINetwork::sendPacketRoomCreated(_server, roomInfo);
+            // std::cout << "haha" << std::endl;
+            // _playerWaitingRoomCreation[roomInfo.name] = {packet.getToken(), roomInfo};
         } catch (const std::exception& e) {
             // sendErrorRoomPacket();
             std::cerr << e.what() << std::endl;

@@ -34,7 +34,7 @@ class Room {
          * @brief Construct a new Room object.
          *
          */
-        Room(ABINetwork::roomInfo_t roomInfo);
+        Room(ABINetwork::roomInfo_t roomInfo, std::vector<std::tuple<std::string, int, int>> queueInterProcess, std::mutex &mutex);
 
         /**
          * @brief Destroy the Room object
@@ -103,6 +103,8 @@ class Room {
         std::shared_ptr<ABINetwork::INetworkUnit>               _roomServer;        // Network Unit of the Room.
         std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
         std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
+
+        std::vector<std::tuple<std::string, int, int>>          _queueInterProcess; // Queue interProcess with server.
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
             {ABINetwork::IMessage::MessageType::KEY, [this](ABINetwork::UDPPacket packet) { this->_handleKey(packet); }},
