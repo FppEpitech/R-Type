@@ -49,5 +49,5 @@ class SwitchSceneHandlerError : public AError {
          *
          * @param message Message
          */
-        SwitchSceneHandlerError(std::string message);
+        SwitchSceneHandlerError(std::string message) : AError(message) {}
 };
