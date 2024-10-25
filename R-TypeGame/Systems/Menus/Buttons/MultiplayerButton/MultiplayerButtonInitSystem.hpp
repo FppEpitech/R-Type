@@ -11,6 +11,7 @@
 #include "AButtonInitSystem.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/multiplayerButtonSystem.json"
+#define CONNECT_TO_SERVER "Menus/serverConnectionMenu.json"
 
 /**
  * @brief MultiplayerButtonInitSystem class

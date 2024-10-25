@@ -24,7 +24,6 @@
 #include "FontPath/FontPathComponent.hpp"
 #include "MusicPath/MusicPathComponent.hpp"
 #include "SoundPath/SoundPathComponent.hpp"
-#include "Network/Packet/NetworkPacket.hpp"
 #include "MusicPitch/MusicPitchComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
 #include "Position3D/Position3DComponent.hpp"
@@ -89,7 +88,7 @@ namespace SceneManager {
              * @brief Change the current scene.
              * @param scene Scene to load.
              */
-            void _changeScene(std::pair<std::size_t, std::string> scene);
+            void changeScene(std::pair<std::size_t, std::string> scene);
 
         protected:
 
