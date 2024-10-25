@@ -8,6 +8,7 @@
 #pragma once
 
 #include "IEvent.hpp"
+#include "AError.hpp"
 
 class AEvent : public IEvent {
 
@@ -66,4 +67,16 @@ class AEvent : public IEvent {
 
         std::string             _type; //!< Type of the event
         std::vector<std::any>   _values; //!< Values of the event
+};
+
+class EventError : public AError {
+
+    public:
+
+        /**
+         * @brief Construct a new EventError object
+         *
+         * @param message Message of the error
+         */
+        EventError(std::string message) : AError(message) {}
 };
