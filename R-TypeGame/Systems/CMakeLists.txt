@@ -388,6 +388,43 @@ target_link_libraries(system_initMob PRIVATE
     SpriteSheetAnimation
     Draw
     Velocity
+    ShootType
+    Mob
+    Life
+    JsonCpp::JsonCpp
+)
+
+add_library(system_initMobSpeOne SHARED
+    ../Error/AError.cpp
+    Mob/MobSpeOneInitSystem.cpp
+)
+
+target_link_libraries(system_initMobSpeOne PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    SpriteSheetAnimation
+    Draw
+    Velocity
+    ShootType
+    Mob
+    Life
+    JsonCpp::JsonCpp
+)
+
+add_library(system_initMobSpeTwo SHARED
+    ../Error/AError.cpp
+    Mob/MobSpeTwoInitSystem.cpp
+)
+
+target_link_libraries(system_initMobSpeTwo PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    SpriteSheetAnimation
+    Draw
+    Velocity
+    ShootType
     Mob
     Life
     JsonCpp::JsonCpp
@@ -398,6 +435,8 @@ add_library(system_shoot_mob SHARED
     ShootMob/ShootSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     ShootMob/ShootInitSystem.cpp
+    ShootMob/MobSpeOneShootInitSystem.cpp
+    ShootMob/MobSpeTwoShootInitSystem.cpp
 )
 
 target_link_libraries(system_shoot_mob PRIVATE
@@ -408,6 +447,8 @@ target_link_libraries(system_shoot_mob PRIVATE
     Speed
     Velocity
     Shoot
+    SpriteSheetAnimation
+    ShootType
     Colour
     JsonCpp::JsonCpp
 )

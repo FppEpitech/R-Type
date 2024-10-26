@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2024
-** MobInitSystem
+** MobSpeTwoInitSystem
 ** File description:
-** MobInitSystem
+** MobSpeTwoInitSystem
 */
 
 #include "MobParser.hpp"
@@ -10,7 +10,7 @@
 #include "ScaleParser.hpp"
 #include "MobComponent.hpp"
 #include "Draw/DrawComponent.hpp"
-#include "MobInitSystem.hpp"
+#include "MobSpeTwoInitSystem.hpp"
 #include "LifeComponent.hpp"
 #include "Scale/ScaleComponent.hpp"
 #include "VelocityParser.hpp"
@@ -20,19 +20,16 @@
 #include "Position2D/Position2DComponent.hpp"
 #include "TextureRect/TextureRectComponent.hpp"
 #include "SpriteSheetAnimationParser.hpp"
-#include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
+#include "ShootTypeParser.hpp"
 
-#include <fstream>
-#include <json/json.h>
+#define PATH_JSON "GameData/Entities/Mob-SpeTwo.json"
 
-#define PATH_JSON "GameData/Entities/Mob.json"
-
-MobInitSystem::MobInitSystem() :
-    ASystem("MobInitSystem")
+MobSpeTwoInitSystem::MobSpeTwoInitSystem() :
+    ASystem("MobSpeTwoInitSystem")
 {
 }
 
-void MobInitSystem::_initMob(ECS::Registry& reg, int idxPacketEntities)
+void MobSpeTwoInitSystem::_initMob(ECS::Registry& reg, int idxPacketEntities)
 {
     std::shared_ptr<TextureRectComponent> textureRect = parseTextureRect(PATH_JSON);
     if (textureRect) {
@@ -50,6 +47,12 @@ void MobInitSystem::_initMob(ECS::Registry& reg, int idxPacketEntities)
     if (position2D) {
         reg.register_component<IComponent>(position2D->getType());
         reg.set_component<IComponent>(idxPacketEntities, position2D, position2D->getType());
+    }
+
+    std::shared_ptr<ShootTypeComponent> shootType = parseShootType(PATH_JSON);
+    if (shootType) {
+        reg.register_component<IComponent>(shootType->getType());
+        reg.set_component<IComponent>(idxPacketEntities, shootType, shootType->getType());
     }
 
     std::shared_ptr<VelocityComponent> velocity = parseVelocity(PATH_JSON);
@@ -84,6 +87,6 @@ extern "C"
 {
     EXPORT_SYMBOL ISystem *loadSystemInstance()
     {
-        return new MobInitSystem();
+        return new MobSpeTwoInitSystem();
     }
 }

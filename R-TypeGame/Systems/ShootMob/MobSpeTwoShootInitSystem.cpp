@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2024
-** MobSpeOneShootInitSystem
+** MobSpeTwoShootInitSystem
 ** File description:
-** MobSpeOneShootInitSystem
+** MobSpeTwoShootInitSystem
 */
 
 #include "SpeedComponent.hpp"
-#include "MobSpeOneShootInitSystem.hpp"
+#include "MobSpeTwoShootInitSystem.hpp"
 #include "Scale/ScaleComponent.hpp"
 #include "Draw/DrawComponent.hpp"
 #include "TextureRect/TextureRectComponent.hpp"
@@ -21,14 +21,14 @@
 #include "ShootParser.hpp"
 #include "SpriteSheetAnimationParser.hpp"
 
-#define PATH_JSON "GameData/Entities/ShootMob-SpeOne.json"
+#define PATH_JSON "GameData/Entities/ShootMob-SpeTwo.json"
 
-MobSpeOneShootInitSystem::MobSpeOneShootInitSystem() :
-    ASystem("MobSpeOneShootInitSystem")
+MobSpeTwoShootInitSystem::MobSpeTwoShootInitSystem() :
+    ASystem("MobSpeTwoShootInitSystem")
 {
 }
 
-void MobSpeOneShootInitSystem::_initShoot(ECS::Registry& reg, int idxPacketEntities)
+void MobSpeTwoShootInitSystem::_initShoot(ECS::Registry& reg, int idxPacketEntities)
 {
     std::shared_ptr<TextureRectComponent> textureRect = parseTextureRect(PATH_JSON);
     if (textureRect) {

@@ -22,10 +22,7 @@
 #include "SpriteSheetAnimationParser.hpp"
 #include "ShootTypeParser.hpp"
 
-#include <fstream>
-#include <json/json.h>
-
-#define PATH_JSON "GameData/Entities/Mob.json"
+#define PATH_JSON "GameData/Entities/Mob-SpeOne.json"
 
 MobSpeOneInitSystem::MobSpeOneInitSystem() :
     ASystem("MobSpeOneInitSystem")

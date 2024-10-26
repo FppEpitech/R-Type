@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2024
-** MobSpeTwoInitSystem
+** MobSpeTwoShootInitSystem
 ** File description:
-** MobSpeTwoInitSystem
+** MobSpeTwoShootInitSystem
 */
 
 #pragma once
@@ -12,24 +12,24 @@
 #include "ISystem.hpp"
 
 /**
- * @brief Initialize a mob entity.
+ * @brief Initialize a shoot entity.
  *
  */
-class MobSpeTwoInitSystem : public ASystem {
+class MobSpeTwoShootInitSystem : public ASystem {
 
     public:
 
         /**
-         * @brief Construct a new Mob Init System object.
+         * @brief Construct a new Shoot Init System object.
          *
          */
-        MobSpeTwoInitSystem();
+        MobSpeTwoShootInitSystem();
 
         /**
-         * @brief Destroy the Mob Init System object.
+         * @brief Destroy the Shoot Init System object.
          *
          */
-        ~MobSpeTwoInitSystem() = default;
+        ~MobSpeTwoShootInitSystem() = default;
 
         /**
          * @brief Get the Function object.
@@ -39,11 +39,11 @@ class MobSpeTwoInitSystem : public ASystem {
         std::function<void(ECS::Registry& reg, int idxPacketEntities)> getFunction()
         {
             return [this](ECS::Registry& reg, int idxPacketEntities) {
-                _initMob(reg, idxPacketEntities);
+                _initShoot(reg, idxPacketEntities);
             };
         }
 
     private:
 
-        void _initMob(ECS::Registry& reg, int idxPacketEntities); //< Function to init the Mob.
+        void _initShoot(ECS::Registry& reg, int idxPacketEntities); //< Function to init the Shoot.
 };

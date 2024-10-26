@@ -4,33 +4,34 @@
         "maxY": 850,
         "oscillateSpeed": 3,
         "xStartOscillate": 1600,
-        "shootSpeed": 1
+        "shootSpeed": 2.4
     },
     "TextureRectComponent": {
-        "path": "./Assets/mob-1.gif",
-        "left": 0,
-        "top": 0,
-        "width": 65.2,
-        "height": 66
+        "path": "./Assets/mob-spe-2.gif",
+        "left": 47,
+        "top": 130,
+        "width": 487,
+        "height": 366
     },
-    "ScaleComponent": 4,
-    "LifeComponent":1000,
+    "ScaleComponent": 1,
+    "LifeComponent":10000,
     "Position2DComponent": {
         "x": 2500,
         "y": 350
     },
     "VelocityComponent": {
-        "vx": -100,
+        "vx": -50,
         "vy": 0
     },
     "SpriteSheetAnimationComponent":
     {
-        "nbFrame": 5,
-        "timeFrame": 0.5,
-        "vx": 65.2,
-        "vy": 0,
-        "startX": 0,
-        "startY": 0,
-        "reverseMod": true
-    }
+        "nbFrame": 16,
+        "timeFrame": 0.1,
+        "vx": 0,
+        "vy": 640,
+        "startX": 47,
+        "startY": 130,
+        "reverseMod": false
+    },
+    "ShootTypeComponent": "SINGLE"
 }
