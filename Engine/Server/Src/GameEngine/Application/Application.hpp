@@ -60,8 +60,6 @@ class Application {
 
     private:
 
-        void _waitingForRoomCreation();
-
         /**
          * @brief Function who handle the packets received.
          *
@@ -89,14 +87,11 @@ class Application {
          */
         void _handleJoinRoom(ABINetwork::UDPPacket packet);
 
-        std::shared_ptr<ABINetwork::INetworkUnit>                   _server;            // Network class for server.
-
-        std::size_t                                                             _nbRoom;            // Number of current rooms in the server.
-        std::unordered_map<std::string, std::shared_ptr<GameEngine::Room>>      _rooms;             // List of rooms.
-        std::vector<std::shared_ptr<std::thread>>                               _threads;           // Vector of threads
-        std::vector<std::tuple<std::string, int, int>>                          _interProcessQueues;
-        std::unordered_map<std::string, std::pair<uint32_t, ABINetwork::roomInfo_t>>    _playerWaitingRoomCreation;
-        std::mutex                                                              _roomCreationMutex; // Mutex for room creation.
+        std::shared_ptr<ABINetwork::INetworkUnit>                                       _server;            // Network class for server.
+        std::size_t                                                                     _nbRoom;            // Number of current rooms in the server.
+        std::unordered_map<std::string, std::shared_ptr<GameEngine::Room>>              _rooms;             // List of rooms.
+        std::vector<std::shared_ptr<std::thread>>                                       _threads;           // Vector of threads
+        std::mutex                                                                      _roomCreationMutex; // Mutex for room creation.
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
             {ABINetwork::IMessage::MessageType::GET_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleGetRoom(packet); }},

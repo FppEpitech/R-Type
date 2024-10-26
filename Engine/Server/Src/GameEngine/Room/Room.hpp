@@ -34,7 +34,7 @@ class Room {
          * @brief Construct a new Room object.
          *
          */
-        Room(ABINetwork::roomInfo_t roomInfo, std::vector<std::tuple<std::string, int, int>> queueInterProcess, std::mutex &mutex);
+        Room(ABINetwork::roomInfo_t roomInfo);
 
         /**
          * @brief Destroy the Room object
@@ -46,14 +46,7 @@ class Room {
          * @brief Run the room.
          *
          */
-        void run();
-
-        /**
-         * @brief Get the Password object.
-         *
-         * @return std::string Password of the room.
-         */
-        const std::string getPassword();
+        void run(std::mutex &mutex);
 
         /**
          * @brief Get the Number Of Players in the room.
@@ -63,11 +56,11 @@ class Room {
         const int getNumberOfPlayers();
 
         /**
-         * @brief Get the Max number of Players allowed to join.
+         * @brief Get the Room Info object.
          *
-         * @return const int Max number of players.
+         * @return const ABINetwork::roomInfo_t Informations of the room.
          */
-        const int getMaxPlayers();
+        const ABINetwork::roomInfo_t getRoomInfo();
 
     private:
 
@@ -91,20 +84,13 @@ class Room {
          */
         void _handleLeaveRoom(ABINetwork::UDPPacket packet);
 
-        std::string         _nameRoom;          // Room name.
-        std::string         _passwordRoom;      // Room password if private.
-        bool                _cheats;            // True if cheats are allowed.
-        bool                _private;           // True if it's a private room.
-        int                 _maxPlayers;        // Max number of player in the room.
-
-        bool                _isRoomOpen;        // False if the room should close.
-        int                 _numberPlayers;     // Number of players in the room.
+        ABINetwork::roomInfo_t  _roomInfos;         // Infos of the room.
+        bool                    _isRoomOpen;        // False if the room should close.
+        int                     _numberPlayers;     // Number of players in the room.
 
         std::shared_ptr<ABINetwork::INetworkUnit>               _roomServer;        // Network Unit of the Room.
         std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
         std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
-
-        std::vector<std::tuple<std::string, int, int>>          _queueInterProcess; // Queue interProcess with server.
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
             {ABINetwork::IMessage::MessageType::KEY, [this](ABINetwork::UDPPacket packet) { this->_handleKey(packet); }},

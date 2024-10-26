@@ -74,4 +74,9 @@ int Client::getNumberClient()
     throw ABIError("A client unit can't have client connected.");
 }
 
+std::pair<int, int> Client::getPorts()
+{
+    return {_tcpPort, _udpPort};
+}
+
 }

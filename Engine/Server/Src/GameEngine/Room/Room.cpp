@@ -7,33 +7,30 @@
 
 #include "Room.hpp"
 
-GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo, std::vector<std::tuple<std::string, int, int>> queueInterProcess, std::mutex &mutex)
+GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
 {
     std::cout << "start" << std::endl;
-    std::lock_guard<std::mutex> lock(mutex);
     if (roomInfo.name.empty())
         throw RoomError("A room must has a name");
     if (roomInfo.isPrivate && roomInfo.password.empty())
         throw RoomError("A private room must has a password");
-
-    _nameRoom = roomInfo.name;
-    _private = roomInfo.isPrivate;
-    _passwordRoom = roomInfo.password;
-    _maxPlayers = roomInfo.playerMax;
-    _cheats = roomInfo.cheats;
+    _roomInfos = roomInfo;
 
     // _roomServer = ABINetwork::createServer(_maxPlayers);
     _registries = std::make_shared<ECS::Registry>();
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
+
     _isRoomOpen = true;
     _numberPlayers = 0;
 
-    _queueInterProcess = queueInterProcess;
-    _queueInterProcess.push_back({_nameRoom, 2, 3});
+    // std::pair<int, int> roomPorts = _roomServer->getPorts();
+    // _roomInfos.tcpPort = roomPorts.first;
+    // _roomInfos.udpPort = roomPorts.second;
+
     std::cout << "end" << std::endl;
 }
 
-void GameEngine::Room::run()
+void GameEngine::Room::run(std::mutex &mutex)
 {
     while (_isRoomOpen) {
     // //     // _numberPlayers = _roomServer->getNumberClient();
@@ -87,17 +84,12 @@ void GameEngine::Room::_handleLeaveRoom(ABINetwork::UDPPacket packet)
     }
 }
 
-const std::string GameEngine::Room::getPassword()
-{
-    return _passwordRoom;
-}
-
 const int GameEngine::Room::getNumberOfPlayers()
 {
     return _numberPlayers;
 }
 
-const int GameEngine::Room::getMaxPlayers()
+const ABINetwork::roomInfo_t GameEngine::Room::getRoomInfo()
 {
-    return _maxPlayers;
+    return _roomInfos;
 }

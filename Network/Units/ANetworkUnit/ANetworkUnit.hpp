@@ -109,6 +109,15 @@ class ANetworkUnit : public INetworkUnit
          */
         virtual int getNumberClient() = 0;
 
+        /**
+         * @brief Get tcp and udp port of a server.
+         * For a client, it return the tcp and udp port
+         * of the server to which it is connected.
+         *
+         * @return std::pair<int, int> Tcp and udp ports.
+         */
+        virtual std::pair<int, int> getPorts() = 0;
+
     protected:
 
         uint32_t                                _token;                      // Token of client (used to be identify on server)

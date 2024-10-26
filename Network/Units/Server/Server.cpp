@@ -145,4 +145,10 @@ int Server::getNumberClient()
     return _currentNumberPlayer;
 }
 
+std::pair<int, int> Server::getPorts()
+{
+    return {_tcp_acceptor->local_endpoint().port(), _udp_socket->local_endpoint().port()};
+}
+
+
 }
