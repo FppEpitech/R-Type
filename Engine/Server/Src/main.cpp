@@ -13,20 +13,11 @@
 
 int main()
 {
-    Database db("db.db");
-    Users users(db);
-    Scores scores(db);
-    std::cout << users.registerUser("test", "test") << std::endl;
-    std::cout << users.loginUser("test", "test");
-    scores.addScore(1, 1);
-
-    for (auto i : scores.getLeaderboard(users))
-        std::cout << i.first << " " << i.second << std::endl;
-    // try {
-    //     GameEngine::Application myApp;
-    //     myApp.run();
-    // } catch (const std::exception& e) {
-    //     std::cerr << "Exception: " << e.what() << std::endl;
-    // }
+    try {
+        GameEngine::Application myApp;
+        myApp.run();
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
     return 0;
 }
