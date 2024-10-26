@@ -6,15 +6,15 @@
 */
 
 #include "BackgroundInitSystem.hpp"
-#include "ScaleComponent.hpp"
-#include "TextureRectComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "DrawComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
+#include "Draw/DrawComponent.hpp"
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
 #include "SpriteSheetAnimationParser.hpp"
-#include "SpriteSheetAnimationComponent.hpp"
+#include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
 
 #include <fstream>
 #include <json/json.h>

@@ -7,10 +7,10 @@
 
 #include "SpeedComponent.hpp"
 #include "ShootInitSystem.hpp"
-#include "ScaleComponent.hpp"
-#include "DrawComponent.hpp"
-#include "TextureRectComponent.hpp"
-#include "Position2DComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
+#include "Draw/DrawComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
 #include "VelocityComponent.hpp"
 #include "ShootComponent.hpp"
 #include "VelocityParser.hpp"
@@ -19,10 +19,8 @@
 #include "Position2DParser.hpp"
 #include "SpeedParser.hpp"
 #include "ShootParser.hpp"
+#include "Colour/ColourComponent.hpp"
 
-#include <fstream>
-#include <json/json.h>
-#include <ColourComponent.hpp>
 #include <ColourParser.hpp>
 
 #define PATH_JSON "GameData/Entities/ShootMob.json"

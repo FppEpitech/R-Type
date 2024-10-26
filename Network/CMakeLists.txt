@@ -42,8 +42,10 @@ set(SRC_LIB
 add_library(${LIB} STATIC ${SRC_LIB})
 
 find_package(asio CONFIG REQUIRED)
+find_package(unofficial-sqlite3 CONFIG REQUIRED)
 
 target_link_libraries(
     ${LIB}
     PRIVATE asio::asio
+    PRIVATE unofficial::sqlite3::sqlite3
 )
