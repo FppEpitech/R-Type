@@ -22,9 +22,7 @@ class Scores {
          *
          * @param db
          */
-        Scores(Database *db) : _dbcore(db), _db(db->db), _rc(db->rc) {
-            createScoresTable();
-        };
+        Scores(Database db);
 
         /**
          * @brief Destroy the Scores object.
@@ -67,7 +65,7 @@ class Scores {
 
     private:
 
-        Database *_dbcore; // Database object
+        Database _dbcore; // Database object
 
         std::shared_ptr<sqlite3> _db; // Database pointer
 

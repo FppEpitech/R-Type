@@ -6,6 +6,7 @@
 */
 #include "Database.hpp"
 #include "DbError.hpp"
+#include <memory>
 
 Database::Database(std::string path) {
     sqlite3* db_handle = nullptr;
@@ -16,7 +17,7 @@ Database::Database(std::string path) {
         throw new DbError("Issues opening the sqlite db...");
 }
 
-sqlite3_stmt *Database::prepareStmt(std::string query) {
+std::shared_ptr<sqlite3_stmt> Database::prepareStmt(std::string query) {
     sqlite3_stmt *stmt;
 
     *rc = sqlite3_prepare_v2(db.get(), query.c_str(), -1, &stmt, nullptr);
@@ -24,5 +25,5 @@ sqlite3_stmt *Database::prepareStmt(std::string query) {
         std::cerr << "PREPARE STMT ERR: " << sqlite3_errmsg(db.get()) << std::endl;
         return nullptr;
     }
-    return stmt;
+    return std::shared_ptr<sqlite3_stmt>(stmt, sqlite3_finalize);
 }

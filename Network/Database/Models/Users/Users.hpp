@@ -35,7 +35,7 @@ class Users {
          *
          * @param db
          */
-        Users(Database *db);
+        Users(Database db);
 
         /**
          * @brief Destroy the Users object.
@@ -122,7 +122,7 @@ class Users {
         int loginUser(std::string username, std::string password);
 
     private:
-        Database *_dbcore; // Database object.
+        Database _dbcore; // Database object.
 
         std::shared_ptr<sqlite3> _db; // Database pointer.
 

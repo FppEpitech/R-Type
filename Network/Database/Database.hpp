@@ -42,7 +42,7 @@ class Database {
          * @param query
          * @return sqlite3_stmt*
          */
-        sqlite3_stmt *prepareStmt(std::string query);
+        std::shared_ptr<sqlite3_stmt> prepareStmt(std::string query);
 
         std::shared_ptr<sqlite3> db = nullptr; // Database.
         std::shared_ptr<int> rc = nullptr; // Return code of db.
