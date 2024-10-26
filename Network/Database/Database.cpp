@@ -12,7 +12,7 @@ Database::Database(std::string path) {
 
     rc = std::make_shared<int>(sqlite3_open(path.c_str(), &db_handle));
     db = std::shared_ptr<sqlite3>(db_handle, sqlite3_close);
-    if (!db || *rc != SQLITE_OK)
+    if (!db || !rc || *rc != SQLITE_OK)
         throw new DbError("Issues opening the sqlite db...");
 }
 
