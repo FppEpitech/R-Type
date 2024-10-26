@@ -52,16 +52,15 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TexturePath/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Editable/
     ../Components/Speed/
     ../Components/Life/
     ../Components/Shoot/
     ../Components/Planet/
-    ../Components/Editable/
     ../Components/ButtonState/
     ../Components/Clickable/
     ../Components/TextLimit/
     ../Components/Velocity/
-    ../Components/Editable/
     ../Components/ButtonTexturePath/
     ../Components/Velocity/
     ../Components/Mob/
@@ -129,7 +128,6 @@ set(COMPONENTS
         ButtonTexturePath
         Clickable
         Drawable
-        Editable
         Gravity
         Life
         Mob
@@ -192,6 +190,7 @@ set(COMPONENTS
         TextPosition2D
         TexturePath
         TextureRect
+        Editable
 )
 
 foreach(component ${COMPONENTS})

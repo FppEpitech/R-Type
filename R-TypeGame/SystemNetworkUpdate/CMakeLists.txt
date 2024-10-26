@@ -29,7 +29,7 @@ include_directories(
     ../Components/Life/
     ../Components/Shoot/
     ../Components/Planet/
-    ../Components/Editable/
+        ../../Engine/Shared/DefaultComponents/Editable/
     ../Components/ButtonState/
         ../Components/Clickable/
     ../Components/TextLimit/

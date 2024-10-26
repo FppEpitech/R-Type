@@ -57,7 +57,7 @@ set(SRC_EXE
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
     ../Shared/EventListener/EventListener.cpp
-    ../../R-TypeGame/Components/Editable/EditableComponent.cpp
+        ../Shared/DefaultComponents/Editable/EditableComponent.cpp
 )
 
 # Include directories for header files

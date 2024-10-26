@@ -44,7 +44,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
-    ../../R-TypeGame/Components/Editable/EditableComponent.cpp
+        ../Shared/DefaultComponents/Editable/EditableComponent.cpp
 )
 
 # Define system source files
