@@ -75,6 +75,23 @@ class Server : public ANetworkUnit
          */
         void sendMessage(std::vector<uint8_t> message) override;
 
+        /**
+         * @brief Get the Number Client connected.
+         *
+         * @return int Number of client connected.
+         * @throw Error if getNumberClient of a Client Unit.
+         */
+        int getNumberClient() override;
+
+        /**
+         * @brief Get tcp and udp port of a server.
+         * For a client, it return the tcp and udp port
+         * of the server to which it is connected.
+         *
+         * @return std::pair<int, int> Tcp and udp ports.
+         */
+        std::pair<int, int> getPorts() override;
+
     private:
 
         /**

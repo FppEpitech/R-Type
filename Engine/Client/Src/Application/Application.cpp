@@ -7,24 +7,6 @@
 
 #include "Application.hpp"
 
-void Application::_packetHandler(Network::UDPPacket packet, ECS::Registry& reg)
-{
-    // uint32_t componentTypeLength = static_cast<size_t>(packet.getPayload()[0]);
-
-    // if (packet.getPayload().size() < 1 + componentTypeLength) {
-    //     std::cerr << "Payload is too small." << std::endl;
-    //     return;
-    // }
-    // std::string componentType(packet.getPayload().begin() + 1, packet.getPayload().begin() + 1 + componentTypeLength);
-
-    // int idxPacketEntities = (packet.getPayload()[1 + componentTypeLength] << 24) |
-    //                         (packet.getPayload()[2 + componentTypeLength] << 16) |
-    //                         (packet.getPayload()[3 + componentTypeLength] << 8)  |
-    //                         packet.getPayload()[4 + componentTypeLength];
-
-    // _sceneManager->processUpdate(componentType, packet);
-}
-
 Application::Application()
 {
     _registry = std::make_shared<ECS::Registry>();
@@ -33,6 +15,28 @@ Application::Application()
     _initDefaultGraphicSystems();
 
     _client = nullptr;
+}
+
+void Application::run()
+{
+    std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
+    if (!libGraphic)
+        throw ClientError("Failed to load graphic library");
+    InitWindow InitWindow(libGraphic);
+    InitShader InitShader(libGraphic);
+
+    while (libGraphic->windowIsOpen()) {
+        _connectServer();
+        _packetHandler();
+        _keyboardHandler(libGraphic->getKeyDownInput());
+        libGraphic->startDraw();
+        libGraphic->clear();
+        _registry->run_systems(-1);
+        for (auto defaultSystem : _defaultSystems)
+            defaultSystem(*_registry, -1);
+        libGraphic->endDraw();
+        ABINetwork::sendMessages(_client);
+    }
 }
 
 void Application::_initDefaultGraphicSystems()
@@ -49,20 +53,75 @@ void Application::_keyboardHandler(std::size_t key)
     try {
         if (key == KEY_NULL || _client == nullptr)
             return;
+
+        //TODO: uncomment this when the game will be able to run on the client.
+
         // if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
         //     return;
+
         ABINetwork::sendPacketKey(_client, key);
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
 }
 
+void Application::_packetHandler()
+{
+    std::lock_guard<std::mutex> lock(_client->getMutex());
+    std::vector<ABINetwork::UDPPacket> messages = _client->getReceivedMessages();
+
+    for (auto packet : messages) {
+        try {
+            auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
+            _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }
+}
+
+void Application::_handleCreateRoomPacket(ABINetwork::UDPPacket packet)
+{
+    std::tuple<std::string, int, int> roomCreated = ABINetwork::getCreatedRoomInfoFromPacket(packet);
+    _roomInfos.tcpPort = std::get<1>(roomCreated);
+    _roomInfos.udpPort = std::get<2>(roomCreated);
+    ABINetwork::sendPacketJoinRoom(_client, std::get<0>(roomCreated), _roomInfos.password);
+}
+
+void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
+{
+    if (_roomInfos.tcpPort <= 0 || _roomInfos.udpPort <= 0)
+        return;
+    std::shared_ptr<ABINetwork::INetworkUnit> room = nullptr;
+    try {
+        room = ABINetwork::createClient("127.0.0.1", _roomInfos.tcpPort, _roomInfos.udpPort);
+        if (!room)
+            throw ClientError("Error while joining room");
+        _sceneManager->_changeScene(std::make_pair<std::size_t, std::string>(0, FIRST_GAME_SCENE));
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return;
+    }
+    _client = room;
+}
+
+void Application::_handleWrongRoomPasswordPacket(ABINetwork::UDPPacket packet)
+{
+    // TODO: display the wrong password menu.
+}
+
+void Application::_handleFullRoomPacket(ABINetwork::UDPPacket packet)
+{
+    // TODO: display the full room menu.
+}
+
 void Application::_connectServer()
 {
-    if (!_client)
+    if (!_client) {
         _client = ABINetwork::createClient("127.0.0.1", 4444, 4445);
-
-
+        _serverInfos.tcpPort = 4444;
+        _serverInfos.udpPort = 4445;
+    }
 
     // std::lock_guard<std::mutex> lock(this->_registry->_myBeautifulMutex);
     // try {
@@ -95,25 +154,4 @@ void Application::_connectServer()
     // } catch(const std::exception& e) {
     //     std::cerr << e.what() << std::endl;
     // }
-}
-
-void Application::run()
-{
-    std::shared_ptr<IGraphic> libGraphic = getGraphicalLibrary();
-    if (!libGraphic)
-        throw ClientError("Failed to load graphic library");
-    InitWindow InitWindow(libGraphic);
-    InitShader InitShader(libGraphic);
-
-    while (libGraphic->windowIsOpen()) {
-        _connectServer();
-        _keyboardHandler(libGraphic->getKeyDownInput());
-        libGraphic->startDraw();
-        libGraphic->clear();
-        _registry->run_systems(-1);
-        for (auto defaultSystem : _defaultSystems)
-            defaultSystem(*_registry, -1);
-        libGraphic->endDraw();
-        ABINetwork::sendMessages(_client);
-    }
 }

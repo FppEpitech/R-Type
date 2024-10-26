@@ -12,7 +12,7 @@ namespace ABINetwork
 
 ABINetwork::UDPPacket::UDPPacket(const std::string& packetData)
 {
-    if (packetData.size() < 15)
+    if (packetData.size() < PACKET_MINIMUM_SIZE)
         throw std::invalid_argument("Packet data too short.");
 
     _version = static_cast<uint8_t>(packetData[0]);

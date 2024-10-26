@@ -46,8 +46,11 @@ class IMessage
             CREATE_ROOM         = 0x07,
             DELETE_ROOM         = 0x08,
             JOIN_ROOM           = 0x09,
-            LEAVE_ROOM          = 0x0A,
-            KEY                 = 0x0B
+            GET_ROOM            = 0x0A,
+            LEAVE_ROOM          = 0x0B,
+            KEY                 = 0x0C,
+            WRONG_ROOM_PASSWORD = 0x0D,
+            FULL_ROOM           = 0x0E,
         };
 
         /**

@@ -66,25 +66,45 @@ namespace ABINetwork
     void sendPacketChatbox(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string chat);
 
     /**
+     * @brief Send a packet to the server to know all rooms.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketGetRooms(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
      * @brief Creates a new room on the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      */
-    void createRoom(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Creates a new room on the server.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param roomName Name of the room.
+     * @param privateRoom True if the server is private.
+     * @param roomPassword Room password, empty if not private.
+     * @param cheatsRoom Allow or not cheats in the room.
+     * @param playerMaxRoom Set the number of player allowed in the room.
+     */
+    void sendPacketCreateRoom(std::shared_ptr<INetworkUnit> networkUnit, std::string roomName, bool privateRoom, std::string roomPassword, bool cheatsRoom, int playerMaxRoom);
 
     /**
      * @brief Joins an existing room on the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param roomName Name of the room to join.
+     * @param password Password of the room if private.
      */
-    void joinRoom(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, std::string roomName, std::string password = "");
 
     /**
      * @brief Leaves a room on the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      */
-    void leaveRoom(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketLeaveRoom(std::shared_ptr<INetworkUnit> networkUnit);
 
     /**
      * @brief Deletes a room from the server.
@@ -96,6 +116,7 @@ namespace ABINetwork
     /**
      * @brief Get the Entity Creation Info From Packet object.
      *
+     * @param packet Packet received from the server.
      * @return std::tuple<std::string, int> With EntityComponent and idxEntity.
      */
     std::pair<std::string, int> getEntityCreationInfoFromPacket(UDPPacket packet);
@@ -103,8 +124,16 @@ namespace ABINetwork
     /**
      * @brief Get the Update Component Info From Packet object.
      *
-     * @return std::tuple<std::string, int> With EntityComponent and idxEntity.
+     * @param packet Packet received from the server.
+     * @return std::pair<std::string, std::vector<std::variant<int, float, std::string>>>
      */
     std::pair<std::string, std::vector<std::variant<int, float, std::string>>> getUpdateComponentInfoFromPacket(UDPPacket packet);
 
+    /**
+     * @brief Get the Created Room Info From Packet object
+     *
+     * @param packet Packet received from the server.
+     * @return std::tuple<std::string, int, int> With roomName, tcpPort and udpPort.
+     */
+    std::tuple<std::string, int, int> getCreatedRoomInfoFromPacket(UDPPacket packet);
 }

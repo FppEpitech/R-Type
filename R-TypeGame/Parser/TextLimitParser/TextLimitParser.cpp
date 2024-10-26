@@ -18,6 +18,9 @@ std::shared_ptr<TextLimitComponent> parseTextLimit(const std::string &path)
         Json::Reader reader;
         Json::Value root;
 
+        if (!file.is_open())
+            return nullptr;
+
         if (!reader.parse(file, root, false))
             return nullptr;
 

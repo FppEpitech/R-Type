@@ -7,15 +7,21 @@
 
 #pragma once
 
-#include "Registry.hpp"
+#include "Room.hpp"
 #include "ABIServer.hpp"
 #include "ServerSceneManager.hpp"
+
+#include <queue>
+#include <unordered_map>
+#include <functional>
 
 #ifdef _WIN32
         #define SLEEP(x) Sleep(x)
 #else
         #define SLEEP(x) sleep(x)
 #endif
+
+#define MAX_NUMBER_ROOMS 4
 
 /**
  * @brief GameEngine namespace handle all
@@ -61,16 +67,37 @@ class Application {
         void _packetHandler();
 
         /**
-         * @brief Check if no player are connected.
+         * @brief Handle the packet GET_ROOM.
          *
-         * @return true No player connected.
-         * @return false One or more players connected.
+         * @param packet Packet to handle.
          */
-        bool noPlayerConnected();
+        void _handleGetRoom(ABINetwork::UDPPacket packet);
 
-        std::shared_ptr<ECS::Registry>                              _registries;        // vector of registries class for ECS management.
-        std::shared_ptr<SceneManager::ServerSceneManager>           _sceneManager;      // load and handle scene in the ECS.
-        std::shared_ptr<ABINetwork::INetworkUnit>                   _server;            // Network class for server.
+        /**
+         * @brief Handle the packet CREATE_ROOM.
+         *
+         * @param packet Packet to handle.
+         */
+        void _handleCreateRoom(ABINetwork::UDPPacket packet);
+
+        /**
+         * @brief Handle the packet JOIN_ROOM.
+         *
+         * @param packet Packet to handle.
+         */
+        void _handleJoinRoom(ABINetwork::UDPPacket packet);
+
+        std::shared_ptr<ABINetwork::INetworkUnit>                                       _server;            // Network class for server.
+        std::size_t                                                                     _nbRoom;            // Number of current rooms in the server.
+        std::unordered_map<std::string, std::shared_ptr<GameEngine::Room>>              _rooms;             // List of rooms.
+        std::vector<std::shared_ptr<std::thread>>                                       _threads;           // Vector of threads
+        std::mutex                                                                      _roomCreationMutex; // Mutex for room creation.
+
+        std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
+            {ABINetwork::IMessage::MessageType::GET_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleGetRoom(packet); }},
+            {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoom(packet); }},
+            {ABINetwork::IMessage::MessageType::JOIN_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleJoinRoom(packet); }}
+        };
 };
 
 } // namespace GameEngine

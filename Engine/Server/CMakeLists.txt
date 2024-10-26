@@ -29,6 +29,7 @@ set(EXE_INCLUDE_PATH
 set(SRC_EXE
     ${EXE_SRC_PATH}/main.cpp
     ${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
+    ${EXE_SRC_PATH}/GameEngine/Room/Room.cpp
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
     ../Error/AError.cpp
     ../Shared/SceneManager/ASceneManager.cpp
@@ -60,6 +61,7 @@ set(SRC_EXE
 include_directories(
     ${EXE_SRC_PATH}/GameEngine/Errors
     ${EXE_SRC_PATH}/GameEngine/Application
+    ${EXE_SRC_PATH}/GameEngine/Room
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager
     ../Ecs/Src
     ../Shared/Interface

@@ -74,8 +74,10 @@ void Server::_startReadDisconnection(std::shared_ptr<asio::ip::tcp::socket> sock
             if (error) {
                 if (error == asio::error::eof) {
                     std::cout << "Client disconnected (EOF) with ID: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << client_token << std::dec << std::endl;
+                    _currentNumberPlayer--;
                 } else if (error == asio::error::connection_reset) {
                     std::cout << "Client disconnected (connection reset) with ID: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << client_token << std::dec << std::endl;
+                    _currentNumberPlayer--;
                 } else {
                     std::cerr << "Error on receive: " << error.message() << std::endl;
                 }
@@ -136,6 +138,16 @@ void Server::sendMessage(std::vector<uint8_t> message)
 {
     for (auto clientEndpoint : _clients)
         _udp_socket->async_send_to(asio::buffer(message), clientEndpoint.second, [](const asio::error_code&, std::size_t) {});
+}
+
+int Server::getNumberClient()
+{
+    return _currentNumberPlayer;
+}
+
+std::pair<int, int> Server::getPorts()
+{
+    return {_tcp_acceptor->local_endpoint().port(), _udp_socket->local_endpoint().port()};
 }
 
 

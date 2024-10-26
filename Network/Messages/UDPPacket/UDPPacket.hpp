@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include <unordered_map>
 
+#define PACKET_MINIMUM_SIZE 14
 
 /**
  * @namespace ABINetwork
