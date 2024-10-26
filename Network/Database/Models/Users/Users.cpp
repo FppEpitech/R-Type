@@ -100,7 +100,7 @@ std::string Users::getUsernameById(int id) {
 }
 
 Users::userSettings Users::getUserSettings(int id) {
-    std::string req("SELECT res_width, res_height, daltonian_mode FROM users WHERE id = ?;");
+    std::string req("SELECT res_width, res_height, daltonian_mode, skin FROM users WHERE id = ?;");
     sqlite3_stmt* stmt = _dbcore->prepareStmt(req);
 
     if (!stmt)
@@ -111,15 +111,16 @@ Users::userSettings Users::getUserSettings(int id) {
         int res_width = sqlite3_column_int(stmt, 0);
         int res_height = sqlite3_column_int(stmt, 1);
         float daltonian_mode = sqlite3_column_double(stmt, 2);
+        std::string skin((char *)sqlite3_column_text(stmt, 3));
         sqlite3_finalize(stmt);
-        return {res_width, res_height, daltonian_mode};
+        return {res_width, res_height, daltonian_mode, skin};
     }
     sqlite3_finalize(stmt);
     return {-1, -1, -1.0};
 }
 
-bool Users::setUserSettings(int id, int res_width, int res_height, float daltonian_mode) {
-    std::string req("UPDATE users SET res_width = ?, res_height = ?, daltonian_mode = ? WHERE id = ?;");
+bool Users::setUserSettings(int id, int res_width, int res_height, float daltonian_mode, std::string skin) {
+    std::string req("UPDATE users SET res_width = ?, res_height = ?, daltonian_mode = ?, skin = ? WHERE id = ?;");
     sqlite3_stmt* stmt = _dbcore->prepareStmt(req);
 
     if (!stmt)
@@ -128,6 +129,7 @@ bool Users::setUserSettings(int id, int res_width, int res_height, float daltoni
     sqlite3_bind_int(stmt, 2, res_height);
     sqlite3_bind_double(stmt, 3, daltonian_mode);
     sqlite3_bind_int(stmt, 4, id);
+    sqlite3_bind_text(stmt, 5, skin.c_str(), -1, SQLITE_STATIC);
     *_rc = sqlite3_step(stmt);
     if (*_rc != SQLITE_DONE) {
         sqlite3_finalize(stmt);
@@ -139,7 +141,7 @@ bool Users::setUserSettings(int id, int res_width, int res_height, float daltoni
 }
 
 bool Users::createUsersTable() {
-    std::string reqUsers("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, daltonian_mode FLOAT, res_width INT, res_height INT);");
+    std::string reqUsers("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, daltonian_mode FLOAT, res_width INT, res_height INT, skin TEXT NOT NULL);");
     *_rc = sqlite3_exec(_db.get(), reqUsers.c_str(), 0, 0, 0);
     if (*_rc != SQLITE_OK) {
         std::cerr << "CREATE TABLE ERR users: " << sqlite3_errmsg(_db.get()) << std::endl;

@@ -27,6 +27,7 @@ class Users {
             int res_width;
             int res_height;
             float daltonian_mode;
+            std::string skin;
         };
 
         /**
@@ -81,8 +82,9 @@ class Users {
          * @param res_width
          * @param res_height
          * @param daltonian_mode
+         * @param skin
          */
-        bool setUserSettings(int id, int res_width, int res_height, float daltonian_mode);
+        bool setUserSettings(int id, int res_width, int res_height, float daltonian_mode, std::string skin);
 
         /**
          * @brief Get the username by id.
