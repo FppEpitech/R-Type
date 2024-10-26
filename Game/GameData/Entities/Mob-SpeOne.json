@@ -4,19 +4,19 @@
         "maxY": 850,
         "oscillateSpeed": 3,
         "xStartOscillate": 1600,
-        "shootSpeed": 1
+        "shootSpeed": 3
     },
     "TextureRectComponent": {
-        "path": "./Assets/mob-1.gif",
+        "path": "./Assets/mob-spe-1.gif",
         "left": 0,
         "top": 0,
-        "width": 65.2,
-        "height": 66
+        "width": 272,
+        "height": 320
     },
-    "ScaleComponent": 4,
+    "ScaleComponent": 1,
     "LifeComponent":1000,
     "Position2DComponent": {
-        "x": 2500,
+        "x": 1000,
         "y": 350
     },
     "VelocityComponent": {
@@ -25,15 +25,13 @@
     },
     "SpriteSheetAnimationComponent":
     {
-        "nbFrame": 5,
-        "timeFrame": 0.5,
-        "vx": 65.2,
-        "vy": 0,
+        "nbFrame": 20,
+        "timeFrame": 0.1,
+        "vx": 0,
+        "vy": 320,
         "startX": 0,
         "startY": 0,
         "reverseMod": true
     },
-    "ShootTypeComponent": {
-        "type": "SINGLE"
-    }
+    "ShootTypeComponent": "SEXTUPLE"
 }
