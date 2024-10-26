@@ -57,6 +57,8 @@ void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
                         MobSpeTwoShootInitSystem().getFunction()(reg, shoot);
                     }
                     positions = reg.get_components<IComponent>("Position2DComponent");
+                    if (positions.size() <= shoot)
+                        return;
                     std::shared_ptr <Position2DComponent> positionShoot = std::dynamic_pointer_cast<Position2DComponent>(positions[shoot]);
                     if (!positionShoot)
                         return;
@@ -64,8 +66,14 @@ void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
                     if (scales.size() <= entity)
                         return;
                     std::shared_ptr <ScaleComponent> scale = std::dynamic_pointer_cast<ScaleComponent>(scales[entity]);
+                    if (!scale)
+                        return;
                     ECS::SparseArray<IComponent> texturesRect = reg.get_components<IComponent>("TextureRectComponent");
+                    if (texturesRect.size() <= entity)
+                        return;
                     std::shared_ptr <TextureRectComponent> textureRect = std::dynamic_pointer_cast<TextureRectComponent>(texturesRect[entity]);
+                    if (!textureRect)
+                        return;
                     if (mobSpritePath == "./Assets/mob-spe-shot-1.gif") {
                         positionShoot->x = positionMob->x + ((textureRect->width / 2) * scale->scale);
                         positionShoot->y = positionMob->y + ((textureRect->height / 2) * scale->scale) + (((i - 3) * 45) * scale->scale);

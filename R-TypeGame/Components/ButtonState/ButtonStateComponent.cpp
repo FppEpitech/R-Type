@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** ShootTypeComponent.cpp
+** ButtonStateComponent.cpp
 */
 
 #include "ButtonStateComponent.hpp"
