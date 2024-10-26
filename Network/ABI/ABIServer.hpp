@@ -126,4 +126,12 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      */
     void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Send message with all server's rooms.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param rooms Vector of room's informations
+     */
+    void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> rooms);
 }

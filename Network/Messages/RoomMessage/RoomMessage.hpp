@@ -63,7 +63,7 @@ class RoomMessage : public AMessage
         Payload &createGetRoomPayload();
 
         /**
-         * @brief Create a Create Room Payload object
+         * @brief Create a Create Room Payload object.
          *
          * @param roomName Name of the room.
          * @param privateRoom True if the server is private.
@@ -75,7 +75,7 @@ class RoomMessage : public AMessage
         Payload &createCreateRoomPayload(std::string roomName, bool privateRoom, std::string roomPassword, bool cheatsRoom, int playerMaxRoom);
 
         /**
-         * @brief Get the Create Room Info From Packet object
+         * @brief Get the Create Room Info From Packet object.
          *
          * @param packet Packet to get infos.
          * @return roomInfo_t Structure of Create room infos.
@@ -118,7 +118,7 @@ class RoomMessage : public AMessage
          * @brief Get the Join Room Info From Packet object.
          *
          * @param packet Packet to get infos.
-         * @return std::pair<std::string, std::string> With roomName and roomPassword
+         * @return std::pair<std::string, std::string> With roomName and roomPassword.
          */
         std::pair<std::string, std::string> getJoinRoomInfoFromPacket(UDPPacket packet);
 
@@ -130,7 +130,7 @@ class RoomMessage : public AMessage
         Payload &createWrongRoomPasswordPayload();
 
         /**
-         * @brief Create a Full Room Payload object
+         * @brief Create a Full Room Payload object.
          *
          * @return Payload& for full room.
          */
@@ -142,6 +142,14 @@ class RoomMessage : public AMessage
          * @return Payload& for authorization to join room.
          */
         Payload &createAllowedToJoinRoomPayload();
+
+        /**
+         * @brief Create a Rooms Payload object.
+         *
+         * @param rooms Vector of rooms informations.
+         * @return Payload& for all rooms informations.
+         */
+        Payload &createRoomsPayload(std::vector<ABINetwork::roomInfo_t> rooms);
 
         private:
 

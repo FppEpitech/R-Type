@@ -173,4 +173,26 @@ Payload &RoomMessage::createAllowedToJoinRoomPayload()
     return _payload;
 }
 
+Payload &RoomMessage::createRoomsPayload(std::vector<ABINetwork::roomInfo_t> rooms)
+{
+    _payload.clear();
+
+    int nbRooms = rooms.size();
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&nbRooms), reinterpret_cast<uint8_t*>(&nbRooms) + sizeof(int));
+
+    for (auto room : rooms) {
+
+        uint32_t roomNameLength = room.name.size();
+        _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&roomNameLength), reinterpret_cast<uint8_t*>(&roomNameLength) + sizeof(uint32_t));
+        _payload.insert(_payload.end(), room.name.begin(), room.name.end());
+
+        bool isPrivate = room.isPrivate;
+        _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&isPrivate), reinterpret_cast<uint8_t*>(&isPrivate) + sizeof(bool));;
+
+        int playerMax = room.playerMax;
+        _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&playerMax), reinterpret_cast<uint8_t*>(&playerMax) + sizeof(int));
+    }
+    return _payload;
+}
+
 }

@@ -42,6 +42,10 @@ void GameEngine::Application::_packetHandler()
 
 void GameEngine::Application::_handleGetRoom(ABINetwork::UDPPacket packet)
 {
+    std::vector<ABINetwork::roomInfo_t> roomInfos;
+    for (auto room : _rooms)
+        roomInfos.push_back(room.second->getRoomInfo());
+    ABINetwork::sendPacketRooms(_server, roomInfos);
 }
 
 void GameEngine::Application::_handleCreateRoom(ABINetwork::UDPPacket packet)
