@@ -49,9 +49,10 @@ void TypingSystem::_handleTyping(ECS::Registry &reg, int idxPacketEntities)
                     text->text = "";
                 if (pressedInput == KEY_MAP::KEY_BACKSPACE && text->text.size() > 0)
                     text->text.pop_back();
-                else if (pressedInput == KEY_MAP::KEY_ENTER || pressedInput == KEY_MAP::KEY_ESCAPE)
+                else if (pressedInput == KEY_MAP::KEY_ENTER || pressedInput == KEY_MAP::KEY_ESCAPE) {
                     clickable->callback(reg, entity);
-                else if (pressedInput != KEY_MAP::KEY_BACKSPACE && _isKeyPrintable(pressedInput) && text->text.size() < textLimit->limit)
+                    buttonState->state = ButtonStateComponent::ButtonState::NONE;
+                } else if (pressedInput != KEY_MAP::KEY_BACKSPACE && _isKeyPrintable(pressedInput) && text->text.size() < textLimit->limit)
                     text->text += pressedInput;
             }
         }

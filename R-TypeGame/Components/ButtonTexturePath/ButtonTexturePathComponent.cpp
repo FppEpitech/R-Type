@@ -7,5 +7,5 @@
 
 #include "ButtonTexturePathComponent.hpp"
 
-ButtonTexturePathComponent::ButtonTexturePathComponent(const std::string noneTexturePath, const std::string hoverTexturePath, const std::string clickedTexturePath)
-    : noneTexturePath(noneTexturePath), hoverTexturePath(hoverTexturePath), clickedTexturePath(clickedTexturePath), AComponent("ButtonTexturePathComponent") {}
+ButtonTexturePathComponent::ButtonTexturePathComponent(const std::string noneTexturePath, const std::string hoverTexturePath, const std::string clickedTexturePath, const std::string pressedTexturePath)
+    : noneTexturePath(noneTexturePath), hoverTexturePath(hoverTexturePath), clickedTexturePath(clickedTexturePath), pressedTexturePath(pressedTexturePath), AComponent("ButtonTexturePathComponent") {}

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
+#include "AEvent.hpp"
 #include "TextParser.hpp"
 #include "ScaleComponent.hpp"
 #include "AButtonInitSystem.hpp"
@@ -69,6 +70,11 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
     network->connect = true;
     network->serverPort = portServer;
     network->serverIp = ipServer;
+
+    std::vector<std::any> values = {};
+    values.push_back(std::string(ACCOUNT_MANAGEMENT));
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
+    reg.addEvent(event);
 }
 
 static void handleOther(ECS::Registry& reg, int idxPacketEntities)

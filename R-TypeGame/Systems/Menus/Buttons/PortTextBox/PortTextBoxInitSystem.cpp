@@ -35,11 +35,9 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
     if (!state || !text || !defaultText)
         return;
     if (state->state == ButtonStateComponent::ButtonState::CLICKED) {
-        state->state = ButtonStateComponent::ButtonState::NONE;
         if (text->text.empty())
             text->text = defaultText->text;
-    } else
-        state->state = ButtonStateComponent::ButtonState::CLICKED;
+    }
 }
 
 static void handleOther(ECS::Registry& reg, int idxPacketEntities)

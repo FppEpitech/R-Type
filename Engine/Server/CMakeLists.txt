@@ -57,6 +57,7 @@ set(SRC_EXE
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
     ../Shared/EventListener/EventListener.cpp
+        ../Shared/DefaultComponents/Editable/EditableComponent.cpp
 )
 
 # Include directories for header files
@@ -79,6 +80,7 @@ include_directories(
     ../Shared/DefaultEventHandlers/
     ../Shared/EventListener/
     ${EXE_INCLUDE_PATH}
+    ../../R-TypeGame/Components/
 )
 
 # Add subdirectory for network sources

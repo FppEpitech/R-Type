@@ -18,7 +18,6 @@ find_package(asio CONFIG REQUIRED)
 # Include directories for header files
 include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
-    ${CMAKE_SOURCE_DIR}/Engine/Error/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/KeyMaps/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/

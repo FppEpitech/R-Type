@@ -44,6 +44,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+        ../Shared/DefaultComponents/Editable/EditableComponent.cpp
 )
 
 # Define system source files
@@ -96,6 +97,7 @@ include_directories(
     ${EXE_INCLUDE_PATH}/Components/ShaderComponent
     ../Shared/EventListener/
     ../Shared/DefaultEventHandlers/
+    ../../R-TypeGame/Components/
 )
 
 # Add subdirectory for network sources

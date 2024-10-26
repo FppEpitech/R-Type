@@ -5,7 +5,13 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_STANDARD 20)
 
 # Set the output directory for the library
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Engine)
 
 find_package(jsoncpp REQUIRED)
 find_package(asio CONFIG REQUIRED)
@@ -23,7 +29,7 @@ include_directories(
     ../Components/Life/
     ../Components/Shoot/
     ../Components/Planet/
-    ../Components/Editable/
+        ../../Engine/Shared/DefaultComponents/Editable/
     ../Components/ButtonState/
         ../Components/Clickable/
     ../Components/TextLimit/
