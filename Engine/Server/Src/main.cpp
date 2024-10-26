@@ -6,9 +6,6 @@
 */
 
 #include "Application/Application.hpp"
-// #include "Database.hpp"
-// #include "Scores.hpp"
-// #include "Users.hpp"
 
 int main()
 {

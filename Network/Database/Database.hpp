@@ -37,14 +37,6 @@ class Database {
         ~Database() = default;
 
         /**
-         * @brief Create the required tables for the database.
-         *
-         * @return true
-         * @return false
-         */
-        // bool createTables();
-
-        /**
          * @brief Prepare a statement.
          *
          * @param query
