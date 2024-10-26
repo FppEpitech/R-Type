@@ -12,6 +12,7 @@
 #include "Registry.hpp"
 #include "ABIServer.hpp"
 #include "ServerErrors.hpp"
+#include "EventListener.hpp"
 #include "ServerSceneManager.hpp"
 
 /**
@@ -91,6 +92,7 @@ class Room {
         std::shared_ptr<ABINetwork::INetworkUnit>               _roomServer;        // Network Unit of the Room.
         std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
         std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
+        std::shared_ptr<EventListener>                          _eventListener;     // Event listener for the server.
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
             {ABINetwork::IMessage::MessageType::KEY, [this](ABINetwork::UDPPacket packet) { this->_handleKey(packet); }},

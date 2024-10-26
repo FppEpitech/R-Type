@@ -9,20 +9,14 @@
 #include <iostream>
 #include <json/json.h>
 
+#include "AEvent.hpp"
 #include "TextParser.hpp"
 #include "ScaleComponent.hpp"
-#include "Size1DComponent.hpp"
-#include "ColourComponent.hpp"
-#include "Position2DParser.hpp"
-#include "DefaultTextParser.hpp"
-#include "FontPathComponent.hpp"
-#include "ButtonStateParser.hpp"
-#include "TextureRectParser.hpp"
 #include "AButtonInitSystem.hpp"
+#include "DefaultTextParser.hpp"
 #include "ClickableComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "TextureRectComponent.hpp"
-#include "DefaultTextComponent.hpp"
 #include "ButtonStateComponent.hpp"
 #include "ConnectButtonInitSystem.hpp"
 #include "NetworkConnectionComponent.hpp"
@@ -62,13 +56,11 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         if (defaultText->text == "Write the server Port")
             portServer = text->text;
     }
-    for (ECS::entity_t entity = 0; buttonNetworkConnection.size() >= entity + 1 && buttonDefaultText.size() >= entity + 1; entity++) {
-        std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(buttonDefaultText[entity]);
+    for (ECS::entity_t entity = 0; buttonNetworkConnection.size() >= entity + 1; entity++) {
         std::shared_ptr<NetworkConnectionComponent> connection = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[entity]);
-        if (!connection || !defaultText)
+        if (!connection)
             continue;
-        if (defaultText->text == "Connect to server")
-            entityConnection = entity;
+        entityConnection = entity;
     }
     if (buttonNetworkConnection.size() <= entityConnection)
         return;
@@ -78,6 +70,11 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
     network->connect = true;
     network->serverPort = portServer;
     network->serverIp = ipServer;
+
+    std::vector<std::any> values = {};
+    values.push_back(std::string(ACCOUNT_MANAGEMENT));
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
+    reg.addEvent(event);
 }
 
 static void handleOther(ECS::Registry& reg, int idxPacketEntities)

@@ -32,6 +32,7 @@ set(SRC_EXE
     ${EXE_SRC_PATH}/GameEngine/Room/Room.cpp
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
     ../Error/AError.cpp
+    ../Shared/Consumption/ConsumptionCompute.cpp
     ../Shared/SceneManager/ASceneManager.cpp
     ../Shared/DefaultComponents/Draw/DrawComponent.cpp
     ../Shared/DefaultComponents/FontPath/FontPathComponent.cpp
@@ -55,6 +56,8 @@ set(SRC_EXE
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+    ../Shared/EventListener/EventListener.cpp
+        ../Shared/DefaultComponents/Editable/EditableComponent.cpp
 )
 
 # Include directories for header files
@@ -68,11 +71,15 @@ include_directories(
     ../Shared/SceneManager
     ../Shared/Component
     ../Shared
+    ../Shared/Consumption/
     ../Shared/DefaultComponents/
     ../Shared/DefaultSystems/
     ../Shared/DefaultComponents/Entities
     ../Shared/DefaultComponents/Entities/Player
+    ../Shared/DefaultEventHandlers/
+    ../Shared/EventListener/
     ${EXE_INCLUDE_PATH}
+    ../../R-TypeGame/Components/
 
     ${CMAKE_SOURCE_DIR}/Network/Errors
     ${CMAKE_SOURCE_DIR}/Network/ABI

@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <list>
 #include <cstdint>
 
 #include "UDPPacket/UDPPacket.hpp"

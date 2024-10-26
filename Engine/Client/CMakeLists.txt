@@ -44,6 +44,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+        ../Shared/DefaultComponents/Editable/EditableComponent.cpp
 )
 
 # Define system source files
@@ -67,6 +68,8 @@ set(SRC_EXE
     ${EXE_SRC_PATH}/InitShader/InitShader.cpp
     ${EXE_SRC_PATH}/InitWindow/InitWindow.cpp
     ../Error/AError.cpp
+    ../Shared/Consumption/ConsumptionCompute.cpp
+    ../Shared/EventListener/EventListener.cpp
 )
 
 # Include directories for header files
@@ -88,9 +91,13 @@ include_directories(
     ../Shared/DefaultSystems/
     ../Shared/SceneManager
     ../Shared/DLLoader
+    ../Shared/Consumption/
     ${EXE_SRC_PATH}/InitShader/
     ${EXE_SRC_PATH}/InitWindow/
     ${EXE_INCLUDE_PATH}/Components/ShaderComponent
+    ../Shared/EventListener/
+    ../Shared/DefaultEventHandlers/
+    ../../R-TypeGame/Components/
 
     ${CMAKE_SOURCE_DIR}/Network/Errors
     ${CMAKE_SOURCE_DIR}/Network/ABI

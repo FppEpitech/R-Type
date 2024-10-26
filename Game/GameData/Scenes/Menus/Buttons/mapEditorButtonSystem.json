@@ -28,6 +28,7 @@
     "ButtonTexturePathComponent": {
         "None": "./Assets/BaseRectangleButton.png",
         "Hover": "./Assets/HoverRectangleButton.png",
-        "Clicked": "./Assets/PressedRectangleButton.png"
+        "Clicked": "./Assets/PressedRectangleButton.png",
+        "Pressed": "./Assets/PressedRectangleButton.png"
     }
 }

@@ -9,6 +9,7 @@
 
 #include "Room.hpp"
 #include "ABIServer.hpp"
+#include "Registry.hpp"
 #include "ServerSceneManager.hpp"
 
 #include <queue>
@@ -98,6 +99,11 @@ class Application {
             {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoom(packet); }},
             {ABINetwork::IMessage::MessageType::JOIN_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleJoinRoom(packet); }}
         };
+
+
+        // std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
+        // std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
+        // std::shared_ptr<Network::Server>                        _server;            // Network class for server.
 };
 
 } // namespace GameEngine

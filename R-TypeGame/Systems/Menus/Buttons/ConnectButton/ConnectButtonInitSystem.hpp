@@ -11,6 +11,7 @@
 #include "AButtonInitSystem.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/connectButtonSystem.json"
+#define ACCOUNT_MANAGEMENT "Menus/accountManagementMenu.json"
 
 /**
  * @brief ConnectButtonInitSystem class

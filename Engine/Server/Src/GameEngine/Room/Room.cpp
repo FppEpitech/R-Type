@@ -17,7 +17,11 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
 
     _roomServer = ABINetwork::createServer(_roomInfos.playerMax);
     _registries = std::make_shared<ECS::Registry>();
-    _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
+
+    // TODO: Add the network unit to the event listener
+    _eventListener = std::make_shared<EventListener>(_registries, nullptr, nullptr, nullptr);
+    _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries, _eventListener);
+    _eventListener->setSceneManager(_sceneManager);
 
     _isRoomOpen = true;
     _numberPlayers = 0;

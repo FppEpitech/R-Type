@@ -12,19 +12,21 @@
 
 #include "ABIClient.hpp"
 #include "Registry.hpp"
+#include "InitShader.hpp"
+#include "InitWindow.hpp"
 #include "ClientErrors.hpp"
 #include "../GetGraphicalLibrary/IGraphic.hpp"
-
+// #include "NetworkClient.hpp"
+#include "EventListener.hpp"
 #include "ClientSceneManager.hpp"
 #include "GetGraphicalLibrary.hpp"
 #include "DrawOBJ/DrawOBJSystem.hpp"
 #include "DrawText/DrawTextSystem.hpp"
-#include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "DrawTexture/DrawTextureSystem.hpp"
+#include "../GetGraphicalLibrary/IGraphic.hpp"
 #include "DrawTextureRect/DrawTextureRectSystem.hpp"
+#include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationSystem.hpp"
-#include "InitShader.hpp"
-#include "InitWindow.hpp"
 
 typedef struct networkInstance_s {
     int tcpPort = 0;
@@ -117,6 +119,8 @@ class Application {
         std::vector<std::function<void(ECS::Registry& reg, int idxPacketEntities)>> _defaultSystems;    // Default system.
         std::shared_ptr<ABINetwork::INetworkUnit>                                   _client;            // Client Network unit.
         std::shared_ptr<SceneManager::ClientSceneManager>                           _sceneManager;      // load and handle scene in the ECS.
+        std::shared_ptr<EventListener>                                              _eventListener;     // Event listener for the client.
+        std::shared_ptr<IGraphic>                                                   _libGraphic;        // Graphic library.
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
             {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoomPacket(packet); }},
