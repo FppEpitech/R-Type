@@ -28,22 +28,18 @@ bool Scores::addScore(int id, int score) {
 int Scores::getUserBestScore(int id) {
     std::string req("SELECT MAX(score) FROM scores WHERE id = ?;");
     sqlite3_stmt* stmt = _dbcore->prepareStmt(req);
-    int score = 0;
 
     if (!stmt)
         return -1;
-
     sqlite3_bind_int(stmt, 1, id);
     *_rc = sqlite3_step(stmt);
-
     if (*_rc == SQLITE_ROW) {
-        score = sqlite3_column_int(stmt, 0);
-    } else if (*_rc != SQLITE_DONE) {
+        int score = sqlite3_column_int(stmt, 0);
         sqlite3_finalize(stmt);
-        return -1;
+        return score;
     }
     sqlite3_finalize(stmt);
-    return score;
+    return -1;
 }
 
 std::vector<std::pair<std::string,int>> Scores::getLeaderboard(Users users) {
@@ -52,7 +48,6 @@ std::vector<std::pair<std::string,int>> Scores::getLeaderboard(Users users) {
     sqlite3_stmt *stmt = _dbcore->prepareStmt(req);
     if (!stmt)
         return std::vector<std::pair<std::string,int>>();
-
     std::vector<std::pair<std::string,int>> scores;
     while (sqlite3_step(stmt) == SQLITE_ROW)
         scores.push_back(std::pair(users.getUsernameById(sqlite3_column_int(stmt, 0)), sqlite3_column_int(stmt, 1)));
