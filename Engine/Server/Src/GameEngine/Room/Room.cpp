@@ -59,7 +59,7 @@ void GameEngine::Room::_handleKey(ABINetwork::UDPPacket packet)
     int idxPlayerPacket = -1;
     ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
     for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-        PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+        std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
         if (player && player->token == packet.getToken()) {
             idxPlayerPacket = index;
             break;
@@ -73,7 +73,7 @@ void GameEngine::Room::_handleLeaveRoom(ABINetwork::UDPPacket packet)
 {
     ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
     for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-        PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+        std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
         if (player && player->token == packet.getToken()) {
             player->token = 0;
             break;

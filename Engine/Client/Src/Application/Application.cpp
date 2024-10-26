@@ -53,10 +53,13 @@ void Application::_keyboardHandler(std::size_t key)
     try {
         if (key == KEY_NULL || _client == nullptr)
             return;
+
+        //TODO: uncomment this when the game will be able to run on the client.
+
         // if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
         //     return;
+
         ABINetwork::sendPacketKey(_client, key);
-        // ABINetwork::sendPacketCreateRoom(_client, "BOB", false, "", false, 9);
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
