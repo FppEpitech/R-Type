@@ -17,9 +17,9 @@
 namespace ABINetwork
 {
 
-std::shared_ptr<INetworkUnit> createClient(std::string ipServer, int tcp_port, int udp_port)
+std::shared_ptr<INetworkUnit> createClient(std::string ipServer, int tcp_port)
 {
-    return std::make_shared<Client>(ipServer, tcp_port, udp_port);
+    return std::make_shared<Client>(ipServer, tcp_port);
 }
 
 void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password)

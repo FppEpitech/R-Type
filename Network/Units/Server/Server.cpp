@@ -53,6 +53,8 @@ void Server::_startAccept()
 
                     _queueConnection.push_back(token);
 
+                    int udpPort = _udp_socket->local_endpoint().port();
+                    asio::write(*socket, asio::buffer(&udpPort, sizeof(udpPort)));
                     asio::write(*socket, asio::buffer(&token, sizeof(token)));
                     _startReadDisconnection(socket, token);
                     _startAccept();

@@ -8,6 +8,8 @@ set(LIB_SRC_PATH ".")
 
 set(CMAKE_CXX_STANDARD 20)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 include_directories(
     ${LIB_SRC_PATH}/Messages/UDPPacket
     ${LIB_SRC_PATH}/Messages/
@@ -50,3 +52,5 @@ target_link_libraries(
     PRIVATE asio::asio
     PRIVATE unofficial::sqlite3::sqlite3
 )
+
+set_target_properties(${LIB} PROPERTIES POSITION_INDEPENDENT_CODE ON)

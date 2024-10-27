@@ -13,11 +13,11 @@
 namespace ABINetwork
 {
 
-Client::Client(std::string ipServer, int tcp_port, int udp_port)
+Client::Client(std::string ipServer, int tcp_port)
 {
     _serverIp = ipServer;
     _tcpPort = tcp_port;
-    _udpPort = udp_port;
+    _udpPort = 0;
     _io_context = std::make_shared<asio::io_context>();
     if (!_io_context)
         throw ABIError("Failed to create the client");
@@ -40,6 +40,7 @@ bool Client::_connect()
         asio::connect(*_tcp_socket, endpoints);
 
         asio::error_code ec;
+        asio::read(*_tcp_socket, asio::buffer(&_udpPort, sizeof(_udpPort)), ec);
         asio::read(*_tcp_socket, asio::buffer(&_token, sizeof(_token)), ec);
         // asio::read(*_tcp_socket, asio::buffer(&_idxPlayerComponent, sizeof(_idxPlayerComponent)), ec);
         std::cout << "Connected to server with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << _token << std::dec << std::endl;

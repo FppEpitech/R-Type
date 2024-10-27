@@ -32,7 +32,13 @@ class Client : public ANetworkUnit
 
     public:
 
-        Client(std::string ipServer, int tcp_port, int udp_port);
+        /**
+         * @brief Construct a new Client object to connect to a server.
+         *
+         * @param ipServer Server's ip to connect to.
+         * @param tcp_port Server's tcp port to connect to.
+         */
+        Client(std::string ipServer, int tcp_port);
 
         /**
          * @brief Destructor.

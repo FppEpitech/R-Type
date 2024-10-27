@@ -20,10 +20,9 @@ namespace ABINetwork
      *
      * @param ipServer The IP address of the server to connect to.
      * @param tcp_port The port number of the server to connect to by tcp.
-     * @param udp_port The port number of the server to connect to by udp.
      * @return A shared pointer to the created network unit.
      */
-    std::shared_ptr<INetworkUnit> createClient(std::string ipServer, int tcp_port, int udp_port);
+    std::shared_ptr<INetworkUnit> createClient(std::string ipServer, int tcp_port);
 
     /**
      * @brief Sends a registration packet to the server.

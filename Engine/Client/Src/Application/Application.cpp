@@ -108,7 +108,7 @@ void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
         return;
     std::shared_ptr<ABINetwork::INetworkUnit> room = nullptr;
     try {
-        room = ABINetwork::createClient("127.0.0.1", _roomInfos.tcpPort, _roomInfos.udpPort);
+        room = ABINetwork::createClient("127.0.0.1", _roomInfos.tcpPort);
         if (!room)
             throw ClientError("Error while joining room");
         _sceneManager->changeScene(std::make_pair<std::size_t, std::string>(0, FIRST_GAME_SCENE));
