@@ -8,16 +8,42 @@
 #include <iostream>
 
 #include "MouseSystem.hpp"
+#include "TextComponent.hpp"
 #include "ScaleComponent.hpp"
 #include "EditableComponent.hpp"
 #include "ClickableComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "GetGraphicalLibrary.hpp"
+#include "DefaultTextComponent.hpp"
 #include "ButtonStateComponent.hpp"
 #include "TextureRectComponent.hpp"
 #include "ButtonTexturePathComponent.hpp"
 
 MouseSystem::MouseSystem() : ASystem("MouseSystem") {}
+
+static void unselectOthers(ECS::Registry &reg, int idxPacketEntities)
+{
+    ECS::SparseArray<IComponent> buttonStates = reg.get_components<IComponent>("ButtonStateComponent");
+    ECS::SparseArray<IComponent> texts = reg.get_components<IComponent>("TextComponent");
+    ECS::SparseArray<IComponent> defaultTexts = reg.get_components<IComponent>("DefaultTextComponent");
+
+    for (int i = 0; i < buttonStates.size(); i++) {
+        std::shared_ptr<ButtonStateComponent> buttonState = std::dynamic_pointer_cast<ButtonStateComponent>(buttonStates[i]);
+        std::shared_ptr<TextComponent> text = nullptr;
+        std::shared_ptr<DefaultTextComponent> defaultText = nullptr;
+
+        if (texts.size() >= i + 1)
+            text = std::dynamic_pointer_cast<TextComponent>(texts[i]);
+        if (defaultTexts.size() >= i + 1)
+            defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(defaultTexts[i]);
+
+        if (buttonState && i != idxPacketEntities) {
+            if (text && defaultText && text->text.empty())
+                text->text = defaultText->text;
+            buttonState->state = ButtonStateComponent::ButtonState::NONE;
+        }
+    }
+}
 
 void MouseSystem::_handleMouse(ECS::Registry &reg, int idxPacketEntities)
 {
@@ -74,6 +100,7 @@ void MouseSystem::_handleMouse(ECS::Registry &reg, int idxPacketEntities)
                         buttonState->state = ButtonStateComponent::ButtonState::PRESSED;
                     }
                     clickable->callback(reg, entity);
+                    unselectOthers(reg, entity);
                 }
             } else {
                 if (editable && buttonState->state == ButtonStateComponent::ButtonState::CLICKED)

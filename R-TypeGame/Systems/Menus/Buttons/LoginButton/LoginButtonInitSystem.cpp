@@ -73,15 +73,10 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
     reg.addEvent(event);
 }
 
-static void handleOther(ECS::Registry& reg, int idxPacketEntities)
-{
-}
-
 void LoginButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
 {
     std::function<void(ECS::Registry& reg, int idxPacketEntities)> callback = [](ECS::Registry& reg, int idxPacketEntities) {
         handleThis(reg, idxPacketEntities);
-        handleOther(reg, idxPacketEntities);
     };
 
     this->_setButtonProperties(reg, idxPacketEntities, PATH_JSON, callback);
