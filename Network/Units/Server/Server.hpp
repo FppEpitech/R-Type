@@ -21,8 +21,8 @@
 #include "UDPPacket.hpp"
 #include "ANetworkUnit.hpp"
 
-#define SERVER_TCP_PORT 4444       // 0 for random port
-#define SERVER_UDP_PORT 4445       // 0 for random port
+#define SERVER_TCP_PORT 0       // 0 for random port
+#define SERVER_UDP_PORT 0       // 0 for random port
 
 /**
  * @namespace ABINetwork
