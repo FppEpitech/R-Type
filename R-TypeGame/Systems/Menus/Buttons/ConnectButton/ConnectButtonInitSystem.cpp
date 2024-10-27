@@ -51,10 +51,16 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(buttonDefaultText[entity]);
         if (!position || !textureRect || !clickable || !scale || !buttonTexturePath || !text || !defaultText)
             continue;
-        if (defaultText->text == "Write the server IP")
+        if (defaultText->text == "Write the server IP") {
+            if (defaultText->text == text->text)
+                return;
             ipServer = text->text;
-        if (defaultText->text == "Write the server Port")
+        }
+        if (defaultText->text == "Write the server Port") {
+            if (defaultText->text == text->text)
+                return;
             portServer = text->text;
+        }
     }
     for (ECS::entity_t entity = 0; buttonNetworkConnection.size() >= entity + 1; entity++) {
         std::shared_ptr<NetworkConnectionComponent> connection = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[entity]);
@@ -72,8 +78,10 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
     network->serverIp = ipServer;
 
     std::vector<std::any> values = {};
+    values.push_back(std::string(ipServer));
+    values.push_back(std::string(portServer));
     values.push_back(std::string(ACCOUNT_MANAGEMENT));
-    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("ConnectServer", values);
     reg.addEvent(event);
 }
 

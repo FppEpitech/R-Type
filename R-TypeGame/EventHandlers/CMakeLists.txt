@@ -23,6 +23,8 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/
     ${CMAKE_SOURCE_DIR}/Network/Messages/
+    ${CMAKE_SOURCE_DIR}/Network/ABI/
+    ${CMAKE_SOURCE_DIR}/Network/Units/
     SwitchScene/
 )
 
@@ -32,4 +34,11 @@ add_library(eventHandler_switchScene SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
+add_library(eventHandler_connectServer SHARED
+    ConnectServer/ConnectServerHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
 target_link_libraries(eventHandler_switchScene PRIVATE asio::asio)
+target_link_libraries(eventHandler_connectServer PRIVATE r-type_abi_network asio::asio)
