@@ -18,15 +18,17 @@ Application::Application()
         std::cerr << e.what() << std::endl;
     }
 
-    // TODO: Add the network unit to the event listener
-    _eventListener = std::make_shared<EventListener>(_registry, nullptr, nullptr, _libGraphic);
+    _client = ABINetwork::createClient();
+    if (!_client)
+        throw ClientError("Failed to create Client Network");
+
+    _eventListener = std::make_shared<EventListener>(_registry, nullptr, _client, _libGraphic);
 
     _sceneManager = std::make_shared<SceneManager::ClientSceneManager>(_registry, _eventListener);
 
     _eventListener->setSceneManager(_sceneManager);
     _initDefaultGraphicSystems();
 
-    _client = nullptr;
 }
 
 void Application::run()
@@ -63,7 +65,7 @@ void Application::_initDefaultGraphicSystems()
 void Application::_keyboardHandler(std::size_t key)
 {
     try {
-        if (key == KEY_NULL || _client == nullptr)
+        if (key == KEY_NULL || _client->getToken() == 0)
             return;
 
         //TODO: uncomment this when the game will be able to run on the client.
@@ -79,7 +81,7 @@ void Application::_keyboardHandler(std::size_t key)
 
 void Application::_packetHandler()
 {
-    if (!_client)
+    if (_client->getToken() == 0)
         return;
     std::lock_guard<std::mutex> lock(_client->getMutex());
     std::vector<ABINetwork::UDPPacket> messages = _client->getReceivedMessages();
@@ -108,8 +110,8 @@ void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
         return;
     std::shared_ptr<ABINetwork::INetworkUnit> room = nullptr;
     try {
-        room = ABINetwork::createClient("127.0.0.1", _roomInfos.tcpPort);
-        if (!room)
+        room = ABINetwork::createClient();
+        if (!room || !ABINetwork::connectToServer(room, "127.0.0.1", _roomInfos.tcpPort))
             throw ClientError("Error while joining room");
         _sceneManager->changeScene(std::make_pair<std::size_t, std::string>(0, FIRST_GAME_SCENE));
     } catch (const std::exception &e) {
@@ -131,7 +133,8 @@ void Application::_handleFullRoomPacket(ABINetwork::UDPPacket packet)
 
 void Application::_connectServer()
 {
-    // if (!_client) {
+    // if (_client) {
+        // std::cout << "ya" << std::endl;
     //     _client = ABINetwork::createClient("127.0.0.1", 4444, 4445);
     //     _serverInfos.tcpPort = 4444;
     //     _serverInfos.udpPort = 4445;

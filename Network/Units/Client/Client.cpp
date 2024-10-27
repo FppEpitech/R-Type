@@ -13,10 +13,10 @@
 namespace ABINetwork
 {
 
-Client::Client(std::string ipServer, int tcp_port)
+Client::Client()
 {
-    _serverIp = ipServer;
-    _tcpPort = tcp_port;
+    _serverIp = "";
+    _tcpPort = 0;
     _udpPort = 0;
     _io_context = std::make_shared<asio::io_context>();
     if (!_io_context)
@@ -28,13 +28,13 @@ Client::Client(std::string ipServer, int tcp_port)
     _server_endpoint = nullptr;
     _messageId = 0x0000;
     _token = 0;
-    if (!_connect())
-        throw ABIError("Failed to connect to the server");
 }
 
-bool Client::_connect()
+bool Client::connectToServer(std::string ipServer, int tcp_port)
 {
     try {
+        _serverIp = ipServer;
+        _tcpPort = tcp_port;
         asio::ip::tcp::resolver resolver(*_io_context);
         asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(_serverIp, std::to_string(_tcpPort));
         asio::connect(*_tcp_socket, endpoints);

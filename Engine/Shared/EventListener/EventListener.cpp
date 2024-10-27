@@ -44,7 +44,8 @@ void EventListener::listen()
 {
     std::queue<std::shared_ptr<IEvent>> events = _registry->getEventQueue();
     while (!_registry->getEventQueue().empty()) {
-        processEvent(events.front());
+        if (!processEvent(events.front()))
+            break;
         _registry->popEvent();
     }
 }
@@ -54,13 +55,15 @@ void EventListener::setSceneManager(std::shared_ptr <SceneManager::ISceneManager
     _sceneManager = sceneManager;
 }
 
-void EventListener::processEvent(std::shared_ptr<IEvent> event)
+bool EventListener::processEvent(std::shared_ptr<IEvent> event)
 {
     if (_eventHandlers.find(event->getEventType()) != _eventHandlers.end()) {
         try {
-            _eventHandlers[event->getEventType()]->processEvent(event, _sceneManager, _networkUnit, _graphicLib);
+            return _eventHandlers[event->getEventType()]->processEvent(event, _sceneManager, _networkUnit, _graphicLib);
         } catch(const std::exception &e) {
             std::cerr << e.what() << std::endl;
+            return false;
         }
     }
+    return true;
 }

@@ -33,12 +33,10 @@ class Client : public ANetworkUnit
     public:
 
         /**
-         * @brief Construct a new Client object to connect to a server.
+         * @brief Construct a new Client object.
          *
-         * @param ipServer Server's ip to connect to.
-         * @param tcp_port Server's tcp port to connect to.
          */
-        Client(std::string ipServer, int tcp_port);
+        Client();
 
         /**
          * @brief Destructor.
@@ -71,6 +69,16 @@ class Client : public ANetworkUnit
          * @return std::pair<int, int> Tcp and udp ports.
          */
         std::pair<int, int> getPorts() override;
+
+        /**
+         * @brief Function to connect the client to a server.
+         *
+         * @param ipServer Server's ip to connect to.
+         * @param tcp_port Server's tcp port to connect to.
+         * @return true Connection succeed.
+         * @return false Connection failed.
+         */
+        bool connectToServer(std::string ipServer, int tcp_port);
 
     private:
 

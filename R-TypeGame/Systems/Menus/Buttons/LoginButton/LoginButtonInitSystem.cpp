@@ -68,8 +68,10 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         return;
 
     std::vector<std::any> values = {};
-    values.push_back(std::string(LOGIN));
-    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
+    // values.push_back(std::string(LOGIN));
+    values.push_back(usernameText->text);
+    values.push_back(passwordText->text);
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("Login", values);
     reg.addEvent(event);
 }
 

@@ -18,11 +18,20 @@ namespace ABINetwork
     /**
      * @brief Creates a client network unit to connect to a server.
      *
-     * @param ipServer The IP address of the server to connect to.
-     * @param tcp_port The port number of the server to connect to by tcp.
      * @return A shared pointer to the created network unit.
      */
-    std::shared_ptr<INetworkUnit> createClient(std::string ipServer, int tcp_port);
+    std::shared_ptr<INetworkUnit> createClient();
+
+    /**
+     * @brief Connect a client to a server.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param ipServer The IP address of the server to connect to.
+     * @param tcp_port The port number of the server to connect to by tcp.
+     *
+     * @return False if connection failed.
+     */
+    bool connectToServer(std::shared_ptr<INetworkUnit> client, std::string ipServer, int tcp_port);
 
     /**
      * @brief Sends a registration packet to the server.

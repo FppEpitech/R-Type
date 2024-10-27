@@ -17,16 +17,24 @@
 namespace ABINetwork
 {
 
-std::shared_ptr<INetworkUnit> createClient(std::string ipServer, int tcp_port)
+std::shared_ptr<INetworkUnit> createClient()
 {
-    return std::make_shared<Client>(ipServer, tcp_port);
+    return std::make_shared<Client>();
+}
+
+bool connectToServer(std::shared_ptr<INetworkUnit> networkUnit, std::string ipServer, int tcp_port)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return false;
+    return client->connectToServer(ipServer, tcp_port);
 }
 
 void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password)
 {
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
-    if (!message)
+    if (!message || networkUnit->getToken() == 0)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::LOGIN), message->createLoginPayload(userName, password), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
@@ -35,7 +43,7 @@ void sendPacketRegister(std::shared_ptr<INetworkUnit> networkUnit, std::string u
 {
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
-    if (!message)
+    if (!message || networkUnit->getToken() == 0)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::REGISTER), message->createRegisterPayload(userName, password), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
@@ -44,7 +52,7 @@ void sendPacketLogout(std::shared_ptr<INetworkUnit> networkUnit)
 {
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
-    if (!message)
+    if (!message || networkUnit->getToken() == 0)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::LOGOUT), message->createLogoutPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
@@ -53,7 +61,7 @@ void sendPacketKey(std::shared_ptr<INetworkUnit> networkUnit, int key)
 {
     std::shared_ptr<KeyPressedMessage> message = std::make_shared<KeyPressedMessage>();
 
-    if (!message)
+    if (!message || networkUnit->getToken() == 0)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::KEY), message->createKeyPressedPayload(key), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
@@ -62,7 +70,7 @@ void sendPacketChatbox(std::shared_ptr<INetworkUnit> networkUnit, std::string us
 {
     std::shared_ptr<ChatBoxMessage> message = std::make_shared<ChatBoxMessage>();
 
-    if (!message)
+    if (!message || networkUnit->getToken() == 0)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::CHAT_BOX_MESSAGE), message->createChatBoxPayload(userName, chat), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
@@ -89,7 +97,7 @@ void sendPacketGetRooms(std::shared_ptr<INetworkUnit> networkUnit)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
-    if (!message)
+    if (!message || networkUnit->getToken() == 0)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::GET_ROOM), message->createGetRoomPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
@@ -98,7 +106,7 @@ void sendPacketCreateRoom(std::shared_ptr<INetworkUnit> networkUnit, std::string
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
-    if (!message)
+    if (!message || networkUnit->getToken() == 0)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ROOM), message->createCreateRoomPayload(roomName, privateRoom, roomPassword, cheatsRoom, playerMaxRoom), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
@@ -107,7 +115,7 @@ void sendPacketJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, std::string r
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
-    if (!message)
+    if (!message || networkUnit->getToken() == 0)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::JOIN_ROOM), message->createJoinRoomPayload(roomName, password), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
@@ -116,7 +124,7 @@ void sendPacketLeaveRoom(std::shared_ptr<INetworkUnit> networkUnit)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
-    if (!message)
+    if (!message || networkUnit->getToken() == 0)
         return;
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::LEAVE_ROOM), message->createLeaveRoomPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
