@@ -95,7 +95,7 @@ void Client::_startReceive()
 
 void Client::sendMessage(std::vector<uint8_t> message)
 {
-    _udp_socket->async_send_to(asio::buffer(message), *_server_endpoint, [](const asio::error_code&, std::size_t) {});
+    _udp_socket->send_to(asio::buffer(message), *_server_endpoint);
 }
 
 int Client::getNumberClient()
