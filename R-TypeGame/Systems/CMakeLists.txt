@@ -53,6 +53,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TexturePath/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Editable/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Checkable/
     ../Components/Speed/
     ../Components/Life/
     ../Components/Shoot/
@@ -194,6 +195,7 @@ set(COMPONENTS
         TexturePath
         TextureRect
         Editable
+        Checkable
 )
 
 foreach(component ${COMPONENTS})
@@ -943,5 +945,167 @@ target_link_libraries(system_initJoinRoomPageButton PRIVATE
         ButtonState
         Clickable
         ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initRoomCreationText SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        AText/ATextInitSystem.cpp
+        Menus/Texts/RoomCreation/RoomCreationTextInitSystem.cpp
+)
+target_link_libraries(system_initRoomCreationText PRIVATE
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initRoomNameTextBox SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/RoomNameTextBox/RoomNameTextBoxInitSystem.cpp
+)
+target_link_libraries(system_initRoomNameTextBox PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        DefaultText
+        Draw
+        ButtonState
+        Clickable
+        Editable
+        TextLimit
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initRoomPasswordTextBox SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/RoomPasswordTextBox/RoomPasswordTextBoxInitSystem.cpp
+)
+target_link_libraries(system_initRoomPasswordTextBox PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        DefaultText
+        Draw
+        ButtonState
+        Clickable
+        Editable
+        TextLimit
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initRoomPlayerNumberTextBox SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/RoomPlayerNumberTextBox/RoomPlayerNumberTextBoxInitSystem.cpp
+)
+target_link_libraries(system_initRoomPlayerNumberTextBox PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        DefaultText
+        Draw
+        ButtonState
+        Clickable
+        Editable
+        TextLimit
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initCreateRoomButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/CreateRoomButton/CreateRoomButtonInitSystem.cpp
+)
+target_link_libraries(system_initCreateRoomButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initIsRoomPrivateButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/IsRoomPrivateButton/IsRoomPrivateButtonInitSystem.cpp
+)
+target_link_libraries(system_initIsRoomPrivateButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        Checkable
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initAreCheatsOnButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/AreCheatsOnButton/AreCheatsOnButtonInitSystem.cpp
+)
+target_link_libraries(system_initAreCheatsOnButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        Checkable
         JsonCpp::JsonCpp
 )
