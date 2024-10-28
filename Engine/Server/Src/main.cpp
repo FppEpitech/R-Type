@@ -6,6 +6,7 @@
 */
 
 #include "Application/Application.hpp"
+#include <iostream>
 
 int main()
 {
