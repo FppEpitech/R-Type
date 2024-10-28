@@ -63,10 +63,9 @@ namespace ABINetwork
         index += componentTypeSize;
 
         uint8_t numArgs = packet.getPayload()[index++];
-        std::vector<std::variant<int, float, std::string>> arguments;
+        std::vector<std::variant<int, float, std::string, bool>> arguments;
 
-        for (size_t i = 0; i < numArgs; ++i)
-        {
+        for (size_t i = 0; i < numArgs; ++i) {
             int type = packet.getPayload()[index++];
 
             if (type == Type::Int) {
