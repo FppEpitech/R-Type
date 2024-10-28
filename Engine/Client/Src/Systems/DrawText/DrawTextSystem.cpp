@@ -5,16 +5,15 @@
 ** DrawTextSystem
 */
 
-#include "DrawTextSystem.hpp"
-#include "TextPosition2D/TextPosition2DComponent.hpp"
-#include "Text/TextComponent.hpp"
-#include "Size1D/Size1DComponent.hpp"
-#include "FontPath/FontPathComponent.hpp"
-#include "Colour/ColourComponent.hpp"
-#include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
-
-#include <exception>
+#include "DrawTextSystem.hpp"
+#include "Text/TextComponent.hpp"
+#include "Draw/DrawComponent.hpp"
+#include "GetGraphicalLibrary.hpp"
+#include "Size1D/Size1DComponent.hpp"
+#include "Colour/ColourComponent.hpp"
+#include "FontPath/FontPathComponent.hpp"
+#include "TextPosition2D/TextPosition2DComponent.hpp"
 
 DrawTextSystem::DrawTextSystem() :
     ASystem("DrawTextSystem")
@@ -31,8 +30,14 @@ void DrawTextSystem::_drawText(ECS::Registry& reg, int idxPacketEntities)
     ECS::SparseArray<IComponent> size1DComponents = reg.get_components<IComponent>("Size1DComponent");
     ECS::SparseArray<IComponent> fontPathComponents = reg.get_components<IComponent>("FontPathComponent");
     ECS::SparseArray<IComponent> colourComponents = reg.get_components<IComponent>("ColourComponent");
+    ECS::SparseArray<IComponent> drawComponents = reg.get_components<IComponent>("DrawComponent");
 
     for (ECS::entity_t entity = 0; textComponents.size() >= entity + 1; entity++) {
+        std::shared_ptr<DrawComponent> draw = (drawComponents.size() >= entity + 1) ?
+                std::dynamic_pointer_cast<DrawComponent>(drawComponents[entity]) : nullptr;
+
+        if (!draw || !draw->draw)
+            continue;
 
         std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(textComponents[entity]);
         if (!text)

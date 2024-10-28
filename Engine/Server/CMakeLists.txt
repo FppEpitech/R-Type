@@ -59,7 +59,8 @@ set(SRC_EXE
     ../../Network/Database/Models/Scores/Scores.cpp
     ../../Network/Database/Models/Users/Users.cpp
     ../Shared/EventListener/EventListener.cpp
-        ../Shared/DefaultComponents/Editable/EditableComponent.cpp
+    ../Shared/DefaultComponents/Editable/EditableComponent.cpp
+    ../Shared/DefaultComponents/Checkable/CheckableComponent.cpp
 )
 
 # Include directories for header files

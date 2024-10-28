@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** CreateRoomPageButtonInitSystem.hpp
+** RoomNameTextBoxInitSystem.hpp
 */
 
 #pragma once
@@ -10,28 +10,23 @@
 #include "ISystem.hpp"
 #include "AButtonInitSystem.hpp"
 
-#define PATH_JSON "GameData/Scenes/Menus/Buttons/createRoomPageButtonSystem.json"
-#define CREATE_ROOM "Menus/roomCreationMenu.json"
+#define PATH_JSON "GameData/Scenes/Menus/Buttons/roomNameTextBoxSystem.json"
 
-/**
- * @brief CreateRoomPageButtonInitSystem class
- *
- */
-class CreateRoomPageButtonInitSystem : public AButtonInitSystem, public ASystem {
+class RoomNameTextBoxInitSystem : public AButtonInitSystem, public ASystem {
 
     public:
 
         /**
-         * @brief Construct a new CreateRoomPageButtonInitSystem object
+         * @brief Construct a new RoomNameTextBoxInitSystem object
          *
          */
-        CreateRoomPageButtonInitSystem();
+        RoomNameTextBoxInitSystem();
 
         /**
-         * @brief Destroy the CreateRoomPageButtonInitSystem object
+         * @brief Destroy the RoomNameTextBoxInitSystem object
          *
          */
-        ~CreateRoomPageButtonInitSystem() = default;
+        ~RoomNameTextBoxInitSystem() = default;
 
         /**
          * @brief Get the Function object.

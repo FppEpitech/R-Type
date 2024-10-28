@@ -2,39 +2,38 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** CreateRoomPageButtonInitSystem.cpp
+** CreateRoomButtonInitSystem.cpp
 */
 
 #include <fstream>
 #include <iostream>
 #include <json/json.h>
 
-#include "AEvent.hpp"
+#include "DrawComponent.hpp"
 #include "AButtonInitSystem.hpp"
-#include "CreateRoomPageButtonInitSystem.hpp"
+#include "CreateRoomButtonInitSystem.hpp"
 
-CreateRoomPageButtonInitSystem::CreateRoomPageButtonInitSystem() :
+CreateRoomButtonInitSystem::CreateRoomButtonInitSystem() :
     ASystem("ButtonInitSystem") {}
 
 static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 {
-    std::vector<std::any> values = {};
-    values.push_back(std::string(CREATE_ROOM));
-    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
-    reg.addEvent(event);
 }
 
-void CreateRoomPageButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
+void CreateRoomButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
 {
     std::function<void(ECS::Registry& reg, int idxPacketEntities)> callback = [](ECS::Registry& reg, int idxPacketEntities) {
         handleThis(reg, idxPacketEntities);
     };
 
     this->_setButtonProperties(reg, idxPacketEntities, PATH_JSON, callback);
+
+    std::shared_ptr<IComponent> draw = std::make_shared<DrawComponent>();
+    reg.set_component(idxPacketEntities, draw, "DrawComponent");
 }
 
 extern "C" {
     EXPORT_SYMBOL ISystem* loadSystemInstance() {
-        return new CreateRoomPageButtonInitSystem();
+        return new CreateRoomButtonInitSystem();
     }
 }
