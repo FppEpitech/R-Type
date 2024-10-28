@@ -11,6 +11,7 @@
 #include "AButtonInitSystem.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/createRoomPageButtonSystem.json"
+#define CREATE_ROOM "Menus/roomCreationMenu.json"
 
 /**
  * @brief CreateRoomPageButtonInitSystem class

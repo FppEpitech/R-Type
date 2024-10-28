@@ -9,6 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
+#include "AEvent.hpp"
 #include "AButtonInitSystem.hpp"
 #include "CreateRoomPageButtonInitSystem.hpp"
 
@@ -17,6 +18,10 @@ CreateRoomPageButtonInitSystem::CreateRoomPageButtonInitSystem() :
 
 static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 {
+    std::vector<std::any> values = {};
+    values.push_back(std::string(CREATE_ROOM));
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
+    reg.addEvent(event);
 }
 
 void CreateRoomPageButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
