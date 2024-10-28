@@ -131,6 +131,16 @@ void Application::_handleFullRoomPacket(ABINetwork::UDPPacket packet)
     // TODO: display the full room menu.
 }
 
+void Application::_handleLoginPacket(ABINetwork::UDPPacket packet)
+{
+    bool isAllowed = ABINetwork::getLoginAllowedInfoFromPacket(packet);
+
+    if (isAllowed)
+        ABINetwork::setClientLogin(_client, ABINetwork::INetworkUnit::LoginState::LOGIN);
+    else
+        ABINetwork::setClientLogin(_client, ABINetwork::INetworkUnit::LoginState::JUST_FAILED);
+}
+
 void Application::_connectServer()
 {
     // if (_client) {

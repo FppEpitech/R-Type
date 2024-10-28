@@ -138,4 +138,29 @@ std::tuple<std::string, int, int> getCreatedRoomInfoFromPacket(UDPPacket packet)
     return message->getCreatedRoomInfoFromPacket(packet);
 }
 
+bool getLoginAllowedInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
+
+    if (!message)
+        return false;
+    return message->getLoginAllowedInfoFromPacket(packet);
+}
+
+void setClientLogin(std::shared_ptr<INetworkUnit> networkUnit, INetworkUnit::LoginState loginState)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return;
+    client->setIsLogin(loginState);
+}
+
+INetworkUnit::LoginState getClientLogin(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return INetworkUnit::LoginState::NONE;
+    return client->getIsLogin();
+}
+
 }

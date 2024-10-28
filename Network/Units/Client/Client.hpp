@@ -80,24 +80,45 @@ class Client : public ANetworkUnit
          */
         bool connectToServer(std::string ipServer, int tcp_port);
 
+        /**
+         * @brief Set the Is Login object.
+         *
+         * @param loginState New value.
+         */
+        void setIsLogin(LoginState loginState);
+
+        /**
+         * @brief Get the Is Login object.
+         *
+         */
+        LoginState getIsLogin();
+
     private:
+
+        /**
+         * @brief Start to receive messages from server.
+         *
+         */
+        void _startReceive();
+
+        /**
+         * @brief Add a packet received to the queue.
+         *
+         * @param packet Packet received.
+         */
+        void _addPacketToQueueReceived(UDPPacket packet);
+
 
         std::string                                 _serverIp;          // Server ip adress.
         int                                         _tcpPort;           // TCP port on witch we can connect to the server.
         int                                         _udpPort;           // UDP port on witch we can communicate to the server.
+        LoginState                                  _loginState;        // Check if the client is login.
 
         std::shared_ptr<asio::io_context>           _io_context;        // Shared pointer to the io_context object, used to manage asynchronous I/O operations.
         std::shared_ptr<asio::ip::tcp::socket>      _tcp_socket;        // Shared pointer to the TCP acceptor object, used to accept incoming TCP connections.
         std::shared_ptr<asio::ip::udp::socket>      _udp_socket;        // Shared pointer to the UDP socket object, used for sending and receiving UDP datagrams.
         std::shared_ptr<asio::ip::udp::endpoint>    _server_endpoint;   // Server endpoint (used to communicate with the server).
-
-        /**
-         * @brief Function to connect the client to the server.
-         *
-         * @return true Connection worked.
-         * @return false Connection failed.
-         */
-        bool _connect();
+        std::array<char, 1024>                      _recvBuffer;        // Receive buffer to store data received via UDP.
 };
 
 }

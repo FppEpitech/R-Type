@@ -144,4 +144,30 @@ namespace ABINetwork
      * @return std::tuple<std::string, int, int> With roomName, tcpPort and udpPort.
      */
     std::tuple<std::string, int, int> getCreatedRoomInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Get the Login Allowed Info From Packet object.
+     *
+     * @param packet Packet received from the server.
+     * @return true Client allowed to login.
+     * @return false Client not allowed to login.
+     */
+    bool getLoginAllowedInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Set the Client Login object.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param loginState The value to set.
+     */
+    void setClientLogin(std::shared_ptr<INetworkUnit> networkUnit, INetworkUnit::LoginState loginState);
+
+    /**
+     * @brief Get the Client Login object
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @return LoginState The actual state of the client login.
+     */
+    INetworkUnit::LoginState getClientLogin(std::shared_ptr<INetworkUnit> networkUnit);
+
 }

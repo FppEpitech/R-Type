@@ -42,9 +42,8 @@ void EventListener::removeHandler(const std::string &eventType)
 
 void EventListener::listen()
 {
-    std::queue<std::shared_ptr<IEvent>> events = _registry->getEventQueue();
     while (!_registry->getEventQueue().empty()) {
-        if (!processEvent(events.front()))
+        if (!processEvent(_registry->getEventQueue().front()))
             break;
         _registry->popEvent();
     }

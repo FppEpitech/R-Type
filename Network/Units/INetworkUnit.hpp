@@ -29,6 +29,12 @@ class INetworkUnit
 {
     public:
 
+        enum LoginState {
+            NONE = 0,
+            LOGIN,
+            JUST_FAILED         // Just failed is set only on one tick, after the tick it will be NONE.
+        };
+
         /**
          * @brief Virtual destructor.
          *

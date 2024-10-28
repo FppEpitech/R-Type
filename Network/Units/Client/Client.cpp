@@ -15,6 +15,7 @@ namespace ABINetwork
 
 Client::Client()
 {
+    _loginState = LoginState::NONE;
     _serverIp = "";
     _tcpPort = 0;
     _udpPort = 0;
@@ -54,7 +55,7 @@ bool Client::connectToServer(std::string ipServer, int tcp_port)
         // this->_messageHandler = std::move(callback);
         // std::vector<uint8_t> initPacket = _createPacket();
         // this->sendMessage(initPacket);
-        // _startReceive(reg);
+        _startReceive();
 
         std::thread io_thread([this]() { _io_context->run(); });
         io_thread.detach();
@@ -63,6 +64,33 @@ bool Client::connectToServer(std::string ipServer, int tcp_port)
         std::cerr << "Error during connection: " << e.what() << std::endl;
         return false;
     }
+}
+
+void Client::_addPacketToQueueReceived(UDPPacket packet)
+{
+    std::lock_guard<std::mutex> lock(_mutex);
+    _queueMessage.push_back(packet);
+}
+
+void Client::_startReceive()
+{
+    _udp_socket->async_receive_from(asio::buffer(_recvBuffer), *_server_endpoint,
+        [this](const asio::error_code& error, std::size_t bytes_recvd) {
+            if (!error && bytes_recvd > 0) {
+                try {
+                    std::string message(_recvBuffer.data(), bytes_recvd);
+
+                    UDPPacket packet(message);
+
+                    _addPacketToQueueReceived(packet);
+
+                } catch (const std::exception& e) {
+                    _startReceive();
+                }
+            }
+            _startReceive();
+        }
+    );
 }
 
 void Client::sendMessage(std::vector<uint8_t> message)
@@ -78,6 +106,16 @@ int Client::getNumberClient()
 std::pair<int, int> Client::getPorts()
 {
     return {_tcpPort, _udpPort};
+}
+
+void Client::setIsLogin(LoginState loginState)
+{
+    _loginState = loginState;
+}
+
+INetworkUnit::LoginState Client::getIsLogin()
+{
+    return _loginState;
 }
 
 }

@@ -87,6 +87,23 @@ class AuthMessage : public AMessage
          */
         uint32_t getLogoutInfoFromPacket(UDPPacket packet);
 
+        /**
+         * @brief Create a Allowed Login Payload object.
+         *
+         * @param isAllowed True if client allowed to login.
+         * @return Payload& for allow login.
+         */
+        Payload &createAllowedLoginPayload(bool isAllowed);
+
+        /**
+         * @brief Get the login allowed Info From Packet object.
+         *
+         * @param packet Received by the server.
+         * @return true Client allowed to login.
+         * @return false Client not allowed to login.
+         */
+        bool getLoginAllowedInfoFromPacket(UDPPacket packet);
+
         private:
 
             Payload _payload;     // Content of the message in the packet.

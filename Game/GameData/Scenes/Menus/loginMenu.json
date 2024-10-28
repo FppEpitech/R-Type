@@ -13,7 +13,8 @@
         "libsystem_handleTyping.so"
     ],
     "eventHandlers": [
-        "libeventHandler_login.so"
+        "libeventHandler_login.so",
+        "libeventHandler_loginAllowed.so"
     ],
     "menus": {
         "keyBinds": [

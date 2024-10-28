@@ -178,4 +178,16 @@ void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABIN
                                     networkUnit->getToken()));
 }
 
+void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAllowed)
+{
+    std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::LOGIN),
+                                    message->createAllowedLoginPayload(isAllowed),
+                                    networkUnit->getIdMessage(),
+                                    networkUnit->getToken()));
+}
+
 }

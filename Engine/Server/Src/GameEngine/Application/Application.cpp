@@ -21,6 +21,7 @@ void GameEngine::Application::run()
 {
     while (true) {
         _packetHandler();
+        ABINetwork::sendMessages(_server);
     }
 }
 
@@ -87,6 +88,15 @@ void GameEngine::Application::_handleJoinRoom(ABINetwork::UDPPacket packet)
         return;
     }
     ABINetwork::sendPacketAllowedToJoinRoom(_server);
+}
+
+void GameEngine::Application::_handleLogin(ABINetwork::UDPPacket packet)
+{
+    std::pair<std::string, std::string> loginInfos = ABINetwork::getLoginInfoFromPacket(packet);
+
+    // TODO : Check in the dataBase if login exist
+    // For the moment send always true.
+    ABINetwork::sendPacketLoginAllowed(_server, true);
 }
 
 //     _registries = std::make_shared<ECS::Registry>();

@@ -97,6 +97,13 @@ class Application {
         void _handleFullRoomPacket(ABINetwork::UDPPacket packet);
 
         /**
+         * @brief Handle packet received by the server for login.
+         *
+         * @param packet
+         */
+        void _handleLoginPacket(ABINetwork::UDPPacket packet);
+
+        /**
          * @brief Connect to the server.
          *
          */
@@ -126,7 +133,8 @@ class Application {
             {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoomPacket(packet); }},
             {ABINetwork::IMessage::MessageType::JOIN_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleJoinRoomPacket(packet); }},
             {ABINetwork::IMessage::MessageType::WRONG_ROOM_PASSWORD, [this](ABINetwork::UDPPacket packet) { this->_handleWrongRoomPasswordPacket(packet); }},
-            {ABINetwork::IMessage::MessageType::FULL_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleFullRoomPacket(packet); }}
+            {ABINetwork::IMessage::MessageType::FULL_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleFullRoomPacket(packet); }},
+            {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLoginPacket(packet); }}
         };
 
         networkInstance_t _serverInfos; // Informations about the server.

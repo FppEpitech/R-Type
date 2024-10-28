@@ -134,4 +134,12 @@ namespace ABINetwork
      * @param rooms Vector of room's informations
      */
     void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> rooms);
+
+    /**
+     * @brief Send message to know if client allowed to login.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param isAllowed True if client allowed to login.
+     */
+    void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAllowed);
 }
