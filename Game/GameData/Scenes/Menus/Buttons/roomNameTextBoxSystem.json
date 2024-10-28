@@ -1,0 +1,36 @@
+{
+    "TextureRectComponent":{
+        "path":"./Assets/BaseRectangleButton.png",
+        "left":0,
+        "top":0,
+        "width":410,
+        "height":110
+    },
+    "ScaleComponent":0.8,
+    "Position2DComponent":{
+        "x":800,
+        "y":265
+    },
+    "TextPosition2DComponent":{
+        "x":840,
+        "y":300
+    },
+    "ColourComponent":{
+        "r":255,
+        "g":255,
+        "b":255,
+        "a":255
+    },
+    "TextComponent": "Room name",
+    "TextLimitComponent": 15,
+    "DefaultTextComponent": "Room name",
+    "Size1DComponent": 24,
+    "FontPathComponent": "",
+    "ButtonStateComponent": "NONE",
+    "ButtonTexturePathComponent": {
+        "None": "./Assets/BaseRectangleButton.png",
+        "Hover": "./Assets/HoverRectangleButton.png",
+        "Clicked": "./Assets/PressedRectangleButton.png",
+        "Pressed": "./Assets/PressedRectangleButton.png"
+    }
+}
