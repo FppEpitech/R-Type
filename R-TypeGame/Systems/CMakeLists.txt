@@ -177,18 +177,14 @@ set(COMPONENTS
         Draw
         FontPath
         MaterialMap
-        MusicPath
-        MusicPitch
-        MusicVolume
+        Music
         NetworkConnection
         ObjPath
         Position2D
         Position3D
         Scale
         Size1D
-        SoundPath
-        SoundPitch
-        SoundVolume
+        Sound
         SpriteSheetAnimation
         Text
         TextPosition2D

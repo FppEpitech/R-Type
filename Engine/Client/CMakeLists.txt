@@ -35,12 +35,8 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/Size1D/Size1DComponent.cpp
     ../Shared/DefaultComponents/Text/TextComponent.cpp
     ../Shared/DefaultComponents/MaterialMap/MaterialMapComponent.cpp
-    ../Shared/DefaultComponents/MusicPath/MusicPathComponent.cpp
-    ../Shared/DefaultComponents/MusicPitch/MusicPitchComponent.cpp
-    ../Shared/DefaultComponents/MusicVolume/MusicVolumeComponent.cpp
-    ../Shared/DefaultComponents/SoundPath/SoundPathComponent.cpp
-    ../Shared/DefaultComponents/SoundPitch/SoundPitchComponent.cpp
-    ../Shared/DefaultComponents/SoundVolume/SoundVolumeComponent.cpp
+    ../Shared/DefaultComponents/Music/MusicComponent.cpp
+    ../Shared/DefaultComponents/Sound/SoundComponent.cpp
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp

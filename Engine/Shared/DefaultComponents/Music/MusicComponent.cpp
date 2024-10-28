@@ -7,4 +7,4 @@
 
 #include "MusicComponent.hpp"
 
-MusicVolumeComponent::MusicVolumeComponent(float volume, float pitch, std::string path) : AComponent("MusicComponent"), volume(volume), pitch(pitch), path(path) {}
+MusicComponent::MusicComponent(float volume, float pitch, std::string path) : AComponent("MusicComponent"), volume(volume), pitch(pitch), path(path) {}
