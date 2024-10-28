@@ -35,32 +35,10 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
     }
 }
 
-static void handleOthers(ECS::Registry& reg, int idxPacketEntities)
-{
-    ECS::SparseArray<IComponent> states = reg.get_components<IComponent>("ButtonStateComponent");
-    ECS::SparseArray<IComponent> clickables = reg.get_components<IComponent>("ClickableComponent");
-    ECS::SparseArray<IComponent> texts = reg.get_components<IComponent>("TextComponent");
-    ECS::SparseArray<IComponent> defaultTexts = reg.get_components<IComponent>("DefaultTextComponent");
-    for (int i = 0; i < states.size() && i < clickables.size() && i < texts.size() && i < defaultTexts.size(); i++) {
-        std::shared_ptr<ButtonStateComponent> newState = std::dynamic_pointer_cast<ButtonStateComponent>(states[i]);
-        std::shared_ptr<ClickableComponent> clickable = std::dynamic_pointer_cast<ClickableComponent>(clickables[i]);
-        std::shared_ptr<TextComponent> newText = std::dynamic_pointer_cast<TextComponent>(texts[i]);
-        std::shared_ptr<DefaultTextComponent> newDefaultText = std::dynamic_pointer_cast<DefaultTextComponent>(defaultTexts[i]);
-        if (!newState || !clickable || !newText || !newDefaultText)
-            continue;
-        if (newState->state == ButtonStateComponent::ButtonState::CLICKED && i != idxPacketEntities) {
-            newState->state = ButtonStateComponent::ButtonState::NONE;
-            if (newText->text.empty())
-                newText->text = newDefaultText->text;
-        }
-    }
-}
-
 void IpTextBoxInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
 {
     std::function<void(ECS::Registry& reg, int idxPacketEntities)> callback = [](ECS::Registry& reg, int idxPacketEntities) {
         handleThis(reg, idxPacketEntities);
-        handleOthers(reg, idxPacketEntities);
     };
 
     this->_setButtonProperties(reg, idxPacketEntities, PATH_JSON, callback);

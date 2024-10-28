@@ -27,7 +27,7 @@ jobs:
       - name: Build project
         run: |
           cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-          cmake --build build/
+          cmake --build build/ -j 4
 
       - name: Run tests
         run: |

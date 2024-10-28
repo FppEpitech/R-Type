@@ -31,7 +31,6 @@ set(SRC_EXE
     ${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
     ${EXE_SRC_PATH}/GameEngine/Room/Room.cpp
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
-    ../Error/AError.cpp
     ../Shared/Consumption/ConsumptionCompute.cpp
     ../Shared/SceneManager/ASceneManager.cpp
     ../Shared/DefaultComponents/Draw/DrawComponent.cpp
@@ -56,8 +55,12 @@ set(SRC_EXE
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+    ../../Network/Database/Database.cpp
+    ../../Network/Database/Models/Scores/Scores.cpp
+    ../../Network/Database/Models/Users/Users.cpp
     ../Shared/EventListener/EventListener.cpp
-        ../Shared/DefaultComponents/Editable/EditableComponent.cpp
+    ../Shared/DefaultComponents/Editable/EditableComponent.cpp
+    ../Shared/DefaultComponents/Checkable/CheckableComponent.cpp
 )
 
 # Include directories for header files
@@ -76,6 +79,10 @@ include_directories(
     ../Shared/DefaultSystems/
     ../Shared/DefaultComponents/Entities
     ../Shared/DefaultComponents/Entities/Player
+    ../../Network/Database
+    ../../Network/Errors
+    ../../Network/Database/Models/Scores
+    ../../Network/Database/Models/Users
     ../Shared/DefaultEventHandlers/
     ../Shared/EventListener/
     ${EXE_INCLUDE_PATH}
@@ -100,12 +107,18 @@ target_include_directories(${EXE} PUBLIC ${EXE_INCLUDE_PATH})
 # Find required packages
 find_package(asio REQUIRED)
 find_package(jsoncpp REQUIRED)
+find_package(asio CONFIG REQUIRED)
+find_package(unofficial-sqlite3 CONFIG REQUIRED)
+find_package(unofficial-sodium CONFIG REQUIRED)
+
 
 # Link libraries to the executable target
 target_link_libraries(
     ${EXE}
     PRIVATE asio::asio
     JsonCpp::JsonCpp
+    PRIVATE unofficial::sqlite3::sqlite3
+    PRIVATE unofficial-sodium::sodium
     r-type_ecs
     r-type_abi_network
 )

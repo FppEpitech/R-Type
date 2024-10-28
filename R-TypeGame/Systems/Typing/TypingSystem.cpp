@@ -44,6 +44,8 @@ void TypingSystem::_handleTyping(ECS::Registry &reg, int idxPacketEntities)
             std::shared_ptr<ClickableComponent> clickable = std::dynamic_pointer_cast<ClickableComponent>(clickables[entity]);
             if (!editable || !buttonState || !text || !defaultText || !textLimit || !clickable)
                 continue;
+            if (!editable->_isEditable)
+                continue;
             if (buttonState->state == ButtonStateComponent::ButtonState::CLICKED) {
                 if (defaultText->text == text->text && _isKeyPrintable(pressedInput))
                     text->text = "";

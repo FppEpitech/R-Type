@@ -13,3 +13,9 @@ rmdir /s /q build
 mkdir build
 
 cmake . -DCMAKE_TOOLCHAIN_FILE="%CD%\vcpkg\scripts\buildsystems\vcpkg.cmake" -DCMAKE_BUILD_TYPE=Release -B build
+
+cd build
+
+make -j 10
+
+cd ..
