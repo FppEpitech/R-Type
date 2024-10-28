@@ -95,6 +95,13 @@ class Application {
          */
         void _handleLogin(ABINetwork::UDPPacket packet);
 
+        /**
+         * @brief Handle the packet REGISTER.
+         *
+         * @param packet Packet to handle.
+         */
+        void _handleRegister(ABINetwork::UDPPacket packet);
+
         std::shared_ptr<ABINetwork::INetworkUnit>                                       _server;            // Network class for server.
         std::size_t                                                                     _nbRoom;            // Number of current rooms in the server.
         std::unordered_map<std::string, std::shared_ptr<GameEngine::Room>>              _rooms;             // List of rooms.
@@ -105,7 +112,8 @@ class Application {
             {ABINetwork::IMessage::MessageType::GET_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleGetRoom(packet); }},
             {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoom(packet); }},
             {ABINetwork::IMessage::MessageType::JOIN_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleJoinRoom(packet); }},
-            {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLogin(packet); }}
+            {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLogin(packet); }},
+            {ABINetwork::IMessage::MessageType::REGISTER, [this](ABINetwork::UDPPacket packet) { this->_handleRegister(packet); }}
         };
 
 

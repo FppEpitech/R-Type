@@ -99,17 +99,9 @@ void GameEngine::Application::_handleLogin(ABINetwork::UDPPacket packet)
     ABINetwork::sendPacketLoginAllowed(_server, true);
 }
 
-//     _registries = std::make_shared<ECS::Registry>();
+void GameEngine::Application::_handleRegister(ABINetwork::UDPPacket packet)
+{
+    std::pair<std::string, std::string> registerInfos = ABINetwork::getRegisterInfoFromPacket(packet);
 
-//     // TODO: Add the network unit to the event listener
-//     _eventListener = std::make_shared<EventListener>(_registries, nullptr, nullptr, nullptr);
-
-//     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries, _eventListener);
-
-//     _eventListener->setSceneManager(_sceneManager);
-
-//     _server = std::make_shared<Network::Server>(4444, 4445);
-//     _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg) {
-//         this->_packetHandler(std::move(packet), endpoint, reg);
-//     }, _registries);
-// }
+    // TODO : Register the client in the database.
+}
