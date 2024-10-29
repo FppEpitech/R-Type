@@ -53,7 +53,7 @@ void GameEngine::Application::_handleGetRoom(ABINetwork::UDPPacket packet)
     std::vector<ABINetwork::roomInfo_t> roomInfos;
     for (auto room : _rooms)
         roomInfos.push_back(room.second->getRoomInfo());
-    ABINetwork::sendPacketRooms(_server, roomInfos);
+    ABINetwork::sendPacketRooms(_server, roomInfos, packet.getToken());
 }
 
 void GameEngine::Application::_handleCreateRoom(ABINetwork::UDPPacket packet)
@@ -73,7 +73,7 @@ void GameEngine::Application::_handleCreateRoom(ABINetwork::UDPPacket packet)
             _rooms[roomInfo.name] = newRoom;
             _nbRoom++;
             _threads.push_back(std::make_shared<std::thread>([newRoom, this]() { newRoom->run(_roomCreationMutex); }));
-            ABINetwork::sendPacketRoomCreated(_server, newRoom->getRoomInfo());
+            ABINetwork::sendPacketRoomCreated(_server, newRoom->getRoomInfo(), packet.getToken());
         } catch (const std::exception& e) {
             // sendErrorRoomPacket();
             std::cerr << e.what() << std::endl;
@@ -87,14 +87,14 @@ void GameEngine::Application::_handleJoinRoom(ABINetwork::UDPPacket packet)
     std::pair<std::string, std::string> joinRoomInfos = ABINetwork::getJoinRoomInfoFromPacket(packet);
 
     if (_rooms[joinRoomInfos.first]->getRoomInfo().password != joinRoomInfos.second) {
-        ABINetwork::sendPacketWrongRoomPassword(_server);
+        ABINetwork::sendPacketWrongRoomPassword(_server, packet.getToken());
         return;
     }
     if (_rooms[joinRoomInfos.first]->getRoomInfo().playerMax <= _rooms[joinRoomInfos.first]->getNumberOfPlayers()) {
-        ABINetwork::sendPacketFullRoom(_server);
+        ABINetwork::sendPacketFullRoom(_server, packet.getToken());
         return;
     }
-    ABINetwork::sendPacketAllowedToJoinRoom(_server);
+    ABINetwork::sendPacketAllowedToJoinRoom(_server, packet.getToken());
 }
 
 void GameEngine::Application::_handleLogin(ABINetwork::UDPPacket packet)
@@ -102,10 +102,10 @@ void GameEngine::Application::_handleLogin(ABINetwork::UDPPacket packet)
     std::pair<std::string, std::string> loginInfos = ABINetwork::getLoginInfoFromPacket(packet);
 
     if (_db->users->loginUser(loginInfos.first, loginInfos.second) > 0) {
-        ABINetwork::sendPacketLoginAllowed(_server, true);
+        ABINetwork::sendPacketLoginAllowed(_server, true, packet.getToken());
         return;
     }
-    ABINetwork::sendPacketLoginAllowed(_server, false);
+    ABINetwork::sendPacketLoginAllowed(_server, false, packet.getToken());
 }
 
 void GameEngine::Application::_handleRegister(ABINetwork::UDPPacket packet)

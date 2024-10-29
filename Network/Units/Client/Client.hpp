@@ -51,7 +51,7 @@ class Client : public ANetworkUnit
          *
          * @param message MEssage to send.
          */
-        void sendMessage(std::vector<uint8_t> message) override;
+        void sendMessage(std::vector<uint8_t> message, uint32_t token) override;
 
         /**
          * @brief Get the Number Client connected.

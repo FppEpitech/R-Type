@@ -48,23 +48,23 @@ class ANetworkUnit : public INetworkUnit
         /**
          * @brief Get the Message To Send Queue object
          *
-         * @return std::list<std::vector<uint8_t>>.
+         * @return std::list<std::pair< std::vector<uint8_t>, uint32_t>>.
          */
-        std::list<std::vector<uint8_t>>& getMessageToSendQueue() override;
+        std::list<std::pair< std::vector<uint8_t>, uint32_t>>& getMessageToSendQueue() override;
 
         /**
          * @brief Set the Message To Send Queue object.
          *
          * @param message Message to send.
          */
-        void setMessageToSendQueue(std::vector<uint8_t> message) override;
+        void setMessageToSendQueue(std::vector<uint8_t> message, uint32_t token) override;
 
         /**
          * @brief Get the Message In Queue object.
          *
          * @return std::vector<uint8_t> Message.
          */
-        std::vector<uint8_t> getMessageInQueue() override;
+        std::pair< std::vector<uint8_t>, uint32_t> getMessageInQueue() override;
 
         /**
          * @brief Get the Received Messages.
@@ -92,7 +92,7 @@ class ANetworkUnit : public INetworkUnit
          *
          * @param message Message to send.
          */
-        virtual void sendMessage(std::vector<uint8_t> message) = 0;
+        virtual void sendMessage(std::vector<uint8_t> message, uint32_t token) = 0;
 
         /**
          * @brief Get the Mutex object.
@@ -120,11 +120,11 @@ class ANetworkUnit : public INetworkUnit
 
     protected:
 
-        uint32_t                                _token;                      // Token of client (used to be identify on server)
-        uint32_t                                _messageId;                  // Current Message ID (auto-incremente every send of message)
-        std::list<std::vector<uint8_t>>         _queueMessageToSend;         // Message to send queue
-        std::vector<UDPPacket>                  _queueMessage;               // Message queue
-        std::mutex                              _mutex;                      // Mutex to lock inter threads data.
+        uint32_t                                                _token;                      // Token of client (used to be identify on server)
+        uint32_t                                                _messageId;                  // Current Message ID (auto-incremente every send of message)
+        std::vector<UDPPacket>                                  _queueMessage;               // Message queue
+        std::mutex                                              _mutex;                      // Mutex to lock inter threads data.
+        std::list<std::pair< std::vector<uint8_t>, uint32_t>>   _queueMessageToSend;         // Message to send queue
 };
 
 }

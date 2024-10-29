@@ -109,7 +109,7 @@ roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet)
     return message->getCreateRoomInfoFromPacket(packet);
 }
 
-void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t infos)
+void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t infos, uint32_t token)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
@@ -118,7 +118,7 @@ void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ROOM),
                                     message->createCreatedRoomPayload(infos),
                                     networkUnit->getIdMessage(),
-                                    networkUnit->getToken()));
+                                    networkUnit->getToken()), token);
 }
 
 std::pair<std::string, std::string> getJoinRoomInfoFromPacket(UDPPacket packet)
@@ -130,7 +130,7 @@ std::pair<std::string, std::string> getJoinRoomInfoFromPacket(UDPPacket packet)
     return message->getJoinRoomInfoFromPacket(packet);
 }
 
-void sendPacketWrongRoomPassword(std::shared_ptr<INetworkUnit> networkUnit)
+void sendPacketWrongRoomPassword(std::shared_ptr<INetworkUnit> networkUnit, uint32_t token)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
@@ -139,10 +139,10 @@ void sendPacketWrongRoomPassword(std::shared_ptr<INetworkUnit> networkUnit)
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::WRONG_ROOM_PASSWORD),
                                     message->createWrongRoomPasswordPayload(),
                                     networkUnit->getIdMessage(),
-                                    networkUnit->getToken()));
+                                    networkUnit->getToken()), token);
 }
 
-void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit)
+void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit, uint32_t token)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
@@ -151,10 +151,10 @@ void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit)
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::FULL_ROOM),
                                     message->createFullRoomPayload(),
                                     networkUnit->getIdMessage(),
-                                    networkUnit->getToken()));
+                                    networkUnit->getToken()), token);
 }
 
-void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit)
+void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, uint32_t token)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
@@ -163,10 +163,10 @@ void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit)
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::JOIN_ROOM),
                                     message->createAllowedToJoinRoomPayload(),
                                     networkUnit->getIdMessage(),
-                                    networkUnit->getToken()));
+                                    networkUnit->getToken()), token);
 }
 
-void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> rooms)
+void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> rooms, uint32_t token)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
@@ -175,10 +175,10 @@ void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABIN
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::GET_ROOM),
                                     message->createRoomsPayload(rooms),
                                     networkUnit->getIdMessage(),
-                                    networkUnit->getToken()));
+                                    networkUnit->getToken()), token);
 }
 
-void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAllowed)
+void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAllowed, uint32_t token)
 {
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();
 
@@ -187,7 +187,7 @@ void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAl
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::LOGIN),
                                     message->createAllowedLoginPayload(isAllowed),
                                     networkUnit->getIdMessage(),
-                                    networkUnit->getToken()));
+                                    networkUnit->getToken()), token);
 }
 
 }

@@ -10,14 +10,14 @@
 namespace ABINetwork
 {
 
-    void setMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit, std::vector<uint8_t> message)
+    void setMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit, std::vector<uint8_t> message, uint32_t token)
     {
         if (!networkUnit)
             return;
-        networkUnit->setMessageToSendQueue(message);
+        networkUnit->setMessageToSendQueue(message, token);
     }
 
-    std::vector<uint8_t> getMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit)
+    std::pair<std::vector<uint8_t>, uint32_t> getMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit)
     {
         if (!networkUnit)
             return {};
@@ -29,9 +29,9 @@ namespace ABINetwork
         if (!networkUnit)
             return;
         while (!networkUnit->getMessageToSendQueue().empty()) {
-            std::vector<uint8_t> message = getMessageInQueue(networkUnit);
-            if (!message.empty())
-                networkUnit->sendMessage(message);
+            std::pair<std::vector<uint8_t>, uint32_t> message = getMessageInQueue(networkUnit);
+            if (!message.first.empty())
+                networkUnit->sendMessage(message.first, message.second);
         }
     }
 }

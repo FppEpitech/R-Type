@@ -136,10 +136,13 @@ std::unordered_map<uint32_t, asio::ip::udp::endpoint>& Server::getClientsList()
     return _clients;
 }
 
-void Server::sendMessage(std::vector<uint8_t> message)
+void Server::sendMessage(std::vector<uint8_t> message, uint32_t token)
 {
-    for (auto clientEndpoint : _clients)
-        _udp_socket->send_to(asio::buffer(message), clientEndpoint.second);
+    if (token == 0)
+        for (auto clientEndpoint : _clients)
+            _udp_socket->send_to(asio::buffer(message), clientEndpoint.second);
+    else if (_clients.find(token) != _clients.end())
+        _udp_socket->send_to(asio::buffer(message), _clients[token]);
 }
 
 int Server::getNumberClient()

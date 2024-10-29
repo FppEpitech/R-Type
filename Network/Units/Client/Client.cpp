@@ -96,8 +96,9 @@ void Client::_startReceive()
         });
 }
 
-void Client::sendMessage(std::vector<uint8_t> message)
+void Client::sendMessage(std::vector<uint8_t> message, uint32_t token)
 {
+    (void) token;
     _udp_socket->send_to(asio::buffer(message), *_server_endpoint);
 }
 
