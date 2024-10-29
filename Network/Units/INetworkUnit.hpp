@@ -51,21 +51,21 @@ class INetworkUnit
          *
          * @return A list of message vectors to be sent.
          */
-        virtual std::list<std::vector<uint8_t>>& getMessageToSendQueue() = 0;
+        virtual std::list<std::pair<std::vector<uint8_t>, uint32_t>>& getMessageToSendQueue() = 0;
 
         /**
          * @brief Pure virtual function to set a message in the queue.
          *
          * @param message Message to send.
          */
-        virtual void setMessageToSendQueue(std::vector<uint8_t> message) = 0;
+        virtual void setMessageToSendQueue(std::vector<uint8_t> message, uint32_t tokenPlayer) = 0;
 
         /**
          * @brief Get the Message In Queue object.
          *
-         * @return std::vector<uint8_t> Message.
+         * @return std::pair< std::vector<uint8_t>, uint32_t> Message.
          */
-        virtual std::vector<uint8_t> getMessageInQueue() = 0;
+        virtual std::pair< std::vector<uint8_t>, uint32_t> getMessageInQueue() = 0;
 
         /**
          * @brief Get the Received Messages.
@@ -93,7 +93,7 @@ class INetworkUnit
          *
          * @param message Message to send
          */
-        virtual void sendMessage(std::vector<uint8_t> message) = 0;
+        virtual void sendMessage(std::vector<uint8_t> message, uint32_t token) = 0;
 
         /**
          * @brief Get the Mutex object.

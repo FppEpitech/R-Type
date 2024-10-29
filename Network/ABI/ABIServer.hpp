@@ -100,7 +100,7 @@ namespace ABINetwork
      *
      * @param infos Informations about the room created.
      */
-    void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t infos);
+    void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t infos, uint32_t token=0);
 
     /**
      * @brief Get the Join Room Info From Packet object.
@@ -115,21 +115,21 @@ namespace ABINetwork
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      */
-    void sendPacketWrongRoomPassword(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketWrongRoomPassword(std::shared_ptr<INetworkUnit> networkUnit, uint32_t token=0);
 
     /**
      * @brief Send Full room message.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      */
-    void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit, uint32_t token=0);
 
     /**
      * @brief Send authorization to join room.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      */
-    void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit);
+    void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, uint32_t token=0);
 
     /**
      * @brief Send message with all server's rooms.
@@ -137,7 +137,7 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      * @param rooms Vector of room's informations
      */
-    void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> rooms);
+    void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> rooms, uint32_t token=0);
 
     /**
      * @brief Send message to know if client allowed to login.
@@ -145,7 +145,7 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      * @param isAllowed True if client allowed to login.
      */
-    void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAllowed);
+    void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAllowed, uint32_t token=0);
 
     /**
      * @brief Get the Queue of Connection.

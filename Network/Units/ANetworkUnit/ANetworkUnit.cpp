@@ -16,20 +16,20 @@ namespace ABINetwork
         _messageId = 0;
     }
 
-    std::list<std::vector<uint8_t>>& ANetworkUnit::getMessageToSendQueue()
+    std::list<std::pair<std::vector<uint8_t>, uint32_t>>& ANetworkUnit::getMessageToSendQueue()
     {
         return this->_queueMessageToSend;
     }
 
-    void ANetworkUnit::setMessageToSendQueue(std::vector<uint8_t> message)
+    void ANetworkUnit::setMessageToSendQueue(std::vector<uint8_t> message, uint32_t token)
     {
-        _queueMessageToSend.push_back(message);
+        _queueMessageToSend.push_back({message, token});
     }
 
-    std::vector<uint8_t> ANetworkUnit::getMessageInQueue()
+    std::pair<std::vector<uint8_t>, uint32_t> ANetworkUnit::getMessageInQueue()
     {
         if (!_queueMessageToSend.empty()) {
-            std::vector<uint8_t> firstMessage = _queueMessageToSend.front();
+            std::pair< std::vector<uint8_t>, uint32_t> firstMessage = _queueMessageToSend.front();
             _queueMessageToSend.pop_front();
             return firstMessage;
         }

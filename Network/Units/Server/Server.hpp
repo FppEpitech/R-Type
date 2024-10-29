@@ -73,7 +73,7 @@ class Server : public ANetworkUnit
          *
          * @param message Message to send.
          */
-        void sendMessage(std::vector<uint8_t> message) override;
+        void sendMessage(std::vector<uint8_t> message, uint32_t token) override;
 
         /**
          * @brief Function to get the queue Connection.

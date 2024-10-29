@@ -92,8 +92,9 @@ void Client::_startReceive()
         });
 }
 
-void Client::sendMessage(std::vector<uint8_t> message)
+void Client::sendMessage(std::vector<uint8_t> message, uint32_t token)
 {
+    (void) token;
     try {
         _udp_socket->async_send_to(asio::buffer(message), *_server_endpoint, [](const asio::error_code&, std::size_t) {});
     } catch (const std::exception& e) {
