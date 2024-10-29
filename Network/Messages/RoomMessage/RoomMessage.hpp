@@ -11,8 +11,8 @@
 #include <cstdint>
 #include <string>
 
-#include "AMessage/AMessage.hpp"
-#include "UDPPacket/UDPPacket.hpp"
+#include "../AMessage/AMessage.hpp"
+#include "../UDPPacket/UDPPacket.hpp"
 
 /**
  * @namespace ABINetwork

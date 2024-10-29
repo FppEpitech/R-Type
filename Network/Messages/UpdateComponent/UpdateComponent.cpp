@@ -23,7 +23,6 @@ namespace ABINetwork
 
         for (size_t i = 0; i < numArgs; i++) {
             int type = args[i].first;
-            std::cout << "type encoded: [" << type << "]" << std::endl;
             _payload.push_back(static_cast<uint8_t>((type >> 24) & 0xFF));
             _payload.push_back(static_cast<uint8_t>((type >> 16) & 0xFF));
             _payload.push_back(static_cast<uint8_t>((type >> 8) & 0xFF));
@@ -57,7 +56,6 @@ namespace ABINetwork
 
     std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> UpdateComponentMessage::getUpdateComponentPayload(UDPPacket packet)
     {
-        std::cout << std::endl << "In getUpdateComponentPayload" << std::endl;
         size_t index = 0;
 
         uint8_t componentTypeSize = packet.getPayload()[index++];
@@ -65,14 +63,11 @@ namespace ABINetwork
         index += componentTypeSize;
 
         std::size_t numArgs = static_cast<std::size_t>(packet.getPayload()[index++]);
-        std::cout << "numArgs: [" << numArgs << "]" << std::endl;
         std::vector<std::variant<int, float, std::string, bool>> arguments;
 
         for (size_t i = 0; i < numArgs; i++) {
-            // std::size_t type = static_cast<std::size_t>(packet.getPayload()[index++]);
             int type = (packet.getPayload()[index] << 24) | (packet.getPayload()[index + 1] << 16) | (packet.getPayload()[index + 2] << 8) | packet.getPayload()[index + 3];
             index += 4;
-            std::cout << "type: [" << type << "]" << std::endl;
 
             if (type == Type::Int) {
                 int value = (packet.getPayload()[index] << 24) | (packet.getPayload()[index + 1] << 16) | (packet.getPayload()[index + 2] << 8) | packet.getPayload()[index + 3];

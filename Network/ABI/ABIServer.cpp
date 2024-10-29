@@ -98,7 +98,6 @@ std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args)
     if (!message)
         return;
 
-
     Payload payload = message->createUpdateComponentPayload(componentType, nbArgs, args);
 
     std::vector<uint8_t> packet = message->_createPacket(uint8_t(IMessage::MessageType::UPDATE_COMPONENT),
@@ -112,7 +111,6 @@ std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args)
 roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
-
     if (!message)
         return {};
     return message->getCreateRoomInfoFromPacket(packet);

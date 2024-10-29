@@ -68,6 +68,7 @@ target_link_libraries(update_position_component PRIVATE
     asio::asio
     JsonCpp::JsonCpp
     Player
+    r-type_abi_network
 )
 
 add_library(update_shoot_system SHARED

@@ -19,7 +19,7 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
     _registries = std::make_shared<ECS::Registry>();
 
     // TODO: Add the network unit to the event listener
-    _eventListener = std::make_shared<EventListener>(_registries, nullptr, nullptr, nullptr);
+    _eventListener = std::make_shared<EventListener>(_registries, nullptr, _roomServer, nullptr);
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries, _eventListener);
     _eventListener->setSceneManager(_sceneManager);
 
@@ -38,6 +38,7 @@ void GameEngine::Room::run(std::mutex &mutex)
         _numberPlayers = _roomServer->getNumberClient();
         _packetHandler();
         _connectionHandler();
+        _eventListener->listen();
         ABINetwork::sendMessages(_roomServer);
         _registries->run_systems(-1);
     }
