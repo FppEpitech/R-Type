@@ -9,6 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
+#include "TextComponent.hpp"
 #include "AButtonInitSystem.hpp"
 #include "CheckableComponent.hpp"
 #include "ButtonTexturePathParser.hpp"
@@ -20,6 +21,18 @@ AreCheatsOnButtonInitSystem::AreCheatsOnButtonInitSystem() :
 
 static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 {
+    ECS::SparseArray<IComponent> checkables = reg.get_components<IComponent>("CheckableComponent");
+    ECS::SparseArray<IComponent> texts = reg.get_components<IComponent>("TextComponent");
+
+    for (ECS::entity_t entity = 0; checkables.size() >= entity + 1; entity++) {
+        std::shared_ptr<CheckableComponent> checkable = std::dynamic_pointer_cast<CheckableComponent>(checkables[entity]);
+        std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(texts[entity]);
+        if (!checkable || !text)
+            continue;
+        if (text->text == "Cheats") {
+            checkable->isChecked = !checkable->isChecked;
+        }
+    }
 }
 
 void AreCheatsOnButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
