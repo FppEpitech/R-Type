@@ -30,6 +30,15 @@ Client::Client()
     _server_endpoint = nullptr;
     _messageId = 0x0000;
     _token = 0;
+    _io_thread = nullptr;
+}
+
+Client::~Client()
+{
+    _io_context->stop();
+    if (_io_thread->joinable()) {
+        _io_thread->join();
+    }
 }
 
 bool Client::connectToServer(std::string ipServer, int tcp_port)
@@ -53,8 +62,8 @@ bool Client::connectToServer(std::string ipServer, int tcp_port)
 
         _startReceive();
 
-        std::thread io_thread([this]() { _io_context->run(); });
-        io_thread.detach();
+        _io_thread = std::make_shared<std::thread>([this]() { _io_context->run(); });
+        _io_thread->detach();
         return true;
     } catch (const std::exception& e) {
         std::cerr << "Error during connection: " << e.what() << std::endl;
