@@ -12,8 +12,10 @@ namespace ABINetwork
 
 ABINetwork::UDPPacket::UDPPacket(const std::string& packetData)
 {
-    if (packetData.size() < 15)
+    if (packetData.size() < PACKET_MINIMUM_SIZE) {
+        std::cout << "Packet too short" << std::endl;
         throw std::invalid_argument("Packet data too short.");
+    }
 
     _version = static_cast<uint8_t>(packetData[0]);
     _messageType = static_cast<uint8_t>(packetData[1]);
@@ -29,8 +31,10 @@ ABINetwork::UDPPacket::UDPPacket(const std::string& packetData)
                         (static_cast<uint32_t>(packetData[10]) << 8) |
                         static_cast<uint32_t>(packetData[11]);
 
-    if (packetData.size() != static_cast<std::size_t>(14) + static_cast<std::size_t>(_payloadLength))
+    if (packetData.size() != static_cast<std::size_t>(14) + static_cast<std::size_t>(_payloadLength)) {
+        std::cout << "Packet data size does not match the expected length." << std::endl;
         throw std::invalid_argument("Packet data size does not match the expected length.");
+    }
     _payload.assign(packetData.begin() + 12, packetData.begin() + 12 + _payloadLength);
 
     _checksum = (static_cast<uint16_t>(static_cast<uint8_t>(packetData[12 + _payloadLength]) << 8)) |

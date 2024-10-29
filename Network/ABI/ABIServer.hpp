@@ -9,6 +9,9 @@
 
 #include "ABINetwork.hpp"
 
+#include "RoomMessage/RoomMessage.hpp"
+
+
 /**
  * @namespace ABINetwork
  * @brief Contains functions to manage network communication and operations.
@@ -46,6 +49,13 @@ namespace ABINetwork
     uint32_t getLogoutInfoFromPacket(UDPPacket packet);
 
     /**
+     * @brief Get the Init Info From Packet object.
+     *
+     * @return int Init info.
+     */
+    int getInitInfoFromPacket(UDPPacket packet);
+
+    /**
      * @brief Get the keyPressed Info From Packet object.
      *
      * @return int KeyPressed.
@@ -74,7 +84,74 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      * @param componentType COmponent type used to call system associeted.
      * @param nbArgs Number of args in variadic list.
-     * @param ... Variadic List.
+     * @param vector<std::pair<int, std::variant<int, float, std::string, bool>>> Variadic List.
      */
-    void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, ...);
+    void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args);
+
+    /**
+     * @brief Get the CreateRoom Info From Packet object
+     *
+     * @param packet Packet received by the client.
+     * @return roomInfo_t
+     */
+    roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Send Room created informations.
+     *
+     * @param infos Informations about the room created.
+     */
+    void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t infos);
+
+    /**
+     * @brief Get the Join Room Info From Packet object.
+     *
+     * @param packet Packet received by the client.
+     * @return std::pair<std::string, std::string> With roomName and roomPassword.
+     */
+    std::pair<std::string, std::string> getJoinRoomInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Send wrong room password message.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketWrongRoomPassword(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Send Full room message.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Send authorization to join room.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Send message with all server's rooms.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param rooms Vector of room's informations
+     */
+    void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> rooms);
+
+    /**
+     * @brief Send message to know if client allowed to login.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param isAllowed True if client allowed to login.
+     */
+    void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAllowed);
+
+    /**
+     * @brief Get the Queue of Connection.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    std::vector<std::pair<uint32_t, bool>>& getQueueConnection(std::shared_ptr<INetworkUnit> networkUnit);
 }

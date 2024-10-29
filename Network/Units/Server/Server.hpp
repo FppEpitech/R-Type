@@ -21,8 +21,8 @@
 #include "UDPPacket.hpp"
 #include "ANetworkUnit.hpp"
 
-#define SERVER_TCP_PORT 4444       // 0 for random port
-#define SERVER_UDP_PORT 4445       // 0 for random port
+#define SERVER_TCP_PORT 0       // 0 for random port
+#define SERVER_UDP_PORT 0       // 0 for random port
 
 /**
  * @namespace ABINetwork
@@ -80,7 +80,24 @@ class Server : public ANetworkUnit
          *
          * @return std::vector<uint32_t>& The COnnection Queue.
          */
-        std::vector<uint32_t>& getqueueConnection();
+        std::vector<std::pair<uint32_t, bool>>& getqueueConnection();
+
+        /**
+         * @brief Get the Number Client connected.
+         *
+         * @return int Number of client connected.
+         * @throw Error if getNumberClient of a Client Unit.
+         */
+        int getNumberClient() override;
+
+        /**
+         * @brief Get tcp and udp port of a server.
+         * For a client, it return the tcp and udp port
+         * of the server to which it is connected.
+         *
+         * @return std::pair<int, int> Tcp and udp ports.
+         */
+        std::pair<int, int> getPorts() override;
 
     private:
 
@@ -133,7 +150,7 @@ class Server : public ANetworkUnit
         std::array<char, 1024>                                      _recvBuffer;           // Receive buffer to store data received via UDP.
         asio::ip::udp::endpoint                                     _remoteEndpoint;       // The remote client’s UDP endpoint, representing the client’s IP address and port.
 
-        std::vector<uint32_t>                                       _queueConnection;      // Connection queue
+        std::vector<std::pair<uint32_t, bool>>                      _queueConnection;      // Connection queue
 };
 
 }

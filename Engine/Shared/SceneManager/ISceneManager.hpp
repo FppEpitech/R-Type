@@ -7,8 +7,9 @@
 
 #pragma once
 
-#include "../Enum/StringKeyMap.hpp"
-#include "../Interface/IError.hpp"
+#include "../../Error/AError.hpp"
+#include "KeyMaps/StringKeyMap.hpp"
+#include "../../../Network/Messages/UDPPacket/UDPPacket.hpp"
 
 /**
  * @brief Namespace for the scene manager.
@@ -49,6 +50,20 @@ namespace SceneManager {
              * @return true if the input has been processed, false otherwise.
              */
             virtual bool processInput(KEY_MAP key, int idxPacketEntities) = 0;
+
+            /**
+             * @brief Process the Update network.
+             *
+             * @param packet Packet receive by the network.
+             * @return true if the packet has been processed, false otherwise.
+             */
+            virtual bool processUpdate(std::string componentType, ABINetwork::UDPPacket packet) = 0;
+
+            /**
+             * @brief Change the current scene.
+             * @param scene Scene to load.
+             */
+            virtual void changeScene(std::pair<std::size_t, std::string> scene) = 0;
     };
 
     /**

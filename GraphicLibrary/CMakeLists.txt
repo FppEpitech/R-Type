@@ -16,11 +16,14 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Libs/Graphic)
 
 # Include directories for header files
 include_directories(
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Interface/
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary
 )
 
 # Add a shared library target 'graphic_raylib'
-add_library(graphic_raylib SHARED Src/GraphicLib.cpp)
+add_library(graphic_raylib SHARED
+        Src/GraphicLib.cpp
+        Error/AError.cpp
+)
 
 # Find the 'jsoncpp' package
 find_package(jsoncpp REQUIRED)

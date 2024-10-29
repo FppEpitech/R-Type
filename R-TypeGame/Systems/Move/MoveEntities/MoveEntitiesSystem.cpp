@@ -7,7 +7,7 @@
 
 #include "MoveEntitiesSystem.hpp"
 #include "VelocityComponent.hpp"
-#include "Position2DComponent.hpp"
+#include "../Position2D/Position2DComponent.hpp"
 
 #include <chrono>
 

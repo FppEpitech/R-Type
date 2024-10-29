@@ -49,10 +49,14 @@ void Server::_startAccept()
                 if (_numberMaxPlayer > _currentNumberPlayer) {
                     _currentNumberPlayer++;
                     _clients[token] = asio::ip::udp::endpoint();
-                    std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::dec << std::endl;
 
-                    _queueConnection.push_back(token);
+                    std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::dec <<
+                    "| endpoint: " << _clients[token] << std::endl;
 
+                    _queueConnection.push_back(std::make_pair(token, false));
+
+                    int udpPort = _udp_socket->local_endpoint().port();
+                    asio::write(*socket, asio::buffer(&udpPort, sizeof(udpPort)));
                     asio::write(*socket, asio::buffer(&token, sizeof(token)));
                     _startReadDisconnection(socket, token);
                     _startAccept();
@@ -74,8 +78,10 @@ void Server::_startReadDisconnection(std::shared_ptr<asio::ip::tcp::socket> sock
             if (error) {
                 if (error == asio::error::eof) {
                     std::cout << "Client disconnected (EOF) with ID: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << client_token << std::dec << std::endl;
+                    _currentNumberPlayer--;
                 } else if (error == asio::error::connection_reset) {
                     std::cout << "Client disconnected (connection reset) with ID: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << client_token << std::dec << std::endl;
+                    _currentNumberPlayer--;
                 } else {
                     std::cerr << "Error on receive: " << error.message() << std::endl;
                 }
@@ -138,9 +144,19 @@ void Server::sendMessage(std::vector<uint8_t> message)
         _udp_socket->async_send_to(asio::buffer(message), clientEndpoint.second, [](const asio::error_code&, std::size_t) {});
 }
 
-std::vector<uint32_t>& Server::getqueueConnection()
+std::vector<std::pair<uint32_t, bool>>& Server::getqueueConnection()
 {
     return _queueConnection;
+}
+
+int Server::getNumberClient()
+{
+    return _currentNumberPlayer;
+}
+
+std::pair<int, int> Server::getPorts()
+{
+    return {_tcp_acceptor->local_endpoint().port(), _udp_socket->local_endpoint().port()};
 }
 
 

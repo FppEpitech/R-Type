@@ -18,9 +18,9 @@
 #include <stdexcept>
 #include <unordered_map>
 
-#include "IMessage.hpp"
-#include "INetworkUnit.hpp"
-#include "UDPPacket/UDPPacket.hpp"
+#include "../Messages/IMessage.hpp"
+#include "../Units/INetworkUnit.hpp"
+#include "../Messages/UDPPacket/UDPPacket.hpp"
 
 /**
  * @namespace ABINetwork

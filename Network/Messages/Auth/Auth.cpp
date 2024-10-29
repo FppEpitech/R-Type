@@ -18,11 +18,13 @@ Payload & AuthMessage::createLoginPayload(std::string userName, std::string pass
 {
     _payload.clear();
 
-    uint8_t* userNameBytes = reinterpret_cast<uint8_t*>(&userName);
-    _payload.insert(_payload.end(), userNameBytes, userNameBytes + sizeof(std::string));
+    uint32_t userNameLength = userName.size();
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&userNameLength), reinterpret_cast<uint8_t*>(&userNameLength) + sizeof(uint32_t));
+    _payload.insert(_payload.end(), userName.begin(), userName.end());
 
-    uint8_t* passwordBytes = reinterpret_cast<uint8_t*>(&password);
-    _payload.insert(_payload.end(), passwordBytes, passwordBytes + sizeof(std::string));
+    uint32_t passwordLength = password.size();
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&passwordLength), reinterpret_cast<uint8_t*>(&passwordLength) + sizeof(uint32_t));
+    _payload.insert(_payload.end(), password.begin(), password.end());
 
     return _payload;
 }
@@ -42,16 +44,23 @@ Payload & AuthMessage::createLogoutPayload()
 std::pair<std::string, std::string> AuthMessage::getLoginInfoFromPacket(UDPPacket packet)
 {
 
-    // TODO: Verify if it works :)
+    size_t offset = 0;
 
+    uint32_t userNameLength;
+    std::memcpy(&userNameLength, &packet.getPayload()[offset], sizeof(uint32_t));
+    offset += sizeof(uint32_t);
     std::string userName;
-    std::memcpy(&userName, &packet.getPayload()[0], sizeof(std::string));
+    userName.assign(reinterpret_cast<const char*>(&packet.getPayload()[offset]), userNameLength);
+    offset += userNameLength;
 
+    uint32_t passwordLength;
+    std::memcpy(&passwordLength, &packet.getPayload()[offset], sizeof(uint32_t));
+    offset += sizeof(uint32_t);
     std::string password;
-    std::memcpy(&password, &packet.getPayload()[0 + sizeof(std::string)], sizeof(std::string));
+    password.assign(reinterpret_cast<const char*>(&packet.getPayload()[offset]), passwordLength);
+    offset += passwordLength;
 
-    std::pair<std::string, std::string> infos(userName, password);
-    return infos;
+    return {userName, password};
 }
 
 std::pair<std::string, std::string> AuthMessage::getRegisterInfoFromPacket(UDPPacket packet)
@@ -62,6 +71,24 @@ std::pair<std::string, std::string> AuthMessage::getRegisterInfoFromPacket(UDPPa
 uint32_t AuthMessage::getLogoutInfoFromPacket(UDPPacket packet)
 {
     return packet.getToken();
+}
+
+Payload &AuthMessage::createAllowedLoginPayload(bool isAllowed)
+{
+    _payload.clear();
+
+    bool allowed = isAllowed;
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&allowed), reinterpret_cast<uint8_t*>(&allowed) + sizeof(bool));;
+
+    return _payload;
+}
+
+bool AuthMessage::getLoginAllowedInfoFromPacket(UDPPacket packet)
+{
+    bool isAllowed;
+    std::memcpy(&isAllowed, &packet.getPayload()[0], sizeof(bool));
+
+    return isAllowed;
 }
 
 }

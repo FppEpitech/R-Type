@@ -9,18 +9,18 @@
 #include "LifeParser.hpp"
 #include "ScaleParser.hpp"
 #include "MobComponent.hpp"
-#include "DrawComponent.hpp"
+#include "Draw/DrawComponent.hpp"
 #include "MobInitSystem.hpp"
 #include "LifeComponent.hpp"
-#include "ScaleComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
 #include "VelocityParser.hpp"
 #include "Position2DParser.hpp"
 #include "TextureRectParser.hpp"
 #include "VelocityComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "TextureRectComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
+#include "TextureRect/TextureRectComponent.hpp"
 #include "SpriteSheetAnimationParser.hpp"
-#include "SpriteSheetAnimationComponent.hpp"
+#include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
 
 #include <fstream>
 #include <json/json.h>

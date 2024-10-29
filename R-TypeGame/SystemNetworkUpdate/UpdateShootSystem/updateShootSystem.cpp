@@ -9,9 +9,9 @@
 #include "ShootInitSystem.hpp"
 #include "PlayerComponent.hpp"
 #include "updateShootSystem.hpp"
-#include "Position2DComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
 
-void UpdateShootSystem::_updateShootSystem(Network::UDPPacket packet, ECS::Registry& reg)
+void UpdateShootSystem::_updateShootSystem(ABINetwork::UDPPacket packet, ECS::Registry& reg)
 {
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {

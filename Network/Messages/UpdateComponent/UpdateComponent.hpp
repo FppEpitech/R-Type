@@ -52,10 +52,10 @@ class UpdateComponentMessage : public AMessage
          *
          * @param componentType Component type to update
          * @param numArgs Number of Args in variadic.
-         * @param ... Variadic args.
+         * @param std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> Variadic args.
          * @return Payload& Payload created.
          */
-        Payload &createUpdateComponentPayload(std::string componentType, std::size_t numArgs, ...);
+        Payload &createUpdateComponentPayload(std::string componentType, std::size_t numArgs, std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args);
 
         /**
          * @brief Create a Entity Message::get Entity Payload object.

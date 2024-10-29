@@ -6,12 +6,10 @@
 */
 
 #include <json/json.h>
-#include <exception>
 #include <iostream>
-#include <memory>
 #include <fstream>
 
-#include "LifeComponent.hpp"
+#include "../../Components/Life/LifeComponent.hpp"
 
 std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
 {
@@ -19,6 +17,9 @@ std::shared_ptr<LifeComponent> parseLife(std::string pathFile)
         std::ifstream file(pathFile);
         Json::Reader reader;
         Json::Value root;
+
+        if (!file.is_open())
+            return nullptr;
 
         if (!reader.parse(file, root, false))
             return nullptr;

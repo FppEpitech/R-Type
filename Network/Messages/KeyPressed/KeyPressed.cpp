@@ -26,9 +26,6 @@ Payload & KeyPressedMessage::createKeyPressedPayload(int key)
 
 int KeyPressedMessage::getKeyPressedInfoFromPacket(UDPPacket packet)
 {
-
-    // TODO: Verify if it works :)
-
     int key;
     std::memcpy(&key, &packet.getPayload()[0], sizeof(int));
 

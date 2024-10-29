@@ -1,0 +1,15 @@
+{
+    "TextPosition2DComponent":{
+        "x":700,
+        "y":235
+    },
+    "ColourComponent":{
+        "r":255,
+        "g":255,
+        "b":255,
+        "a":255
+    },
+    "TextComponent": "Connect to your account !",
+    "Size1DComponent": 40,
+    "FontPathComponent": ""
+}

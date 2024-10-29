@@ -6,7 +6,7 @@
 */
 
 #include "ShootDestroySystem.hpp"
-#include "Position2DComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
 #include "ShootComponent.hpp"
 
 ShootDestroySystem::ShootDestroySystem() :

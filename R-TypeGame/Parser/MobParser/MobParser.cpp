@@ -6,9 +6,7 @@
 */
 
 #include <json/json.h>
-#include <exception>
 #include <iostream>
-#include <memory>
 #include <fstream>
 
 #include "MobComponent.hpp"
@@ -19,6 +17,9 @@ std::shared_ptr<MobComponent> parseMob(std::string pathFile)
         std::ifstream file(pathFile);
         Json::Reader reader;
         Json::Value root;
+
+        if (!file.is_open())
+            return nullptr;
 
         if (!reader.parse(file, root, false))
             return nullptr;

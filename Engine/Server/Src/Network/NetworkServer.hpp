@@ -15,7 +15,7 @@
 #include <unordered_map>
 
 #include "Registry.hpp"
-#include "DrawComponent.hpp"
+#include "Draw/DrawComponent.hpp"
 #include "NetworkPacket.hpp"
 #include "Player/PlayerComponent.hpp"
 

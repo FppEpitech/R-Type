@@ -11,127 +11,105 @@
 #include <windows.h>
 #endif
 
-void GameEngine::Application::_packetHandler()
-{
-    std::lock_guard<std::mutex> lock(_server->getMutex());
-
-    std::vector<ABINetwork::UDPPacket> messages = _server->getReceivedMessages();
-
-    for (auto packet : messages) {
-
-        auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
-        uint8_t keyCode = packet.getPayload()[0];
-
-        if (ABINetwork::IMessage::MessageType(messageType) == ABINetwork::IMessage::MessageType::KEY) {
-
-            int idxPlayerPacket = -1;
-            ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
-            for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-                PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-                if (player && player->token == packet.getToken()) {
-                    idxPlayerPacket = index;
-                    break;
-                }
-            }
-            _sceneManager->processInput(KEY_MAP(keyCode), idxPlayerPacket);
-        }
-    }
-}
-
-void GameEngine::Application::_connectionHandler()
-{
-    std::shared_ptr<ABINetwork::Server> serverPtr = std::dynamic_pointer_cast<ABINetwork::Server>(_server);
-
-    std::vector<uint32_t>& queueConnection = serverPtr->getqueueConnection();
-
-    while (!queueConnection.empty()) {
-        uint32_t tokenConnection = queueConnection.front();
-        queueConnection.erase(queueConnection.begin());
-        std::cout << "Player with token: 0x" << std::hex << std::setw(8) << std::setfill('0') << tokenConnection << std::dec << " want to connect" << std::endl;
-
-
-
-        ECS::SparseArray<IComponent> PlayerComponentArray = this->_registries->get_components<IComponent>("PlayerComponent");
-        ECS::SparseArray<IComponent> DrawComponentArray = this->_registries->get_components<IComponent>("DrawComponent");
-
-        for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-            PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-            if (player && player->token == 0) {
-                player->token = tokenConnection;
-
-                if (index < DrawComponentArray.size()) {
-                    DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[index].get());
-                    if (draw)
-                        draw->draw = true;
-
-                    // reg->messageType = 0x01;
-                    // reg->payload.clear();
-                    // std::string componentType = "DrawComponent";
-                    // reg->payload.push_back(static_cast<uint8_t>(componentType.size()));
-                    // reg->payload.insert(reg->payload.end(), componentType.begin(), componentType.end());
-                    // reg->payload.push_back(static_cast<uint8_t>(index >> 24) & 0xFF);
-                    // reg->payload.push_back(static_cast<uint8_t>((index >> 16) & 0xFF));
-                    // reg->payload.push_back(static_cast<uint8_t>((index >> 8) & 0xFF));
-                    // reg->payload.push_back(static_cast<uint8_t>((index) & 0xFF));
-                    // bool drawable = true;
-                    // uint8_t* xBytes = reinterpret_cast<uint8_t*>(&drawable);
-                    // reg->payload.insert(reg->payload.end(), xBytes, xBytes + sizeof(bool));
-                    // std::vector<uint8_t> packet = createPacket(reg->messageType, reg->payload);
-                    // for (auto it = getClientsList().begin(); it != getClientsList().end(); ++it) {
-                    //     asio::ip::udp::endpoint& endpoint = it->second;
-                    //     sendMessage(packet, endpoint);
-                    // }
-
-                    ABINetwork::sendUpdateComponent(_server, "DrawComponent", 4, ABINetwork::Type::Int, index, ABINetwork::Type::Bool, true);
-                }
-                break;
-            }
-        }
-    }
-}
-
 GameEngine::Application::Application()
 {
-    _registries = std::make_shared<ECS::Registry>();
-    _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries);
-    _server = ABINetwork::createServer(4);
-}
-
-bool GameEngine::Application::noPlayerConnected()
-{
-    // std::lock_guard<std::mutex> lock(_registries->_myBeautifulMutex);
-    // ECS::SparseArray<IComponent> PlayerComponentArray = _registries->get_components<IComponent>("PlayerComponent");
-    // for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-    //     PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
-    //     if (player && player->token != 0) {
-    //         return false;
-    //     }
-    // }
-    return true;
+    _server = ABINetwork::createServer(100);
+    _nbRoom = 0;
 }
 
 void GameEngine::Application::run()
 {
     while (true) {
-
-        _connectionHandler();
         _packetHandler();
         ABINetwork::sendMessages(_server);
-        // if (!noPlayerConnected())
-            _registries->run_systems(-1);
-        // else
-            // SLEEP(0.5);
-    //     // TODO : put this in a thread for better optimization
-    //     if (!_registries->_queue_payload.empty()) {
-    //         for (std::size_t index = 0; index < _registries->_queue_payload.size() && index < _registries->_queue_messageType.size(); index++) {
-    //             std::vector<uint8_t> packet = this->_server->createPacket(_registries->_queue_messageType[index], this->_registries->_queue_payload[index]);
-    //             for (auto it = this->_server->getClientsList().begin(); it != this->_server->getClientsList().end(); ++it) {
-    //                 asio::ip::udp::endpoint& endpoint = it->second;
-    //                 this->_server->sendMessage(packet, endpoint);
-    //             }
-    //             _registries->_queue_messageType.erase(_registries->_queue_messageType.begin() + index);
-    //             _registries->_queue_payload.erase(_registries->_queue_payload.begin() + index);
-    //         }
-        // }
     }
 }
+
+void GameEngine::Application::_packetHandler()
+{
+    std::lock_guard<std::mutex> lock(_server->getMutex());
+    std::vector<ABINetwork::UDPPacket> messages = _server->getReceivedMessages();
+
+    for (auto packet : messages) {
+        try {
+            auto messageType = static_cast<ABINetwork::IMessage::MessageType>(packet.getMessageType());
+            if (_handlePacketsMap.find(ABINetwork::IMessage::MessageType(messageType)) != _handlePacketsMap.end())
+                _handlePacketsMap[ABINetwork::IMessage::MessageType(messageType)](packet);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }
+}
+
+void GameEngine::Application::_handleGetRoom(ABINetwork::UDPPacket packet)
+{
+    std::vector<ABINetwork::roomInfo_t> roomInfos;
+    for (auto room : _rooms)
+        roomInfos.push_back(room.second->getRoomInfo());
+    ABINetwork::sendPacketRooms(_server, roomInfos);
+}
+
+void GameEngine::Application::_handleCreateRoom(ABINetwork::UDPPacket packet)
+{
+    if (_nbRoom >= MAX_NUMBER_ROOMS) {
+        // sendErrorRoomPacket();
+        return;
+    }
+    else {
+        ABINetwork::roomInfo_t roomInfo = ABINetwork::getCreateRoomInfoFromPacket(packet);
+        try {
+            std::shared_ptr<GameEngine::Room> newRoom = std::make_shared<GameEngine::Room>(roomInfo);
+            if (!newRoom) {
+                // sendErrorRoomPacket();
+                return;
+            }
+            _rooms[roomInfo.name] = newRoom;
+            _nbRoom++;
+            _threads.push_back(std::make_shared<std::thread>([newRoom, this]() { newRoom->run(_roomCreationMutex); }));
+            ABINetwork::sendPacketRoomCreated(_server, newRoom->getRoomInfo());
+        } catch (const std::exception& e) {
+            // sendErrorRoomPacket();
+            std::cerr << e.what() << std::endl;
+            return;
+        }
+    }
+}
+
+void GameEngine::Application::_handleJoinRoom(ABINetwork::UDPPacket packet)
+{
+    std::pair<std::string, std::string> joinRoomInfos = ABINetwork::getJoinRoomInfoFromPacket(packet);
+
+    if (_rooms[joinRoomInfos.first]->getRoomInfo().password != joinRoomInfos.second) {
+        ABINetwork::sendPacketWrongRoomPassword(_server);
+        return;
+    }
+    if (_rooms[joinRoomInfos.first]->getRoomInfo().playerMax <= _rooms[joinRoomInfos.first]->getNumberOfPlayers()) {
+        ABINetwork::sendPacketFullRoom(_server);
+        return;
+    }
+    ABINetwork::sendPacketAllowedToJoinRoom(_server);
+}
+
+void GameEngine::Application::_handleLogin(ABINetwork::UDPPacket packet)
+{
+    std::pair<std::string, std::string> loginInfos = ABINetwork::getLoginInfoFromPacket(packet);
+
+    // TODO : Check in the dataBase if login exist
+    // For the moment send always true.
+    ABINetwork::sendPacketLoginAllowed(_server, true);
+}
+
+//     _registries = std::make_shared<ECS::Registry>();
+
+//     // TODO: Add the network unit to the event listener
+//     _eventListener = std::make_shared<EventListener>(_registries, nullptr, nullptr, nullptr);
+
+//     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries, _eventListener);
+
+//     _eventListener->setSceneManager(_sceneManager);
+
+//     _server = std::make_shared<Network::Server>(4444, 4445);
+//     _server->start([this](Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg) {
+//         this->_packetHandler(std::move(packet), endpoint, reg);
+//     }, _registries);
+// }

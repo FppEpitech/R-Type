@@ -8,7 +8,10 @@ set(LIB_SRC_PATH ".")
 
 set(CMAKE_CXX_STANDARD 20)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 include_directories(
+    ${LIB_SRC_PATH}/Messages/InitMessage
     ${LIB_SRC_PATH}/Messages/UDPPacket
     ${LIB_SRC_PATH}/Messages/
     ${LIB_SRC_PATH}/Messages/CreateEntity
@@ -30,8 +33,10 @@ set(SRC_LIB
     ${LIB_SRC_PATH}/Messages/Auth/Auth.cpp
     ${LIB_SRC_PATH}/Messages/CreateEntity/CreateEntity.cpp
     ${LIB_SRC_PATH}/Messages/UpdateComponent/UpdateComponent.cpp
+    ${LIB_SRC_PATH}/Messages/InitMessage/InitMessage.cpp
     ${LIB_SRC_PATH}/Messages/KeyPressed/KeyPressed.cpp
     ${LIB_SRC_PATH}/Messages/ChatBox/ChatBox.cpp
+    ${LIB_SRC_PATH}/Messages/RoomMessage/RoomMessage.cpp
     ${LIB_SRC_PATH}/Messages/UDPPacket/UDPPacket.cpp
 
     ${LIB_SRC_PATH}/Units/ANetworkUnit/ANetworkUnit.cpp
@@ -42,8 +47,12 @@ set(SRC_LIB
 add_library(${LIB} STATIC ${SRC_LIB})
 
 find_package(asio CONFIG REQUIRED)
+find_package(unofficial-sqlite3 CONFIG REQUIRED)
 
 target_link_libraries(
     ${LIB}
     PRIVATE asio::asio
+    PRIVATE unofficial::sqlite3::sqlite3
 )
+
+set_target_properties(${LIB} PROPERTIES POSITION_INDEPENDENT_CODE ON)
