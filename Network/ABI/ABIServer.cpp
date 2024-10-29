@@ -154,7 +154,7 @@ void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit)
                                     networkUnit->getToken()));
 }
 
-void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit)
+void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, uint32_t token=0)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
@@ -163,7 +163,7 @@ void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit)
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::JOIN_ROOM),
                                     message->createAllowedToJoinRoomPayload(),
                                     networkUnit->getIdMessage(),
-                                    networkUnit->getToken()));
+                                    networkUnit->getToken()), token);
 }
 
 void sendPacketRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> rooms)

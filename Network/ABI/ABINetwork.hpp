@@ -34,7 +34,7 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit where the message will be queued.
      * @param message A shared pointer to the message to be added to the queue.
      */
-    void setMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit, std::vector<uint8_t> message);
+    void setMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit, std::vector<uint8_t> message, uint32_t token=0);
 
     /**
      * @brief Retrieves the next message from the network unit's message queue.
@@ -42,7 +42,7 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit from which the message will be retrieved.
      * @return A shared pointer to the next message in the queue, or nullptr if the queue is empty.
      */
-    std::vector<uint8_t> getMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit);
+    std::pair<std::vector<uint8_t>, uint32_t> getMessageInQueue(std::shared_ptr<INetworkUnit> networkUnit);
 
     /**
      * @brief Take all messages in queue and send them to the given targets.
