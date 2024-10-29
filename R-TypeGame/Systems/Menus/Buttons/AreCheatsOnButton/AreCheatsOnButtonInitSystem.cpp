@@ -29,9 +29,8 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(texts[entity]);
         if (!checkable || !text)
             continue;
-        if (text->text == "Cheats") {
+        if (text->text == "Cheats")
             checkable->isChecked = !checkable->isChecked;
-        }
     }
 }
 

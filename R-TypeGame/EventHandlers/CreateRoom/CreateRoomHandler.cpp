@@ -4,9 +4,10 @@
 ** File description:
 ** CreateRoomHandler.cpp
 */
-#include "ABIClient.hpp"
 #include "AEvent.hpp"
+#include "ABIClient.hpp"
 #include "CreateRoomHandler.hpp"
+
 #include <iostream>
 
 CreateRoomHandler::CreateRoomHandler(std::string eventType)

@@ -34,9 +34,9 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         if (!editable || !text || !defaultText)
             continue;
         if (defaultText->text == "Password") {
-            if (!editable->_isEditable) {
+            if (!editable->_isEditable)
                 editable->_isEditable = true;
-            } else {
+            else {
                 editable->_isEditable = false;
                 text->text = defaultText->text;
             }
@@ -51,9 +51,8 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         std::shared_ptr<TextComponent> textCheck = std::dynamic_pointer_cast<TextComponent>(textsCheck[entity]);
         if (!checkable || !textCheck)
             continue;
-        if (textCheck->text == "Private") {
+        if (textCheck->text == "Private")
             checkable->isChecked = !checkable->isChecked;
-        }
     }
 }
 
