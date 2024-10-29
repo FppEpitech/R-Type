@@ -13,6 +13,7 @@
 #define POS_PLAYER_Y 50
 
 #include "ISystem.hpp"
+#include "../../Network/ABI/ABIServer.hpp"
 
 /**
  * @brief Shoot a bullet by a player.

@@ -364,6 +364,7 @@ add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
 add_library(system_shoot SHARED
     ../Error/AError.cpp
     Shoot/ShootSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     Shoot/ShootInitSystem.cpp
 )
@@ -377,6 +378,7 @@ target_link_libraries(system_shoot PRIVATE
         Velocity
         Shoot
         JsonCpp::JsonCpp
+        r-type_abi_network
 )
 
 add_library(system_shootDestroy SHARED

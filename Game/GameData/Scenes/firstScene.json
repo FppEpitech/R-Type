@@ -46,7 +46,8 @@
         "libsystem_shootDamage.so"
     ],
     "eventHandlers": [
-        "libeventHandler_moveEntity.so"
+        "libeventHandler_moveEntity.so",
+        "libeventHandler_createShoot.so"
     ],
     "networkUpdate": [
         {
