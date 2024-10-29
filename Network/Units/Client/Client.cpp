@@ -36,9 +36,8 @@ Client::Client()
 Client::~Client()
 {
     _io_context->stop();
-    if (_io_thread->joinable()) {
+    if (_io_thread->joinable())
         _io_thread->join();
-    }
 }
 
 bool Client::connectToServer(std::string ipServer, int tcp_port)
@@ -100,7 +99,6 @@ void Client::_startReceive()
 
 void Client::sendMessage(std::vector<uint8_t> message, uint32_t token)
 {
-    (void) token;
     try {
         _udp_socket->send_to(asio::buffer(message), *_server_endpoint);
     } catch (const std::exception& e) {

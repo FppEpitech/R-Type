@@ -12,7 +12,7 @@
 #include <asio.hpp>
 
 #define VERSION 0x01
-#define Payload std::vector<uint8_t>
+typedef std::vector<uint8_t> Payload;
 
 /**
  * @namespace ABINetwork

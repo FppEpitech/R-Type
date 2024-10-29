@@ -75,7 +75,6 @@ set(SRC_EXE
 
 # Include directories for header files
 include_directories(
-    # ${EXE_SRC_PATH}/Network
     ${EXE_SRC_PATH}/Application
     ${EXE_SRC_PATH}/ClientSceneManager
     ${EXE_SRC_PATH}/GetGraphicalLibrary
@@ -108,8 +107,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Network/Messages
 )
 
-# Add subdirectory for network sources
-# add_subdirectory(${EXE_SRC_PATH}/Network)
 
 # Add the executable target
 add_executable(${EXE} ${SRC_EXE})
@@ -129,6 +126,5 @@ target_link_libraries(
     JsonCpp::JsonCpp
     raylib
     r-type_ecs
-    # r-type_network_client
     r-type_abi_network
 )

@@ -18,7 +18,6 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
     _roomServer = ABINetwork::createServer(_roomInfos.playerMax);
     _registries = std::make_shared<ECS::Registry>();
 
-    // TODO: Add the network unit to the event listener
     _eventListener = std::make_shared<EventListener>(_registries, nullptr, _roomServer, nullptr);
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries, _eventListener);
     _eventListener->setSceneManager(_sceneManager);
@@ -34,7 +33,6 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
 void GameEngine::Room::run(std::mutex &mutex)
 {
     while (_isRoomOpen) {
-
         _numberPlayers = _roomServer->getNumberClient();
         _packetHandler();
         _connectionHandler();
@@ -112,10 +110,9 @@ void GameEngine::Room::_handleInit(ABINetwork::UDPPacket packet)
     }
     uint8_t initKey = packet.getPayload()[0];
     std::vector<std::pair<uint32_t, bool>>& queueConnection = ABINetwork::getQueueConnection(_roomServer);
-    for (auto& value : queueConnection) {
+    for (auto& value : queueConnection)
         if (value.first == packet.getToken())
             value.second = true;
-    }
 }
 
 void GameEngine::Room::_handleKey(ABINetwork::UDPPacket packet)
