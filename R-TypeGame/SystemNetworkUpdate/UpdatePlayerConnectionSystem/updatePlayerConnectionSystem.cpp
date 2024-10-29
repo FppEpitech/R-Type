@@ -19,7 +19,7 @@ void UpdatePlayerConnectionSystem::_updatePlayerConnection(ABINetwork::UDPPacket
         std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> info = ABINetwork::getUpdateComponentInfoFromPacket(packet);
 
         if (info.second.empty())
-            std::cout << "Vector vide" << std::endl;
+            return;
 
         int idxEntities = 0;
         bool drawable = false;

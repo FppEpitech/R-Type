@@ -59,12 +59,12 @@ void GameEngine::Room::_connectionHandler()
         ECS::SparseArray<IComponent> DrawComponentArray = this->_registries->get_components<IComponent>("DrawComponent");
 
         for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-            PlayerComponent* player = dynamic_cast<PlayerComponent*>(PlayerComponentArray[index].get());
+            std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
             if (player && player->token == 0) {
                 player->token = tokenConnection;
 
                 if (index < DrawComponentArray.size()) {
-                    DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[index].get());
+                    std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(DrawComponentArray[index]);
                     if (draw)
                         draw->draw = true;
 

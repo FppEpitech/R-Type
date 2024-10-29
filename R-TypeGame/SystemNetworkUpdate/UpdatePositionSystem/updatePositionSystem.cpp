@@ -21,7 +21,7 @@ void UpdatePositionComponent::_updatePosition(ABINetwork::UDPPacket packet, ECS:
         std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> info = ABINetwork::getUpdateComponentInfoFromPacket(packet);
 
         if (info.second.empty() || info.second.size() < 3)
-            std::cout << "Vector vide" << std::endl;
+            return;
 
         int idxEntities = 0;
         float PosX = 0.0;
