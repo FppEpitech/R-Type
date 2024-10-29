@@ -93,6 +93,8 @@ target_link_libraries(update_shoot_system PRIVATE
 
 add_library(update_playerConnection_system SHARED
     UpdatePlayerConnectionSystem/updatePlayerConnectionSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
 )
 
 target_link_libraries(update_playerConnection_system PRIVATE

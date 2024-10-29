@@ -69,19 +69,16 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 
     std::vector<std::any> values = {};
     values.push_back(std::string(REGISTER));
-    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
+    values.push_back(usernameText->text);
+    values.push_back(passwordText->text);
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("Register", values);
     reg.addEvent(event);
-}
-
-static void handleOther(ECS::Registry& reg, int idxPacketEntities)
-{
 }
 
 void RegisterButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
 {
     std::function<void(ECS::Registry& reg, int idxPacketEntities)> callback = [](ECS::Registry& reg, int idxPacketEntities) {
         handleThis(reg, idxPacketEntities);
-        handleOther(reg, idxPacketEntities);
     };
 
     this->_setButtonProperties(reg, idxPacketEntities, PATH_JSON, callback);

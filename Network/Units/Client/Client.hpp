@@ -93,6 +93,20 @@ class Client : public ANetworkUnit
          */
         LoginState getIsLogin();
 
+        /**
+         * @brief Set the Current Room Password object.
+         *
+         * @param roomPassword Password to set.
+         */
+        void setCurrentRoomPassword(std::string roomPassword);
+
+        /**
+         * @brief Get the Current Room Password object.
+         *
+         * @return std::string Current room password.
+         */
+        std::string getCurrentRoomPassword();
+
     private:
 
         /**
@@ -113,6 +127,8 @@ class Client : public ANetworkUnit
         int                                         _tcpPort;           // TCP port on witch we can connect to the server.
         int                                         _udpPort;           // UDP port on witch we can communicate to the server.
         LoginState                                  _loginState;        // Check if the client is login.
+
+        std::string                                 _roomPassword;      // Password of the current Room.
 
         std::shared_ptr<asio::io_context>           _io_context;        // Shared pointer to the io_context object, used to manage asynchronous I/O operations.
         std::shared_ptr<asio::ip::tcp::socket>      _tcp_socket;        // Shared pointer to the TCP acceptor object, used to accept incoming TCP connections.

@@ -24,12 +24,15 @@ bool ConnectServerHandler::processEvent(std::shared_ptr<IEvent> event,
         std::string ipServer = std::any_cast<std::string>(event->getValues()[0]);
         int portTCPServer = std::atoi(std::any_cast<std::string>(event->getValues()[1]).c_str());
 
-        if (!networkUnit || !ABINetwork::connectToServer(networkUnit, ipServer, portTCPServer))
-            throw ConnectServerHandlerError("Failed to connect to the server...");
-
-        ABINetwork::sendPacketInit(networkUnit);
-        ABINetwork::sendPacketInit(networkUnit);
-
+        try {
+            if (!networkUnit || !ABINetwork::connectToServer(networkUnit, ipServer, portTCPServer))
+                return true;
+            ABINetwork::sendPacketInit(networkUnit);
+            ABINetwork::sendPacketInit(networkUnit);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+            return true;
+        }
         std::pair<std::size_t, std::string> scenePair = std::make_pair(0, std::any_cast<std::string>(event->getValues()[2]));
         sceneManager->changeScene(scenePair);
 

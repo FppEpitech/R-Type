@@ -58,8 +58,22 @@ add_library(eventHandler_moveEntity SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
+add_library(eventHandler_register SHARED
+    Register/RegisterHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+add_library(eventHandler_createRoom SHARED
+    CreateRoom/CreateRoomHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
 target_link_libraries(eventHandler_switchScene PRIVATE asio::asio)
 target_link_libraries(eventHandler_connectServer PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_login PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_loginAllowed PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_moveEntity PRIVATE r-type_abi_network asio::asio)
+target_link_libraries(eventHandler_register PRIVATE r-type_abi_network asio::asio)
+target_link_libraries(eventHandler_createRoom PRIVATE r-type_abi_network asio::asio)

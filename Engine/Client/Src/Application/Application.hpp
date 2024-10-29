@@ -16,7 +16,6 @@
 #include "InitWindow.hpp"
 #include "ClientErrors.hpp"
 #include "../GetGraphicalLibrary/IGraphic.hpp"
-// #include "NetworkClient.hpp"
 #include "EventListener.hpp"
 #include "ClientSceneManager.hpp"
 #include "GetGraphicalLibrary.hpp"
@@ -102,7 +101,6 @@ class Application {
          * @param packet
          */
         void _handleLoginPacket(ABINetwork::UDPPacket packet);
-
 
         /**
          * @brief Handle packet received by the server for update component.

@@ -35,8 +35,6 @@ bool LoginAllowedHandler::processEvent(std::shared_ptr<IEvent> event,
         std::pair<std::size_t, std::string> scenePair = std::make_pair(0, sceneName);
         sceneManager->changeScene(scenePair);
 
-        ABINetwork::sendPacketCreateRoom(networkUnit, "name", false, "", false, 4);
-
     } catch (const std::exception &e) {
         throw LoginAllowedHandlerError("Error while processing the event: " + std::string(e.what()));
     }

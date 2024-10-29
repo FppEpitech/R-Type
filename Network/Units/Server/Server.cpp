@@ -141,12 +141,7 @@ std::unordered_map<uint32_t, asio::ip::udp::endpoint>& Server::getClientsList()
 void Server::sendMessage(std::vector<uint8_t> message)
 {
     for (auto clientEndpoint : _clients)
-        _udp_socket->async_send_to(asio::buffer(message), clientEndpoint.second, [](const asio::error_code&, std::size_t) {});
-}
-
-std::vector<std::pair<uint32_t, bool>>& Server::getqueueConnection()
-{
-    return _queueConnection;
+        _udp_socket->send_to(asio::buffer(message), clientEndpoint.second);
 }
 
 int Server::getNumberClient()
@@ -159,5 +154,9 @@ std::pair<int, int> Server::getPorts()
     return {_tcp_acceptor->local_endpoint().port(), _udp_socket->local_endpoint().port()};
 }
 
+std::vector<std::pair<uint32_t, bool>>& Server::getqueueConnection()
+{
+    return _queueConnection;
+}
 
 }

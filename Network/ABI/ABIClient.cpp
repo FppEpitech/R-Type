@@ -174,4 +174,20 @@ INetworkUnit::LoginState getClientLogin(std::shared_ptr<INetworkUnit> networkUni
     return client->getIsLogin();
 }
 
+void setCurrentRoomPassword(std::shared_ptr<INetworkUnit> networkUnit, std::string roomPassword)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return;
+    return client->setCurrentRoomPassword(roomPassword);
+}
+
+std::string getCurrentRoomPassword(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return "";
+    return client->getCurrentRoomPassword();
+}
+
 }
