@@ -18,9 +18,9 @@
 #include <stdexcept>
 #include <unordered_map>
 
-#include "IMessage.hpp"
-#include "INetworkUnit.hpp"
-#include "UDPPacket/UDPPacket.hpp"
+#include "../Messages/IMessage.hpp"
+#include "../Units/INetworkUnit.hpp"
+#include "../Messages/UDPPacket/UDPPacket.hpp"
 
 /**
  * @namespace ABINetwork
@@ -28,6 +28,14 @@
  */
 namespace ABINetwork
 {
+
+    enum Type {
+        Int = 1,
+        Float,
+        String,
+        Bool
+    };
+
     /**
      * @brief Adds a message to the network unit's message queue.
      *

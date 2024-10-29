@@ -72,11 +72,24 @@ class Room {
         void _packetHandler();
 
         /**
+         * @brief Function who handle the connection received.
+         *
+         */
+        void _connectionHandler();
+
+        /**
          * @brief Handle the packet KEY.
          *
          * @param packet Packet to handle.
          */
         void _handleKey(ABINetwork::UDPPacket packet);
+
+        /**
+         * @brief Handle the packet Init.
+         *
+         * @param packet Packet to handle.
+         */
+        void _handleInit(ABINetwork::UDPPacket packet);
 
         /**
          * @brief Handle the packet LEAVE_ROOM.
@@ -95,6 +108,7 @@ class Room {
         std::shared_ptr<EventListener>                          _eventListener;     // Event listener for the server.
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
+            {ABINetwork::IMessage::MessageType::INIT, [this](ABINetwork::UDPPacket packet) { this->_handleInit(packet); }},
             {ABINetwork::IMessage::MessageType::KEY, [this](ABINetwork::UDPPacket packet) { this->_handleKey(packet); }},
             {ABINetwork::IMessage::MessageType::LEAVE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleLeaveRoom(packet); }}
         };

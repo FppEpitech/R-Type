@@ -10,7 +10,7 @@
 #include <vector>
 #include <cstdint>
 
-#include "IMessage.hpp"
+#include "../IMessage.hpp"
 
 /**
  * @namespace ABINetwork

@@ -33,7 +33,7 @@ bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntitie
     return false;
 }
 
-bool SceneManager::ASceneManager::processUpdate(std::string componentType, Network::UDPPacket packet)
+bool SceneManager::ASceneManager::processUpdate(std::string componentType, ABINetwork::UDPPacket packet)
 {
     if (_updateNetworkSystems.find(componentType) != _updateNetworkSystems.end()) {
         _updateNetworkSystems.at(componentType)(packet, *_registry);

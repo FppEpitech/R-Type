@@ -11,7 +11,7 @@
 #include "updateShootSystem.hpp"
 #include "Position2D/Position2DComponent.hpp"
 
-void UpdateShootSystem::_updateShootSystem(Network::UDPPacket packet, ECS::Registry& reg)
+void UpdateShootSystem::_updateShootSystem(ABINetwork::UDPPacket packet, ECS::Registry& reg)
 {
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {

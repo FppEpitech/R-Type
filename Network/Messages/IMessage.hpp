@@ -51,6 +51,7 @@ class IMessage
             KEY                 = 0x0C,
             WRONG_ROOM_PASSWORD = 0x0D,
             FULL_ROOM           = 0x0E,
+            INIT                = 0x0F,
         };
 
         /**

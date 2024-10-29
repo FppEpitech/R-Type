@@ -119,6 +119,9 @@ void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
         return;
     }
     _client = room;
+    ABINetwork::sendPacketInit(_client);
+    ABINetwork::sendPacketInit(_client);
+    ABINetwork::sendMessages(_client);
 }
 
 void Application::_handleWrongRoomPasswordPacket(ABINetwork::UDPPacket packet)
@@ -139,6 +142,19 @@ void Application::_handleLoginPacket(ABINetwork::UDPPacket packet)
         ABINetwork::setClientLogin(_client, ABINetwork::INetworkUnit::LoginState::LOGIN);
     else
         ABINetwork::setClientLogin(_client, ABINetwork::INetworkUnit::LoginState::JUST_FAILED);
+}
+
+void Application::_handleUpdateComponentPacket(ABINetwork::UDPPacket packet)
+{
+    uint32_t componentTypeLength = static_cast<size_t>(packet.getPayload()[0]);
+
+    if (packet.getPayload().size() < 1 + componentTypeLength) {
+        std::cerr << "Payload is too small." << std::endl;
+        return;
+    }
+    std::string componentType(packet.getPayload().begin() + 1, packet.getPayload().begin() + 1 + componentTypeLength);
+
+    _sceneManager->processUpdate(componentType, packet);
 }
 
 void Application::_connectServer()
@@ -162,10 +178,7 @@ void Application::_connectServer()
     //         if (networkInfo->connect == true) {
     //             networkInfo->connect = false;
     //             _sceneManager->_changeScene(std::make_pair<size_t, std::string>(0, "firstScene.json"));
-    //              _client = std::make_shared<Network::Client>(networkInfo->serverIp, std::atoi(networkInfo->serverPort.c_str()), 4445);
-    //             _client->connect([this](Network::UDPPacket packet, ECS::Registry& reg) {
-    //                 this->_packetHandler(std::move(packet), *_registry);
-    //             }, *_registry);
+    //             _client = ABINetwork::createClient("127.0.0.1", 4444, 4445);
     //         }
     //     }
     //     if (_client == nullptr)

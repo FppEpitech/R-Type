@@ -10,7 +10,7 @@
 #include <list>
 #include <cstdint>
 
-#include "UDPPacket/UDPPacket.hpp"
+#include "../Messages/UDPPacket/UDPPacket.hpp"
 
 /**
  * @namespace ABINetwork
