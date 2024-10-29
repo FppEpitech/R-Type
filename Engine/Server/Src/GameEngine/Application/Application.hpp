@@ -23,6 +23,7 @@
 #endif
 
 #define MAX_NUMBER_ROOMS 4
+#define MAX_NUMBER_PLAYERS 100
 
 /**
  * @brief GameEngine namespace handle all
@@ -115,11 +116,6 @@ class Application {
             {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLogin(packet); }},
             {ABINetwork::IMessage::MessageType::REGISTER, [this](ABINetwork::UDPPacket packet) { this->_handleRegister(packet); }}
         };
-
-
-        // std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
-        // std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
-        // std::shared_ptr<Network::Server>                        _server;            // Network class for server.
 };
 
 } // namespace GameEngine

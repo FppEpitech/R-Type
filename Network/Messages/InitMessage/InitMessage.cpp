@@ -16,7 +16,7 @@ namespace ABINetwork
 
 Payload & InitMessage::createInitPayload()
 {
-    int initInfo = 999;
+    int initInfo = INIT_INFO_DUMB_VALUE;
     _payload.clear();
 
     uint8_t* userNameBytes = reinterpret_cast<uint8_t*>(&initInfo);

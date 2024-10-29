@@ -34,7 +34,7 @@ void UpdatePlayerConnectionSystem::_updatePlayerConnection(ABINetwork::UDPPacket
         ECS::SparseArray<IComponent> DrawComponentArray = reg.get_components<IComponent>(componentType);
         if (DrawComponentArray.size() <= idxEntities)
             return;
-        DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[idxEntities].get());
+        std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(DrawComponentArray[idxEntities]);
         if (draw)
             draw->draw = drawable;
 

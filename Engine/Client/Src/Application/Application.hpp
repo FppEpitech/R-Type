@@ -110,12 +110,6 @@ class Application {
         void _handleUpdateComponentPacket(ABINetwork::UDPPacket packet);
 
         /**
-         * @brief Connect to the server.
-         *
-         */
-        void _connectServer();
-
-        /**
          * @brief Function who handle keyboard signal.
          *
          * @param key Key entered.

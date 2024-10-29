@@ -14,6 +14,8 @@
 #include "AMessage/AMessage.hpp"
 #include "UDPPacket/UDPPacket.hpp"
 
+#define INIT_INFO_DUMB_VALUE 999
+
 /**
  * @namespace ABINetwork
  * @brief Contains functions to manage network communication and operations.

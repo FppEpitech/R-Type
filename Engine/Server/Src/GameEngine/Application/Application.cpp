@@ -13,7 +13,7 @@
 
 GameEngine::Application::Application()
 {
-    _server = ABINetwork::createServer(100);
+    _server = ABINetwork::createServer(MAX_NUMBER_PLAYERS);
     _nbRoom = 0;
 }
 

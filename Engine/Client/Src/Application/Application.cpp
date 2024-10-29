@@ -38,7 +38,6 @@ void Application::run()
     ConsumptionCompute consumptionCompute;
 
     while (_libGraphic->windowIsOpen()) {
-        _connectServer();
         _packetHandler();
         _keyboardHandler(_libGraphic->getKeyDownInput());
         _libGraphic->startDraw();
@@ -167,42 +166,4 @@ void Application::_handleUpdateComponentPacket(ABINetwork::UDPPacket packet)
     std::string componentType(packet.getPayload().begin() + 1, packet.getPayload().begin() + 1 + componentTypeLength);
 
     _sceneManager->processUpdate(componentType, packet);
-}
-
-void Application::_connectServer()
-{
-    // if (_client) {
-        // std::cout << "ya" << std::endl;
-    //     _client = ABINetwork::createClient("127.0.0.1", 4444, 4445);
-    //     _serverInfos.tcpPort = 4444;
-    //     _serverInfos.udpPort = 4445;
-    // }
-
-    // std::lock_guard<std::mutex> lock(this->_registry->_myBeautifulMutex);
-    // try {
-    //     ECS::SparseArray<IComponent> players = this->_registry->get_components<IComponent>("PlayerComponent");
-    //     ECS::SparseArray<IComponent> buttonNetworkConnection = this->_registry->get_components<IComponent>("NetworkConnectionComponent");
-
-    //     for (int index = 0; index < buttonNetworkConnection.size(); index++) {
-    //         std::shared_ptr<NetworkConnectionComponent> networkInfo = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[index]);
-    //         if (!networkInfo)
-    //             continue;
-    //         if (networkInfo->connect == true) {
-    //             networkInfo->connect = false;
-    //             _sceneManager->_changeScene(std::make_pair<size_t, std::string>(0, "firstScene.json"));
-    //             _client = ABINetwork::createClient("127.0.0.1", 4444, 4445);
-    //         }
-    //     }
-    //     if (_client == nullptr)
-    //         return;
-    //     if (_client->getIdxPlayerComponent() != -1 && _client->getIdxPlayerComponent() < players.size()) {
-    //         std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(players[_client->getIdxPlayerComponent()]);
-    //         if (player && !player->isAlive) {
-    //             player->isAlive = true;
-    //             _sceneManager->_changeScene(std::make_pair<size_t, std::string>(0, "endScene.json"));
-    //         }
-    //     }
-    // } catch(const std::exception& e) {
-    //     std::cerr << e.what() << std::endl;
-    // }
 }
