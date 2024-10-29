@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "Registry.hpp"
+#include "../../../../../Engine/Ecs/Src/Registry.hpp"
 
 /**
  * @brief AButtonInitSystem class

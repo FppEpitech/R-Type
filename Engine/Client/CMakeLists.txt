@@ -39,7 +39,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/Sound/SoundComponent.cpp
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
-    ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+        ../Shared/DefaultComponents/Player/PlayerComponent.cpp
     ../Shared/DefaultComponents/Editable/EditableComponent.cpp
     ../Shared/DefaultComponents/Checkable/CheckableComponent.cpp
 )
@@ -80,7 +80,7 @@ include_directories(
     ../Shared/GraphicalLoad
     ../Shared/Component
     ../Shared/DefaultComponents/Entities
-    ../Shared/DefaultComponents/Entities/Player
+        ../Shared/DefaultComponents/Player
     ../Ecs/Src
     ../Shared/Interface
     ../Shared

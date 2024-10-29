@@ -9,16 +9,16 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "AEvent.hpp"
-#include "TextComponent.hpp"
-#include "ScaleComponent.hpp"
-#include "AButtonInitSystem.hpp"
-#include "ClickableComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "DefaultTextComponent.hpp"
-#include "TextureRectComponent.hpp"
+#include "../../../../../Engine/Ecs/Src/Events/AEvent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Text/TextComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Scale/ScaleComponent.hpp"
+#include "../AButton/AButtonInitSystem.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Clickable/ClickableComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Position2D/Position2DComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/DefaultText/DefaultTextComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.hpp"
 #include "LoginButtonInitSystem.hpp"
-#include "ButtonTexturePathComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/ButtonTexturePath/ButtonTexturePathComponent.hpp"
 
 LoginButtonInitSystem::LoginButtonInitSystem() :
     ASystem("ButtonInitSystem") {}

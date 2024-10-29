@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../DefaultComponents/Entities/Player/PlayerComponent.hpp"
+#include "PlayerComponent.hpp"
 
 #include <memory>
 

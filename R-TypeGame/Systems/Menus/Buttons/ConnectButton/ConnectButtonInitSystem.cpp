@@ -9,18 +9,18 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "AEvent.hpp"
-#include "TextParser.hpp"
-#include "ScaleComponent.hpp"
-#include "AButtonInitSystem.hpp"
-#include "DefaultTextParser.hpp"
-#include "ClickableComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "TextureRectComponent.hpp"
-#include "ButtonStateComponent.hpp"
+#include "../../../../../Engine/Ecs/Src/Events/AEvent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/TextParser/TextParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Scale/ScaleComponent.hpp"
+#include "../AButton/AButtonInitSystem.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/DefaultTextParser/DefaultTextParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Clickable/ClickableComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Position2D/Position2DComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/ButtonState/ButtonStateComponent.hpp"
 #include "ConnectButtonInitSystem.hpp"
-#include "NetworkConnectionComponent.hpp"
-#include "ButtonTexturePathComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/ButtonTexturePath/ButtonTexturePathComponent.hpp"
 
 ConnectButtonInitSystem::ConnectButtonInitSystem() :
     ASystem("ButtonInitSystem")

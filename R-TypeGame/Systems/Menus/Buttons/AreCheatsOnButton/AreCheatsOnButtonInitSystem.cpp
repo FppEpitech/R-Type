@@ -9,10 +9,10 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "AButtonInitSystem.hpp"
-#include "CheckableComponent.hpp"
-#include "ButtonTexturePathParser.hpp"
-#include "ButtonTexturePathComponent.hpp"
+#include "../AButton/AButtonInitSystem.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Checkable/CheckableComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/ButtonTexturePathParser/ButtonTexturePathParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/ButtonTexturePath/ButtonTexturePathComponent.hpp"
 #include "AreCheatsOnButtonInitSystem.hpp"
 
 AreCheatsOnButtonInitSystem::AreCheatsOnButtonInitSystem() :

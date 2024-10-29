@@ -50,7 +50,7 @@ set(SRC_EXE
     ../Shared/DefaultComponents/Sound/SoundComponent.cpp
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
-    ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+        ../Shared/DefaultComponents/Player/PlayerComponent.cpp
     ../../Network/Database/Database.cpp
     ../../Network/Database/Models/Scores/Scores.cpp
     ../../Network/Database/Models/Users/Users.cpp
@@ -75,7 +75,7 @@ include_directories(
     ../Shared/DefaultComponents/
     ../Shared/DefaultSystems/
     ../Shared/DefaultComponents/Entities
-    ../Shared/DefaultComponents/Entities/Player
+        ../Shared/DefaultComponents/Player
     ../../Network/Database
     ../../Network/Errors
     ../../Network/Database/Models/Scores

@@ -14,7 +14,7 @@
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
 #include "VelocityParser.hpp"
-#include "VelocityComponent.hpp"
+#include "Velocity/VelocityComponent.hpp"
 #include "PlanetComponent.hpp"
 
 #include <fstream>

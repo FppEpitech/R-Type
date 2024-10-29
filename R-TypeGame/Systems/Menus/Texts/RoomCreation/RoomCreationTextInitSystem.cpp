@@ -5,7 +5,7 @@
 ** RoomCreationTextInitSystem.cpp
 */
 
-#include "DrawComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Draw/DrawComponent.hpp"
 #include "RoomCreationTextInitSystem.hpp"
 
 RoomCreationTextInitSystem::RoomCreationTextInitSystem() :

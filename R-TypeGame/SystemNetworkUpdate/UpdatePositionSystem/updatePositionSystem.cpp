@@ -6,7 +6,7 @@
 */
 
 #include "PlayerComponent.hpp"
-#include "VelocityComponent.hpp"
+#include "Velocity/VelocityComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
 #include "updatePositionSystem.hpp"
 

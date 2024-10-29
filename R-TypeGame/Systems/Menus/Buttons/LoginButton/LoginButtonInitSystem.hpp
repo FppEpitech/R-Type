@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "ISystem.hpp"
-#include "AButtonInitSystem.hpp"
+#include "../../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
+#include "../AButton/AButtonInitSystem.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/loginButtonSystem.json"
 #define LOGIN "Menus/roomManagementMenu.json"

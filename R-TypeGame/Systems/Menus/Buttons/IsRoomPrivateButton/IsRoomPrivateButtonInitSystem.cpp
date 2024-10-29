@@ -9,13 +9,13 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "TextComponent.hpp"
-#include "AButtonInitSystem.hpp"
-#include "EditableComponent.hpp"
-#include "CheckableComponent.hpp"
-#include "DefaultTextComponent.hpp"
-#include "ButtonTexturePathParser.hpp"
-#include "ButtonTexturePathComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Text/TextComponent.hpp"
+#include "../AButton/AButtonInitSystem.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Editable/EditableComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Checkable/CheckableComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/DefaultText/DefaultTextComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/ButtonTexturePathParser/ButtonTexturePathParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/ButtonTexturePath/ButtonTexturePathComponent.hpp"
 #include "IsRoomPrivateButtonInitSystem.hpp"
 
 IsRoomPrivateButtonInitSystem::IsRoomPrivateButtonInitSystem() :
