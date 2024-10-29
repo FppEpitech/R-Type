@@ -34,6 +34,14 @@ namespace ABINetwork
     bool connectToServer(std::shared_ptr<INetworkUnit> client, std::string ipServer, int tcp_port);
 
     /**
+     * @brief Get the Server Ip object.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @return std::string
+     */
+    std::string getServerIp(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
      * @brief Sends a registration packet to the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.

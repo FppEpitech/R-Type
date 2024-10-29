@@ -120,6 +120,11 @@ std::pair<int, int> Client::getPorts()
     return {_tcpPort, _udpPort};
 }
 
+std::string Client::getServerIp()
+{
+    return _serverIp;
+}
+
 void Client::setIsLogin(LoginState loginState)
 {
     _loginState = loginState;

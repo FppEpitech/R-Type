@@ -31,6 +31,14 @@ bool connectToServer(std::shared_ptr<INetworkUnit> networkUnit, std::string ipSe
     return client->connectToServer(ipServer, tcp_port);
 }
 
+std::string getServerIp(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return "";
+    return client->getServerIp();
+}
+
 void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password)
 {
     std::shared_ptr<AuthMessage> message = std::make_shared<AuthMessage>();

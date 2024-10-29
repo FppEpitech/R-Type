@@ -68,9 +68,21 @@ void Application::_keyboardHandler(std::size_t key)
         if (key == KEY_NULL || _client->getToken() == 0)
             return;
 
-        //TODO: uncomment this when the game will be able to run on the client.
+        // TODO: Ask Axel to fix that.
 
-        // if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
+        // int idxPlayerPacket = -1;
+        // std::cout << _client->getToken() << std::endl;
+        // ECS::SparseArray<IComponent> PlayerComponentArray = _registry->get_components<IComponent>("PlayerComponent");
+        // for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+        //     std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
+        //     if (player)
+        //         std::cout << player->token << std::endl;
+        //     if (player && player->token == _client->getToken()) {
+        //         idxPlayerPacket = index;
+        //         break;
+        //     }
+        // }
+        // if (!_sceneManager->processInput(KEY_MAP(key), idxPlayerPacket))
         //     return;
 
         ABINetwork::sendPacketKey(_client, key);
@@ -111,7 +123,7 @@ void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
     std::shared_ptr<ABINetwork::INetworkUnit> room = nullptr;
     try {
         room = ABINetwork::createClient();
-        if (!room || !ABINetwork::connectToServer(room, "127.0.0.1", _roomInfos.tcpPort))
+        if (!room || !ABINetwork::connectToServer(room, ABINetwork::getServerIp(_client), _roomInfos.tcpPort))
             throw ClientError("Error while joining room");
         _sceneManager->changeScene(std::make_pair<std::size_t, std::string>(0, FIRST_GAME_SCENE));
     } catch (const std::exception &e) {

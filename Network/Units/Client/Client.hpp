@@ -71,6 +71,13 @@ class Client : public ANetworkUnit
         std::pair<int, int> getPorts() override;
 
         /**
+         * @brief Get the Server Ip object.
+         *
+         * @return std::string Server ip.
+         */
+        std::string getServerIp();
+
+        /**
          * @brief Function to connect the client to a server.
          *
          * @param ipServer Server's ip to connect to.
