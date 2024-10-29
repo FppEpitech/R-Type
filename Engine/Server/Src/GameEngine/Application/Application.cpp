@@ -101,14 +101,16 @@ void GameEngine::Application::_handleLogin(ABINetwork::UDPPacket packet)
 {
     std::pair<std::string, std::string> loginInfos = ABINetwork::getLoginInfoFromPacket(packet);
 
-    // TODO : Check in the dataBase if login exist
-    // For the moment send always true.
-    ABINetwork::sendPacketLoginAllowed(_server, true);
+    if (_db->users->loginUser(loginInfos.first, loginInfos.second) > 0) {
+        ABINetwork::sendPacketLoginAllowed(_server, true);
+        return;
+    }
+    ABINetwork::sendPacketLoginAllowed(_server, false);
 }
 
 void GameEngine::Application::_handleRegister(ABINetwork::UDPPacket packet)
 {
     std::pair<std::string, std::string> registerInfos = ABINetwork::getRegisterInfoFromPacket(packet);
 
-    // TODO : Register the client in the database.
+    _db->users->registerUser(registerInfos.first, registerInfos.second);
 }
