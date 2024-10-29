@@ -29,9 +29,6 @@ void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
         if (!drawPlayer || !drawPlayer->draw)
             return;
 
-        reg.messageType = 0x02;
-        reg.payload.clear();
-
         std::vector<std::any> valuesMoveEntity = {};
         valuesMoveEntity.push_back(idxPacketEntities);
         std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("Shoot", valuesMoveEntity);
