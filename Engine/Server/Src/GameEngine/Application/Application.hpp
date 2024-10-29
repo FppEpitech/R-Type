@@ -11,6 +11,7 @@
 #include "ABIServer.hpp"
 #include "Registry.hpp"
 #include "ServerSceneManager.hpp"
+#include "Database.hpp"
 
 #include <queue>
 #include <unordered_map>
@@ -58,6 +59,8 @@ class Application {
          *
          */
         void run();
+
+        std::shared_ptr<Database> _db; // Database object.
 
     private:
 
@@ -115,7 +118,6 @@ class Application {
             {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLogin(packet); }},
             {ABINetwork::IMessage::MessageType::REGISTER, [this](ABINetwork::UDPPacket packet) { this->_handleRegister(packet); }}
         };
-
 
         // std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
         // std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.

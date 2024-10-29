@@ -6,6 +6,9 @@
 */
 
 #include "Application.hpp"
+#include "Database.hpp"
+#include "Scores.hpp"
+#include "Users.hpp"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -15,6 +18,10 @@ GameEngine::Application::Application()
 {
     _server = ABINetwork::createServer(100);
     _nbRoom = 0;
+
+    _db = std::make_shared<Database>("db.db");
+    _db->users = std::make_shared<Users>(*_db);
+    _db->scores = std::make_shared<Scores>(*_db);
 }
 
 void GameEngine::Application::run()
