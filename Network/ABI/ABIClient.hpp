@@ -170,4 +170,20 @@ namespace ABINetwork
      */
     INetworkUnit::LoginState getClientLogin(std::shared_ptr<INetworkUnit> networkUnit);
 
+    /**
+     * @brief Set the Current Room Password object.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param roomPassword The password to set.
+     */
+    void setCurrentRoomPassword(std::shared_ptr<INetworkUnit> networkUnit, std::string roomPassword);
+
+    /**
+     * @brief Get the Current Room Password object.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @return std::string Current room password.
+     */
+    std::string getCurrentRoomPassword(std::shared_ptr<INetworkUnit> networkUnit);
+
 }

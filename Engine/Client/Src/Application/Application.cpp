@@ -101,7 +101,7 @@ void Application::_handleCreateRoomPacket(ABINetwork::UDPPacket packet)
     std::tuple<std::string, int, int> roomCreated = ABINetwork::getCreatedRoomInfoFromPacket(packet);
     _roomInfos.tcpPort = std::get<1>(roomCreated);
     _roomInfos.udpPort = std::get<2>(roomCreated);
-    ABINetwork::sendPacketJoinRoom(_client, std::get<0>(roomCreated), _roomInfos.password);
+    ABINetwork::sendPacketJoinRoom(_client, std::get<0>(roomCreated), ABINetwork::getCurrentRoomPassword(_client));
 }
 
 void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)

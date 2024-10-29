@@ -34,13 +34,25 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         if (!editable || !text || !defaultText)
             continue;
         if (defaultText->text == "Password") {
-            if (!editable->_isEditable) {
+            if (!editable->_isEditable)
                 editable->_isEditable = true;
-            } else {
+            else {
                 editable->_isEditable = false;
                 text->text = defaultText->text;
             }
         }
+    }
+
+    ECS::SparseArray<IComponent> checkables = reg.get_components<IComponent>("CheckableComponent");
+    ECS::SparseArray<IComponent> textsCheck = reg.get_components<IComponent>("TextComponent");
+
+    for (ECS::entity_t entity = 0; checkables.size() >= entity + 1; entity++) {
+        std::shared_ptr<CheckableComponent> checkable = std::dynamic_pointer_cast<CheckableComponent>(checkables[entity]);
+        std::shared_ptr<TextComponent> textCheck = std::dynamic_pointer_cast<TextComponent>(textsCheck[entity]);
+        if (!checkable || !textCheck)
+            continue;
+        if (textCheck->text == "Private")
+            checkable->isChecked = !checkable->isChecked;
     }
 }
 

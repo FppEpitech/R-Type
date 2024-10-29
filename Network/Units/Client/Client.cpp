@@ -15,6 +15,7 @@ namespace ABINetwork
 
 Client::Client()
 {
+    _roomPassword = "";
     _loginState = LoginState::NONE;
     _serverIp = "";
     _tcpPort = 0;
@@ -85,12 +86,14 @@ void Client::_startReceive()
                     _addPacketToQueueReceived(packet);
 
                 } catch (const std::exception& e) {
-                    _startReceive();
+                    std::cerr << "Exception in message handler: " << e.what() << std::endl;
                 }
             }
-            _startReceive();
-        }
-    );
+            asio::post(_udp_socket->get_executor(),
+                [this]() {
+                    _startReceive();
+                });
+        });
 }
 
 void Client::sendMessage(std::vector<uint8_t> message)
@@ -116,6 +119,16 @@ void Client::setIsLogin(LoginState loginState)
 INetworkUnit::LoginState Client::getIsLogin()
 {
     return _loginState;
+}
+
+void Client::setCurrentRoomPassword(std::string roomPassword)
+{
+    _roomPassword = roomPassword;
+}
+
+std::string Client::getCurrentRoomPassword()
+{
+    return _roomPassword;
 }
 
 }

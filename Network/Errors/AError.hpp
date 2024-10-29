@@ -13,7 +13,7 @@
  * @brief Abstract class for error handling
  *
  */
-class AError : public IError {
+class AError : public IErrorNetwork {
 
     public:
 
@@ -34,7 +34,7 @@ class AError : public IError {
          *
          * @return const char* Error message
          */
-        virtual const char *what() const noexcept override { return _message.c_str(); }
+        const char *what() const noexcept { return _message.c_str(); }
 
     private:
 
