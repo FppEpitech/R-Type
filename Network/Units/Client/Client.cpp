@@ -51,7 +51,6 @@ bool Client::connectToServer(std::string ipServer, int tcp_port)
         _udp_socket->open(asio::ip::udp::v4());
         _server_endpoint = std::make_shared<asio::ip::udp::endpoint>(asio::ip::address::from_string(_serverIp), _udpPort);
 
-        // TODO: When we will be able to send messages
         _startReceive();
 
         std::thread io_thread([this]() { _io_context->run(); });
@@ -96,7 +95,7 @@ void Client::sendMessage(std::vector<uint8_t> message, uint32_t token)
 {
     (void) token;
     try {
-        _udp_socket->async_send_to(asio::buffer(message), *_server_endpoint, [](const asio::error_code&, std::size_t) {});
+        _udp_socket->send_to(asio::buffer(message), *_server_endpoint);
     } catch (const std::exception& e) {
         std::cout << "Error in send Message client: " << e.what() << std::endl;
     }
