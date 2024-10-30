@@ -28,7 +28,6 @@ Application::Application()
 
     _eventListener->setSceneManager(_sceneManager);
     _initDefaultGraphicSystems();
-
 }
 
 void Application::run()
@@ -61,28 +60,19 @@ void Application::_initDefaultGraphicSystems()
     _defaultSystems.push_back(SpriteSheetAnimationSystem().getFunction());
 }
 
+void Application::_handleAssignTokenPacket(ABINetwork::UDPPacket packet)
+{
+    _idxEntityPlayer = ABINetwork::getAssignTokenInfoFromPacket(packet);
+}
+
 void Application::_keyboardHandler(std::size_t key)
 {
     try {
         if (key == KEY_NULL || _client->getToken() == 0)
             return;
 
-        // TODO: Ask Axel to fix that.
-
-        // int idxPlayerPacket = -1;
-        // std::cout << _client->getToken() << std::endl;
-        // ECS::SparseArray<IComponent> PlayerComponentArray = _registry->get_components<IComponent>("PlayerComponent");
-        // for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-        //     std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
-        //     if (player)
-        //         std::cout << player->token << std::endl;
-        //     if (player && player->token == _client->getToken()) {
-        //         idxPlayerPacket = index;
-        //         break;
-        //     }
-        // }
-        // if (!_sceneManager->processInput(KEY_MAP(key), idxPlayerPacket))
-        //     return;
+        if (!_sceneManager->processInput(KEY_MAP(key), _idxEntityPlayer))
+            return;
 
         ABINetwork::sendPacketKey(_client, key);
     } catch (const std::exception& e) {

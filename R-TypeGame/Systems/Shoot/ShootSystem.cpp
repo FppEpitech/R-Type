@@ -10,6 +10,7 @@
 #include "Position2D/Position2DComponent.hpp"
 #include "PlayerComponent.hpp"
 #include "Draw/DrawComponent.hpp"
+#include "../../../Engine/Ecs/Src/Events/AEvent.hpp"
 
 ShootSystem::ShootSystem() :
     ASystem("ShootSystem")
@@ -28,17 +29,10 @@ void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
         if (!drawPlayer || !drawPlayer->draw)
             return;
 
-        reg.messageType = 0x02;
-        reg.payload.clear();
-
-        std::string componentType = "ShootSystem";
-        reg.payload.push_back(static_cast<uint8_t>(componentType.size()));
-        reg.payload.insert(reg.payload.end(), componentType.begin(), componentType.end());
-
-        reg.payload.push_back(static_cast<uint8_t>(idxPacketEntities >> 24) & 0xFF);
-        reg.payload.push_back(static_cast<uint8_t>((idxPacketEntities >> 16) & 0xFF));
-        reg.payload.push_back(static_cast<uint8_t>((idxPacketEntities >> 8) & 0xFF));
-        reg.payload.push_back(static_cast<uint8_t>((idxPacketEntities) & 0xFF));
+        std::vector<std::any> valuesMoveEntity = {};
+        valuesMoveEntity.push_back(idxPacketEntities);
+        std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("Shoot", valuesMoveEntity);
+        reg.addEvent(eventMoveEntity);
 
     } catch (std::exception e){
         std::cerr << "Error in Shoot system: " << e.what() << std::endl;

@@ -73,6 +73,7 @@ add_library(update_shoot_system SHARED
     UpdateShootSystem/updateShootSystem.cpp
     ../Systems/Shoot/ShootSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
     ../Systems/Shoot/ShootInitSystem.cpp
 )
 

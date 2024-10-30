@@ -60,6 +60,7 @@ void GameEngine::Room::_connectionHandler()
             std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
             if (player && player->token == 0) {
                 player->token = tokenConnection;
+                ABINetwork::sendPacketAssignToken(_roomServer, index, tokenConnection);
 
                 if (index < DrawComponentArray.size()) {
                     std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(DrawComponentArray[index]);
