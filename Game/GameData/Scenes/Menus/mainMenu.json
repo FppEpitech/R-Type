@@ -13,10 +13,12 @@
         "libsystem_handleTyping.so"
     ],
     "eventHandlers": [
-        "libeventHandler_switchScene.so"
+        "libeventHandler_switchScene.so",
+        "libeventHandler_PlayMusic.so"
     ],
     "menus": {
         "keyBinds": [
         ]
-    }
+    },
+    "music": "Assets/Musics/InMenu.wav"
 }

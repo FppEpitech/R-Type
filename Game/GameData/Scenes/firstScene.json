@@ -68,5 +68,6 @@
                 "path" : "Menus/mainMenu.json"
             }
         ]
-    }
+    },
+    "music": "Assets/Musics/InMenu.wav"
 }

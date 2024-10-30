@@ -17,5 +17,6 @@
     "menus": {
         "keyBinds": [
         ]
-    }
+    },
+    "music": "Assets/Musics/InMenu.wav"
 }

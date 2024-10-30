@@ -12,5 +12,6 @@
     "networkUpdate": [
     ],
     "menus": {
-    }
+    },
+    "music": "Assets/Musics/InMenu.wav"
 }
