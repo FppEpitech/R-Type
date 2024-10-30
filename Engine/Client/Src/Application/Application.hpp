@@ -148,5 +148,5 @@ class Application {
 
         networkInstance_t _serverInfos; // Informations about the server.
         networkInstance_t _roomInfos;   // Informations about the room.
-        int               _idxEntity;   // IdxEntity
+        int               _idxEntityPlayer;   // IdxEntity
 };

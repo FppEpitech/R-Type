@@ -28,7 +28,6 @@ Application::Application()
 
     _eventListener->setSceneManager(_sceneManager);
     _initDefaultGraphicSystems();
-
 }
 
 void Application::run()
@@ -63,7 +62,7 @@ void Application::_initDefaultGraphicSystems()
 
 void Application::_handleAssignTokenPacket(ABINetwork::UDPPacket packet)
 {
-    _idxEntity = ABINetwork::getAssignTokenInfoFromPacket(packet);
+    _idxEntityPlayer = ABINetwork::getAssignTokenInfoFromPacket(packet);
 }
 
 void Application::_keyboardHandler(std::size_t key)
@@ -72,10 +71,10 @@ void Application::_keyboardHandler(std::size_t key)
         if (key == KEY_NULL || _client->getToken() == 0)
             return;
 
-        if (!_sceneManager->processInput(KEY_MAP(key), _idxEntity))
+        if (!_sceneManager->processInput(KEY_MAP(key), _idxEntityPlayer))
             return;
 
-        //ABINetwork::sendPacketKey(_client, key);
+        ABINetwork::sendPacketKey(_client, key);
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
