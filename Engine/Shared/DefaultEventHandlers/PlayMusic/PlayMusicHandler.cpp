@@ -5,7 +5,6 @@
 ** PlayMusicHandler.cpp
 */
 
-#include "AEvent.hpp"
 #include "PlayMusicHandler.hpp"
 
 PlayMusicHandler::PlayMusicHandler(std::string eventType)

@@ -18,12 +18,16 @@ find_package(asio CONFIG REQUIRED)
 
 # Include directories for header files
 include_directories(
-        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
+        ${CMAKE_SOURCE_DIR}/Engine/Client/Src/ClientSceneManager/
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/KeyMaps/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/SceneManager/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/EventListener/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/PlayMusic/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/
+        ${CMAKE_SOURCE_DIR}/Ecs/Src/Events/
 )
 
 add_library(eventHandler_PlayMusic SHARED
@@ -33,3 +37,12 @@ add_library(eventHandler_PlayMusic SHARED
 )
 
 target_link_libraries(eventHandler_PlayMusic PRIVATE asio::asio)
+
+add_library(eventHandler_PlaySounds SHARED
+        PlaySounds/PlaySoundsHandler.cpp
+        AEventHandler.cpp
+        ../../Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+target_link_libraries(eventHandler_PlaySounds PRIVATE asio::asio)
