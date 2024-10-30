@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** SwitchSceneHandler.hpp
+** PlayMusicHandler.hpp
 */
 
 #pragma once
@@ -10,22 +10,22 @@
 #include "AEventHandler.hpp"
 #include "../Error/AError.hpp"
 
-class SwitchSceneHandler : public AEventHandler {
+class PlayMusicHandler : public AEventHandler {
 
     public:
 
         /**
-         * @brief Construct a new SwitchSceneHandler object
+         * @brief Construct a new PlayMusicHandler object
          *
          * @param eventType Event type
          */
-        SwitchSceneHandler(std::string eventType = "");
+        PlayMusicHandler(std::string eventType = "");
 
         /**
-         * @brief Destroy the SwitchSceneHandler object
+         * @brief Destroy the PlayMusicHandler object
          *
          */
-        ~SwitchSceneHandler() = default;
+        ~PlayMusicHandler() = default;
 
         /**
          * @brief Process the event
@@ -40,14 +40,14 @@ class SwitchSceneHandler : public AEventHandler {
         bool processEvent(std::shared_ptr<IEvent> event, std::shared_ptr<SceneManager::ISceneManager> sceneManager, std::shared_ptr<ABINetwork::INetworkUnit> networkUnit, std::shared_ptr<IGraphic> graphicLib) override;
 };
 
-class SwitchSceneHandlerError : public AError {
+class PlayMusicHandlerError : public AError {
 
     public:
 
         /**
-         * @brief Construct a new SwitchSceneHandlerError object
+         * @brief Construct a new PlayMusicHandlerError object
          *
          * @param message Message
          */
-        SwitchSceneHandlerError(std::string message) : AError(message) {}
+        PlayMusicHandlerError(std::string message) : AError(message) {}
 };

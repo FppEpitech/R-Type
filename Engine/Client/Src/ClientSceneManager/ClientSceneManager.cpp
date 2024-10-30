@@ -8,6 +8,7 @@
 #include <fstream>
 
 #include "ClientSceneManager.hpp"
+#include "AEvent.hpp"
 
 SceneManager::ClientSceneManager::ClientSceneManager(std::shared_ptr<ECS::Registry> registries, std::shared_ptr<EventListener> eventListener)
     : ASceneManager(registries, eventListener)
@@ -35,6 +36,17 @@ std::string SceneManager::ClientSceneManager::_getScenesPath() const
     return SCENE_PATH;
 }
 
+void SceneManager::ClientSceneManager::_loadSceneMusic(Json::Value root, std::size_t index)
+{
+    const Json::Value& music = root["music"];
+
+    std::string path = music.asString();
+    std::vector<std::any> musicPath = {path};
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("PlayMusic", musicPath);
+    _registry->addEvent(event);
+
+}
+
 void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::size_t index)
 {
     std::ifstream file(_getScenesPath() + path);
@@ -51,4 +63,5 @@ void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::
     _loadSceneKeys(menus, index);
     _loadNetworkUpdateSystem(root, index);
     _loadSceneEventHandlers(root, index);
+    loadSceneMusic(root, index);
 }
