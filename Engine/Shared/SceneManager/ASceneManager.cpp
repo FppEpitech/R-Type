@@ -20,6 +20,11 @@ SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> regist
     _initialiseDefaultComponents();
 }
 
+std::unordered_map<KEY_MAP, std::string> SceneManager::ASceneManager::getSoundMap()
+{
+    return (std::unordered_map<KEY_MAP, std::string>());
+}
+
 bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntities)
 {
     if (_keysSystems.find(key) != _keysSystems.end()) {
@@ -142,6 +147,8 @@ void SceneManager::ASceneManager::changeScene(std::pair<std::size_t, std::string
     _registry->clearSystems();
     _registry->clearComponentsArray();
     _registry->clearEntities();
+    _eventListener->clearHandlers();
+    _soundMap.clear();
     _initialiseDefaultComponents();
     _loadScene(scene.second, CURRENT);
 }

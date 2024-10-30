@@ -31,7 +31,7 @@
 #include "MaterialMap/MaterialMapComponent.hpp"
 #include "TexturePath/TexturePathComponent.hpp"
 #include "TextureRect/TextureRectComponent.hpp"
-#include "../DefaultEventHandlers/IEventHandler.hpp"
+#include "DefaultEventHandlers/IEventHandler.hpp"
 #include "TextPosition2D/TextPosition2DComponent.hpp"
 #include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
@@ -88,6 +88,11 @@ namespace SceneManager {
              */
             void changeScene(std::pair<std::size_t, std::string> scene);
 
+            /**
+             * @brief Get the unordered map of sounds.
+             */
+            std::unordered_map<KEY_MAP, std::string> getSoundMap();
+
         protected:
 
             std::shared_ptr<ECS::Registry>                                                  _registry; // Registries for each scene.
@@ -100,6 +105,8 @@ namespace SceneManager {
             std::size_t                                                                     _nextIndex; // Index of the next empty registry.
 
             std::shared_ptr<EventListener>                                                  _eventListener; // Event listener for the scene manager.
+
+            std::unordered_map<KEY_MAP, std::string>                                        _soundMap; // Sound map for the scene manager.
 
             /**
              * @brief Get the component lib path.
