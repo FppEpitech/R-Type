@@ -62,9 +62,3 @@ void RoomPasswordTextBoxInitSystem::_initButton(ECS::Registry& reg, int idxPacke
     std::shared_ptr<IComponent> draw = std::make_shared<DrawComponent>();
     reg.set_component(idxPacketEntities, draw, "DrawComponent");
 }
-
-extern "C" {
-    EXPORT_SYMBOL ISystem* loadSystemInstance() {
-        return new RoomPasswordTextBoxInitSystem();
-    }
-}

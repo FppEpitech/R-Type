@@ -1,0 +1,15 @@
+{
+    "TextPosition2DComponent":{
+        "x":840,
+        "y":150
+    },
+    "ColourComponent":{
+        "r":255,
+        "g":255,
+        "b":255,
+        "a":255
+    },
+    "TextComponent": "Join a room",
+    "Size1DComponent": 40,
+    "FontPathComponent": ""
+}
