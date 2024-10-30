@@ -84,7 +84,7 @@ namespace SceneManager {
              * @param packet Packet receive by the network.
              * @return true if the packet has been processed, false otherwise.
              */
-            bool processUpdate(std::string componentType, Network::UDPPacket packet);
+            bool processUpdate(std::string componentType, ABINetwork::UDPPacket packet);
 
             /**
              * @brief Change the current scene.
@@ -99,7 +99,7 @@ namespace SceneManager {
             std::unordered_map<KEY_MAP, std::shared_ptr<ISystem>>                           _keysSystems; // Keys to load a system for each scene.
             std::unordered_map<KEY_MAP, std::pair<std::size_t, std::string>>                _keysScenes; // Keys to load a scene for each scene.
 
-            std::unordered_map<std::string, std::function<void(Network::UDPPacket packet, ECS::Registry& reg)>>   _updateNetworkSystems; // Keys to load a scene for each scene.
+            std::unordered_map<std::string, std::function<void(ABINetwork::UDPPacket packet, ECS::Registry& reg)>>   _updateNetworkSystems; // Keys to load a scene for each scene.
 
             std::size_t                                                                     _nextIndex; // Index of the next empty registry.
 

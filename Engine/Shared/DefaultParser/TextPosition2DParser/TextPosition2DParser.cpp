@@ -18,6 +18,9 @@ std::shared_ptr<TextPosition2DComponent> parseTextPosition2D(std::string pathFil
         Json::Reader reader;
         Json::Value root;
 
+        if (!file.is_open())
+            return nullptr;
+
         if (!reader.parse(file, root, false))
             return nullptr;
 

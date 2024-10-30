@@ -7,6 +7,7 @@
     "systems": [
     ],
     "eventHandlers": [
+        "libeventHandler_moveEntity.so"
     ],
     "networkUpdate": [
     ],

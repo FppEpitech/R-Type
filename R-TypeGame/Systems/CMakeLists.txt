@@ -319,12 +319,46 @@ target_link_libraries(system_initConnectButton
         JsonCpp::JsonCpp
 )
 
-add_library(system_moveRight SHARED Move/MoveSystemRight/MoveSystemRight.cpp)
-target_link_libraries(system_moveRight PRIVATE JsonCpp::JsonCpp)
-add_library(system_moveLeft SHARED Move/MoveSystemLeft/MoveSystemLeft.cpp)
-add_library(system_moveUp SHARED Move/MoveSystemUp/MoveSystemUp.cpp)
-add_library(system_moveDown SHARED Move/MoveSystemDown/MoveSystemDown.cpp)
-target_link_libraries(system_moveDown PRIVATE JsonCpp::JsonCpp)
+add_library(system_moveRight SHARED
+    Move/MoveSystemRight/MoveSystemRight.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveRight
+    PRIVATE JsonCpp::JsonCpp
+    r-type_abi_network
+)
+
+add_library(system_moveLeft SHARED
+    Move/MoveSystemLeft/MoveSystemLeft.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveLeft
+    PRIVATE JsonCpp::JsonCpp
+    r-type_abi_network
+)
+
+add_library(system_moveUp SHARED
+    Move/MoveSystemUp/MoveSystemUp.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveUp
+    PRIVATE JsonCpp::JsonCpp
+    r-type_abi_network
+)
+
+add_library(system_moveDown SHARED
+    Move/MoveSystemDown/MoveSystemDown.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveDown
+    PRIVATE JsonCpp::JsonCpp
+    r-type_abi_network
+)
+
 add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
 
 add_library(system_shoot SHARED

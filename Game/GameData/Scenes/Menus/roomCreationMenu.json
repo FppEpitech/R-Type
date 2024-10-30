@@ -16,6 +16,7 @@
         "libsystem_handleTyping.so"
     ],
     "eventHandlers": [
+        "libeventHandler_createRoom.so"
     ],
     "menus": {
         "keyBinds": [

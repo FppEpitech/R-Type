@@ -7,16 +7,23 @@
 
 #pragma once
 
+#include "Room.hpp"
+#include "ABIServer.hpp"
 #include "Registry.hpp"
-#include "NetworkServer.hpp"
-#include "EventListener.hpp"
 #include "ServerSceneManager.hpp"
+
+#include <queue>
+#include <unordered_map>
+#include <functional>
 
 #ifdef _WIN32
         #define SLEEP(x) Sleep(x)
 #else
         #define SLEEP(x) sleep(x)
 #endif
+
+#define MAX_NUMBER_ROOMS 4
+#define MAX_NUMBER_PLAYERS 100
 
 /**
  * @brief GameEngine namespace handle all
@@ -56,58 +63,59 @@ class Application {
     private:
 
         /**
-         * @brief Function to handle Arrow key.
+         * @brief Function who handle the packets received.
          *
-         * @param keyCode Key Code send by the client
-         * @param idxPlayerPacket Index of Player who send the packet.
          */
-        void _handleArrowKey(uint8_t keyCode, int idxPlayerPacket);
+        void _packetHandler();
 
         /**
-         * @brief Function to handle Alpha key.
+         * @brief Handle the packet GET_ROOM.
          *
-         * @param keyCode Key Code send by the client
-         * @param idxPlayerPacket Index of Player who send the packet.
+         * @param packet Packet to handle.
          */
-        void _handleAlphaKey(uint8_t keyCode, int idxPlayerPacket);
+        void _handleGetRoom(ABINetwork::UDPPacket packet);
 
         /**
-         * @brief Function to handle Number key.
+         * @brief Handle the packet CREATE_ROOM.
          *
-         * @param keyCode Key Code send by the client
-         * @param idxPlayerPacket Index of Player who send the packet.
+         * @param packet Packet to handle.
          */
-        void _handleNumberKey(uint8_t keyCode, int idxPlayerPacket);
+        void _handleCreateRoom(ABINetwork::UDPPacket packet);
 
         /**
-         * @brief Function to Special key.
+         * @brief Handle the packet JOIN_ROOM.
          *
-         * @param keyCode Key Code send by the client
-         * @param idxPlayerPacket Index of Player who send the packet.
+         * @param packet Packet to handle.
          */
-        void _handleSpecialKey(uint8_t keyCode, int idxPlayerPacket);
+        void _handleJoinRoom(ABINetwork::UDPPacket packet);
 
         /**
-         * @brief Callback function who handle the packet receive.
+         * @brief Handle the packet LOGIN.
          *
-         * @param packet Packet to be handle in this function.
-         * @param endpoint Endpoint of the client who send the packet.
-         * @param reg Registry with list of Component and system.
+         * @param packet Packet to handle.
          */
-        void _packetHandler(Network::UDPPacket packet, const asio::ip::udp::endpoint& endpoint, std::shared_ptr<ECS::Registry> reg);
+        void _handleLogin(ABINetwork::UDPPacket packet);
 
         /**
-         * @brief Check if no player are connected.
+         * @brief Handle the packet REGISTER.
          *
-         * @return true No player connected.
-         * @return false One or more players connected.
+         * @param packet Packet to handle.
          */
-        bool noPlayerConnected();
+        void _handleRegister(ABINetwork::UDPPacket packet);
 
-        std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
-        std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
-        std::shared_ptr<Network::Server>                        _server;            // Network class for server.
-        std::shared_ptr<EventListener>                          _eventListener;     // Event listener for the server.
+        std::shared_ptr<ABINetwork::INetworkUnit>                                       _server;            // Network class for server.
+        std::size_t                                                                     _nbRoom;            // Number of current rooms in the server.
+        std::unordered_map<std::string, std::shared_ptr<GameEngine::Room>>              _rooms;             // List of rooms.
+        std::vector<std::shared_ptr<std::thread>>                                       _threads;           // Vector of threads
+        std::mutex                                                                      _roomCreationMutex; // Mutex for room creation.
+
+        std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
+            {ABINetwork::IMessage::MessageType::GET_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleGetRoom(packet); }},
+            {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoom(packet); }},
+            {ABINetwork::IMessage::MessageType::JOIN_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleJoinRoom(packet); }},
+            {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLogin(packet); }},
+            {ABINetwork::IMessage::MessageType::REGISTER, [this](ABINetwork::UDPPacket packet) { this->_handleRegister(packet); }}
+        };
 };
 
 } // namespace GameEngine

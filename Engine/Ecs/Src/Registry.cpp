@@ -82,7 +82,8 @@ void Registry::clearEntities()
 
 void Registry::addEvent(std::shared_ptr<IEvent> event)
 {
-    _eventQueue.push(event);
+    if (event)
+        _eventQueue.push(event);
 }
 
 void Registry::popEvent()

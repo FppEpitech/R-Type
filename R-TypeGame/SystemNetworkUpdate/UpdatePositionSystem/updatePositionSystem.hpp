@@ -36,14 +36,14 @@ class UpdatePositionComponent : public ISystemNetworkUpdate {
          *
          * @return std::function<void(ECS::Registry& reg, int idxPacketEntities)>
          */
-        std::function<void(Network::UDPPacket, ECS::Registry&)> getFunction()
+        std::function<void(ABINetwork::UDPPacket, ECS::Registry&)> getFunction()
         {
-            return [this](Network::UDPPacket packet, ECS::Registry& reg) {
+            return [this](ABINetwork::UDPPacket packet, ECS::Registry& reg) {
                 _updatePosition(packet, reg);
             };
         }
 
     private:
 
-        void _updatePosition(Network::UDPPacket packet, ECS::Registry& reg); //The system to update position.
+        void _updatePosition(ABINetwork::UDPPacket packet, ECS::Registry& reg); //The system to update position.
 };
