@@ -18,11 +18,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Game/Libs/ECS/)
 
 # Define source and include paths
 set(LIB_SRC_PATH "Src")
-set(LIB_INCLUDE_PATH "Include")
 
 # Define the main source files for the library
 set(SRC_LIB
     ${LIB_SRC_PATH}/Registry.cpp
+    ${LIB_SRC_PATH}/Events/AEvent.cpp
 )
 
 # Add the static library target

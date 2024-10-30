@@ -77,10 +77,11 @@ include_directories(
     ${EXE_SRC_PATH}/GetGraphicalLibrary
     ${EXE_SRC_PATH}/Errors
     ${EXE_SRC_PATH}/Systems
+    ../Ecs/Src/Events
     ../Shared/GraphicalLoad
     ../Shared/Component
     ../Shared/DefaultComponents/Entities
-        ../Shared/DefaultComponents/Player
+    ../Shared/DefaultComponents/Player
     ../Ecs/Src
     ../Shared/Interface
     ../Shared
