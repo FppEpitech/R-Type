@@ -1,0 +1,35 @@
+{
+    "TextureRectComponent":{
+        "path":"./Assets/BaseRectangleButton.png",
+        "left":0,
+        "top":0,
+        "width":410,
+        "height":110
+    },
+    "ScaleComponent":0.8,
+    "Position2DComponent":{
+        "x":800,
+        "y":815
+    },
+    "TextPosition2DComponent":{
+        "x":850,
+        "y":850
+    },
+    "ColourComponent":{
+        "r":255,
+        "g":255,
+        "b":255,
+        "a":255
+    },
+    "TextComponent": "Connect to server",
+    "DefaultTextComponent": "Connect to server",
+    "Size1DComponent": 24,
+    "FontPathComponent": "",
+    "ButtonStateComponent": "NONE",
+    "ButtonTexturePathComponent": {
+        "None": "./Assets/BaseRectangleButton.png",
+        "Hover": "./Assets/HoverRectangleButton.png",
+        "Clicked": "./Assets/PressedRectangleButton.png",
+        "Pressed": "./Assets/PressedRectangleButton.png"
+    }
+}

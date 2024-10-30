@@ -2,10 +2,10 @@
     "TextureRectComponent":
     {
         "path":"./Assets/sprite.png",
-        "left": 1338,
-        "top": 2,
-        "width": 88,
-        "height": 93
+        "left": 0,
+        "top": 105,
+        "width": 2404,
+        "height": 25
     },
     "ScaleComponent": 2,
     "Position2DComponent":
@@ -15,12 +15,12 @@
     },
     "SpriteSheetAnimationComponent":
     {
-        "nbFrame": 4,
-        "timeFrame": 0.5,
-        "vx": 88,
+        "nbFrame": 2404,
+        "timeFrame": 0,
+        "vx": 1,
         "vy": 0,
-        "startX": 1338,
-        "startY": 2,
-        "reverseMod": true
+        "startX": 0,
+        "startY": 105,
+        "reverseMod": false
     }
 }

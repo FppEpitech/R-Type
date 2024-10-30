@@ -1,0 +1,16 @@
+{
+    "TextureRectComponent":
+    {
+        "path":"./Assets/sprite.png",
+        "left": 446,
+        "top": 2,
+        "width": 34,
+        "height": 93
+    },
+    "ScaleComponent": 2,
+    "Position2DComponent":
+    {
+        "x": 1000,
+        "y": 500
+    }
+}

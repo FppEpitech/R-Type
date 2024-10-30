@@ -1,0 +1,46 @@
+{
+	"color_blindness" : 
+	{
+		"allPaths" : 
+		{
+			"achromatopsie" : "./Assets/fsFile/achromatopsie.fs",
+			"deuteranomalie" : "./Assets/fsFile/deuteranomalie.fs",
+			"deuteranopie" : "./Assets/fsFile/deuteranopie.fs",
+			"protanomalie" : "./Assets/fsFile/protanomalie.fs",
+			"protanopie" : "./Assets/fsFile/protanopie.fs",
+			"tritanomalie" : "./Assets/fsFile/tritanomalie.fs",
+			"tritanopie" : "./Assets/fsFile/tritanopie.fs"
+		},
+		"current" : "none",
+		"intensity" : 0.0
+	},
+	"gameInfo" : 
+	{
+		"title" : "From NoWare - R-Type"
+	},
+	"volume" : 
+	{
+		"music" : 0.5,
+		"sound" : 0.5
+	},
+	"window" : 
+	{
+		"fullscreen" : true,
+		"resolutionIndex" : 0,
+		"resolutions" : 
+		[
+			{
+				"h" : 1080,
+				"w" : 1920
+			},
+			{
+				"h" : 720,
+				"w" : 1280
+			},
+			{
+				"h" : 600,
+				"w" : 800
+			}
+		]
+	}
+}

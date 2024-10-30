@@ -1,0 +1,15 @@
+{
+    "TextPosition2DComponent":{
+        "x":840,
+        "y":235
+    },
+    "ColourComponent":{
+        "r":255,
+        "g":255,
+        "b":255,
+        "a":255
+    },
+    "TextComponent": "Register",
+    "Size1DComponent": 60,
+    "FontPathComponent": ""
+}
