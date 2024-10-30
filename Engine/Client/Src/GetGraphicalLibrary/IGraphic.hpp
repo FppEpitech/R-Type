@@ -300,4 +300,11 @@ class IGraphic {
          * @brief Update the music.
         */
         virtual void updateMusic() = 0;
+
+        /**
+         * @brief Play a sound
+         *
+         * @param path Path to the sound file to play.
+         */
+        virtual void playSound(std::string path) = 0;
 };

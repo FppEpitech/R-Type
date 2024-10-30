@@ -326,6 +326,13 @@ class GraphicLib : public IGraphic {
         */
         void updateMusic();
 
+        /**
+         * @brief Play a sound
+         *
+         * @param path Path to the sound file to play.
+         */
+        void playSound(std::string path);
+
     private:
 
         /**
@@ -341,8 +348,8 @@ class GraphicLib : public IGraphic {
         std::unordered_map<std::string, Texture2D>  _textures;      //< List textures loaded.
         std::unordered_map<std::string, Font>       _font;          //< List of Font loaded.
         std::unordered_map<std::string, Shader>     _shaders;       //< List of Shaders loaded.
+        std::unordered_map<std::string, Sound>      _sounds;       //< List of Shaders loaded.
         std::vector<std::pair<int, int>>            _resolutions;   //< List of resolutions.
         std::string                                 _currentShader; //< Current shader.
         std::pair<std::string, Music>               _music;         //< Music.
-        std::vector<Sound>                          _sounds;        //< List of sounds.
 };

@@ -373,6 +373,13 @@ void GraphicLib::updateMusic()
     UpdateMusicStream(_music.second);
 }
 
+void GraphicLib::playSound(std::string path)
+{
+    if (_sounds.find(path) == _sounds.end())
+        _sounds[path] = LoadSound(path.c_str());
+    PlaySound(_sounds[path]);
+}
+
 bool GraphicLib::_isShaderReady()
 {
     return _currentShader != "none";
