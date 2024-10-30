@@ -9,9 +9,13 @@
 
 #include <string>
 #include <functional>
+#include <iostream>
+#include <vector>
+#include <variant>
 
 #include "../../Ecs/Src/Registry.hpp"
-#include "../Network/Packet/NetworkPacket.hpp"
+#include "../../../Network/ABI/ABIClient.hpp"
+#include "../../../Network/Messages/UDPPacket/UDPPacket.hpp"
 
 /**
  * @brief Macro to define export symbols for different platforms.
@@ -42,7 +46,7 @@ class ISystemNetworkUpdate {
         /**
          * @brief Get the Function object.
          *
-         * @return std::function<void(Network::UDPPacket packet, ECS::Registry& reg)>
+         * @return std::function<void(ABINetwork::UDPPacket packet, ECS::Registry& reg)>
          */
-        virtual std::function<void(Network::UDPPacket packet, ECS::Registry& reg)> getFunction() = 0;
+        virtual std::function<void(ABINetwork::UDPPacket packet, ECS::Registry& reg)> getFunction() = 0;
 };

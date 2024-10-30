@@ -83,7 +83,7 @@ class EventListener {
          *
          * @param event The event to process
          */
-        void processEvent(std::shared_ptr<IEvent> event);
+        bool processEvent(std::shared_ptr<IEvent> event);
 };
 
 class EventListenerErrors : public AError {
