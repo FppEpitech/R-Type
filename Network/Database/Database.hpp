@@ -47,6 +47,6 @@ class Database {
 
         std::shared_ptr<sqlite3> db = nullptr; // Database.
         std::shared_ptr<int> rc = nullptr; // Return code of db.
-        std::shared_ptr<Users> users = nullptr;
-        std::shared_ptr<Scores> scores = nullptr;
+        std::shared_ptr<Users> users = nullptr; // Users.
+        std::shared_ptr<Scores> scores = nullptr; // Scores.
 };

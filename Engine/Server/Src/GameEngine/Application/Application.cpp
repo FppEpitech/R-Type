@@ -20,9 +20,11 @@ GameEngine::Application::Application()
     _nbRoom = 0;
 
     _db = std::make_shared<Database>("db.db");
+    if (!_db)
+        throw new ServerError("Error while creating database");
     _db->users = std::make_shared<Users>(*_db);
     _db->scores = std::make_shared<Scores>(*_db);
-    if (!_db || _db->users || _db->scores)
+    if (!_db->users || !_db->scores)
         throw new ServerError("Error while creating database");
 }
 
