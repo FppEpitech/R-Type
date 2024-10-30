@@ -60,6 +60,7 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
         AText/
         # Network directories
+        ${CMAKE_SOURCE_DIR}/Network/
         ${CMAKE_SOURCE_DIR}/Network/ABI/
 )
 
@@ -106,4 +107,11 @@ target_link_libraries(system_handleTyping PRIVATE
         ButtonState
         ButtonTexturePath
         JsonCpp::JsonCpp
+)
+
+add_library(system_playSounds SHARED
+        PlaySounds/PlaySoundsSystem.cpp
+        ../../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
