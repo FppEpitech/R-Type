@@ -11,7 +11,7 @@
 #include "Scale/ScaleComponent.hpp"
 #include "TextureRect/TextureRectComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
-#include "VelocityComponent.hpp"
+#include "Velocity/VelocityComponent.hpp"
 #include "ShootComponent.hpp"
 #include "VelocityParser.hpp"
 #include "TextureRectParser.hpp"

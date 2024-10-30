@@ -5,7 +5,7 @@
 ** ServerConnectionTextInitSystem.cpp
 */
 
-#include "DrawComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Draw/DrawComponent.hpp"
 #include "ServerConnectionTextInitSystem.hpp"
 
 ServerConnectionTextInitSystem::ServerConnectionTextInitSystem() :

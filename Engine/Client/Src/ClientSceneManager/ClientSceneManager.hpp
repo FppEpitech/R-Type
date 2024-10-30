@@ -42,7 +42,19 @@ namespace SceneManager {
              */
             ~ClientSceneManager() = default;
 
+            /**
+             * @brief Get the unordered map of sounds.
+             */
+            std::unordered_map<KEY_MAP, std::string> getSoundMap() override;
+
         private:
+
+            /**
+             * @brief Load the sounds for a scene.
+             * @param root The JSON value containing the scene data.
+             * @param index The index of the registry to load the sounds.
+             */
+            void _loadSceneSounds(Json::Value root, std::size_t index);
 
             /**
              * @brief Get the Component Lib Path.
@@ -74,5 +86,12 @@ namespace SceneManager {
              * @param index Index of the registry to load the scene.
              */
             void _loadScene(const std::string &path, std::size_t index) override;
+
+            /**
+             * @brief Load the music for a scene.
+             * @param root The JSON value containing the scene data.
+             * @param index The index of the registry to load the music.
+             */
+            void _loadSceneMusic(Json::Value root, std::size_t index);
     };
 }

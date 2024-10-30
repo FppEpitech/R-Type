@@ -5,7 +5,7 @@
 ** LoginTextInitSystem.cpp
 */
 
-#include "DrawComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Draw/DrawComponent.hpp"
 #include "LoginTextInitSystem.hpp"
 
 LoginTextInitSystem::LoginTextInitSystem() :

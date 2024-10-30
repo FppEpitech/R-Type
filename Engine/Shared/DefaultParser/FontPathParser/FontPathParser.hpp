@@ -9,7 +9,7 @@
 
 #include <memory>
 
-#include "../../DefaultComponents/ObjPath/FontPathComponent.hpp"
+#include "../../DefaultComponents/FontPath/FontPathComponent.hpp"
 
 /**
  * @brief Parse a Font Json object.

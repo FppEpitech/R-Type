@@ -35,15 +35,11 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/Size1D/Size1DComponent.cpp
     ../Shared/DefaultComponents/Text/TextComponent.cpp
     ../Shared/DefaultComponents/MaterialMap/MaterialMapComponent.cpp
-    ../Shared/DefaultComponents/MusicPath/MusicPathComponent.cpp
-    ../Shared/DefaultComponents/MusicPitch/MusicPitchComponent.cpp
-    ../Shared/DefaultComponents/MusicVolume/MusicVolumeComponent.cpp
-    ../Shared/DefaultComponents/SoundPath/SoundPathComponent.cpp
-    ../Shared/DefaultComponents/SoundPitch/SoundPitchComponent.cpp
-    ../Shared/DefaultComponents/SoundVolume/SoundVolumeComponent.cpp
+    ../Shared/DefaultComponents/Music/MusicComponent.cpp
+    ../Shared/DefaultComponents/Sound/SoundComponent.cpp
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
-    ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+        ../Shared/DefaultComponents/Player/PlayerComponent.cpp
     ../Shared/DefaultComponents/Editable/EditableComponent.cpp
     ../Shared/DefaultComponents/Checkable/CheckableComponent.cpp
 )
@@ -80,10 +76,11 @@ include_directories(
     ${EXE_SRC_PATH}/GetGraphicalLibrary
     ${EXE_SRC_PATH}/Errors
     ${EXE_SRC_PATH}/Systems
+    ../Ecs/Src/Events
     ../Shared/GraphicalLoad
     ../Shared/Component
     ../Shared/DefaultComponents/Entities
-    ../Shared/DefaultComponents/Entities/Player
+    ../Shared/DefaultComponents/Player
     ../Ecs/Src
     ../Shared/Interface
     ../Shared
@@ -97,8 +94,6 @@ include_directories(
     ${EXE_INCLUDE_PATH}/Components/ShaderComponent
     ../Shared/EventListener/
     ../Shared/DefaultEventHandlers/
-    ../../R-TypeGame/Components/
-
     ${CMAKE_SOURCE_DIR}/Network/Errors
     ${CMAKE_SOURCE_DIR}/Network/ABI
     ${CMAKE_SOURCE_DIR}/Network/Units/Client/

@@ -8,11 +8,18 @@
 #include <fstream>
 
 #include "ClientSceneManager.hpp"
+#include "AEvent.hpp"
+#include "../../../Shared/DefaultSystems/KeyMaps/StringKeyMap.hpp"
 
 SceneManager::ClientSceneManager::ClientSceneManager(std::shared_ptr<ECS::Registry> registries, std::shared_ptr<EventListener> eventListener)
     : ASceneManager(registries, eventListener)
 {
     _loadScene(FIRST_SCENE, CURRENT);
+}
+
+std::unordered_map<KEY_MAP, std::string> SceneManager::ClientSceneManager::getSoundMap()
+{
+    return _soundMap;
 }
 
 std::string SceneManager::ClientSceneManager::_getComponentLibPath() const
@@ -35,6 +42,33 @@ std::string SceneManager::ClientSceneManager::_getScenesPath() const
     return SCENE_PATH;
 }
 
+void SceneManager::ClientSceneManager::_loadSceneMusic(Json::Value root, std::size_t index)
+{
+    const Json::Value& music = root["music"];
+
+    if (music.isNull())
+        return;
+    std::string path = music.asString();
+    std::vector<std::any> musicPath = {path};
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("PlayMusic", musicPath);
+    _registry->addEvent(event);
+
+}
+
+void SceneManager::ClientSceneManager::_loadSceneSounds(Json::Value root, std::size_t index)
+{
+    const Json::Value& sounds = root["sounds"];
+
+    if (sounds.isNull())
+        return;
+    for (const auto& sound : sounds) {
+        std::string path = sound["path"].asString();
+        std::string strKey = sound["key"].asString();
+        KEY_MAP key = stringKeyMap.at(strKey);
+        _soundMap[key] = path;
+    }
+}
+
 void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::size_t index)
 {
     std::ifstream file(_getScenesPath() + path);
@@ -51,4 +85,6 @@ void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::
     _loadSceneKeys(menus, index);
     _loadNetworkUpdateSystem(root, index);
     _loadSceneEventHandlers(root, index);
+    _loadSceneMusic(root, index);
+    _loadSceneSounds(root, index);
 }

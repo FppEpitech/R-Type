@@ -64,6 +64,11 @@ namespace SceneManager {
              * @param scene Scene to load.
              */
             virtual void changeScene(std::pair<std::size_t, std::string> scene) = 0;
+
+            /**
+             * @brief Get the unordered map of sounds.
+             */
+            virtual std::unordered_map<KEY_MAP, std::string> getSoundMap() = 0;
     };
 
     /**

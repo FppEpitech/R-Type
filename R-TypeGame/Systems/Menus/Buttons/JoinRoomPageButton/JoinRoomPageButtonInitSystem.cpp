@@ -9,7 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "AButtonInitSystem.hpp"
+#include "../AButton/AButtonInitSystem.hpp"
 #include "JoinRoomPageButtonInitSystem.hpp"
 
 JoinRoomPageButtonInitSystem::JoinRoomPageButtonInitSystem() :
