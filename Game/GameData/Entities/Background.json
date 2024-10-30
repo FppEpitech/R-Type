@@ -22,12 +22,5 @@
         "startX": 0,
         "startY": 105,
         "reverseMod": false
-    },
-    "ColourComponent":
-    {
-        "r": 255,
-        "g": 0,
-        "b": 0,
-        "a": 255
     }
 }

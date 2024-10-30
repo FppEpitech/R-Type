@@ -2,12 +2,13 @@
     "keyBinds": [
     ],
     "entities": [
-        "libsystem_initBackground.so"
+        "libsystem_initBackground.so",
+        "libsystem_initCactus.so"
     ],
     "systems": [
+        "libsystem_moveEntities.so"
     ],
     "eventHandlers": [
-        "libeventHandler_moveEntity.so"
     ],
     "networkUpdate": [
     ],

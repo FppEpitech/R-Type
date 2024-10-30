@@ -11,6 +11,11 @@
     "Position2DComponent":
     {
         "x": 1000,
-        "y": 500
+        "y": 450
+    },
+    "VelocityComponent":
+    {
+        "vx": -400,
+        "vy": 0
     }
 }

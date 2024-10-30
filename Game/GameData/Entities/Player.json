@@ -1,0 +1,33 @@
+{
+    "TextureRectComponent":
+    {
+        "path":"./Assets/sprite.png",
+        "left": 1338,
+        "top": 2,
+        "width": 88,
+        "height": 93
+    },
+    "ScaleComponent": 2,
+    "Position2DComponent":
+    {
+        "x": 0,
+        "y": 500
+    },
+    "SpriteSheetAnimationComponent":
+    {
+        "nbFrame": 4,
+        "timeFrame": 0.5,
+        "vx": 88,
+        "vy": 0,
+        "startX": 1338,
+        "startY": 2,
+        "reverseMod": true
+    },
+    "ColourComponent":
+    {
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "a": 255
+    }
+}

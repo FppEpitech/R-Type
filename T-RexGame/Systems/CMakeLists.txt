@@ -74,6 +74,7 @@ include_directories(
     ../Components/ButtonState/
     ../Components/TextLimit/
     ../Components/ButtonTexturePath/
+    ../Components/Velocity/
     ../Parser/ButtonStateParser/
     ../Parser/TextLimitParser/
     ../Parser/ButtonTexturePathParser/
@@ -121,7 +122,7 @@ set(COMPONENTS
         # Shoot
         # Speed
         TextLimit
-        # Velocity
+        Velocity
 )
 
 foreach(component ${COMPONENTS})
@@ -845,13 +846,6 @@ target_link_libraries(system_initAreCheatsOnButton PRIVATE
 )
 #########################
 
-
-
-
-
-
-
-
 add_library(system_initBackground SHARED
     Background/BackgroundInitSystem.cpp
 )
@@ -864,3 +858,18 @@ target_link_libraries(system_initBackground PRIVATE
     Draw
     JsonCpp::JsonCpp
 )
+
+add_library(system_initCactus SHARED
+    Cactus/CactusInitSystem.cpp
+)
+
+target_link_libraries(system_initCactus PRIVATE
+    Position2D
+    Scale
+    TextureRect
+    Velocity
+    Draw
+    JsonCpp::JsonCpp
+)
+
+add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
