@@ -142,8 +142,14 @@ void SceneManager::ASceneManager::changeScene(std::pair<std::size_t, std::string
     _registry->clearSystems();
     _registry->clearComponentsArray();
     _registry->clearEntities();
+    _eventListener->clearHandlers();
     _initialiseDefaultComponents();
     _loadScene(scene.second, CURRENT);
+}
+
+std::shared_ptr<ECS::Registry> SceneManager::ASceneManager::getRegistry()
+{
+    return _registry;
 }
 
 void SceneManager::ASceneManager::_initialiseDefaultComponents()

@@ -93,6 +93,12 @@ namespace SceneManager {
              */
             void changeScene(std::pair<std::size_t, std::string> scene);
 
+            /**
+             * @brief Get the registry.
+             * @return ECS::Registry& The registry.
+             */
+            std::shared_ptr<ECS::Registry> getRegistry();
+
         protected:
 
             std::shared_ptr<ECS::Registry>                                                  _registry; // Registries for each scene.
