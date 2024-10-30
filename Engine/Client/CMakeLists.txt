@@ -94,8 +94,6 @@ include_directories(
     ${EXE_INCLUDE_PATH}/Components/ShaderComponent
     ../Shared/EventListener/
     ../Shared/DefaultEventHandlers/
-    ../../R-TypeGame/Components/
-
     ${CMAKE_SOURCE_DIR}/Network/Errors
     ${CMAKE_SOURCE_DIR}/Network/ABI
     ${CMAKE_SOURCE_DIR}/Network/Units/Client/

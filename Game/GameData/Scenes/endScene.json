@@ -13,5 +13,7 @@
     ],
     "menus": {
     },
-    "music": "Assets/Musics/InMenu.wav"
+    "music": "Assets/Musics/InGame.wav",
+    "sounds": [
+    ]
 }

@@ -10,13 +10,22 @@
     ],
     "systems": [
         "libsystem_handleMouse.so",
-        "libsystem_handleTyping.so"
+        "libsystem_handleTyping.so",
+        "libsystem_playSounds.so"
     ],
     "eventHandlers": [
+        "libeventHandler_PlayMusic.so",
+        "libeventHandler_PlaySounds.so"
     ],
     "menus": {
         "keyBinds": [
         ]
     },
-    "music": "Assets/Musics/InMenu.wav"
+    "music": "Assets/Musics/InMenu.wav",
+    "sounds": [
+        {
+            "key": "MOUSE_LEFT_CLICK",
+            "path": "Assets/Sounds/ui-pop.mp3"
+        }
+    ]
 }
