@@ -288,4 +288,16 @@ class IGraphic {
          * @return false Window open.
          */
         virtual bool closeWindow() = 0;
+
+        /**
+         * @brief Play music from the specified file path.
+         *
+         * @param path Path to the music file to play.
+         */
+        virtual void playMusic(std::string path) = 0;
+
+        /**
+         * @brief Update the music.
+        */
+        virtual void updateMusic() = 0;
 };
