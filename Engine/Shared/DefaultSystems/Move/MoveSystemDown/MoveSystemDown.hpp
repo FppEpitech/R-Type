@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-#include "../../Network/ABI/ABIServer.hpp"
+#include "ABIServer.hpp"
 #include "../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
 #include "../Draw/DrawComponent.hpp"
 #include "SpeedComponent.hpp"
