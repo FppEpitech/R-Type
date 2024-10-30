@@ -63,5 +63,5 @@ void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::
     _loadSceneKeys(menus, index);
     _loadNetworkUpdateSystem(root, index);
     _loadSceneEventHandlers(root, index);
-    loadSceneMusic(root, index);
+    _loadSceneMusic(root, index);
 }

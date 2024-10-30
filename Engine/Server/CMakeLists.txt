@@ -22,7 +22,6 @@ set(EXE_SRC_PATH "Src")
 set(EXE_INCLUDE_PATH
     "Include"
     "Src/GameEngine"
-    "Src/Network"
     "Src/GameEngine/ServerSceneManager"
 )
 
@@ -30,6 +29,7 @@ set(EXE_INCLUDE_PATH
 set(SRC_EXE
     ${EXE_SRC_PATH}/main.cpp
     ${EXE_SRC_PATH}/GameEngine/Application/Application.cpp
+    ${EXE_SRC_PATH}/GameEngine/Room/Room.cpp
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager/ServerSceneManager.cpp
     ../Shared/Consumption/ConsumptionCompute.cpp
     ../Shared/SceneManager/ASceneManager.cpp
@@ -61,14 +61,13 @@ set(SRC_EXE
 
 # Include directories for header files
 include_directories(
-    ${EXE_SRC_PATH}/Network
     ${EXE_SRC_PATH}/GameEngine/Errors
     ${EXE_SRC_PATH}/GameEngine/Application
+    ${EXE_SRC_PATH}/GameEngine/Room
     ${EXE_SRC_PATH}/GameEngine/ServerSceneManager
     ../Ecs/Src
     ../Shared/Interface
     ../Shared/SceneManager
-    ../Shared/Network/Packet
     ../Shared/Component
     ../Shared
     ../Shared/Consumption/
@@ -84,10 +83,15 @@ include_directories(
     ../Shared/EventListener/
     ${EXE_INCLUDE_PATH}
     ../../R-TypeGame/Components/
-)
 
-# Add subdirectory for network sources
-add_subdirectory(${EXE_SRC_PATH}/Network)
+    ${CMAKE_SOURCE_DIR}/Network/Errors
+    ${CMAKE_SOURCE_DIR}/Network/ABI
+    ${CMAKE_SOURCE_DIR}/Network/Units/Server/
+    ${CMAKE_SOURCE_DIR}/Network/Units/
+    ${CMAKE_SOURCE_DIR}/Network/Units/ANetworkUnit
+    ${CMAKE_SOURCE_DIR}/Network/Messages
+    ${CMAKE_SOURCE_DIR}/Network/Messages/UDPPacket
+)
 
 # Add the executable target
 add_executable(${EXE} ${SRC_EXE})
@@ -111,5 +115,5 @@ target_link_libraries(
     PRIVATE unofficial::sqlite3::sqlite3
     PRIVATE unofficial-sodium::sodium
     r-type_ecs
-    r-type_network_server
+    r-type_abi_network
 )

@@ -59,14 +59,19 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
         AText/
+        # Network directories
+        ${CMAKE_SOURCE_DIR}/Network/ABI/
 )
 
 find_package(jsoncpp REQUIRED)
+find_package(asio CONFIG REQUIRED)
 
 add_library(system_moveRight SHARED Move/MoveSystemRight/MoveSystemRight.cpp)
 target_link_libraries(system_moveRight PRIVATE JsonCpp::JsonCpp)
 add_library(system_moveLeft SHARED Move/MoveSystemLeft/MoveSystemLeft.cpp)
+target_link_libraries(system_moveLeft PRIVATE asio::asio)
 add_library(system_moveUp SHARED Move/MoveSystemUp/MoveSystemUp.cpp)
+target_link_libraries(system_moveUp PRIVATE asio::asio)
 add_library(system_moveDown SHARED Move/MoveSystemDown/MoveSystemDown.cpp)
 target_link_libraries(system_moveDown PRIVATE JsonCpp::JsonCpp)
 add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)

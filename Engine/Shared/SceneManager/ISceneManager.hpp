@@ -9,7 +9,7 @@
 
 #include "../../Error/AError.hpp"
 #include "KeyMaps/StringKeyMap.hpp"
-#include "Network/Packet/NetworkPacket.hpp"
+#include "../../../Network/Messages/UDPPacket/UDPPacket.hpp"
 
 /**
  * @brief Namespace for the scene manager.
@@ -57,7 +57,7 @@ namespace SceneManager {
              * @param packet Packet receive by the network.
              * @return true if the packet has been processed, false otherwise.
              */
-            virtual bool processUpdate(std::string componentType, Network::UDPPacket packet) = 0;
+            virtual bool processUpdate(std::string componentType, ABINetwork::UDPPacket packet) = 0;
 
             /**
              * @brief Change the current scene.

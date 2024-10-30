@@ -43,7 +43,8 @@ void EventListener::removeHandler(const std::string &eventType)
 void EventListener::listen()
 {
     while (!_registry->getEventQueue().empty()) {
-        processEvent(_registry->getEventQueue().front());
+        if (!processEvent(_registry->getEventQueue().front()))
+            break;
         _registry->popEvent();
     }
 }
@@ -53,8 +54,15 @@ void EventListener::setSceneManager(std::shared_ptr <SceneManager::ISceneManager
     _sceneManager = sceneManager;
 }
 
-void EventListener::processEvent(std::shared_ptr<IEvent> event)
+bool EventListener::processEvent(std::shared_ptr<IEvent> event)
 {
-    if (_eventHandlers.find(event->getEventType()) != _eventHandlers.end())
-        _eventHandlers[event->getEventType()]->processEvent(event, _sceneManager, _networkUnit, _graphicLib);
+    if (_eventHandlers.find(event->getEventType()) != _eventHandlers.end()) {
+        try {
+            return _eventHandlers[event->getEventType()]->processEvent(event, _sceneManager, _networkUnit, _graphicLib);
+        } catch(const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+            return false;
+        }
+    }
+    return true;
 }

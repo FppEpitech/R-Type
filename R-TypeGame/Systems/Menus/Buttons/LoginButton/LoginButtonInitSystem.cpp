@@ -67,10 +67,16 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
     if (usernameText->text == "Username" || passwordText->text == "Password")
         return;
 
-    std::vector<std::any> values = {};
-    values.push_back(std::string(LOGIN));
-    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
-    reg.addEvent(event);
+    std::vector<std::any> valuesLogin = {};
+    valuesLogin.push_back(usernameText->text);
+    valuesLogin.push_back(passwordText->text);
+    std::shared_ptr<IEvent> eventLogin = std::make_shared<AEvent>("Login", valuesLogin);
+    reg.addEvent(eventLogin);
+
+    std::vector<std::any> valuesLoginAllowed = {};
+    valuesLoginAllowed.push_back(std::string(LOGIN));
+    std::shared_ptr<IEvent> eventLoginAllowed = std::make_shared<AEvent>("LoginAllowed", valuesLoginAllowed);
+    reg.addEvent(eventLoginAllowed);
 }
 
 void LoginButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)

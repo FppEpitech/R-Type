@@ -60,14 +60,13 @@ include_directories(
 # Add a shared library target 'system_initPlayer'
 add_library(update_position_component SHARED
     UpdatePositionSystem/updatePositionSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
 )
 
 target_link_libraries(update_position_component PRIVATE
     asio::asio
     JsonCpp::JsonCpp
     Player
+    r-type_abi_network
 )
 
 add_library(update_shoot_system SHARED
@@ -75,7 +74,6 @@ add_library(update_shoot_system SHARED
     ../Systems/Shoot/ShootSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     ../Systems/Shoot/ShootInitSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
 )
 
 target_link_libraries(update_shoot_system PRIVATE
@@ -88,16 +86,16 @@ target_link_libraries(update_shoot_system PRIVATE
     Speed
     Velocity
     Shoot
+    r-type_abi_network
 )
 
 add_library(update_playerConnection_system SHARED
     UpdatePlayerConnectionSystem/updatePlayerConnectionSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Network/Packet/NetworkPacket.cpp
 )
 
 target_link_libraries(update_playerConnection_system PRIVATE
     asio::asio
     JsonCpp::JsonCpp
     Player
+    r-type_abi_network
 )

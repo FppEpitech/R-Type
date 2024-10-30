@@ -7,8 +7,9 @@
 
 #include <iostream>
 
-#include "ISystem.hpp"
-#include "DrawComponent.hpp"
+#include "../../Network/ABI/ABIServer.hpp"
+#include "../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
+#include "../Draw/DrawComponent.hpp"
 #include "SpeedComponent.hpp"
 #include "Position2DComponent.hpp"
 
