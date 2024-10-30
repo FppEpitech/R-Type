@@ -62,19 +62,44 @@ include_directories(
         # Network directories
         ${CMAKE_SOURCE_DIR}/Network/
         ${CMAKE_SOURCE_DIR}/Network/ABI/
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src
+        ../../Error/
 )
 
 find_package(jsoncpp REQUIRED)
 find_package(asio CONFIG REQUIRED)
 
-add_library(system_moveRight SHARED Move/MoveSystemRight/MoveSystemRight.cpp)
+add_library(system_moveRight SHARED
+        Move/MoveSystemRight/MoveSystemRight.cpp
+        ../../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
 target_link_libraries(system_moveRight PRIVATE JsonCpp::JsonCpp)
-add_library(system_moveLeft SHARED Move/MoveSystemLeft/MoveSystemLeft.cpp)
+
+add_library(system_moveLeft SHARED Move/MoveSystemLeft/MoveSystemLeft.cpp
+        ../../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
 target_link_libraries(system_moveLeft PRIVATE asio::asio)
-add_library(system_moveUp SHARED Move/MoveSystemUp/MoveSystemUp.cpp)
+
+add_library(system_moveUp SHARED
+        Move/MoveSystemUp/MoveSystemUp.cpp
+        ../../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
 target_link_libraries(system_moveUp PRIVATE asio::asio)
-add_library(system_moveDown SHARED Move/MoveSystemDown/MoveSystemDown.cpp)
+
+add_library(system_moveDown SHARED
+        Move/MoveSystemDown/MoveSystemDown.cpp
+        ../../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
 target_link_libraries(system_moveDown PRIVATE JsonCpp::JsonCpp)
+
 add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
 
 add_library(system_handleMouse SHARED
