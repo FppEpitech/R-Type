@@ -6,6 +6,9 @@
 */
 
 #include "Application.hpp"
+#include "Database.hpp"
+#include "Scores.hpp"
+#include "Users.hpp"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -15,6 +18,14 @@ GameEngine::Application::Application()
 {
     _server = ABINetwork::createServer(MAX_NUMBER_PLAYERS);
     _nbRoom = 0;
+
+    _db = std::make_shared<Database>("db.db");
+    if (!_db)
+        throw new ServerError("Error while creating database");
+    _db->users = std::make_shared<Users>(*_db);
+    _db->scores = std::make_shared<Scores>(*_db);
+    if (!_db->users || !_db->scores)
+        throw new ServerError("Error while creating database");
 }
 
 void GameEngine::Application::run()
@@ -89,14 +100,16 @@ void GameEngine::Application::_handleLogin(ABINetwork::UDPPacket packet)
 {
     std::pair<std::string, std::string> loginInfos = ABINetwork::getLoginInfoFromPacket(packet);
 
-    // TODO : Check in the dataBase if login exist
-    // For the moment send always true.
-    ABINetwork::sendPacketLoginAllowed(_server, true, packet.getToken());
+    if (_db->users->loginUser(loginInfos.first, loginInfos.second) > 0) {
+        ABINetwork::sendPacketLoginAllowed(_server, true, packet.getToken());
+        return;
+    }
+    ABINetwork::sendPacketLoginAllowed(_server, false, packet.getToken());
 }
 
 void GameEngine::Application::_handleRegister(ABINetwork::UDPPacket packet)
 {
     std::pair<std::string, std::string> registerInfos = ABINetwork::getRegisterInfoFromPacket(packet);
 
-    // TODO : Register the client in the database.
+    _db->users->registerUser(registerInfos.first, registerInfos.second);
 }
