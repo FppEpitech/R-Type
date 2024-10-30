@@ -8,6 +8,7 @@
 #include "ABINetwork.hpp"
 #include "Client.hpp"
 #include "Auth/Auth.hpp"
+#include "InitMessage/InitMessage.hpp"
 #include "KeyPressed/KeyPressed.hpp"
 #include "CreateEntity/CreateEntity.hpp"
 #include "UpdateComponent/UpdateComponent.hpp"
@@ -28,6 +29,14 @@ bool connectToServer(std::shared_ptr<INetworkUnit> networkUnit, std::string ipSe
     if (!client)
         return false;
     return client->connectToServer(ipServer, tcp_port);
+}
+
+std::string getServerIp(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return "";
+    return client->getServerIp();
 }
 
 void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password)
@@ -57,6 +66,16 @@ void sendPacketLogout(std::shared_ptr<INetworkUnit> networkUnit)
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::LOGOUT), message->createLogoutPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
+void sendPacketInit(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<InitMessage> message = std::make_shared<InitMessage>();
+
+    if (!message || networkUnit->getToken() == 0)
+        return;
+    setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::INIT), message->createInitPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
+}
+
+
 void sendPacketKey(std::shared_ptr<INetworkUnit> networkUnit, int key)
 {
     std::shared_ptr<KeyPressedMessage> message = std::make_shared<KeyPressedMessage>();
@@ -84,7 +103,7 @@ std::pair<std::string, int> getEntityCreationInfoFromPacket(UDPPacket packet)
     return message->getEntityPayload(packet);
 }
 
-std::pair<std::string, std::vector<std::variant<int, float, std::string>>> getUpdateComponentInfoFromPacket(UDPPacket packet)
+std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> getUpdateComponentInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<UpdateComponentMessage> message = std::make_shared<UpdateComponentMessage>();
 

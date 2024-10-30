@@ -8,6 +8,13 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
+#include <string>
+#include <cstdint>
+#include <cstdarg>
+#include <cstring>
+#include <iostream>
+#include <tuple>
 
 #include "ISystemNetworkUpdate.hpp"
 
@@ -36,14 +43,14 @@ class UpdatePlayerConnectionSystem : public ISystemNetworkUpdate {
          *
          * @return std::function<void(ECS::Registry& reg, int idxPacketEntities)>
          */
-        std::function<void(Network::UDPPacket, ECS::Registry&)> getFunction()
+        std::function<void(ABINetwork::UDPPacket, ECS::Registry&)> getFunction()
         {
-            return [this](Network::UDPPacket packet, ECS::Registry& reg) {
+            return [this](ABINetwork::UDPPacket packet, ECS::Registry& reg) {
                 _updatePlayerConnection(packet, reg);
             };
         }
 
     private:
 
-        void _updatePlayerConnection(Network::UDPPacket packet, ECS::Registry& reg); //The system to update player connection.
+        void _updatePlayerConnection(ABINetwork::UDPPacket packet, ECS::Registry& reg); //The system to update player connection.
 };

@@ -34,12 +34,9 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
         if (!editable || !text || !defaultText)
             continue;
         if (defaultText->text == "Password") {
+            editable->_isEditable = !editable->_isEditable;
             if (!editable->_isEditable)
-                editable->_isEditable = true;
-            else {
-                editable->_isEditable = false;
                 text->text = defaultText->text;
-            }
         }
     }
 

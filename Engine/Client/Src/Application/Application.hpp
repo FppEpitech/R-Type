@@ -16,7 +16,6 @@
 #include "InitWindow.hpp"
 #include "ClientErrors.hpp"
 #include "../GetGraphicalLibrary/IGraphic.hpp"
-// #include "NetworkClient.hpp"
 #include "EventListener.hpp"
 #include "ClientSceneManager.hpp"
 #include "GetGraphicalLibrary.hpp"
@@ -104,10 +103,11 @@ class Application {
         void _handleLoginPacket(ABINetwork::UDPPacket packet);
 
         /**
-         * @brief Connect to the server.
+         * @brief Handle packet received by the server for update component.
          *
+         * @param packet
          */
-        void _connectServer();
+        void _handleUpdateComponentPacket(ABINetwork::UDPPacket packet);
 
         /**
          * @brief Function who handle keyboard signal.
@@ -134,7 +134,8 @@ class Application {
             {ABINetwork::IMessage::MessageType::JOIN_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleJoinRoomPacket(packet); }},
             {ABINetwork::IMessage::MessageType::WRONG_ROOM_PASSWORD, [this](ABINetwork::UDPPacket packet) { this->_handleWrongRoomPasswordPacket(packet); }},
             {ABINetwork::IMessage::MessageType::FULL_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleFullRoomPacket(packet); }},
-            {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLoginPacket(packet); }}
+            {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLoginPacket(packet); }},
+            {ABINetwork::IMessage::MessageType::UPDATE_COMPONENT, [this](ABINetwork::UDPPacket packet) { this->_handleUpdateComponentPacket(packet); }}
         };
 
         networkInstance_t _serverInfos; // Informations about the server.

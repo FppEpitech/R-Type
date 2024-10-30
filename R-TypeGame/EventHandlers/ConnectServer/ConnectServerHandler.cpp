@@ -27,6 +27,8 @@ bool ConnectServerHandler::processEvent(std::shared_ptr<IEvent> event,
         try {
             if (!networkUnit || !ABINetwork::connectToServer(networkUnit, ipServer, portTCPServer))
                 return true;
+            ABINetwork::sendPacketInit(networkUnit);
+            ABINetwork::sendPacketInit(networkUnit);
         } catch (const std::exception &e) {
             std::cerr << e.what() << std::endl;
             return true;

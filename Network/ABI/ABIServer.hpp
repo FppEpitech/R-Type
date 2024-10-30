@@ -9,8 +9,7 @@
 
 #include "ABINetwork.hpp"
 
-#include "RoomMessage/RoomMessage.hpp"
-
+#include "../Messages/RoomMessage/RoomMessage.hpp"
 
 /**
  * @namespace ABINetwork
@@ -18,8 +17,6 @@
  */
 namespace ABINetwork
 {
-
-
     /**
      * @brief Creates a server network unit.
      * This function initializes and returns a network unit that acts as a server.
@@ -51,6 +48,13 @@ namespace ABINetwork
     uint32_t getLogoutInfoFromPacket(UDPPacket packet);
 
     /**
+     * @brief Get the Init Info From Packet object.
+     *
+     * @return int Init info.
+     */
+    int getInitInfoFromPacket(UDPPacket packet);
+
+    /**
      * @brief Get the keyPressed Info From Packet object.
      *
      * @return int KeyPressed.
@@ -79,9 +83,9 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit representing the client connection.
      * @param componentType COmponent type used to call system associeted.
      * @param nbArgs Number of args in variadic list.
-     * @param ... Variadic List.
+     * @param vector<std::pair<int, std::variant<int, float, std::string, bool>>> Variadic List.
      */
-    void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, ...);
+    void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args);
 
     /**
      * @brief Get the CreateRoom Info From Packet object
@@ -142,4 +146,11 @@ namespace ABINetwork
      * @param isAllowed True if client allowed to login.
      */
     void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAllowed, uint32_t token=0);
+
+    /**
+     * @brief Get the Queue of Connection.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    std::vector<std::pair<uint32_t, bool>>& getQueueConnection(std::shared_ptr<INetworkUnit> networkUnit);
 }

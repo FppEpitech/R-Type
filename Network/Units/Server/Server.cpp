@@ -49,9 +49,11 @@ void Server::_startAccept()
                 if (_numberMaxPlayer > _currentNumberPlayer) {
                     _currentNumberPlayer++;
                     _clients[token] = asio::ip::udp::endpoint();
-                    std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::dec << std::endl;
 
-                    _queueConnection.push_back(token);
+                    std::cout << "Client connected with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << token << std::dec <<
+                    "| endpoint: " << _clients[token] << std::endl;
+
+                    _queueConnection.push_back(std::make_pair(token, false));
 
                     int udpPort = _udp_socket->local_endpoint().port();
                     asio::write(*socket, asio::buffer(&udpPort, sizeof(udpPort)));
@@ -155,5 +157,9 @@ std::pair<int, int> Server::getPorts()
     return {_tcp_acceptor->local_endpoint().port(), _udp_socket->local_endpoint().port()};
 }
 
+std::vector<std::pair<uint32_t, bool>>& Server::getqueueConnection()
+{
+    return _queueConnection;
+}
 
 }

@@ -16,7 +16,7 @@
 
 GameEngine::Application::Application()
 {
-    _server = ABINetwork::createServer(100);
+    _server = ABINetwork::createServer(MAX_NUMBER_PLAYERS);
     _nbRoom = 0;
 
     _db = std::make_shared<Database>("db.db");
@@ -60,24 +60,19 @@ void GameEngine::Application::_handleGetRoom(ABINetwork::UDPPacket packet)
 
 void GameEngine::Application::_handleCreateRoom(ABINetwork::UDPPacket packet)
 {
-    if (_nbRoom >= MAX_NUMBER_ROOMS) {
-        // sendErrorRoomPacket();
+    if (_nbRoom >= MAX_NUMBER_ROOMS)
         return;
-    }
     else {
         ABINetwork::roomInfo_t roomInfo = ABINetwork::getCreateRoomInfoFromPacket(packet);
         try {
             std::shared_ptr<GameEngine::Room> newRoom = std::make_shared<GameEngine::Room>(roomInfo);
-            if (!newRoom) {
-                // sendErrorRoomPacket();
+            if (!newRoom)
                 return;
-            }
             _rooms[roomInfo.name] = newRoom;
             _nbRoom++;
             _threads.push_back(std::make_shared<std::thread>([newRoom, this]() { newRoom->run(_roomCreationMutex); }));
             ABINetwork::sendPacketRoomCreated(_server, newRoom->getRoomInfo(), packet.getToken());
         } catch (const std::exception& e) {
-            // sendErrorRoomPacket();
             std::cerr << e.what() << std::endl;
             return;
         }

@@ -30,6 +30,14 @@ Client::Client()
     _server_endpoint = nullptr;
     _messageId = 0x0000;
     _token = 0;
+    _io_thread = nullptr;
+}
+
+Client::~Client()
+{
+    _io_context->stop();
+    if (_io_thread->joinable())
+        _io_thread->join();
 }
 
 bool Client::connectToServer(std::string ipServer, int tcp_port)
@@ -44,22 +52,15 @@ bool Client::connectToServer(std::string ipServer, int tcp_port)
         asio::error_code ec;
         asio::read(*_tcp_socket, asio::buffer(&_udpPort, sizeof(_udpPort)), ec);
         asio::read(*_tcp_socket, asio::buffer(&_token, sizeof(_token)), ec);
-        // asio::read(*_tcp_socket, asio::buffer(&_idxPlayerComponent, sizeof(_idxPlayerComponent)), ec);
         std::cout << "Connected to server with token: " << "0x" << std::hex << std::setw(8) << std::setfill('0') << _token << std::dec << std::endl;
-        // std::cout << "Connected to server with index player component: " << _idxPlayerComponent << std::endl;
 
         _udp_socket->open(asio::ip::udp::v4());
         _server_endpoint = std::make_shared<asio::ip::udp::endpoint>(asio::ip::address::from_string(_serverIp), _udpPort);
 
-        // TODO: When we will be able to send messages
-
-        // this->_messageHandler = std::move(callback);
-        // std::vector<uint8_t> initPacket = _createPacket();
-        // this->sendMessage(initPacket);
         _startReceive();
 
-        std::thread io_thread([this]() { _io_context->run(); });
-        io_thread.detach();
+        _io_thread = std::make_shared<std::thread>([this]() { _io_context->run(); });
+        _io_thread->detach();
         return true;
     } catch (const std::exception& e) {
         std::cerr << "Error during connection: " << e.what() << std::endl;
@@ -98,8 +99,11 @@ void Client::_startReceive()
 
 void Client::sendMessage(std::vector<uint8_t> message, uint32_t token)
 {
-    (void) token;
-    _udp_socket->send_to(asio::buffer(message), *_server_endpoint);
+    try {
+        _udp_socket->send_to(asio::buffer(message), *_server_endpoint);
+    } catch (const std::exception& e) {
+        std::cout << "Error in send Message client: " << e.what() << std::endl;
+    }
 }
 
 int Client::getNumberClient()
@@ -110,6 +114,11 @@ int Client::getNumberClient()
 std::pair<int, int> Client::getPorts()
 {
     return {_tcpPort, _udpPort};
+}
+
+std::string Client::getServerIp()
+{
+    return _serverIp;
 }
 
 void Client::setIsLogin(LoginState loginState)

@@ -34,6 +34,14 @@ namespace ABINetwork
     bool connectToServer(std::shared_ptr<INetworkUnit> client, std::string ipServer, int tcp_port);
 
     /**
+     * @brief Get the Server Ip object.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @return std::string
+     */
+    std::string getServerIp(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
      * @brief Sends a registration packet to the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
@@ -50,6 +58,13 @@ namespace ABINetwork
      * @param password Client Password to log with.
      */
     void sendPacketLogin(std::shared_ptr<INetworkUnit> networkUnit, std::string userName, std::string password);
+
+    /**
+     * @brief Sends a init packet to the server.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void sendPacketInit(std::shared_ptr<INetworkUnit> networkUnit);
 
     /**
      * @brief Sends a key packet to the server.
@@ -135,7 +150,40 @@ namespace ABINetwork
      * @param packet Packet received from the server.
      * @return std::pair<std::string, std::vector<std::variant<int, float, std::string>>>
      */
-    std::pair<std::string, std::vector<std::variant<int, float, std::string>>> getUpdateComponentInfoFromPacket(UDPPacket packet);
+    std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> getUpdateComponentInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Get the Created Room Info From Packet object
+     *
+     * @param packet Packet received from the server.
+     * @return std::tuple<std::string, int, int> With roomName, tcpPort and udpPort.
+     */
+    std::tuple<std::string, int, int> getCreatedRoomInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Get the Login Allowed Info From Packet object.
+     *
+     * @param packet Packet received from the server.
+     * @return true Client allowed to login.
+     * @return false Client not allowed to login.
+     */
+    bool getLoginAllowedInfoFromPacket(UDPPacket packet);
+
+    /**
+     * @brief Set the Client Login object.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param loginState The value to set.
+     */
+    void setClientLogin(std::shared_ptr<INetworkUnit> networkUnit, INetworkUnit::LoginState loginState);
+
+    /**
+     * @brief Get the Client Login object
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @return LoginState The actual state of the client login.
+     */
+    INetworkUnit::LoginState getClientLogin(std::shared_ptr<INetworkUnit> networkUnit);
 
     /**
      * @brief Get the Created Room Info From Packet object

@@ -24,6 +24,7 @@
 #endif
 
 #define MAX_NUMBER_ROOMS 4
+#define MAX_NUMBER_PLAYERS 100
 
 /**
  * @brief GameEngine namespace handle all

@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 include_directories(
+    ${LIB_SRC_PATH}/Messages/InitMessage
     ${LIB_SRC_PATH}/Messages/UDPPacket
     ${LIB_SRC_PATH}/Messages/
     ${LIB_SRC_PATH}/Messages/CreateEntity
@@ -32,6 +33,7 @@ set(SRC_LIB
     ${LIB_SRC_PATH}/Messages/Auth/Auth.cpp
     ${LIB_SRC_PATH}/Messages/CreateEntity/CreateEntity.cpp
     ${LIB_SRC_PATH}/Messages/UpdateComponent/UpdateComponent.cpp
+    ${LIB_SRC_PATH}/Messages/InitMessage/InitMessage.cpp
     ${LIB_SRC_PATH}/Messages/KeyPressed/KeyPressed.cpp
     ${LIB_SRC_PATH}/Messages/ChatBox/ChatBox.cpp
     ${LIB_SRC_PATH}/Messages/RoomMessage/RoomMessage.cpp

@@ -12,7 +12,7 @@
 #include <asio.hpp>
 
 #define VERSION 0x01
-#define Payload std::vector<uint8_t>
+typedef std::vector<uint8_t> Payload;
 
 /**
  * @namespace ABINetwork
@@ -51,6 +51,7 @@ class IMessage
             KEY                 = 0x0C,
             WRONG_ROOM_PASSWORD = 0x0D,
             FULL_ROOM           = 0x0E,
+            INIT                = 0x0F,
         };
 
         /**

@@ -38,7 +38,6 @@ void Application::run()
     ConsumptionCompute consumptionCompute;
 
     while (_libGraphic->windowIsOpen()) {
-        _connectServer();
         _packetHandler();
         _keyboardHandler(_libGraphic->getKeyDownInput());
         _libGraphic->startDraw();
@@ -68,9 +67,21 @@ void Application::_keyboardHandler(std::size_t key)
         if (key == KEY_NULL || _client->getToken() == 0)
             return;
 
-        //TODO: uncomment this when the game will be able to run on the client.
+        // TODO: Ask Axel to fix that.
 
-        // if (!_sceneManager->processInput(KEY_MAP(key), this->_client->getIdxPlayerComponent()))
+        // int idxPlayerPacket = -1;
+        // std::cout << _client->getToken() << std::endl;
+        // ECS::SparseArray<IComponent> PlayerComponentArray = _registry->get_components<IComponent>("PlayerComponent");
+        // for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
+        //     std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
+        //     if (player)
+        //         std::cout << player->token << std::endl;
+        //     if (player && player->token == _client->getToken()) {
+        //         idxPlayerPacket = index;
+        //         break;
+        //     }
+        // }
+        // if (!_sceneManager->processInput(KEY_MAP(key), idxPlayerPacket))
         //     return;
 
         ABINetwork::sendPacketKey(_client, key);
@@ -111,7 +122,7 @@ void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
     std::shared_ptr<ABINetwork::INetworkUnit> room = nullptr;
     try {
         room = ABINetwork::createClient();
-        if (!room || !ABINetwork::connectToServer(room, "127.0.0.1", _roomInfos.tcpPort))
+        if (!room || !ABINetwork::connectToServer(room, ABINetwork::getServerIp(_client), _roomInfos.tcpPort))
             throw ClientError("Error while joining room");
         _sceneManager->changeScene(std::make_pair<std::size_t, std::string>(0, FIRST_GAME_SCENE));
     } catch (const std::exception &e) {
@@ -119,6 +130,9 @@ void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
         return;
     }
     _client = room;
+    ABINetwork::sendPacketInit(_client);
+    ABINetwork::sendPacketInit(_client);
+    ABINetwork::sendMessages(_client);
 }
 
 void Application::_handleWrongRoomPasswordPacket(ABINetwork::UDPPacket packet)
@@ -141,43 +155,15 @@ void Application::_handleLoginPacket(ABINetwork::UDPPacket packet)
         ABINetwork::setClientLogin(_client, ABINetwork::INetworkUnit::LoginState::JUST_FAILED);
 }
 
-void Application::_connectServer()
+void Application::_handleUpdateComponentPacket(ABINetwork::UDPPacket packet)
 {
-    // if (_client) {
-        // std::cout << "ya" << std::endl;
-    //     _client = ABINetwork::createClient("127.0.0.1", 4444, 4445);
-    //     _serverInfos.tcpPort = 4444;
-    //     _serverInfos.udpPort = 4445;
-    // }
+    uint32_t componentTypeLength = static_cast<size_t>(packet.getPayload()[0]);
 
-    // std::lock_guard<std::mutex> lock(this->_registry->_myBeautifulMutex);
-    // try {
-    //     ECS::SparseArray<IComponent> players = this->_registry->get_components<IComponent>("PlayerComponent");
-    //     ECS::SparseArray<IComponent> buttonNetworkConnection = this->_registry->get_components<IComponent>("NetworkConnectionComponent");
+    if (packet.getPayload().size() < 1 + componentTypeLength) {
+        std::cerr << "Payload is too small." << std::endl;
+        return;
+    }
+    std::string componentType(packet.getPayload().begin() + 1, packet.getPayload().begin() + 1 + componentTypeLength);
 
-    //     for (int index = 0; index < buttonNetworkConnection.size(); index++) {
-    //         std::shared_ptr<NetworkConnectionComponent> networkInfo = std::dynamic_pointer_cast<NetworkConnectionComponent>(buttonNetworkConnection[index]);
-    //         if (!networkInfo)
-    //             continue;
-    //         if (networkInfo->connect == true) {
-    //             networkInfo->connect = false;
-    //             _sceneManager->_changeScene(std::make_pair<size_t, std::string>(0, "firstScene.json"));
-    //              _client = std::make_shared<Network::Client>(networkInfo->serverIp, std::atoi(networkInfo->serverPort.c_str()), 4445);
-    //             _client->connect([this](Network::UDPPacket packet, ECS::Registry& reg) {
-    //                 this->_packetHandler(std::move(packet), *_registry);
-    //             }, *_registry);
-    //         }
-    //     }
-    //     if (_client == nullptr)
-    //         return;
-    //     if (_client->getIdxPlayerComponent() != -1 && _client->getIdxPlayerComponent() < players.size()) {
-    //         std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(players[_client->getIdxPlayerComponent()]);
-    //         if (player && !player->isAlive) {
-    //             player->isAlive = true;
-    //             _sceneManager->_changeScene(std::make_pair<size_t, std::string>(0, "endScene.json"));
-    //         }
-    //     }
-    // } catch(const std::exception& e) {
-    //     std::cerr << e.what() << std::endl;
-    // }
+    _sceneManager->processUpdate(componentType, packet);
 }

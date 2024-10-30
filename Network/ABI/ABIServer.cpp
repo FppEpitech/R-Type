@@ -6,6 +6,7 @@
 */
 
 #include "Auth/Auth.hpp"
+#include "InitMessage/InitMessage.hpp"
 #include "KeyPressed/KeyPressed.hpp"
 #include "ChatBox/ChatBox.hpp"
 #include "CreateEntity/CreateEntity.hpp"
@@ -50,6 +51,15 @@ std::shared_ptr<INetworkUnit> createServer(std::size_t numberMaxPlayer)
     return std::make_shared<Server>(numberMaxPlayer);
 }
 
+int getInitInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<InitMessage> message = std::make_shared<InitMessage>();
+
+    if (!message)
+        return 0;
+    return message->getInitInfoFromPacket(packet);
+}
+
 int getKeyPressedInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<KeyPressedMessage> message = std::make_shared<KeyPressedMessage>();
@@ -80,30 +90,27 @@ void sendPacketCreateEntity(std::shared_ptr<INetworkUnit> networkUnit, std::stri
                                     networkUnit->getToken()));
 }
 
-void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, ...)
+void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs,
+std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args)
 {
     std::shared_ptr<UpdateComponentMessage> message = std::make_shared<UpdateComponentMessage>();
 
     if (!message)
         return;
 
-    va_list args;
-    va_start(args, nbArgs);
-
     Payload payload = message->createUpdateComponentPayload(componentType, nbArgs, args);
 
-    va_end(args);
-
-    setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::UPDATE_COMPONENT),
+    std::vector<uint8_t> packet = message->_createPacket(uint8_t(IMessage::MessageType::UPDATE_COMPONENT),
                                     payload,
                                     networkUnit->getIdMessage(),
-                                    networkUnit->getToken()));
+                                    networkUnit->getToken());
+
+    setMessageInQueue(networkUnit, packet);
 }
 
 roomInfo_t getCreateRoomInfoFromPacket(UDPPacket packet)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
-
     if (!message)
         return {};
     return message->getCreateRoomInfoFromPacket(packet);
@@ -188,6 +195,15 @@ void sendPacketLoginAllowed(std::shared_ptr<INetworkUnit> networkUnit, bool isAl
                                     message->createAllowedLoginPayload(isAllowed),
                                     networkUnit->getIdMessage(),
                                     networkUnit->getToken()), token);
+}
+
+std::vector<std::pair<uint32_t, bool>>& getQueueConnection(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    static std::vector<std::pair<uint32_t, bool>> emptyQueue;
+    std::shared_ptr<Server> server = std::dynamic_pointer_cast<Server>(networkUnit);
+    if (!server)
+        return emptyQueue;
+    return server->getqueueConnection();
 }
 
 }

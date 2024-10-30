@@ -44,7 +44,7 @@ class Client : public ANetworkUnit
          * Default destructor for `Client`, which is automatically called when an object
          * of this class is destroyed.
          */
-        ~Client() = default;
+        ~Client();
 
         /**
          * @brief Send all messages of the queue.
@@ -69,6 +69,13 @@ class Client : public ANetworkUnit
          * @return std::pair<int, int> Tcp and udp ports.
          */
         std::pair<int, int> getPorts() override;
+
+        /**
+         * @brief Get the Server Ip object.
+         *
+         * @return std::string Server ip.
+         */
+        std::string getServerIp();
 
         /**
          * @brief Function to connect the client to a server.
@@ -135,6 +142,7 @@ class Client : public ANetworkUnit
         std::shared_ptr<asio::ip::udp::socket>      _udp_socket;        // Shared pointer to the UDP socket object, used for sending and receiving UDP datagrams.
         std::shared_ptr<asio::ip::udp::endpoint>    _server_endpoint;   // Server endpoint (used to communicate with the server).
         std::array<char, 1024>                      _recvBuffer;        // Receive buffer to store data received via UDP.
+        std::shared_ptr<std::thread>                _io_thread;         // Thread of the received async function.
 };
 
 }
