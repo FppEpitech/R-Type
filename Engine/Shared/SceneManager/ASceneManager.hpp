@@ -23,6 +23,7 @@
 #include "ObjPath/ObjPathComponent.hpp"
 #include "FontPath/FontPathComponent.hpp"
 #include "Editable/EditableComponent.hpp"
+#include "EntityId/EntityIdComponent.hpp"
 #include "Checkable/CheckableComponent.hpp"
 #include "MusicPath/MusicPathComponent.hpp"
 #include "SoundPath/SoundPathComponent.hpp"

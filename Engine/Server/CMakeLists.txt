@@ -55,6 +55,7 @@ set(SRC_EXE
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
     ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+    ../Shared/DefaultComponents/EntityId/EntityIdComponent.cpp
     ../../Network/Database/Database.cpp
     ../../Network/Database/Models/Scores/Scores.cpp
     ../../Network/Database/Models/Users/Users.cpp

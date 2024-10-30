@@ -172,4 +172,5 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(DrawComponent().getType());
     _registry->register_component<IComponent>(EditableComponent().getType());
     _registry->register_component<IComponent>(CheckableComponent().getType());
+    _registry->register_component<IComponent>(EntityIdComponent().getType());
 }
