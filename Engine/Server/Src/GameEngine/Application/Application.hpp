@@ -11,6 +11,7 @@
 #include "ABIServer.hpp"
 #include "Registry.hpp"
 #include "ServerSceneManager.hpp"
+#include "Database.hpp"
 
 #include <queue>
 #include <unordered_map>
@@ -116,6 +117,8 @@ class Application {
             {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLogin(packet); }},
             {ABINetwork::IMessage::MessageType::REGISTER, [this](ABINetwork::UDPPacket packet) { this->_handleRegister(packet); }}
         };
+
+        std::shared_ptr<Database> _db; // Database object.
 };
 
 } // namespace GameEngine
