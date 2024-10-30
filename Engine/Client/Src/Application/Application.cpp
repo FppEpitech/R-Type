@@ -41,7 +41,7 @@ void Application::run()
         _keyboardHandler(_libGraphic->getKeyDownInput());
         _libGraphic->startDraw();
         _libGraphic->clear();
-        _registry->run_systems(-1);
+        _registry->run_systems(-2);
         for (auto defaultSystem : _defaultSystems)
             defaultSystem(*_registry, -1);
         _eventListener->listen();
@@ -65,14 +65,35 @@ void Application::_handleAssignTokenPacket(ABINetwork::UDPPacket packet)
     _idxEntityPlayer = ABINetwork::getAssignTokenInfoFromPacket(packet);
 }
 
+#include "../../R-TypeGame/Components/Shoot/ShootComponent.hpp"
+
 void Application::_keyboardHandler(std::size_t key)
 {
     try {
         if (key == KEY_NULL || _client->getToken() == 0)
             return;
 
-        if (!_sceneManager->processInput(KEY_MAP(key), _idxEntityPlayer))
-            return;
+        // if (!_sceneManager->processInput(KEY_MAP(key), _idxEntityPlayer))
+        //     return;
+
+        if (KEY_MAP(key) == 76) {
+            ECS::SparseArray<IComponent> positions = _registry->get_components<IComponent>("Position2DComponent");
+            ECS::SparseArray<IComponent> shoots = _registry->get_components<IComponent>("ShootComponent");
+            for (auto entity : _registry->getEntities()) {
+                if (entity >= shoots.size() || entity >= positions.size())
+                    continue;
+                std::shared_ptr<ShootComponent> shoot = std::dynamic_pointer_cast<ShootComponent>(shoots[entity]);
+                if (!shoot)
+                    continue;
+                std::shared_ptr<Position2DComponent> position = std::dynamic_pointer_cast<Position2DComponent>(positions[entity]);
+
+                if (position && shoot->friendlyFire) {
+                    std::cout << "shoot id: [" << entity << "]" << std::endl;
+                    std::cout << "position->x: [" << position->x << "]" << std::endl;
+                    std::cout << "position->y: [" << position->y << "]" << std::endl << std::endl << std::endl;
+                }
+            }
+        }
 
         ABINetwork::sendPacketKey(_client, key);
     } catch (const std::exception& e) {

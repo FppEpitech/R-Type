@@ -42,7 +42,6 @@
         "libsystem_restartPlanet.so",
         "libsystem_shoot_mob.so",
         "libsystem_moveMobs.so",
-        "libsystem_restartPlanet.so",
         "libsystem_shootDamage.so"
     ],
     "eventHandlers": [

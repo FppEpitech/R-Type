@@ -95,6 +95,14 @@ class Registry {
         };
 
         /**
+         * @brief Add an Entity with specifique idx in the register.
+         *
+         * @param idx Index
+         * @return entity_t Index of the entity created.
+         */
+        entity_t spawnEntityIdx(std::size_t idx);
+
+        /**
          * @brief Add an Entity in the register.
          *
          * @return entity_t Index of the entity created.
@@ -239,6 +247,8 @@ class Registry {
 
         std::mutex _myBeautifulMutex;
 
+        std::vector<entity_t>                                               _dead_entities;             // Array of dead Entities indexes.
+
     private:
 
         //Arrays
@@ -247,7 +257,6 @@ class Registry {
 
         // Entities
         std::vector<entity_t>                                               _entities;                  // Array of Entities indexes.
-        std::vector<entity_t>                                               _dead_entities;             // Array of dead Entities indexes.
         entity_t                                                            _next_entity = 0;           // Index for the next Entity to create.
 
         std::vector<std::function<void(Registry&, int)>>                    _systems;                   // Array of systems.

@@ -9,6 +9,14 @@
 
 namespace ECS {
 
+entity_t Registry::spawnEntityIdx(std::size_t idx)
+{
+    entity_t a = idx;
+    _entities.push_back(a);
+
+    return a;
+}
+
 entity_t Registry::spawn_entity() {
     if (!_dead_entities.empty()) {
         entity_t reused_entity = _dead_entities.back();

@@ -24,6 +24,9 @@
     #define EXPORT_SYMBOL
 #endif
 
+#define SERVER -1
+#define CLIENT -2
+
 /**
  * @brief Interface class for ECS systems.
  *

@@ -5,6 +5,7 @@
 ** MoveEntitiesSystem
 */
 
+#include "AEvent.hpp"
 #include "MoveEntitiesSystem.hpp"
 #include "VelocityComponent.hpp"
 #include "../Position2D/Position2DComponent.hpp"
@@ -19,6 +20,7 @@ MoveEntitiesSystem::MoveEntitiesSystem() :
 void MoveEntitiesSystem::_moveEntities(ECS::Registry& reg, int idxPacketEntities)
 {
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
+
     try {
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> velocities = reg.get_components<IComponent>("VelocityComponent");
@@ -36,6 +38,14 @@ void MoveEntitiesSystem::_moveEntities(ECS::Registry& reg, int idxPacketEntities
                 position->x += velocity->vx * timeElapsed;
                 position->y += velocity->vy;
                 velocity->frameRate = std::chrono::high_resolution_clock::now();
+
+                std::vector<std::any> valuesMoveEntity = {};
+                int idxEntity = entity;
+                valuesMoveEntity.push_back(idxEntity);
+                valuesMoveEntity.push_back(position->x);
+                valuesMoveEntity.push_back(position->y);
+                std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", valuesMoveEntity);
+                reg.addEvent(eventMoveEntity);
             }
         }
     } catch (std::exception e) {

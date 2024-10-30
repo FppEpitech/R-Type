@@ -34,12 +34,6 @@ void UpdatePositionComponent::_updatePosition(ABINetwork::UDPPacket packet, ECS:
         if (std::holds_alternative<float>(info.second[2]))
                 PosY = std::get<float>(info.second[2]);
 
-        ECS::SparseArray<IComponent> PlayerComponentArray = reg.get_components<IComponent>("PlayerComponent");
-        if (idxEntities >= PlayerComponentArray.size())
-            return;
-        std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[idxEntities]);
-        if (!player)
-            return;
 
         ECS::SparseArray<IComponent> PositionComponentArray = reg.get_components<IComponent>(componentType);
         if (PositionComponentArray.size() <= idxEntities)

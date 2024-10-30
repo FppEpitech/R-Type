@@ -359,7 +359,15 @@ target_link_libraries(system_moveDown
     r-type_abi_network
 )
 
-add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
+add_library(system_moveEntities SHARED
+    Move/MoveEntities/MoveEntitiesSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveEntities
+    PRIVATE JsonCpp::JsonCpp
+    r-type_abi_network
+)
 
 add_library(system_shoot SHARED
     ../Error/AError.cpp
@@ -385,7 +393,13 @@ add_library(system_shootDestroy SHARED
     ../Error/AError.cpp
     Shoot/ShootDestroySystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
 )
+target_link_libraries(system_shootDestroy PRIVATE
+        JsonCpp::JsonCpp
+        r-type_abi_network
+)
+
 add_library(system_initBackground SHARED
     ../Error/AError.cpp
     Background/BackgroundInitSystem.cpp
