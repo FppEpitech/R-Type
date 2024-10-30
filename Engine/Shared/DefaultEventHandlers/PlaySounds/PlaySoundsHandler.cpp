@@ -23,8 +23,8 @@ bool PlaySoundsHandler::processEvent(std::shared_ptr<IEvent> event,
             key = MOUSE_RIGHT_CLICK;
         if (graphicLib->isMouseButtonDown(IGraphic::MouseButtons::MOUSE_MIDDLE))
             key = MOUSE_MIDDLE_CLICK;
-        if (sceneManager->getSoundMap().find((KEY_MAP) key) != sceneManager->getSoundMap().end())
-            graphicLib->playSound(sceneManager->getSoundMap()[(KEY_MAP) key]);
+        if (sceneManager->getSoundMap().contains(static_cast<KEY_MAP>(key)))
+            graphicLib->playSound(sceneManager->getSoundMap().at(static_cast<KEY_MAP>(key)));
     } catch (const std::exception &e) {
         throw PlaySoundsHandlerError("Error while processing the event: " + std::string(e.what()));
     }
