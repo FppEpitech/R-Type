@@ -1,0 +1,23 @@
+{
+    "keyBinds": [
+    ],
+    "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initUsernameTextButton.so",
+        "libsystem_initPasswordTextButton.so",
+        "libsystem_initRegisterText.so",
+        "libsystem_initRegisterButton.so",
+        "libsystem_initBackToAccountManagementButton.so"
+    ],
+    "systems": [
+        "libsystem_handleMouse.so",
+        "libsystem_handleTyping.so"
+    ],
+    "eventHandlers": [
+        "libeventHandler_register.so"
+    ],
+    "menus": {
+        "keyBinds": [
+        ]
+    }
+}

@@ -1,7 +1,7 @@
 # Minimum required version of CMake
 cmake_minimum_required(VERSION 3.5)
 
-set(GAME R-TypeGame)
+set(GAME QuentinTheFarmerGame)
 
 string(ASCII 27 ESC)
 message("${ESC}[1;33mCompile ${GAME}.${ESC}[0m")

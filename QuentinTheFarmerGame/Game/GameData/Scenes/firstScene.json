@@ -1,0 +1,73 @@
+{
+    "keyBinds": [
+        {
+            "key": "KEY_D",
+            "path" : "libsystem_moveRight.so"
+        },
+        {
+            "key": "KEY_A",
+            "path" : "libsystem_moveLeft.so"
+        },
+        {
+            "key": "KEY_W",
+            "path" : "libsystem_moveUp.so"
+        },
+        {
+            "key": "KEY_S",
+            "path" : "libsystem_moveDown.so"
+        },
+        {
+            "key": "KEY_SPACE",
+            "path": "libsystem_shoot.so"
+        }
+    ],
+    "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlanet.so",
+        "libsystem_initPlayerOne.so",
+        "libsystem_initPlayerTwo.so",
+        "libsystem_initPlayerThree.so",
+        "libsystem_initPlayerFour.so",
+        "libsystem_initMob.so"
+    ],
+    "systems": [
+        "libsystem_moveEntities.so",
+        "libsystem_shootDestroy.so",
+        "libsystem_restartPlanet.so",
+        "libsystem_shoot_mob.so",
+        "libsystem_moveMobs.so",
+        "libsystem_restartPlanet.so",
+        "libsystem_shootDamage.so"
+    ],
+    "eventHandlers": [
+        "libeventHandler_moveEntity.so"
+    ],
+    "networkUpdate": [
+        {
+            "component": "Position2DComponent",
+            "path": "libupdate_position_component.so"
+        },
+        {
+            "component": "ShootSystem",
+            "path": "libupdate_shoot_system.so"
+        },
+        {
+            "component": "DrawComponent",
+            "path": "libupdate_playerConnection_system.so"
+        }
+    ],
+    "menus": {
+        "keyBinds": [
+            {
+                "key": "KEY_F",
+                "path" : "Menus/mainMenu.json"
+            }
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "TextureRectComponent":
+    {
+        "path":"./Assets/planet-small.png",
+        "left": 0,
+        "top": 0,
+        "width": 16,
+        "height": 16
+    },
+    "ScaleComponent": 6,
+    "Position2DComponent":
+    {
+        "x": 1920,
+        "y": 100
+    },
+    "VelocityComponent":
+    {
+        "vx": -5,
+        "vy": 0
+    }
+}

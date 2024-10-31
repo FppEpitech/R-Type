@@ -1,0 +1,26 @@
+{
+    "keyBinds": [
+    ],
+    "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initRoomCreationText.so",
+        "libsystem_initRoomNameTextBox.so",
+        "libsystem_initRoomPasswordTextBox.so",
+        "libsystem_initRoomPlayerNumberTextBox.so",
+        "libsystem_initCreateRoomButton.so",
+        "libsystem_initIsRoomPrivateButton.so",
+        "libsystem_initAreCheatsOnButton.so",
+        "libsystem_initBackToRoomManagementButton.so"
+    ],
+    "systems": [
+        "libsystem_handleMouse.so",
+        "libsystem_handleTyping.so"
+    ],
+    "eventHandlers": [
+        "libeventHandler_createRoom.so"
+    ],
+    "menus": {
+        "keyBinds": [
+        ]
+    }
+}

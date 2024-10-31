@@ -1,0 +1,21 @@
+{
+    "keyBinds": [
+    ],
+    "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initRegisterPageButton.so",
+        "libsystem_initLoginPageButton.so",
+        "libsystem_initAccountManagementText.so",
+        "libsystem_initBackToServerConnectionButton.so"
+    ],
+    "systems": [
+        "libsystem_handleMouse.so",
+        "libsystem_handleTyping.so"
+    ],
+    "eventHandlers": [
+    ],
+    "menus": {
+        "keyBinds": [
+        ]
+    }
+}
