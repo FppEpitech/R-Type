@@ -116,9 +116,20 @@ void Application::_handleCreateRoomPacket(ABINetwork::UDPPacket packet)
     ABINetwork::sendPacketJoinRoom(_client, std::get<0>(roomCreated), ABINetwork::getCurrentRoomPassword(_client));
 }
 
+void Application::_handleGetRoomPacket(ABINetwork::UDPPacket packet)
+{
+    std::vector<ABINetwork::roomInfo_t> roomInfos = ABINetwork::getRoomsInfos(packet);
+
+    ABINetwork::setListOfRooms(_client, roomInfos);
+    ABINetwork::setGetRoomState(_client, ABINetwork::INetworkUnit::GetRoomState::RECEIVED);
+}
+
 void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
 {
-    if (_roomInfos.tcpPort <= 0 || _roomInfos.udpPort <= 0)
+
+    _roomInfos.tcpPort = ABINetwork::getAllowedJoindRoomInfoFromPacket(packet);
+
+    if (_roomInfos.tcpPort <= 0)
         return;
     std::shared_ptr<ABINetwork::INetworkUnit> room = nullptr;
     try {

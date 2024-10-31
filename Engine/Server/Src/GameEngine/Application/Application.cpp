@@ -93,7 +93,7 @@ void GameEngine::Application::_handleJoinRoom(ABINetwork::UDPPacket packet)
         ABINetwork::sendPacketFullRoom(_server, packet.getToken());
         return;
     }
-    ABINetwork::sendPacketAllowedToJoinRoom(_server, packet.getToken());
+    ABINetwork::sendPacketAllowedToJoinRoom(_server, _rooms[joinRoomInfos.first]->getRoomInfo().tcpPort, packet.getToken());
 }
 
 void GameEngine::Application::_handleLogin(ABINetwork::UDPPacket packet)

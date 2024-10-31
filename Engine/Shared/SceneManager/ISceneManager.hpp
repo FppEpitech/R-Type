@@ -10,6 +10,7 @@
 #include "../../Error/AError.hpp"
 #include "KeyMaps/StringKeyMap.hpp"
 #include "../../../Network/Messages/UDPPacket/UDPPacket.hpp"
+#include "../../Ecs/Src/Registry.hpp"
 
 /**
  * @brief Namespace for the scene manager.
@@ -64,6 +65,12 @@ namespace SceneManager {
              * @param scene Scene to load.
              */
             virtual void changeScene(std::pair<std::size_t, std::string> scene) = 0;
+
+            /**
+             * @brief Get the registry.
+             * @return ECS::Registry& The registry.
+             */
+            virtual std::shared_ptr<ECS::Registry> getRegistry() = 0;
 
             /**
              * @brief Get the unordered map of sounds.

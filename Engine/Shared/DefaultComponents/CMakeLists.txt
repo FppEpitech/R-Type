@@ -96,6 +96,7 @@ set(COMPONENTS
         DefaultText
         Draw
         Editable
+        EntityId
         FontPath
         Gravity
         MaterialMap

@@ -91,9 +91,10 @@ void AButtonInitSystem::_setButtonProperties(ECS::Registry &reg, int idxPacketEn
     std::shared_ptr<ClickableComponent> clickableComponent = std::make_shared<ClickableComponent>([callback](ECS::Registry& reg, int idxPacketEntities){
         callback(reg, idxPacketEntities);
     });
-    reg.register_component<IComponent>(clickableComponent->getType());
-    reg.set_component<IComponent>(idxPacketEntities, clickableComponent, clickableComponent->getType());
-
+    if (clickableComponent) {
+        reg.register_component<IComponent>(clickableComponent->getType());
+        reg.set_component<IComponent>(idxPacketEntities, clickableComponent, clickableComponent->getType());
+    }
 
     std::shared_ptr<ButtonTexturePathComponent> buttonTexturePath = parseButtonTexturePath(filePath);
     if (buttonTexturePath) {

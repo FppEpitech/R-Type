@@ -9,7 +9,8 @@
         "libsystem_initRoomPlayerNumberTextBox.so",
         "libsystem_initCreateRoomButton.so",
         "libsystem_initIsRoomPrivateButton.so",
-        "libsystem_initAreCheatsOnButton.so"
+        "libsystem_initAreCheatsOnButton.so",
+        "libsystem_initBackToRoomManagementButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
@@ -18,7 +19,9 @@
     ],
     "eventHandlers": [
         "libeventHandler_createRoom.so",
+        "libeventHandler_switchScene.so",
         "libeventHandler_DefaultPlayMusic.so",
+        "libeventHandler_DefaultPlaySounds.so",
         "libeventHandler_PlaySounds.so"
     ],
     "menus": {

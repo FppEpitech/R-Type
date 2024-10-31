@@ -6,7 +6,8 @@
         "libsystem_initConnectButton.so",
         "libsystem_initIpTextButton.so",
         "libsystem_initPortTextButton.so",
-        "libsystem_initServerConnectionText.so"
+        "libsystem_initServerConnectionText.so",
+        "libsystem_initBackToMainButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
@@ -15,7 +16,9 @@
     ],
     "eventHandlers": [
         "libeventHandler_connectServer.so",
+        "libeventHandler_switchScene.so",
         "libeventHandler_DefaultPlayMusic.so",
+        "libeventHandler_DefaultPlaySounds.so",
         "libeventHandler_PlaySounds.so"
     ],
     "menus": {

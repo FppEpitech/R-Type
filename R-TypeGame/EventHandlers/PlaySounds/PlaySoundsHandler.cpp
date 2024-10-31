@@ -6,6 +6,7 @@
 */
 
 #include "PlaySoundsHandler.hpp"
+#include "AEvent.hpp"
 
 PlaySoundsHandler::PlaySoundsHandler(std::string eventType)
     : AEventHandler("PlaySounds") {}
@@ -23,8 +24,12 @@ bool PlaySoundsHandler::processEvent(std::shared_ptr<IEvent> event,
             key = MOUSE_RIGHT_CLICK;
         if (graphicLib->isMouseButtonDown(IGraphic::MouseButtons::MOUSE_MIDDLE))
             key = MOUSE_MIDDLE_CLICK;
-        if (sceneManager->getSoundMap().contains(static_cast<KEY_MAP>(key)))
-            graphicLib->playSound(sceneManager->getSoundMap().at(static_cast<KEY_MAP>(key)));
+        if (sceneManager->getSoundMap().contains(static_cast<KEY_MAP>(key))) {
+            std::string path = sceneManager->getSoundMap().at(static_cast<KEY_MAP>(key));
+            std::vector<std::any> soundPath = {path};
+            std::shared_ptr<IEvent> event = std::make_shared<AEvent>("DefaultPlaySounds", soundPath);
+            sceneManager->getRegistry()->addEvent(event);
+        }
     } catch (const std::exception &e) {
         throw PlaySoundsHandlerError("Error while processing the event: " + std::string(e.what()));
     }

@@ -57,6 +57,7 @@ set(SRC_EXE
     ../Shared/EventListener/EventListener.cpp
     ../Shared/DefaultComponents/Editable/EditableComponent.cpp
     ../Shared/DefaultComponents/Checkable/CheckableComponent.cpp
+    ../Shared/DefaultComponents/EntityId/EntityIdComponent.cpp
 )
 
 # Include directories for header files

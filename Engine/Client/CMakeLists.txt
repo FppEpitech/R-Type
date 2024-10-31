@@ -39,9 +39,10 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/Sound/SoundComponent.cpp
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
-        ../Shared/DefaultComponents/Player/PlayerComponent.cpp
+    ../Shared/DefaultComponents/Player/PlayerComponent.cpp
     ../Shared/DefaultComponents/Editable/EditableComponent.cpp
     ../Shared/DefaultComponents/Checkable/CheckableComponent.cpp
+    ../Shared/DefaultComponents/EntityId/EntityIdComponent.cpp
 )
 
 # Define system source files

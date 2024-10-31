@@ -6,7 +6,8 @@
         "libsystem_initUsernameTextButton.so",
         "libsystem_initPasswordTextButton.so",
         "libsystem_initRegisterText.so",
-        "libsystem_initRegisterButton.so"
+        "libsystem_initRegisterButton.so",
+        "libsystem_initBackToAccountManagementButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
@@ -15,7 +16,9 @@
     ],
     "eventHandlers": [
         "libeventHandler_register.so",
+        "libeventHandler_switchScene.so",
         "libeventHandler_DefaultPlayMusic.so",
+        "libeventHandler_DefaultPlaySounds.so",
         "libeventHandler_PlaySounds.so"
     ],
     "menus": {

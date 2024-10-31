@@ -11,6 +11,9 @@
 #include "../AButton/AButtonInitSystem.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/joinRoomPageButtonSystem.json"
+#define JOIN_ROOM "Menus/roomJoiningMenu.json"
+#define GET_ROOMS_INFOS "GetRoomsInfos"
+#define SWITCH_SCENE "SwitchScene"
 
 /**
  * @brief JoinRoomPageButtonInitSystem class

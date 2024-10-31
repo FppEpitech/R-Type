@@ -8,9 +8,9 @@
 #include <iostream>
 
 #include "PlaySoundsSystem.hpp"
-#include "ClickableComponent.hpp"
-#include "GetGraphicalLibrary.hpp"
-#include "AEvent.hpp"
+#include "../../../Engine/Shared/DefaultComponents/Clickable/ClickableComponent.hpp"
+#include "../../../Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.hpp"
+#include "../../../Engine/Ecs/Src/Events/AEvent.hpp"
 
 PlaySoundsSystem::PlaySoundsSystem() : ASystem("PlaySoundsSystem") {}
 
