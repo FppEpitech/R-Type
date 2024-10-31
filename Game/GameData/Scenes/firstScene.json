@@ -17,7 +17,7 @@
             "path" : "libsystem_moveDown.so"
         },
         {
-            "key": "MOUSE_LEFT_CLICK",
+            "key": "KEY_SPACE",
             "path": "libsystem_shoot.so"
         }
     ],
