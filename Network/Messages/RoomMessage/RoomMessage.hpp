@@ -33,6 +33,7 @@ namespace ABINetwork
         int playerMax = 0;
         int tcpPort = 0;
         int udpPort = 0;
+        int nbPlayers = 0;
     } roomInfo_t;
 
 /**
@@ -150,6 +151,14 @@ class RoomMessage : public AMessage
          * @return Payload& for all rooms informations.
          */
         Payload &createRoomsPayload(std::vector<ABINetwork::roomInfo_t> rooms);
+
+        /**
+         * @brief Get the Rooms Info From Packet object.
+         *
+         * @param packet Packet to get infos.
+         * @return std::vector<ABINetwork::roomInfo_t> List of room infos.
+         */
+        std::vector<ABINetwork::roomInfo_t> getRoomsInfoFromPacket(UDPPacket packet);
 
         private:
 

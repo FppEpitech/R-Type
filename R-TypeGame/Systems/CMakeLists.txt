@@ -1174,3 +1174,9 @@ target_link_libraries(system_initRoomList PRIVATE
         EntityList
 )
 
+add_library(system_getRoomList SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        Menus/RoomList/GetRoomListSystem.cpp
+)

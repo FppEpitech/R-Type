@@ -31,6 +31,7 @@ include_directories(
     SendRoomInfos/
     ../Systems/Menus/Buttons/
     ../Systems/Menus/Buttons/AButton/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
 )
 
 add_library(eventHandler_switchScene SHARED
@@ -88,13 +89,14 @@ add_library(eventHandler_getRoomInfos SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
-target_link_libraries(eventHandler_getRoomInfos PRIVATE asio::asio)
+target_link_libraries(eventHandler_getRoomInfos PRIVATE r-type_abi_network asio::asio)
 
 add_library(eventHandler_sendRoomInfos SHARED
     SendRoomInfos/SendRoomInfosHandler.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
     ../Systems/Menus/Buttons/RoomInfosTextBox/RoomInfoTextBoxInitSystem.cpp
     ../Systems/Menus/Buttons/JoinRoomButton/JoinRoomButtonInitSystem.cpp
     ../Systems/Menus/Buttons/JoinRoomPasswordTextBox/JoinRoomPasswordTextBoxInitSystem.cpp
@@ -118,5 +120,6 @@ target_link_libraries(eventHandler_sendRoomInfos PRIVATE
     Editable
     DefaultText
     EntityId
+    r-type_abi_network
     asio::asio
 )

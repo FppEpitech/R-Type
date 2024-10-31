@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "AEvent.hpp"
+#include "ABIClient.hpp"
 #include "TextComponent.hpp"
 #include "Position2DComponent.hpp"
 #include "EntityListComponent.hpp"
@@ -20,15 +21,19 @@
 SendRoomInfosHandler::SendRoomInfosHandler(std::string eventType)
     : AEventHandler(SEND_ROOMS_INFOS) {}
 
-static std::vector<RoomInfos> getRoomInfosFromEvent(std::shared_ptr<ECS::Registry> reg, int idxEntity, std::shared_ptr<IEvent> event)
+static std::vector<RoomInfos> getRoomInfosFromEvent(std::shared_ptr<ECS::Registry> reg, int idxEntity,
+                std::shared_ptr<IEvent> event, std::shared_ptr<ABINetwork::INetworkUnit> networkUnit)
 {
     std::vector<RoomInfos> roomsInfos = {};
     try {
-        // TODO: Get the rooms information from the event values
-        // If needed, refactor a bit the formating of the data
-        if (event->getValues().size() != 1)
-            return roomsInfos;
-        roomsInfos = std::any_cast<std::vector<RoomInfos>>(event->getValues()[0]);
+        for (auto room : ABINetwork::getListOfRooms(networkUnit)) {
+            RoomInfos roomInfos;
+            roomInfos.isPrivate = room.isPrivate;
+            roomInfos.maxPlayers = room.playerMax;
+            roomInfos.nbPlayers = room.nbPlayers;
+            roomInfos.roomName = room.name;
+            roomsInfos.push_back(roomInfos);
+        }
     } catch (const std::exception &e) {
         return roomsInfos;
     }
@@ -41,6 +46,13 @@ bool SendRoomInfosHandler::processEvent(std::shared_ptr<IEvent> event,
                                       std::shared_ptr<IGraphic> graphicLib)
 {
     try {
+
+        if (ABINetwork::getRoomState(networkUnit) == ABINetwork::INetworkUnit::GetRoomState::SENT ||
+        ABINetwork::getRoomState(networkUnit) == ABINetwork::INetworkUnit::GetRoomState::NOT_SENT)
+            return true;
+
+        ABINetwork::setGetRoomState(networkUnit, ABINetwork::INetworkUnit::GetRoomState::NOT_SENT);
+
         ECS::entity_t entity = 0;
         std::shared_ptr<ECS::Registry> reg = sceneManager->getRegistry();
         ECS::SparseArray<IComponent> entityList = reg->get_components<IComponent>("EntityListComponent");
@@ -53,7 +65,7 @@ bool SendRoomInfosHandler::processEvent(std::shared_ptr<IEvent> event,
             if (entityListComp->listType == "RoomList")
                 break;
         }
-        std::vector<RoomInfos> roomsInfos = getRoomInfosFromEvent(reg, entity, event);
+        std::vector<RoomInfos> roomsInfos = getRoomInfosFromEvent(reg, entity, event, networkUnit);
 
         std::size_t offset = 0;
         for (auto &room : roomsInfos) {
@@ -85,7 +97,7 @@ bool SendRoomInfosHandler::processEvent(std::shared_ptr<IEvent> event,
                 continue;
             roomInfoPosition->y += offset;
             roomInfoTextPosition->y += offset;
-            roomInfoText->text = room.roomName + " - " + std::to_string(room.nbPlayers) + "/" + std::to_string(room.maxPlayers) + " - " + room.scene + " - " + (room.isPrivate ? "Private" : "Public");
+            roomInfoText->text = room.roomName + " - " + std::to_string(room.nbPlayers) + "/" + std::to_string(room.maxPlayers) + " - " + (room.isPrivate ? "Private" : "Public");
             joinBtnPosition->y += offset;
             joinBtnTextPosition->y += offset;
             offset += BUTTON_OFFSET;

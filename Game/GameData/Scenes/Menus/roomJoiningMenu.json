@@ -8,7 +8,8 @@
     ],
     "systems": [
         "libsystem_handleMouse.so",
-        "libsystem_handleTyping.so"
+        "libsystem_handleTyping.so",
+        "libsystem_getRoomList.so"
     ],
     "eventHandlers": [
         "libeventHandler_switchScene.so",

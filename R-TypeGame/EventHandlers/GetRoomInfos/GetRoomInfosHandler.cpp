@@ -6,6 +6,7 @@
 */
 
 #include "AEvent.hpp"
+#include "ABIClient.hpp"
 #include "GetRoomInfosHandler.hpp"
 #include <iostream>
 
@@ -18,7 +19,10 @@ bool GetRoomInfosHandler::processEvent(std::shared_ptr<IEvent> event,
                                       std::shared_ptr<IGraphic> graphicLib)
 {
     try {
-        // TODO: Ask the network for rooms information
+
+        ABINetwork::sendPacketGetRooms(networkUnit);
+        ABINetwork::setGetRoomState(networkUnit, ABINetwork::INetworkUnit::GetRoomState::SENT);
+
     } catch (const std::exception &e) {
         throw GetRoomInfosHandlerError("Error while processing the event: " + std::string(e.what()));
     }

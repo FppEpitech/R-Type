@@ -10,8 +10,6 @@
 #include "AEventHandler.hpp"
 #include "../Error/AError.hpp"
 
-#define SEND_ROOMS_INFOS "SendRoomsInfos"
-
 class GetRoomInfosHandler : public AEventHandler {
 
     public:

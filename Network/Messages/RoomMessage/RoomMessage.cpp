@@ -191,8 +191,46 @@ Payload &RoomMessage::createRoomsPayload(std::vector<ABINetwork::roomInfo_t> roo
 
         int playerMax = room.playerMax;
         _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&playerMax), reinterpret_cast<uint8_t*>(&playerMax) + sizeof(int));
+
+        int nbPlayers = room.nbPlayers;
+        _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&nbPlayers), reinterpret_cast<uint8_t*>(&nbPlayers) + sizeof(int));
     }
     return _payload;
+}
+
+std::vector<ABINetwork::roomInfo_t> RoomMessage::getRoomsInfoFromPacket(UDPPacket packet)
+{
+    std::vector<ABINetwork::roomInfo_t> infos;
+
+    size_t offset = 0;
+
+    int nbRooms;
+    std::memcpy(&nbRooms, &packet.getPayload()[offset], sizeof(int));
+    offset += sizeof(int);
+
+    for (int i = 0; i < nbRooms; i++) {
+
+        ABINetwork::roomInfo_t room;
+
+        uint32_t roomNameLength;
+        std::memcpy(&roomNameLength, &packet.getPayload()[offset], sizeof(uint32_t));
+        offset += sizeof(uint32_t);
+        room.name.assign(reinterpret_cast<const char*>(&packet.getPayload()[offset]), roomNameLength);
+        offset += roomNameLength;
+
+        std::memcpy(&room.isPrivate, &packet.getPayload()[offset], sizeof(bool));
+        offset += sizeof(bool);
+
+        std::memcpy(&room.playerMax, &packet.getPayload()[offset], sizeof(int));
+        offset += sizeof(int);
+
+        std::memcpy(&room.nbPlayers, &packet.getPayload()[offset], sizeof(int));
+        offset += sizeof(int);
+
+        infos.push_back(room);
+    }
+
+    return infos;
 }
 
 }

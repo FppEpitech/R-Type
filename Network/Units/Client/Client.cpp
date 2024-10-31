@@ -141,4 +141,24 @@ std::string Client::getCurrentRoomPassword()
     return _roomPassword;
 }
 
+void Client::setListOfRooms(std::vector<ABINetwork::roomInfo_t> listRooms)
+{
+    _listRooms = listRooms;
+}
+
+std::vector<ABINetwork::roomInfo_t> Client::getListOfRooms()
+{
+    return _listRooms;
+}
+
+void Client::setGetRoomState(GetRoomState getRoomState)
+{
+    _getRoomState = getRoomState;
+}
+
+INetworkUnit::GetRoomState Client::getRoomState()
+{
+    return _getRoomState;
+}
+
 }
