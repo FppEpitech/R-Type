@@ -14,6 +14,8 @@
 #include "ABIError.hpp"
 #include "ANetworkUnit.hpp"
 
+#include "RoomMessage/RoomMessage.hpp"
+
 /**
  * @namespace ABINetwork
  * @brief Contains functions to manage network communication and operations.
@@ -88,6 +90,12 @@ class Client : public ANetworkUnit
         bool connectToServer(std::string ipServer, int tcp_port);
 
         /**
+         * @brief Disconnect to a server.
+         *
+         */
+        void disconnectToServer();
+
+        /**
          * @brief Set the Is Login object.
          *
          * @param loginState New value.
@@ -114,6 +122,35 @@ class Client : public ANetworkUnit
          */
         std::string getCurrentRoomPassword();
 
+        /**
+         * @brief Set the List Of Rooms object.
+         *
+         * @param listRooms List of rooms to set.
+         */
+        void setListOfRooms(std::vector<ABINetwork::roomInfo_t> listRooms);
+
+        /**
+         * @brief Get the List Of Rooms object.
+         *
+         * @return std::vector<ABINetwork::roomInfo_t> List of rooms.
+         */
+        std::vector<ABINetwork::roomInfo_t> getListOfRooms();
+
+        /**
+         * @brief Set the Room State object.
+         *
+         * @param getRoomState
+         */
+        void setGetRoomState(GetRoomState getRoomState);
+
+        /**
+         * @brief Get the Room State object.
+         *
+         * @return GetRoomState State of the get of rooms.
+         */
+        GetRoomState getRoomState();
+
+
     private:
 
         /**
@@ -134,8 +171,10 @@ class Client : public ANetworkUnit
         int                                         _tcpPort;           // TCP port on witch we can connect to the server.
         int                                         _udpPort;           // UDP port on witch we can communicate to the server.
         LoginState                                  _loginState;        // Check if the client is login.
+        GetRoomState                                _getRoomState;      // Check if client received the rooms infos.
 
         std::string                                 _roomPassword;      // Password of the current Room.
+        std::vector<ABINetwork::roomInfo_t>         _listRooms;         // List of room set by the last ABINetwork::sendGetRooms().
 
         std::shared_ptr<asio::io_context>           _io_context;        // Shared pointer to the io_context object, used to manage asynchronous I/O operations.
         std::shared_ptr<asio::ip::tcp::socket>      _tcp_socket;        // Shared pointer to the TCP acceptor object, used to accept incoming TCP connections.
