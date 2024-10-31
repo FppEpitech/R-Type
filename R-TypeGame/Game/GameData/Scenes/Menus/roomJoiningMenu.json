@@ -3,18 +3,19 @@
     ],
     "entities": [
         "libsystem_initBackground.so",
-        "libsystem_initRegisterPageButton.so",
-        "libsystem_initLoginPageButton.so",
-        "libsystem_initAccountManagementText.so",
-        "libsystem_initBackToServerConnectionButton.so"
+        "libsystem_initRoomJoiningText.so",
+        "libsystem_initRoomList.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
-        "libsystem_handleTyping.so"
+        "libsystem_handleTyping.so",
+        "libsystem_getRoomList.so"
     ],
     "eventHandlers": [
         "libeventHandler_switchScene.so",
-        "libeventHandler_logout.so"
+        "libeventHandler_getRoomInfos.so",
+        "libeventHandler_sendRoomInfos.so",
+        "libeventHandler_joinRoom.so"
     ],
     "menus": {
         "keyBinds": [

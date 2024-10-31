@@ -15,7 +15,8 @@
     ],
     "eventHandlers": [
         "libeventHandler_login.so",
-        "libeventHandler_loginAllowed.so"
+        "libeventHandler_loginAllowed.so",
+        "libeventHandler_switchScene.so"
     ],
     "menus": {
         "keyBinds": [
