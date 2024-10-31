@@ -5,8 +5,8 @@
         "libsystem_initBackground.so",
         "libsystem_initRegisterPageButton.so",
         "libsystem_initLoginPageButton.so",
-        "libsystem_initAccountManagementText.so"
-
+        "libsystem_initAccountManagementText.so",
+        "libsystem_initBackToServerConnectionButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",

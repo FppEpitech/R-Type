@@ -1143,3 +1143,95 @@ target_link_libraries(system_initAreCheatsOnButton PRIVATE
         Checkable
         JsonCpp::JsonCpp
 )
+
+add_library(system_initBackToMainButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/BackButtons/BackToMain/BackToMainButtonInitSystem.cpp
+)
+target_link_libraries(system_initBackToMainButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initBackToServerConnectionButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/BackButtons/BackToServerConnection/BackToServerConnectionButtonInitSystem.cpp
+)
+target_link_libraries(system_initBackToServerConnectionButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initBackToAccountManagementButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/BackButtons/BackToAccountManagement/BackToAccountManagementButtonInitSystem.cpp
+)
+target_link_libraries(system_initBackToAccountManagementButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initBackToRoomManagementButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/BackButtons/BackToRoomManagement/BackToRoomManagementButtonInitSystem.cpp
+)
+target_link_libraries(system_initBackToRoomManagementButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
