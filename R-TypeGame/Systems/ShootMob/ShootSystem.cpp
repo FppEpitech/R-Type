@@ -27,7 +27,9 @@ void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
     try {
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> mobs = reg.get_components<IComponent>("MobComponent");
+        std::cout << "BEFORE" << std::endl;
         ECS::SparseArray<IComponent> shootTypes = reg.get_components<IComponent>("ShootTypeComponent");
+        std::cout << "AFTER" << std::endl;
         ECS::SparseArray<IComponent> TextRec = reg.get_components<IComponent>("TextureRectComponent");
         std::chrono::high_resolution_clock::time_point currentTime = std::chrono::high_resolution_clock::now();
 
@@ -88,6 +90,7 @@ void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
             }
         }
     } catch (std::exception e) {
+        std::cout << "Error in ShootSystemMobs: " << e.what() << std::endl;
     }
 }
 
