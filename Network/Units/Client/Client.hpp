@@ -90,6 +90,12 @@ class Client : public ANetworkUnit
         bool connectToServer(std::string ipServer, int tcp_port);
 
         /**
+         * @brief Disconnect to a server.
+         *
+         */
+        void disconnectToServer();
+
+        /**
          * @brief Set the Is Login object.
          *
          * @param loginState New value.

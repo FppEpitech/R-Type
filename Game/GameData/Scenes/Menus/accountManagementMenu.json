@@ -13,7 +13,8 @@
         "libsystem_handleTyping.so"
     ],
     "eventHandlers": [
-        "libeventHandler_switchScene.so"
+        "libeventHandler_switchScene.so",
+        "libeventHandler_logout.so"
     ],
     "menus": {
         "keyBinds": [

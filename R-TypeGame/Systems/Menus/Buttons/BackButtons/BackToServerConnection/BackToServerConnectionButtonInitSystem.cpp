@@ -18,6 +18,9 @@ BackToServerConnectionButtonInitSystem::BackToServerConnectionButtonInitSystem()
 static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 {
     std::vector<std::any> values = {};
+    std::shared_ptr<IEvent> eventLogout = std::make_shared<AEvent>("Logout", values);
+    reg.addEvent(eventLogout);
+
     values.push_back(std::string(BACK_TO_SERVER_CONNECTION));
     std::shared_ptr<IEvent> event = std::make_shared<AEvent>("SwitchScene", values);
     reg.addEvent(event);

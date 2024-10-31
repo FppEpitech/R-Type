@@ -82,6 +82,12 @@ add_library(eventHandler_joinRoom SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
+add_library(eventHandler_logout SHARED
+    Logout/LogoutHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
 target_link_libraries(eventHandler_switchScene PRIVATE asio::asio)
 target_link_libraries(eventHandler_connectServer PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_login PRIVATE r-type_abi_network asio::asio)
@@ -90,6 +96,7 @@ target_link_libraries(eventHandler_moveEntity PRIVATE r-type_abi_network asio::a
 target_link_libraries(eventHandler_register PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_createRoom PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_joinRoom PRIVATE r-type_abi_network asio::asio)
+target_link_libraries(eventHandler_logout PRIVATE r-type_abi_network asio::asio)
 
 add_library(eventHandler_getRoomInfos SHARED
     GetRoomInfos/GetRoomInfosHandler.cpp

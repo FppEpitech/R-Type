@@ -68,6 +68,32 @@ bool Client::connectToServer(std::string ipServer, int tcp_port)
     }
 }
 
+void Client::disconnectToServer()
+{
+    if (!_io_context)
+        return;
+    _io_context->stop();
+    if (_io_thread->joinable())
+        _io_thread->join();
+    _roomPassword = "";
+    _loginState = LoginState::NONE;
+    _serverIp = "";
+    _tcpPort = 0;
+    _udpPort = 0;
+    _io_context = std::make_shared<asio::io_context>();
+    if (!_io_context)
+        throw ABIError("Failed to create the client");
+    _tcp_socket = std::make_shared<asio::ip::tcp::socket>(*_io_context);
+    _udp_socket = std::make_shared<asio::ip::udp::socket>(*_io_context);
+    if (!_tcp_socket || !_udp_socket)
+        throw ABIError("Failed to create the client");
+    _server_endpoint = nullptr;
+    _messageId = 0x0000;
+    _token = 0;
+    _io_thread = nullptr;
+}
+
+
 void Client::_addPacketToQueueReceived(UDPPacket packet)
 {
     std::lock_guard<std::mutex> lock(_mutex);

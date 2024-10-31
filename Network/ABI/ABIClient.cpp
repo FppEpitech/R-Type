@@ -31,6 +31,15 @@ bool connectToServer(std::shared_ptr<INetworkUnit> networkUnit, std::string ipSe
     return client->connectToServer(ipServer, tcp_port);
 }
 
+void disconnectToServer(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return;
+    return client->disconnectToServer();
+}
+
+
 std::string getServerIp(std::shared_ptr<INetworkUnit> networkUnit)
 {
     std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
