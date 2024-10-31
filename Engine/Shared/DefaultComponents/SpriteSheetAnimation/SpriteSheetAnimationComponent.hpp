@@ -7,7 +7,7 @@
 
 #pragma once
 #include "../IComponent.hpp"
-#include <ctime>
+#include <chrono>
 
 /**
  * @class SpriteSheetAnimationComponent
@@ -22,7 +22,7 @@ class SpriteSheetAnimationComponent : public AComponent {
     public:
 
         std::size_t     nbFrame;            //< Number of sprite sheet frames.
-        clock_t         timeElapsed;        //< Time elapsed since last frame changes.
+        std::chrono::time_point<std::chrono::high_resolution_clock> timeElapsed; //< Time elapsed since the last frame change.
         float           timeFrame;          //< Time for each frame.
         float           vx;                 //< Vector direction x to change Texture Rect left.
         float           vy;                 //< Vector direction y to change Texture Rect top.

@@ -11,8 +11,6 @@
 #include "GetGraphicalLibrary.hpp"
 #include "SparseArray.hpp"
 
-#include <exception>
-
 SpriteSheetAnimationSystem::SpriteSheetAnimationSystem() :
     ASystem("SpriteSheetAnimationSystem")
 {
@@ -35,10 +33,10 @@ void SpriteSheetAnimationSystem::_spriteSheetAnimation(ECS::Registry& reg, int i
         if (!textureRect || !spriteSheetAnimation)
             continue;
 
-        clock_t time = clock();
-        float timeElapsed = float(time - spriteSheetAnimation->timeElapsed) / CLOCKS_PER_SEC * 10;
+        auto time = std::chrono::high_resolution_clock::now();
+        auto timeElapsed = std::chrono::duration<float>(time - spriteSheetAnimation->timeElapsed).count() * 10;
         if (spriteSheetAnimation->timeFrame < timeElapsed) {
-            spriteSheetAnimation->timeElapsed = clock();
+            spriteSheetAnimation->timeElapsed = std::chrono::high_resolution_clock::now();
             spriteSheetAnimation->currentFrame++;
             if (spriteSheetAnimation->currentFrame > spriteSheetAnimation->nbFrame) {
                 spriteSheetAnimation->currentFrame = 2;
