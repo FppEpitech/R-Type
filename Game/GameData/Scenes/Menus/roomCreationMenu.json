@@ -18,7 +18,7 @@
     ],
     "eventHandlers": [
         "libeventHandler_createRoom.so",
-        "libeventHandler_PlayMusic.so",
+        "libeventHandler_DefaultPlayMusic.so",
         "libeventHandler_PlaySounds.so"
     ],
     "menus": {

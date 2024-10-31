@@ -50,7 +50,7 @@ void SceneManager::ClientSceneManager::_loadSceneMusic(Json::Value root, std::si
         return;
     std::string path = music.asString();
     std::vector<std::any> musicPath = {path};
-    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("PlayMusic", musicPath);
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("DefaultPlayMusic", musicPath);
     _registry->addEvent(event);
 
 }

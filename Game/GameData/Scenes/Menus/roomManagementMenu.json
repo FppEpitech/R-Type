@@ -13,7 +13,7 @@
         "libsystem_playSounds.so"
     ],
     "eventHandlers": [
-        "libeventHandler_PlayMusic.so",
+        "libeventHandler_DefaultPlayMusic.so",
         "libeventHandler_PlaySounds.so"
     ],
     "menus": {

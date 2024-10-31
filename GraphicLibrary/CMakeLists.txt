@@ -40,3 +40,12 @@ target_link_libraries(graphic_raylib PRIVATE
     glfw
     JsonCpp::JsonCpp
 )
+
+# Only on windows, after build of the project, copy the dependencies to the output directory, the file will be copied from /Game/Libs/Graphic to /Game
+if (WIN32)
+    add_custom_command(TARGET graphic_raylib POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:raylib>
+        $<TARGET_FILE_DIR:glfw3>
+    )
+endif()

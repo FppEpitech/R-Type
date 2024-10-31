@@ -15,7 +15,7 @@
     ],
     "eventHandlers": [
         "libeventHandler_switchScene.so",
-        "libeventHandler_PlayMusic.so",
+        "libeventHandler_DefaultPlayMusic.so",
         "libeventHandler_PlaySounds.so"
     ],
     "menus": {

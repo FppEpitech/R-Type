@@ -48,7 +48,7 @@
     ],
     "eventHandlers": [
         "libeventHandler_moveEntity.so",
-        "libeventHandler_PlayMusic.so",
+        "libeventHandler_DefaultPlayMusic.so",
         "libeventHandler_PlaySounds.so"
     ],
     "networkUpdate": [

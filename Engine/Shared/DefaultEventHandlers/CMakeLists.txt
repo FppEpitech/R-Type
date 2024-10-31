@@ -30,19 +30,19 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Ecs/Src/Events/
 )
 
-add_library(eventHandler_PlayMusic SHARED
+add_library(eventHandler_DefaultPlayMusic SHARED
         PlayMusic/PlayMusicHandler.cpp
         AEventHandler.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
-target_link_libraries(eventHandler_PlayMusic PRIVATE asio::asio)
+target_link_libraries(eventHandler_DefaultPlayMusic PRIVATE asio::asio)
 
-add_library(eventHandler_PlaySounds SHARED
+add_library(eventHandler_DefaultPlaySounds SHARED
         PlaySounds/PlaySoundsHandler.cpp
         AEventHandler.cpp
         ../../Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
-target_link_libraries(eventHandler_PlaySounds PRIVATE asio::asio)
+target_link_libraries(eventHandler_DefaultPlaySounds PRIVATE asio::asio)

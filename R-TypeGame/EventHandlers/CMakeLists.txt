@@ -70,6 +70,15 @@ add_library(eventHandler_createRoom SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
+add_library(eventHandler_PlaySounds SHARED
+        PlaySounds/PlaySoundsHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+target_link_libraries(eventHandler_PlaySounds PRIVATE asio::asio)
+
 target_link_libraries(eventHandler_switchScene PRIVATE asio::asio)
 target_link_libraries(eventHandler_connectServer PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_login PRIVATE r-type_abi_network asio::asio)

@@ -16,7 +16,7 @@
     "eventHandlers": [
         "libeventHandler_login.so",
         "libeventHandler_loginAllowed.so",
-        "libeventHandler_PlayMusic.so",
+        "libeventHandler_DefaultPlayMusic.so",
         "libeventHandler_PlaySounds.so"
     ],
     "menus": {

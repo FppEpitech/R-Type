@@ -8,7 +8,7 @@
 #include "PlayMusicHandler.hpp"
 
 PlayMusicHandler::PlayMusicHandler(std::string eventType)
-    : AEventHandler("PlayMusic") {}
+    : AEventHandler("DefaultPlayMusic") {}
 
 bool PlayMusicHandler::processEvent(std::shared_ptr<IEvent> event,
                                       std::shared_ptr<SceneManager::ISceneManager> sceneManager,
