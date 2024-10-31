@@ -7,7 +7,6 @@
 
 #include "AEvent.hpp"
 #include "SwitchSceneHandler.hpp"
-#include <iostream>
 
 SwitchSceneHandler::SwitchSceneHandler(std::string eventType)
     : AEventHandler("SwitchScene") {}
