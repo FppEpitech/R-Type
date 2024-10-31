@@ -1,7 +1,7 @@
 {
     "TextureRectComponent":
     {
-        "path":"./Assets/asteroid-2.png",
+        "path":"./Assets/asteroid-2.bmp",
         "left": 0,
         "top": 0,
         "width": 21,

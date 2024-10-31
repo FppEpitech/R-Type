@@ -23,6 +23,7 @@ add_subdirectory(Network)        # ABI Network
 add_subdirectory(GraphicLibrary) # Graphic Library
 add_subdirectory(Engine)         # Engine
 add_subdirectory(R-TypeGame)     # R-Type Game
+add_subdirectory(SDL2)     # R-Type Game
 
 # Add subdirectory for tests if the option is enabled
 if(BUILD_TESTS)

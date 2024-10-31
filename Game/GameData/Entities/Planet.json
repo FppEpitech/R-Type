@@ -1,7 +1,7 @@
 {
     "TextureRectComponent":
     {
-        "path":"./Assets/planet.png",
+        "path":"./Assets/planet.bmp",
         "left": 0,
         "top": 0,
         "width": 43,

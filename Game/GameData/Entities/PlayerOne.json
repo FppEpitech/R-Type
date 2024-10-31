@@ -1,7 +1,7 @@
 {
     "TextureRectComponent":
     {
-        "path":"./Assets/players.gif",
+        "path":"./Assets/players.bmp",
         "left": 0,
         "top": 0,
         "width": 33.2,
