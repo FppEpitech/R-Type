@@ -7,7 +7,7 @@
         "shootSpeed": 1
     },
     "TextureRectComponent": {
-        "path": "./Assets/mob-1.bmp",
+        "path": "./Assets/mob-1.png",
         "left": 0,
         "top": 0,
         "width": 65.2,

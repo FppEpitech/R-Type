@@ -1,6 +1,6 @@
 {
     "TextureRectComponent":{
-        "path":"./Assets/BaseSquareButton.bmp",
+        "path":"./Assets/BaseSquareButton.png",
         "left":0,
         "top":0,
         "width":210,
@@ -26,9 +26,9 @@
     "FontPathComponent": "",
     "ButtonStateComponent": "NONE",
     "ButtonTexturePathComponent": {
-        "None": "./Assets/BaseSquareButton.bmp",
-        "Hover": "./Assets/HoverSquareButton.bmp",
-        "Clicked": "./Assets/PressedSquareButton.bmp",
-        "Pressed": "./Assets/PressedSquareButton.bmp"
+        "None": "./Assets/BaseSquareButton.png",
+        "Hover": "./Assets/HoverSquareButton.png",
+        "Clicked": "./Assets/PressedSquareButton.png",
+        "Pressed": "./Assets/PressedSquareButton.png"
     }
 }

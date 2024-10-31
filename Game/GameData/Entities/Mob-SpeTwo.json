@@ -7,7 +7,7 @@
         "shootSpeed": 2.4
     },
     "TextureRectComponent": {
-        "path": "./Assets/mob-spe-2.bmp",
+        "path": "./Assets/mob-spe-2.png",
         "left": 47,
         "top": 130,
         "width": 487,

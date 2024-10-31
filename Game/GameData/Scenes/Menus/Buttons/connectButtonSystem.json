@@ -1,6 +1,6 @@
 {
     "TextureRectComponent":{
-        "path":"./Assets/BaseRectangleButton.bmp",
+        "path":"./Assets/BaseRectangleButton.png",
         "left":0,
         "top":0,
         "width":410,
@@ -27,9 +27,9 @@
     "FontPathComponent": "",
     "ButtonStateComponent": "NONE",
     "ButtonTexturePathComponent": {
-        "None": "./Assets/BaseRectangleButton.bmp",
-        "Hover": "./Assets/HoverRectangleButton.bmp",
-        "Clicked": "./Assets/PressedRectangleButton.bmp",
-        "Pressed": "./Assets/PressedRectangleButton.bmp"
+        "None": "./Assets/BaseRectangleButton.png",
+        "Hover": "./Assets/HoverRectangleButton.png",
+        "Clicked": "./Assets/PressedRectangleButton.png",
+        "Pressed": "./Assets/PressedRectangleButton.png"
     }
 }
