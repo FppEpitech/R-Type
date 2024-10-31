@@ -239,4 +239,13 @@ INetworkUnit::GetRoomState getRoomState(std::shared_ptr<INetworkUnit> networkUni
     return client->getRoomState();
 }
 
+int getAllowedJoindRoomInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return 0;
+    return message->getAllowedJoinRoomInfoFromPacket(packet);
+}
+
 }

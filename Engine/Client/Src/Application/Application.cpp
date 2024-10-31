@@ -125,7 +125,10 @@ void Application::_handleGetRoomPacket(ABINetwork::UDPPacket packet)
 
 void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
 {
-    if (_roomInfos.tcpPort <= 0 || _roomInfos.udpPort <= 0)
+
+    _roomInfos.tcpPort = ABINetwork::getAllowedJoindRoomInfoFromPacket(packet);
+
+    if (_roomInfos.tcpPort <= 0)
         return;
     std::shared_ptr<ABINetwork::INetworkUnit> room = nullptr;
     try {

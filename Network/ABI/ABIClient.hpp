@@ -276,4 +276,12 @@ namespace ABINetwork
      * @return INetworkUnit::GetRoomState The actual state of the request getRoom.
      */
     INetworkUnit::GetRoomState getRoomState(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Get the Joind Room Info From Packet object.
+     *
+     * @param packet Packet received from the server.
+     * @return int Tcp port.
+     */
+    int getAllowedJoindRoomInfoFromPacket(UDPPacket packet);
 }

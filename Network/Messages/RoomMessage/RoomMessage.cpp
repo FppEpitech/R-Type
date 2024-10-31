@@ -167,9 +167,12 @@ Payload &RoomMessage::createFullRoomPayload()
     return _payload;
 }
 
-Payload &RoomMessage::createAllowedToJoinRoomPayload()
+Payload &RoomMessage::createAllowedToJoinRoomPayload(int tcpPort)
 {
     _payload.clear();
+
+    _payload.insert(_payload.end(), reinterpret_cast<uint8_t*>(&tcpPort), reinterpret_cast<uint8_t*>(&tcpPort) + sizeof(int));
+
     return _payload;
 }
 
@@ -231,6 +234,13 @@ std::vector<ABINetwork::roomInfo_t> RoomMessage::getRoomsInfoFromPacket(UDPPacke
     }
 
     return infos;
+}
+
+int RoomMessage::getAllowedJoinRoomInfoFromPacket(UDPPacket packet)
+{
+    int tcpPort;
+    std::memcpy(&tcpPort, &packet.getPayload()[0], sizeof(int));
+    return tcpPort;
 }
 
 }

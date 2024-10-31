@@ -161,14 +161,14 @@ void sendPacketFullRoom(std::shared_ptr<INetworkUnit> networkUnit, uint32_t toke
                                     networkUnit->getToken()), token);
 }
 
-void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, uint32_t token)
+void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, int tcpPort, uint32_t token)
 {
     std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
 
     if (!message)
         return;
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::JOIN_ROOM),
-                                    message->createAllowedToJoinRoomPayload(),
+                                    message->createAllowedToJoinRoomPayload(tcpPort),
                                     networkUnit->getIdMessage(),
                                     networkUnit->getToken()), token);
 }

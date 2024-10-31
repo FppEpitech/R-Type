@@ -140,9 +140,10 @@ class RoomMessage : public AMessage
         /**
          * @brief Create a Allowed To Join Room Payload object.
          *
+         * @param tcpPort Port tcp of the room to join.
          * @return Payload& for authorization to join room.
          */
-        Payload &createAllowedToJoinRoomPayload();
+        Payload &createAllowedToJoinRoomPayload(int tcpPort);
 
         /**
          * @brief Create a Rooms Payload object.
@@ -159,6 +160,14 @@ class RoomMessage : public AMessage
          * @return std::vector<ABINetwork::roomInfo_t> List of room infos.
          */
         std::vector<ABINetwork::roomInfo_t> getRoomsInfoFromPacket(UDPPacket packet);
+
+        /**
+         * @brief Get the Allowed Join Room Info From Packet object.
+         *
+         * @param packet Packet to get infos.
+         * @return int Port tcp.
+         */
+        int getAllowedJoinRoomInfoFromPacket(UDPPacket packet);
 
         private:
 

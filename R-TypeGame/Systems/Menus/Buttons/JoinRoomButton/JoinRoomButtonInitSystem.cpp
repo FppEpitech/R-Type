@@ -9,6 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
+#include "AEvent.hpp"
 #include "TextComponent.hpp"
 #include "DrawComponent.hpp"
 #include "EntityIdComponent.hpp"
@@ -52,8 +53,11 @@ static void handleThis(ECS::Registry &reg, int idxPacketEntities)
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
-    // TODO: The room name and password are now available in the roomName and roomPassword variables
-    // You can now use them to join the room
+    std::vector<std::any> values = {};
+    values.push_back(std::string(roomName));
+    values.push_back(std::string(roomPassword));
+    std::shared_ptr<IEvent> event = std::make_shared<AEvent>("JoinRoom", values);
+    reg.addEvent(event);
 }
 
 JoinRoomButtonInitSystem::JoinRoomButtonInitSystem(ECS::Registry &reg, int idxPacketEntities, std::size_t roomId)

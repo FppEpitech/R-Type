@@ -14,7 +14,8 @@
     "eventHandlers": [
         "libeventHandler_switchScene.so",
         "libeventHandler_getRoomInfos.so",
-        "libeventHandler_sendRoomInfos.so"
+        "libeventHandler_sendRoomInfos.so",
+        "libeventHandler_joinRoom.so"
     ],
     "menus": {
         "keyBinds": [
