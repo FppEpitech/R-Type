@@ -6,7 +6,8 @@
         "libsystem_initUsernameTextButton.so",
         "libsystem_initPasswordTextButton.so",
         "libsystem_initLoginText.so",
-        "libsystem_initLoginButton.so"
+        "libsystem_initLoginButton.so",
+        "libsystem_initBackToAccountManagementButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",

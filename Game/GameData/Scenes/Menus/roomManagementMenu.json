@@ -5,7 +5,8 @@
         "libsystem_initBackground.so",
         "libsystem_initRoomManagementText.so",
         "libsystem_initCreateRoomPageButton.so",
-        "libsystem_initJoinRoomPageButton.so"
+        "libsystem_initJoinRoomPageButton.so",
+        "libsystem_initBackToAccountManagementButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
