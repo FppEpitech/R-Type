@@ -15,6 +15,7 @@
 #include "ShootTypeComponent.hpp"
 #include "MobSpeOneShootInitSystem.hpp"
 #include "MobSpeTwoShootInitSystem.hpp"
+#include "../../../Engine/Ecs/Src/Events/AEvent.hpp"
 
 ShootSystem::ShootSystem() :
     ASystem("ShootSystemMob")
@@ -23,13 +24,13 @@ ShootSystem::ShootSystem() :
 
 void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
 {
+    if (idxPacketEntities == CLIENT)
+        return;
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> mobs = reg.get_components<IComponent>("MobComponent");
-        std::cout << "BEFORE" << std::endl;
         ECS::SparseArray<IComponent> shootTypes = reg.get_components<IComponent>("ShootTypeComponent");
-        std::cout << "AFTER" << std::endl;
         ECS::SparseArray<IComponent> TextRec = reg.get_components<IComponent>("TextureRectComponent");
         std::chrono::high_resolution_clock::time_point currentTime = std::chrono::high_resolution_clock::now();
 
@@ -51,12 +52,14 @@ void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
                 std::string mobSpritePath = std::dynamic_pointer_cast<TextureRectComponent>(TextRec[entity])->path;
                 for (int i = 0; i < shootType + 1; i++) {
                     ECS::entity_t shoot = reg.spawn_entity();
-                    if (mobSpritePath == "./Assets/mob-spe-shot-1.gif") {
+                    if (mobSpritePath == "./Assets/mob-spe-1.gif.gif") {
                         MobSpeOneShootInitSystem().getFunction()(reg, shoot);
-                    } else if (mobSpritePath == "./Assets/shots.gif") {
+                    } else if (mobSpritePath == "./Assets/mob-1.gif") {
                         ShootInitSystem().getFunction()(reg, shoot);
-                    } else {
+                    } else if (mobSpritePath == "./Assets/mob-spe-shot-2.gif") {
                         MobSpeTwoShootInitSystem().getFunction()(reg, shoot);
+                    } else {
+                        continue;
                     }
                     positions = reg.get_components<IComponent>("Position2DComponent");
                     if (positions.size() <= shoot)
@@ -76,16 +79,26 @@ void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
                     std::shared_ptr <TextureRectComponent> textureRect = std::dynamic_pointer_cast<TextureRectComponent>(texturesRect[entity]);
                     if (!textureRect)
                         return;
-                    if (mobSpritePath == "./Assets/mob-spe-shot-1.gif") {
+                    if (mobSpritePath == "./Assets/mob-spe-1.gif.gif") {
                         positionShoot->x = positionMob->x + ((textureRect->width / 2) * scale->scale);
                         positionShoot->y = positionMob->y + ((textureRect->height / 2) * scale->scale) + (((i - 3) * 45) * scale->scale);
-                    } else if (mobSpritePath == "./Assets/shots.gif") {
+                    } else if (mobSpritePath == "./Assets/mob-1.gif") {
                         positionShoot->x = positionMob->x + ((textureRect->width / 2) * scale->scale);
                         positionShoot->y = positionMob->y + ((textureRect->height / 2) * scale->scale);
-                    } else {
+                    } else if (mobSpritePath == "./Assets/mob-spe-shot-2.gif") {
                         positionShoot->x = positionMob->x + ((textureRect->left) * scale->scale);
                         positionShoot->y = positionMob->y + ((textureRect->height / 2) * scale->scale);
+                    } else {
+                        continue;
                     }
+
+                    std::vector<std::any> shootCreate = {};
+                    int entityShoot = entity;
+                    shootCreate.push_back(entityShoot);
+                    int shootIdx = shoot;
+                    shootCreate.push_back(shootIdx);
+                    std::shared_ptr<IEvent> shootMobEntity = std::make_shared<AEvent>("ShootMob", shootCreate);
+                    reg.addEvent(shootMobEntity);
                 }
             }
         }

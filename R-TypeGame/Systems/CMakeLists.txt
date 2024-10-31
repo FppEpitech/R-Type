@@ -490,8 +490,9 @@ target_link_libraries(system_initMobSpeTwo PRIVATE
 
 add_library(system_shoot_mob SHARED
     ../Error/AError.cpp
-    ShootMob/ShootSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+    ShootMob/ShootSystem.cpp
     ShootMob/ShootInitSystem.cpp
     ShootMob/MobSpeOneShootInitSystem.cpp
     ShootMob/MobSpeTwoShootInitSystem.cpp
@@ -509,6 +510,7 @@ target_link_libraries(system_shoot_mob PRIVATE
     ShootType
     Colour
     JsonCpp::JsonCpp
+    r-type_abi_network
 )
 
 add_library(system_hitboxPlayer SHARED

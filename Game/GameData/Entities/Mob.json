@@ -33,7 +33,5 @@
         "startY": 0,
         "reverseMod": true
     },
-    "ShootTypeComponent": {
-        "type": "SINGLE"
-    }
+    "ShootTypeComponent": "SINGLE"
 }

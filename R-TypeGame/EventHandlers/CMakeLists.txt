@@ -64,6 +64,12 @@ add_library(eventHandler_createShoot SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
+add_library(eventHandler_shootMob SHARED
+    ShootMob/ShootMobHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
 add_library(eventHandler_register SHARED
     Register/RegisterHandler.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
@@ -82,5 +88,6 @@ target_link_libraries(eventHandler_login PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_loginAllowed PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_moveEntity PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_createShoot PRIVATE r-type_abi_network asio::asio)
+target_link_libraries(eventHandler_shootMob PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_register PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_createRoom PRIVATE r-type_abi_network asio::asio)

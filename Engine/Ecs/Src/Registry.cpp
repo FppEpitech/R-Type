@@ -13,6 +13,7 @@ entity_t Registry::spawnEntityIdx(std::size_t idx)
 {
     entity_t a = idx;
     _entities.push_back(a);
+    _next_entity = idx + 1;
 
     return a;
 }

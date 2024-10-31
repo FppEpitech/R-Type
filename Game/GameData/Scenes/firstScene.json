@@ -46,7 +46,8 @@
     ],
     "eventHandlers": [
         "libeventHandler_moveEntity.so",
-        "libeventHandler_createShoot.so"
+        "libeventHandler_createShoot.so",
+        "libeventHandler_shootMob.so"
     ],
     "networkUpdate": [
         {
@@ -56,6 +57,10 @@
         {
             "component": "ShootSystem",
             "path": "libupdate_shoot_system.so"
+        },
+        {
+            "component": "ShootMobSystem",
+            "path": "libupdate_shoot_mob_system.so"
         },
         {
             "component": "DrawComponent",
