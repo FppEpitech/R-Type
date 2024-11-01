@@ -17,12 +17,16 @@ class GravityComponent : public AComponent {
 
     public:
 
-        unsigned int gravity;  // Gravity.
+        float gravityX;  // Gravity.
+        float gravityY;  // Gravity.
+        float gravityZ;  // Gravity.
 
         /**
          * @brief Construct a new Gravity Component object.
          *
-         * @param gravity Gravity.
+         * @param gravityX Gravity.
+         * @param gravityY Gravity.
+         * @param gravityZ Gravity.
          */
-        GravityComponent(unsigned int gravity = 1);
+        GravityComponent(float gravityX = 0, float gravityY = 0, float gravityZ = 0);
 };

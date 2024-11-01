@@ -7,7 +7,5 @@
 
 #include "GravityComponent.hpp"
 
-GravityComponent::GravityComponent(unsigned int gravity) :
-    gravity(gravity), AComponent("GravityComponent")
-{
-}
+GravityComponent::GravityComponent(float gravityX, float gravityY, float gravityZ)
+    : gravityX(gravityX), gravityY(gravityY), gravityZ(gravityZ), AComponent("GravityComponent") {}
