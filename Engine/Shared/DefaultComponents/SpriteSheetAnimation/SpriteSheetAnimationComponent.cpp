@@ -12,6 +12,6 @@ SpriteSheetAnimationComponent::SpriteSheetAnimationComponent(
     AComponent("SpriteSheetAnimationComponent"),
     nbFrame(nbFrame), timeFrame(timeFrame), vx(vx), vy(vy), startX(startX), startY(startY), reverseMod(reverseMod)
 {
-    timeElapsed = clock();
+    timeElapsed = std::chrono::high_resolution_clock::now();
     currentFrame = 1;
 }

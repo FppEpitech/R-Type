@@ -46,7 +46,7 @@ void MoveSystemLeft::updateLeftPosition(ECS::Registry& entityManager, int idxPac
         if (position->x - speed->speedX < 0)
             position->x = 0;
         else
-            position->x = position->x - speed->speedX;
+            position->x -= speed->speedX;
 
         std::vector<std::any> valuesMoveEntity = {};
         valuesMoveEntity.push_back(idxPacketEntities);

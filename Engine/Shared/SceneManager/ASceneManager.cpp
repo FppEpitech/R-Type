@@ -7,6 +7,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <chrono>
 
 #include "ASceneManager.hpp"
 #include "DLLoader/DLLoader.hpp"
@@ -142,8 +143,14 @@ void SceneManager::ASceneManager::changeScene(std::pair<std::size_t, std::string
     _registry->clearSystems();
     _registry->clearComponentsArray();
     _registry->clearEntities();
+    _eventListener->clearHandlers();
     _initialiseDefaultComponents();
     _loadScene(scene.second, CURRENT);
+}
+
+std::shared_ptr<ECS::Registry> SceneManager::ASceneManager::getRegistry()
+{
+    return _registry;
 }
 
 void SceneManager::ASceneManager::_initialiseDefaultComponents()
@@ -172,4 +179,5 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(DrawComponent().getType());
     _registry->register_component<IComponent>(EditableComponent().getType());
     _registry->register_component<IComponent>(CheckableComponent().getType());
+    _registry->register_component<IComponent>(EntityIdComponent().getType());
 }

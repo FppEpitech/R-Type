@@ -42,6 +42,14 @@ namespace SceneManager {
              */
             ~ClientSceneManager() = default;
 
+            /**
+             * @brief Process input for the scene manager.
+             * @param key The key input to process.
+             * @param idxPacketEntities The index of the packet entities.
+             * @return True if the input was processed successfully, false otherwise.
+             */
+            bool processInput(KEY_MAP key, int idxPacketEntities) override;
+
         private:
 
             /**

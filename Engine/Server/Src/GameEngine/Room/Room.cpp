@@ -54,6 +54,8 @@ void GameEngine::Room::_connectionHandler()
         queueConnection.erase(queueConnection.begin());
         std::cout << "Player with token: 0x" << std::hex << std::setw(8) << std::setfill('0') << tokenConnection << std::dec << " want to connect" << std::endl;
 
+        _roomInfos.nbPlayers++;
+
         ECS::SparseArray<IComponent> PlayerComponentArray = this->_registries->get_components<IComponent>("PlayerComponent");
         ECS::SparseArray<IComponent> DrawComponentArray = this->_registries->get_components<IComponent>("DrawComponent");
 
@@ -139,6 +141,7 @@ void GameEngine::Room::_handleLeaveRoom(ABINetwork::UDPPacket packet)
         std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
         if (player && player->token == packet.getToken()) {
             player->token = 0;
+            _roomInfos.nbPlayers--;
             break;
         }
     }

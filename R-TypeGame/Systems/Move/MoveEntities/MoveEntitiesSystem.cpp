@@ -36,7 +36,7 @@ void MoveEntitiesSystem::_moveEntities(ECS::Registry& reg, int idxPacketEntities
 
             if (0.005 < timeElapsed) {
                 position->x += velocity->vx * timeElapsed;
-                position->y += velocity->vy;
+                position->y += velocity->vy * timeElapsed;
                 velocity->frameRate = std::chrono::high_resolution_clock::now();
 
                 std::vector<std::any> valuesMoveEntity = {};

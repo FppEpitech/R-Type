@@ -23,6 +23,7 @@
 #include "ObjPath/ObjPathComponent.hpp"
 #include "FontPath/FontPathComponent.hpp"
 #include "Editable/EditableComponent.hpp"
+#include "EntityId/EntityIdComponent.hpp"
 #include "Checkable/CheckableComponent.hpp"
 #include "MusicPath/MusicPathComponent.hpp"
 #include "SoundPath/SoundPathComponent.hpp"
@@ -91,6 +92,12 @@ namespace SceneManager {
              * @param scene Scene to load.
              */
             void changeScene(std::pair<std::size_t, std::string> scene);
+
+            /**
+             * @brief Get the registry.
+             * @return ECS::Registry& The registry.
+             */
+            std::shared_ptr<ECS::Registry> getRegistry();
 
         protected:
 

@@ -5,14 +5,16 @@
         "libsystem_initBackground.so",
         "libsystem_initRegisterPageButton.so",
         "libsystem_initLoginPageButton.so",
-        "libsystem_initAccountManagementText.so"
-
+        "libsystem_initAccountManagementText.so",
+        "libsystem_initBackToServerConnectionButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
         "libsystem_handleTyping.so"
     ],
     "eventHandlers": [
+        "libeventHandler_switchScene.so",
+        "libeventHandler_logout.so"
     ],
     "menus": {
         "keyBinds": [

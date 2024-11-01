@@ -137,8 +137,9 @@ namespace ABINetwork
      * @brief Send authorization to join room.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param tcpPort Port tcp of the room to join.
      */
-    void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, uint32_t token=0);
+    void sendPacketAllowedToJoinRoom(std::shared_ptr<INetworkUnit> networkUnit, int tcpPort, uint32_t token=0);
 
     /**
      * @brief Send message with all server's rooms.

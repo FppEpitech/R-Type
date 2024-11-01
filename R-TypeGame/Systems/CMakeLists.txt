@@ -54,6 +54,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Editable/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Checkable/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/EntityId/
     ../Components/Speed/
     ../Components/Life/
     ../Components/Shoot/
@@ -67,6 +68,7 @@ include_directories(
     ../Parser/ShootTypeParser/
     ../Components/Velocity/
     ../Components/Mob/
+    ../Components/EntityList/
     ../Components/
     ../../Engine/Shared/DefaultParser/ScaleParser/
     ../../Engine/Shared/DefaultParser/Position2DParser/
@@ -99,6 +101,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
     AText/
+    Menus/Buttons/RoomInfosTextBox/
 )
 
 # Compile all component in static lib
@@ -140,6 +143,7 @@ set(COMPONENTS
         Speed
         TextLimit
         Velocity
+        EntityList
 )
 
 foreach(component ${COMPONENTS})
@@ -196,6 +200,7 @@ set(COMPONENTS
         TextureRect
         Editable
         Checkable
+        EntityId
 )
 
 foreach(component ${COMPONENTS})
@@ -1160,4 +1165,128 @@ target_link_libraries(system_initAreCheatsOnButton PRIVATE
         ButtonTexturePath
         Checkable
         JsonCpp::JsonCpp
+)
+
+add_library(system_initBackToMainButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/BackButtons/BackToMain/BackToMainButtonInitSystem.cpp
+)
+target_link_libraries(system_initBackToMainButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initBackToServerConnectionButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/BackButtons/BackToServerConnection/BackToServerConnectionButtonInitSystem.cpp
+)
+target_link_libraries(system_initBackToServerConnectionButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initBackToAccountManagementButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/BackButtons/BackToAccountManagement/BackToAccountManagementButtonInitSystem.cpp
+)
+target_link_libraries(system_initBackToAccountManagementButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initBackToRoomManagementButton SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/BackButtons/BackToRoomManagement/BackToRoomManagementButtonInitSystem.cpp
+)
+target_link_libraries(system_initBackToRoomManagementButton PRIVATE
+        Position2D
+        Scale
+        TextureRect
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        ButtonState
+        Clickable
+        ButtonTexturePath
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initRoomJoiningText SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        AText/ATextInitSystem.cpp
+        Menus/Texts/RoomJoining/RoomJoiningTextInitSystem.cpp
+)
+target_link_libraries(system_initRoomJoiningText PRIVATE
+        Text
+        FontPath
+        Colour
+        Size1D
+        TextPosition2D
+        Draw
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initRoomList SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        Menus/RoomList/RoomListInitSystem.cpp
+)
+target_link_libraries(system_initRoomList PRIVATE
+        EntityList
+)
+
+add_library(system_getRoomList SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        Menus/RoomList/GetRoomListSystem.cpp
 )

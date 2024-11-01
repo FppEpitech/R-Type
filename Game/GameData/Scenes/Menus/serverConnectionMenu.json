@@ -6,14 +6,16 @@
         "libsystem_initConnectButton.so",
         "libsystem_initIpTextButton.so",
         "libsystem_initPortTextButton.so",
-        "libsystem_initServerConnectionText.so"
+        "libsystem_initServerConnectionText.so",
+        "libsystem_initBackToMainButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
         "libsystem_handleTyping.so"
     ],
     "eventHandlers": [
-        "libeventHandler_connectServer.so"
+        "libeventHandler_connectServer.so",
+        "libeventHandler_switchScene.so"
     ],
     "menus": {
         "keyBinds": [
