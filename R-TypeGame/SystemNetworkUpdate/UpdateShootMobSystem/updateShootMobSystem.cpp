@@ -39,8 +39,6 @@ void UpdateShootMobSystem::_updateShootMobSystem(ABINetwork::UDPPacket packet, E
         if (std::holds_alternative<int>(info.second[1]))
                 idxShoot = std::get<int>(info.second[1]);
 
-        std::cout << "idxShoot MOB TO CREATE: " << idxShoot << std::endl;
-
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
         ECS::SparseArray<IComponent> mobs = reg.get_components<IComponent>("MobComponent");
         ECS::SparseArray<IComponent> shootTypes = reg.get_components<IComponent>("ShootTypeComponent");
