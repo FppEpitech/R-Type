@@ -12,7 +12,7 @@
 #include "TextParser.hpp"
 #include "ScaleParser.hpp"
 #include "Size1DParser.hpp"
-#include "ColourParser.hpp"
+#include "../../Engine/Shared/DefaultParser/ColourParser/ColourParser.hpp"
 #include "DrawComponent.hpp"
 #include "FontPathParser.hpp"
 #include "Position2DParser.hpp"

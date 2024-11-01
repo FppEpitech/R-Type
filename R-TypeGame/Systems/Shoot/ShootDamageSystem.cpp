@@ -94,7 +94,7 @@ static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootTyp
             if (shootComp->type != shootType)
                 continue;
             if (isColliding(rectRatio, entityPos, entityScale, entityTexture, shootPos, shootScale, shootTexture)) {
-                if (entityLife->life - shootComp->damage <= 0)
+                if ((int) entityLife->life - shootComp->damage <= 0)
                     entityLife->life = 0;
                 else
                     entityLife->life -= shootComp->damage;

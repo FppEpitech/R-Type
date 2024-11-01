@@ -17,6 +17,7 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
 
     _roomServer = ABINetwork::createServer(_roomInfos.playerMax);
     _registries = std::make_shared<ECS::Registry>();
+    _registries->identity = ECS::Registry::Identity::Serveur;
 
     _eventListener = std::make_shared<EventListener>(_registries, nullptr, _roomServer, nullptr);
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries, _eventListener);
@@ -62,6 +63,7 @@ void GameEngine::Room::_connectionHandler()
             std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
             if (player && player->token == 0) {
                 player->token = tokenConnection;
+                ABINetwork::sendPacketAssignToken(_roomServer, index, tokenConnection);
 
                 if (index < DrawComponentArray.size()) {
                     std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(DrawComponentArray[index]);
@@ -74,6 +76,17 @@ void GameEngine::Room::_connectionHandler()
                     args.push_back(std::make_pair(ABINetwork::Type::Bool, true));
 
                     ABINetwork::sendUpdateComponent(_roomServer, "DrawComponent", 2, args);
+
+                    for (std::size_t i = 0; i < PlayerComponentArray.size(); i++) {
+                        std::shared_ptr<PlayerComponent> playerInfo = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[i]);
+                        if (playerInfo && playerInfo->token != 0) {
+                            std::shared_ptr<DrawComponent> drawInfo = std::dynamic_pointer_cast<DrawComponent>(DrawComponentArray[i]);
+                            std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> argsUpdate;
+                            argsUpdate.push_back(std::make_pair(ABINetwork::Type::Int, static_cast<int>(i)));
+                            argsUpdate.push_back(std::make_pair(ABINetwork::Type::Bool, drawInfo->draw));
+                            ABINetwork::sendUpdateComponent(_roomServer, "DrawComponent", 2, argsUpdate, player->token);
+                        }
+                    }
                 }
                 break;
             }

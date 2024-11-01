@@ -12,7 +12,12 @@
 #define POS_PLAYER_X 155
 #define POS_PLAYER_Y 50
 
+#include <chrono>
+
 #include "ISystem.hpp"
+#include "../../Network/ABI/ABIServer.hpp"
+
+#define SHOOT_CREATE 1
 
 /**
  * @brief Shoot a bullet by a player.
@@ -49,4 +54,5 @@ class ShootSystem : public ASystem {
     private:
 
         void _shoot(ECS::Registry& reg, int idxPacketEntities); //< Function to shoot.
+        std::chrono::steady_clock::time_point lastShootTime = std::chrono::steady_clock::now() - std::chrono::milliseconds(500); // Chrono of shoot system (to know when shoot)
 };

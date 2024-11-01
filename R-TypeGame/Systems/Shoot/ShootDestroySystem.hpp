@@ -13,6 +13,7 @@
 #define POS_PLAYER_Y 50
 
 #include "ISystem.hpp"
+#include "../../Network/ABI/ABIServer.hpp"
 
 /**
  * @brief Destroy a shot if the bullet leave the screen.
@@ -21,6 +22,8 @@
 class ShootDestroySystem : public ASystem {
 
     public:
+
+        #define SHOOT_DESTROY 2
 
         /**
          * @brief Construct a new ShootDestroy System object.

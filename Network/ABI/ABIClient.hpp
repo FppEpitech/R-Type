@@ -77,6 +77,13 @@ namespace ABINetwork
     void sendPacketInit(std::shared_ptr<INetworkUnit> networkUnit);
 
     /**
+     * @brief Get the AssignToken Info From Packet object.
+     *
+     * @return int idxEntity info.
+     */
+    int getAssignTokenInfoFromPacket(UDPPacket packet);
+
+    /**
      * @brief Sends a key packet to the server.
      *
      * @param networkUnit A shared pointer to the network unit representing the client connection.

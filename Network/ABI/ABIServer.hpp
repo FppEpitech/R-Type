@@ -55,6 +55,15 @@ namespace ABINetwork
     int getInitInfoFromPacket(UDPPacket packet);
 
     /**
+     * @brief Sends a idxEntity packet to the client.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param idxEntity idxEntity to send.
+     * @param token token where send the idxEntity
+     */
+    void sendPacketAssignToken(std::shared_ptr<INetworkUnit> networkUnit, int idxEntity, uint32_t token);
+
+    /**
      * @brief Get the keyPressed Info From Packet object.
      *
      * @return int KeyPressed.
@@ -84,8 +93,9 @@ namespace ABINetwork
      * @param componentType COmponent type used to call system associeted.
      * @param nbArgs Number of args in variadic list.
      * @param vector<std::pair<int, std::variant<int, float, std::string, bool>>> Variadic List.
+     * @param token Token where send the packet
      */
-    void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args);
+    void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args, uint32_t token=0);
 
     /**
      * @brief Get the CreateRoom Info From Packet object

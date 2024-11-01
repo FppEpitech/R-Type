@@ -17,31 +17,41 @@ void UpdateShootSystem::_updateShootSystem(ABINetwork::UDPPacket packet, ECS::Re
     try {
         uint32_t componentTypeLength = static_cast<size_t>(packet.getPayload()[0]);
 
-        if (packet.getPayload().size() < 1 + componentTypeLength + 1 * sizeof(int)) {
-            std::cerr << "Payload is too small." << std::endl;
-            return;
-        }
-
         std::string componentType(packet.getPayload().begin() + 1, packet.getPayload().begin() + 1 + componentTypeLength);
 
-        int idxPacketEntities = (packet.getPayload()[1 + componentTypeLength] << 24) |
-                            (packet.getPayload()[2 + componentTypeLength] << 16) |
-                            (packet.getPayload()[3 + componentTypeLength] << 8)  |
-                            packet.getPayload()[4 + componentTypeLength];
+        std::pair<std::string, std::vector<std::variant<int, float, std::string, bool>>> info = ABINetwork::getUpdateComponentInfoFromPacket(packet);
 
-        ECS::entity_t shoot = reg.spawn_entity();
-        ShootInitSystem().getFunction()(reg, shoot);
+        if (info.second.empty() || info.second.size() < 1)
+            return;
 
-        ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
+        int idxPlayerEntities = 0;
+        int actionShoot = 0;
+        int idxShoot = 0;
+        if (std::holds_alternative<int>(info.second[0]))
+                idxPlayerEntities = std::get<int>(info.second[0]);
+        if (std::holds_alternative<int>(info.second[1]))
+                actionShoot = std::get<int>(info.second[1]);
+        if (std::holds_alternative<int>(info.second[2]))
+                idxShoot = std::get<int>(info.second[2]);
 
-        if (positions.size() > shoot && positions.size() > idxPacketEntities) {
-            std::shared_ptr<Position2DComponent> position = std::dynamic_pointer_cast<Position2DComponent>(positions[shoot]);
-            std::shared_ptr<Position2DComponent> positionPlayer = std::dynamic_pointer_cast<Position2DComponent>(positions[idxPacketEntities]);
+        if (actionShoot == SHOOT_CREATE) {
+            ECS::entity_t shoot = reg.spawnEntityIdx(idxShoot);
+            ShootInitSystem().getFunction()(reg, shoot);
 
-            if (position && positionPlayer) {
-                position->x = positionPlayer->x + POS_PLAYER_X;
-                position->y = positionPlayer->y + POS_PLAYER_Y;
+            ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
+
+            if (positions.size() > shoot && positions.size() > idxPlayerEntities) {
+                std::shared_ptr<Position2DComponent> position = std::dynamic_pointer_cast<Position2DComponent>(positions[shoot]);
+                std::shared_ptr<Position2DComponent> positionPlayer = std::dynamic_pointer_cast<Position2DComponent>(positions[idxPlayerEntities]);
+
+                if (position && positionPlayer) {
+                    position->x = positionPlayer->x + POS_PLAYER_X;
+                    position->y = positionPlayer->y + POS_PLAYER_Y;
+                }
             }
+        }
+        if (actionShoot == SHOOT_DESTROY) {
+            reg.kill_entity(idxShoot);
         }
 
     } catch (std::exception e){

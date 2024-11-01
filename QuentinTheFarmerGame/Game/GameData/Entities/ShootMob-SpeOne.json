@@ -32,7 +32,7 @@
     "SpriteSheetAnimationComponent":
     {
         "nbFrame": 3,
-        "timeFrame": 0.1,
+        "timeFrame": 0.7,
         "vx": 0,
         "vy": 45,
         "startX": 0,

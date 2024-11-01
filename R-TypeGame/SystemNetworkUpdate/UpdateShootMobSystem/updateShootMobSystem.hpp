@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** UpdateShootSystem
 ** File description:
-** UpdateShootSystem
+** UpdateShootMobSystem
 */
 
 #pragma once
@@ -15,24 +15,21 @@
  * @brief Update shoot system.
  *
  */
-class UpdateShootSystem : public ISystemNetworkUpdate {
-
-    #define SHOOT_CREATE 1
-    #define SHOOT_DESTROY 2
+class UpdateShootMobSystem : public ISystemNetworkUpdate {
 
     public:
 
         /**
-         * @brief Construct a new UpdateShootSystem System object.
+         * @brief Construct a new UpdateShootMobSystem System object.
          *
          */
-        UpdateShootSystem() = default;
+        UpdateShootMobSystem() = default;
 
         /**
-         * @brief Destroy the UpdateShootSystem System object.
+         * @brief Destroy the UpdateShootMobSystem System object.
          *
          */
-        ~UpdateShootSystem() = default;
+        ~UpdateShootMobSystem() = default;
 
         /**
          * @brief Get the Function object.
@@ -42,11 +39,11 @@ class UpdateShootSystem : public ISystemNetworkUpdate {
         std::function<void(ABINetwork::UDPPacket, ECS::Registry&)> getFunction()
         {
             return [this](ABINetwork::UDPPacket packet, ECS::Registry& reg) {
-                _updateShootSystem(packet, reg);
+                _updateShootMobSystem(packet, reg);
             };
         }
 
     private:
 
-        void _updateShootSystem(ABINetwork::UDPPacket packet, ECS::Registry& reg); //The system to update shoot.
+        void _updateShootMobSystem(ABINetwork::UDPPacket packet, ECS::Registry& reg); //The system to update shoot.
 };
