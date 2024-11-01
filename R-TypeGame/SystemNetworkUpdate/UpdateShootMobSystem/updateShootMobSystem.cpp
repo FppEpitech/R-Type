@@ -49,11 +49,11 @@ void UpdateShootMobSystem::_updateShootMobSystem(ABINetwork::UDPPacket packet, E
         std::string mobSpritePath = std::dynamic_pointer_cast<TextureRectComponent>(TextRec[idxEntity])->path;
         for (int i = 0; i < shootType + 1; i++) {
             ECS::entity_t shoot = reg.spawnEntityIdx(idxShoot);
-            if (mobSpritePath == "./Assets/mob-spe-1.gif.gif") {
+            if (mobSpritePath == "./Assets/mob-spe-1.gif") {
                 MobSpeOneShootInitSystem().getFunction()(reg, shoot);
             } else if (mobSpritePath == "./Assets/mob-1.gif") {
                 ShootInitSystem().getFunction()(reg, shoot);
-            } else if (mobSpritePath == "./Assets/mob-spe-shot-2.gif") {
+            } else if (mobSpritePath == "./Assets/mob-spe-2.gif") {
                 MobSpeTwoShootInitSystem().getFunction()(reg, shoot);
             } else {
                 continue;
@@ -64,13 +64,13 @@ void UpdateShootMobSystem::_updateShootMobSystem(ABINetwork::UDPPacket packet, E
             std::shared_ptr <ScaleComponent> scale = std::dynamic_pointer_cast<ScaleComponent>(scales[idxEntity]);
             ECS::SparseArray<IComponent> texturesRect = reg.get_components<IComponent>("TextureRectComponent");
             std::shared_ptr <TextureRectComponent> textureRect = std::dynamic_pointer_cast<TextureRectComponent>(texturesRect[idxEntity]);
-            if (mobSpritePath == "./Assets/mob-spe-1.gif.gif") {
+            if (mobSpritePath == "./Assets/mob-spe-1.gif") {
                 positionShoot->x = positionMob->x + ((textureRect->width / 2) * scale->scale);
                 positionShoot->y = positionMob->y + ((textureRect->height / 2) * scale->scale) + (((i - 3) * 45) * scale->scale);
             } else if (mobSpritePath == "./Assets/mob-1.gif") {
                 positionShoot->x = positionMob->x + ((textureRect->width / 2) * scale->scale);
                 positionShoot->y = positionMob->y + ((textureRect->height / 2) * scale->scale);
-            } else if (mobSpritePath == "./Assets/mob-spe-shot-2.gif") {
+            } else if (mobSpritePath == "./Assets/mob-spe-2.gif") {
                 positionShoot->x = positionMob->x + ((textureRect->left) * scale->scale);
                 positionShoot->y = positionMob->y + ((textureRect->height / 2) * scale->scale);
             } else {

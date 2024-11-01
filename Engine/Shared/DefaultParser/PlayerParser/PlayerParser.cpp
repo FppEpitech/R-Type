@@ -9,7 +9,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "../../DefaultComponents/Entities/Player/PlayerComponent.hpp"
+#include "PlayerComponent.hpp"
 
 std::shared_ptr<PlayerComponent> parsePlayer(std::string pathFile)
 {

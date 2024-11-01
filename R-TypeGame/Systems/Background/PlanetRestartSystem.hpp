@@ -10,7 +10,7 @@
 #include <iostream>
 
 #include "ISystem.hpp"
-#include "VelocityComponent.hpp"
+#include "Velocity/VelocityComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
 
 /**

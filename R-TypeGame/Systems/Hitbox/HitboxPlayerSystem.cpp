@@ -11,7 +11,7 @@
 #include "Position2D/Position2DComponent.hpp"
 #include "TextureRect/TextureRectComponent.hpp"
 #include "Scale/ScaleComponent.hpp"
-#include "VelocityComponent.hpp"
+#include "Velocity/VelocityComponent.hpp"
 #include "LifeComponent.hpp"
 #include "UpdatePlanet.hpp"
 

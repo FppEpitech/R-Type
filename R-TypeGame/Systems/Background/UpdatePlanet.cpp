@@ -9,7 +9,6 @@
 #include <random>
 
 #include "UpdatePlanet.hpp"
-#include "VelocityComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
 
 static std::mt19937::result_type getRandomSeed()

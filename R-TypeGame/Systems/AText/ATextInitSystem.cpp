@@ -6,11 +6,11 @@
 */
 
 #include "ATextInitSystem.hpp"
-#include "TextParser.hpp"
-#include "Size1DParser.hpp"
-#include "ColourParser.hpp"
-#include "FontPathParser.hpp"
-#include "TextPosition2DParser.hpp"
+#include "../../../Engine/Shared/DefaultParser/TextParser/TextParser.hpp"
+#include "../../../Engine/Shared/DefaultParser/Size1DParser/Size1DParser.hpp"
+#include "../../../Engine/Shared/DefaultParser/ColourParser/ColourParser.hpp"
+#include "../../../Engine/Shared/DefaultParser/FontPathParser/FontPathParser.hpp"
+#include "../../../Engine/Shared/DefaultParser/TextPosition2DParser/TextPosition2DParser.hpp"
 
 void ATextInitSystem::_setTextProperties(ECS::Registry &reg, int idxPacketEntities, const std::string &filePath)
 {

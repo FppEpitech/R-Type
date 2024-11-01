@@ -9,7 +9,7 @@
 #include "MoveSystemLeft.hpp"
 
 MoveSystemLeft::MoveSystemLeft() :
-    ASystem("MovementLeftSystem")
+        ASystem("MovementLeftSystem")
 {
 }
 

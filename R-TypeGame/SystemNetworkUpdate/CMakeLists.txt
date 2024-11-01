@@ -24,39 +24,41 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Include/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Interface/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/
-    ../Components/Speed/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Player/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Speed/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Editable/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Velocity/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Speed/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Velocity/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/TextureRectParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/Position2DParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/SpeedParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/VelocityParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ScaleParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
     ../Components/Life/
     ../Components/Shoot/
     ../Components/Planet/
-        ../../Engine/Shared/DefaultComponents/Editable/
     ../Components/ButtonState/
-        ../Components/Clickable/
+    ../Components/Clickable/
     ../Components/TextLimit/
-    ../Components/Velocity/
     ../Components/
     ../Components/Mob/
     ../Systems/ShootMob/
     ../../../Engine/Shared/DefaultSystems
     ../../../Engine/Shared/DefaultComponents
     ../../../Engine/Client/Src
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
     ../Systems/Background/
     ../Systems/Shoot/
     ../../Engine/Ecs/Src/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
-    Shoot/
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
-    ../Components/Speed/
-    ../Components/Velocity/
     ../Components/Shoot/
-    ../../Engine/Shared/DefaultParser/TextureRectParser/
-    ../../Engine/Shared/DefaultParser/Position2DParser/
-    ../Parser/SpeedParser/
-    ../Parser/VelocityParser/
     ../Parser/ShootParser/
-    ../../Engine/Shared/DefaultParser/ScaleParser/
+    Shoot/
 )
 
 # Add a shared library target 'system_initPlayer'

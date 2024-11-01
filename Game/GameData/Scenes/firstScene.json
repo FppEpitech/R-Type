@@ -42,10 +42,14 @@
         "libsystem_restartPlanet.so",
         "libsystem_shoot_mob.so",
         "libsystem_moveMobs.so",
-        "libsystem_shootDamage.so"
+        "libsystem_shootDamage.so",
+        "libsystem_playSounds.so"
     ],
     "eventHandlers": [
         "libeventHandler_moveEntity.so",
+        "libeventHandler_DefaultPlayMusic.so",
+        "libeventHandler_DefaultPlaySounds.so",
+        "libeventHandler_PlaySounds.so",
         "libeventHandler_createShoot.so",
         "libeventHandler_shootMob.so"
     ],
@@ -74,5 +78,12 @@
                 "path" : "Menus/mainMenu.json"
             }
         ]
-    }
+    },
+    "music": "Assets/Musics/InGame.wav",
+    "sounds": [
+        {
+            "key": "KEY_SPACE",
+            "path": "Assets/Sounds/retro-laser.mp3"
+        }
+    ]
 }

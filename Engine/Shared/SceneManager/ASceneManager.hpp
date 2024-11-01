@@ -25,18 +25,14 @@
 #include "Editable/EditableComponent.hpp"
 #include "EntityId/EntityIdComponent.hpp"
 #include "Checkable/CheckableComponent.hpp"
-#include "MusicPath/MusicPathComponent.hpp"
-#include "SoundPath/SoundPathComponent.hpp"
-#include "MusicPitch/MusicPitchComponent.hpp"
+#include "Music/MusicComponent.hpp"
+#include "Sound/SoundComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
 #include "Position3D/Position3DComponent.hpp"
-#include "SoundPitch/SoundPitchComponent.hpp"
 #include "MaterialMap/MaterialMapComponent.hpp"
-#include "MusicVolume/MusicVolumeComponent.hpp"
-#include "SoundVolume/SoundVolumeComponent.hpp"
 #include "TexturePath/TexturePathComponent.hpp"
 #include "TextureRect/TextureRectComponent.hpp"
-#include "../DefaultEventHandlers/IEventHandler.hpp"
+#include "DefaultEventHandlers/IEventHandler.hpp"
 #include "TextPosition2D/TextPosition2DComponent.hpp"
 #include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
@@ -99,6 +95,11 @@ namespace SceneManager {
              */
             std::shared_ptr<ECS::Registry> getRegistry();
 
+            /**
+             * @brief Get the unordered map of sounds.
+             */
+            std::unordered_map<KEY_MAP, std::string> getSoundMap();
+
         protected:
 
             std::shared_ptr<ECS::Registry>                                                  _registry; // Registries for each scene.
@@ -111,6 +112,8 @@ namespace SceneManager {
             std::size_t                                                                     _nextIndex; // Index of the next empty registry.
 
             std::shared_ptr<EventListener>                                                  _eventListener; // Event listener for the scene manager.
+
+            std::unordered_map<KEY_MAP, std::string>                                        _soundMap; // Sound map for the scene manager.
 
             /**
              * @brief Get the component lib path.

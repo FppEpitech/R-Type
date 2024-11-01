@@ -9,8 +9,8 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "AButtonInitSystem.hpp"
-#include "GetGraphicalLibrary.hpp"
+#include "../AButton/AButtonInitSystem.hpp"
+#include "../../../../../Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.hpp"
 #include "SingleplayerButtonInitSystem.hpp"
 
 SingleplayerButtonInitSystem::SingleplayerButtonInitSystem() :
