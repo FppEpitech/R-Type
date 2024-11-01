@@ -17,6 +17,8 @@ bool PlaySoundsHandler::processEvent(std::shared_ptr<IEvent> event,
                                       std::shared_ptr<IGraphic> graphicLib)
 {
     try {
+        if (!graphicLib)
+            return true;
         int key = graphicLib->getKeyDownInput();
         if (graphicLib->isMouseButtonDown(IGraphic::MouseButtons::MOUSE_LEFT))
             key = MOUSE_LEFT_CLICK;

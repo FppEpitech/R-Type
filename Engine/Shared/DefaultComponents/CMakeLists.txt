@@ -92,7 +92,6 @@ set(COMPONENTS
         ButtonTexturePath
         Checkable
         Clickable
-        Colour
         DefaultText
         Draw
         Editable
@@ -124,3 +123,10 @@ foreach(component ${COMPONENTS})
 endforeach()
 
 target_link_libraries(Player PRIVATE JsonCpp::JsonCpp)
+
+add_library(Colour STATIC
+    ../../Error/AError.cpp
+    Colour/ColourComponent.cpp
+    ../DefaultParser/ColourParser/ColourParser.cpp
+)
+target_link_libraries(Colour PRIVATE JsonCpp::JsonCpp)

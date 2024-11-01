@@ -20,8 +20,7 @@
 #include "SpeedParser.hpp"
 #include "ShootParser.hpp"
 #include "Colour/ColourComponent.hpp"
-
-#include <ColourParser.hpp>
+#include "../../Engine/Shared/DefaultParser/ColourParser/ColourParser.hpp"
 
 #define PATH_JSON "GameData/Entities/ShootMob.json"
 

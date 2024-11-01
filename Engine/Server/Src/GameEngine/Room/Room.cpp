@@ -17,6 +17,7 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
 
     _roomServer = ABINetwork::createServer(_roomInfos.playerMax);
     _registries = std::make_shared<ECS::Registry>();
+    _registries->identity = ECS::Registry::Identity::Serveur;
 
     _eventListener = std::make_shared<EventListener>(_registries, nullptr, _roomServer, nullptr);
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries, _eventListener);
@@ -62,6 +63,7 @@ void GameEngine::Room::_connectionHandler()
             std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
             if (player && player->token == 0) {
                 player->token = tokenConnection;
+                ABINetwork::sendPacketAssignToken(_roomServer, index, tokenConnection);
 
                 if (index < DrawComponentArray.size()) {
                     std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(DrawComponentArray[index]);

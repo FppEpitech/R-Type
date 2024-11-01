@@ -9,6 +9,7 @@
 #include "Client.hpp"
 #include "Auth/Auth.hpp"
 #include "InitMessage/InitMessage.hpp"
+#include "AssignToken/AssignToken.hpp"
 #include "KeyPressed/KeyPressed.hpp"
 #include "CreateEntity/CreateEntity.hpp"
 #include "UpdateComponent/UpdateComponent.hpp"
@@ -84,6 +85,14 @@ void sendPacketInit(std::shared_ptr<INetworkUnit> networkUnit)
     setMessageInQueue(networkUnit, message->_createPacket(uint8_t(IMessage::MessageType::INIT), message->createInitPayload(), networkUnit->getIdMessage(), networkUnit->getToken()));
 }
 
+int getAssignTokenInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<AssignTokenMessage> message = std::make_shared<AssignTokenMessage>();
+
+    if (!message)
+        return 0;
+    return message->getAssignTokenPayload(packet);
+}
 
 void sendPacketKey(std::shared_ptr<INetworkUnit> networkUnit, int key)
 {

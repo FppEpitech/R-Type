@@ -42,7 +42,6 @@
         "libsystem_restartPlanet.so",
         "libsystem_shoot_mob.so",
         "libsystem_moveMobs.so",
-        "libsystem_restartPlanet.so",
         "libsystem_shootDamage.so",
         "libsystem_playSounds.so"
     ],
@@ -50,7 +49,9 @@
         "libeventHandler_moveEntity.so",
         "libeventHandler_DefaultPlayMusic.so",
         "libeventHandler_DefaultPlaySounds.so",
-        "libeventHandler_PlaySounds.so"
+        "libeventHandler_PlaySounds.so",
+        "libeventHandler_createShoot.so",
+        "libeventHandler_shootMob.so"
     ],
     "networkUpdate": [
         {
@@ -60,6 +61,10 @@
         {
             "component": "ShootSystem",
             "path": "libupdate_shoot_system.so"
+        },
+        {
+            "component": "ShootMobSystem",
+            "path": "libupdate_shoot_mob_system.so"
         },
         {
             "component": "DrawComponent",

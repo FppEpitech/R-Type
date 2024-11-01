@@ -7,6 +7,7 @@
 
 #include "Auth/Auth.hpp"
 #include "InitMessage/InitMessage.hpp"
+#include "AssignToken/AssignToken.hpp"
 #include "KeyPressed/KeyPressed.hpp"
 #include "ChatBox/ChatBox.hpp"
 #include "CreateEntity/CreateEntity.hpp"
@@ -124,6 +125,18 @@ void sendPacketRoomCreated(std::shared_ptr<INetworkUnit> networkUnit, roomInfo_t
         return;
     setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::CREATE_ROOM),
                                     message->createCreatedRoomPayload(infos),
+                                    networkUnit->getIdMessage(),
+                                    networkUnit->getToken()), token);
+}
+
+void sendPacketAssignToken(std::shared_ptr<INetworkUnit> networkUnit, int idxEntity, uint32_t token)
+{
+    std::shared_ptr<AssignTokenMessage> message = std::make_shared<AssignTokenMessage>();
+
+    if (!message)
+        return;
+    setMessageInQueue(networkUnit,  message->_createPacket(uint8_t(IMessage::MessageType::ASSIGNTOKEN),
+                                    message->createAssignTokenPayload(idxEntity),
                                     networkUnit->getIdMessage(),
                                     networkUnit->getToken()), token);
 }

@@ -69,7 +69,15 @@ include_directories(
 find_package(jsoncpp REQUIRED)
 find_package(asio CONFIG REQUIRED)
 
-add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
+add_library(system_moveEntities SHARED
+        Move/MoveEntities/MoveEntitiesSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveEntities
+    PRIVATE JsonCpp::JsonCpp
+    r-type_abi_network
+)
 
 add_library(system_handleMouse SHARED
         ../../Error/AError.cpp

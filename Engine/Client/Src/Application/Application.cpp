@@ -11,6 +11,7 @@
 Application::Application()
 {
     _registry = std::make_shared<ECS::Registry>();
+    _registry->identity = ECS::Registry::Identity::Client;
 
     try {
         _libGraphic = getGraphicalLibrary();
@@ -28,7 +29,6 @@ Application::Application()
 
     _eventListener->setSceneManager(_sceneManager);
     _initDefaultGraphicSystems();
-
 }
 
 void Application::run()
@@ -43,7 +43,7 @@ void Application::run()
         _libGraphic->updateMusic();
         _libGraphic->startDraw();
         _libGraphic->clear();
-        _registry->run_systems(-1);
+        _registry->run_systems(CLIENT);
         for (auto defaultSystem : _defaultSystems)
             defaultSystem(*_registry, -1);
         _eventListener->listen();
@@ -62,28 +62,19 @@ void Application::_initDefaultGraphicSystems()
     _defaultSystems.push_back(SpriteSheetAnimationSystem().getFunction());
 }
 
+void Application::_handleAssignTokenPacket(ABINetwork::UDPPacket packet)
+{
+    _idxEntityPlayer = ABINetwork::getAssignTokenInfoFromPacket(packet);
+}
+
 void Application::_keyboardHandler(std::size_t key)
 {
     try {
         if (key == KEY_NULL || _client->getToken() == 0)
             return;
 
-        // TODO: Ask Axel to fix that.
-
-        // int idxPlayerPacket = -1;
-        // std::cout << _client->getToken() << std::endl;
-        // ECS::SparseArray<IComponent> PlayerComponentArray = _registry->get_components<IComponent>("PlayerComponent");
-        // for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
-        //     std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
-        //     if (player)
-        //         std::cout << player->token << std::endl;
-        //     if (player && player->token == _client->getToken()) {
-        //         idxPlayerPacket = index;
-        //         break;
-        //     }
-        // }
-        // if (!_sceneManager->processInput(KEY_MAP(key), idxPlayerPacket))
-        //     return;
+        if (!_sceneManager->processInput(KEY_MAP(key), _idxEntityPlayer))
+            return;
 
         ABINetwork::sendPacketKey(_client, key);
     } catch (const std::exception& e) {

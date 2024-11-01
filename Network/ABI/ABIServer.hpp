@@ -55,6 +55,15 @@ namespace ABINetwork
     int getInitInfoFromPacket(UDPPacket packet);
 
     /**
+     * @brief Sends a idxEntity packet to the client.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param idxEntity idxEntity to send.
+     * @param token token where send the idxEntity
+     */
+    void sendPacketAssignToken(std::shared_ptr<INetworkUnit> networkUnit, int idxEntity, uint32_t token);
+
+    /**
      * @brief Get the keyPressed Info From Packet object.
      *
      * @return int KeyPressed.

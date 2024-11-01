@@ -21,6 +21,7 @@
 #include "TextureRect/TextureRectComponent.hpp"
 #include "SpriteSheetAnimationParser.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationComponent.hpp"
+#include "ShootTypeParser.hpp"
 
 #include <fstream>
 #include <json/json.h>
@@ -62,6 +63,12 @@ void MobInitSystem::_initMob(ECS::Registry& reg, int idxPacketEntities)
     if (mob) {
         reg.register_component<IComponent>(mob->getType());
         reg.set_component<IComponent>(idxPacketEntities, mob, mob->getType());
+    }
+
+    std::shared_ptr<ShootTypeComponent> shootType = parseShootType(PATH_JSON);
+    if (shootType) {
+        reg.register_component<IComponent>(shootType->getType());
+        reg.set_component<IComponent>(idxPacketEntities, shootType, shootType->getType());
     }
 
     std::shared_ptr<SpriteSheetAnimationComponent> animation = parseSpriteSheetAnimation(PATH_JSON);

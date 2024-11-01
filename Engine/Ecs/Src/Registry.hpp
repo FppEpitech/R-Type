@@ -41,6 +41,11 @@ class Registry {
 
     public :
 
+        enum class Identity {
+            Serveur,
+            Client
+        };
+
         /**
          * @brief Register a component in the registry.
          *
@@ -93,6 +98,14 @@ class Registry {
                 throw std::runtime_error("Component type not registered.");
             return std::any_cast<const SparseArray<Component>&>(it->second);
         };
+
+        /**
+         * @brief Add an Entity with specifique idx in the register.
+         *
+         * @param idx Index
+         * @return entity_t Index of the entity created.
+         */
+        entity_t spawnEntityIdx(std::size_t idx);
 
         /**
          * @brief Add an Entity in the register.
@@ -238,6 +251,8 @@ class Registry {
         std::vector<uint8_t> _queue_messageType;            // MessageType queue
 
         std::mutex _myBeautifulMutex;
+
+        Identity identity;              // Identity of who use the Registry.
 
     private:
 

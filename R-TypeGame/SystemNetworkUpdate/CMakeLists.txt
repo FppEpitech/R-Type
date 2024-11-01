@@ -48,6 +48,10 @@ include_directories(
     ../Components/Clickable/
     ../Components/TextLimit/
     ../Components/
+    ../Components/Mob/
+    ../Systems/ShootMob/
+    ../../../Engine/Shared/DefaultSystems
+    ../../../Engine/Shared/DefaultComponents
     ../../../Engine/Client/Src
     ../Systems/Background/
     ../Systems/Shoot/
@@ -69,10 +73,38 @@ target_link_libraries(update_position_component PRIVATE
     r-type_abi_network
 )
 
+add_library(update_shoot_mob_system SHARED
+    UpdateShootMobSystem/updateShootMobSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+    ../Systems/ShootMob/ShootSystem.cpp
+    ../Systems/ShootMob/ShootInitSystem.cpp
+    ../Systems/ShootMob/MobSpeOneShootInitSystem.cpp
+    ../Systems/ShootMob/MobSpeTwoShootInitSystem.cpp
+)
+
+target_link_libraries(update_shoot_mob_system PRIVATE
+    asio::asio
+    JsonCpp::JsonCpp
+    Position2D
+    Scale
+    TextureRect
+    Draw
+    Speed
+    Velocity
+    Shoot
+    SpriteSheetAnimation
+    ShootType
+    Colour
+    JsonCpp::JsonCpp
+    r-type_abi_network
+)
+
 add_library(update_shoot_system SHARED
     UpdateShootSystem/updateShootSystem.cpp
     ../Systems/Shoot/ShootSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
     ../Systems/Shoot/ShootInitSystem.cpp
 )
 
