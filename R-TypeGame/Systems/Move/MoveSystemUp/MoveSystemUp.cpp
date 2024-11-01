@@ -24,7 +24,6 @@ void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketE
 {
     std::lock_guard<std::mutex> lock(entityManager._myBeautifulMutex);
     try {
-        static std::chrono::high_resolution_clock::time_point frameRate = std::chrono::high_resolution_clock::now();
         ECS::SparseArray<IComponent> DrawComponentArray = entityManager.get_components<IComponent>("DrawComponent");
         if (DrawComponentArray.size() <= idxPacketEntities)
             return;
@@ -43,15 +42,10 @@ void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketE
 
         if (!position || !speed)
             return;
-        const std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
-        double timeElapsed = std::chrono::duration<double, std::milli>(now - frameRate).count() / 1000;
-        if (0.005 < timeElapsed) {
-            if (position->y - speed->speedY < 0)
-                position->y = 0;
-            else
-                position->y -= speed->speedY;
-            frameRate = std::chrono::high_resolution_clock::now();
-        }
+        if (position->y - speed->speedY < 0)
+            position->y = 0;
+        else
+            position->y -= speed->speedY;
 
         std::vector<std::any> valuesMoveEntity = {};
         valuesMoveEntity.push_back(idxPacketEntities);

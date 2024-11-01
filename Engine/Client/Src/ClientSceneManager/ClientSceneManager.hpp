@@ -42,6 +42,8 @@ namespace SceneManager {
              */
             ~ClientSceneManager() = default;
 
+            bool processInput(KEY_MAP key, int idxPacketEntities) override;
+
         private:
 
             /**
