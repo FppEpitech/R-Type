@@ -7,5 +7,5 @@
 
 #include "Position3DComponent.hpp"
 
-Position3DComponent::Position3DComponent(int x, int y, int z) :
+Position3DComponent::Position3DComponent(float x, float y, float z) :
     AComponent("Position3DComponent"), x(x), y(y), z(z) {}

@@ -52,3 +52,6 @@ vcpkg.zip
 
 #db
 *.db
+
+# Game Folder
+./Game/*

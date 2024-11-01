@@ -333,6 +333,56 @@ class GraphicLib : public IGraphic {
          */
         void playSound(std::string path);
 
+        /**
+         * @brief Set the camera settings.
+         *
+         * @param posX Position x.
+         * @param posY Position y.
+         * @param posZ Position z.
+         * @param targetX Target x.
+         * @param targetY Target y.
+         * @param targetZ Target z.
+         * @param upX Up x.
+         * @param upY Up y.
+         * @param upZ Up z.
+         * @param fovY Field of view y.
+         */
+        void setCameraSettings(float posX, float posY, float posZ, float targetX, float targetY, float targetZ, float upX, float upY, float upZ, float fovY);
+
+        /**
+         * @brief Set the camera position.
+         *
+         * @param posX Position x.
+         * @param posY Position y.
+         * @param posZ Position z.
+         */
+        void setCameraPosition(float posX, float posY, float posZ);
+
+        /**
+         * @brief Set the camera target
+         *
+         * @param targetX Target x.
+         * @param targetY Target y.
+         * @param targetZ Target z.
+         */
+        void setCameraTarget(float targetX, float targetY, float targetZ);
+
+        /**
+         * @brief Set the camera up.
+         *
+         * @param upX Up x.
+         * @param upY Up y.
+         * @param upZ Up z.
+         */
+        void setCameraUp(float upX, float upY, float upZ);
+
+        /**
+         * @brief Set the camera field of view.
+         *
+         * @param fovY Field of view y.
+         */
+        void setCameraFovY(float fovY);
+
     private:
 
         /**

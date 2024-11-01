@@ -23,9 +23,9 @@ class Position3DComponent : public AComponent {
 
     public:
 
-        int x; //< Position x.
-        int y; //< Position y.
-        int z; //< Position z.
+        float x; //< Position x.
+        float y; //< Position y.
+        float z; //< Position z.
 
         /**
          * @brief Construct a new Position3DComponent object
@@ -34,5 +34,5 @@ class Position3DComponent : public AComponent {
          * @param y Initial y position (default is 0).
          * @param z Initial z position (default is 0).
          */
-        Position3DComponent(int x = 0, int y = 0, int z = 0);
+        Position3DComponent(float x = 0, float y = 0, float z = 0);
 };

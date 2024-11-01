@@ -35,6 +35,8 @@ Client::Client()
 
 Client::~Client()
 {
+    if(!_io_thread)
+        return;
     _io_context->stop();
     if (_io_thread->joinable())
         _io_thread->join();

@@ -58,6 +58,9 @@ set(SRC_EXE
     ../Shared/DefaultComponents/Editable/EditableComponent.cpp
     ../Shared/DefaultComponents/Checkable/CheckableComponent.cpp
     ../Shared/DefaultComponents/EntityId/EntityIdComponent.cpp
+    ../Shared/DefaultComponents/Velocity/VelocityComponent.cpp
+    ../Shared/DefaultComponents/Velocity3D/Velocity3DComponent.cpp
+    ../Shared/DefaultComponents/Gravity/GravityComponent.cpp
 )
 
 # Include directories for header files
