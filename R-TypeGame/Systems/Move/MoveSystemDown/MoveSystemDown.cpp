@@ -14,7 +14,7 @@
 #define SETTINGS_PATH "./Config/Settings.json"
 
 MoveSystemDown::MoveSystemDown() :
-    ASystem("MovementUpSystem")
+        ASystem("MovementUpSystem")
 {
 }
 
@@ -42,7 +42,7 @@ void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPac
         ECS::SparseArray<IComponent> ScaleComponents = entityManager.get_components<IComponent>("ScaleComponent");
 
         if (PositionComponentArray.size() <= idxPacketEntities || SpeedComponentArray.size() <= idxPacketEntities ||
-        texturesRectComponents.size() <= idxPacketEntities || ScaleComponents.size() <= idxPacketEntities)
+            texturesRectComponents.size() <= idxPacketEntities || ScaleComponents.size() <= idxPacketEntities)
             return;
 
         Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());

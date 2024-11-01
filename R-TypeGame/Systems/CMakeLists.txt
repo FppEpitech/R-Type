@@ -4,8 +4,6 @@ cmake_minimum_required(VERSION 3.5)
 # Set the C++ standard to C++20
 set(CMAKE_CXX_STANDARD 20)
 
-
-
 # Set the output directory for the library
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Engine)
@@ -20,6 +18,7 @@ if (UNIX)
 endif()
 
 find_package(jsoncpp REQUIRED)
+find_package(asio CONFIG REQUIRED)
 
 # Include directories for header files
 include_directories(
@@ -32,21 +31,17 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/DefaultText/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Draw/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Player/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/FontPath/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/MaterialMap/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/MusicPath/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/MusicPitch/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/MusicVolume/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Music/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/NetworkConnection
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/ObjPath/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position2D/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Position3D/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Scale/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Size1D/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/SoundPath/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/SoundPitch/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/SoundVolume/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Sound/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/SpriteSheetAnimation/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Text/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextPosition2D/
@@ -54,41 +49,40 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Editable/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Checkable/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultComponents/Speed/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultComponents/Velocity/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/ScaleParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/Position2DParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/PlayerParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/SpeedParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/TextureRectParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/VelocityParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/SpriteSheetAnimationParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/FontPathParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/TextParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/ButtonStateParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/ColourParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/Size1DParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/TextPosition2DParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/DefaultTextParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/TextLimitParser/
+    ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/ButtonTexturePathParser/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/EntityId/
-    ../Components/Speed/
     ../Components/Life/
     ../Components/Shoot/
     ../Components/Planet/
     ../Components/ButtonState/
     ../Components/Clickable/
     ../Components/TextLimit/
-    ../Components/Velocity/
     ../Components/ButtonTexturePath/
     ../Components/ShootType/
     ../Parser/ShootTypeParser/
-    ../Components/Velocity/
     ../Components/Mob/
     ../Components/EntityList/
     ../Components/
-    ../../Engine/Shared/DefaultParser/ScaleParser/
-    ../../Engine/Shared/DefaultParser/Position2DParser/
     ../Parser/LifeParser/
-    ../../Engine/Shared/DefaultParser/PlayerParser/
-    ../Parser/SpeedParser/
-    ../../Engine/Shared/DefaultParser/TextureRectParser/
-    ../Parser/VelocityParser/
     ../Parser/ShootParser/
     ../Parser/MobParser/
-    ../../Engine/Shared/DefaultParser/SpriteSheetAnimationParser/
-    ../../Engine/Shared/DefaultParser/FontPathParser/
-    ../../Engine/Shared/DefaultParser/TextParser/
-    ../Parser/ButtonStateParser/
-    ../../Engine/Shared/DefaultParser/ColourParser/
-    ../../Engine/Shared/DefaultParser/Size1DParser/
-    ../../Engine/Shared/DefaultParser/TextPosition2DParser/
-    ../../Engine/Shared/DefaultParser/DefaultTextParser/
-    ../Parser/TextLimitParser/
-    ../Parser/ButtonTexturePathParser/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
@@ -130,97 +124,18 @@ function(create_component_lib component_name)
 endfunction()
 
 set(COMPONENTS
-        ButtonState
-        ButtonTexturePath
-        Clickable
         Drawable
-        Gravity
+        EntityList
         Life
         Mob
-        ShootType
         Planet
         Shoot
-        Speed
-        TextLimit
-        Velocity
-        EntityList
+        ShootType
 )
 
 foreach(component ${COMPONENTS})
     create_component_lib(${component})
 endforeach()
-
-# Compile all default component in static lib
-function(create_default_component_lib component_name)
-    set(COMPONENT_SRC "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/${component_name}/${component_name}Component.cpp")
-    set(COMPONENT_HDR "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/${component_name}/${component_name}Component.hpp")
-
-    set(PARSER_SRC "")
-    set(PARSER_HDR "")
-    if(EXISTS "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
-        set(PARSER_SRC "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
-        set(PARSER_HDR "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.hpp")
-    endif()
-
-    add_library(${component_name} STATIC ${COMPONENT_SRC} ${COMPONENT_HDR} ${PARSER_SRC} ${PARSER_HDR})
-
-    if(EXISTS "${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser/${component_name}Parser.cpp")
-        target_link_libraries(${component_name} PRIVATE JsonCpp::JsonCpp)
-    endif()
-
-    target_include_directories(${component_name} PUBLIC
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/${component_name}
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/${component_name}Parser
-        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
-    )
-endfunction()
-
-set(COMPONENTS
-        Colour
-        DefaultText
-        Draw
-        FontPath
-        MaterialMap
-        MusicPath
-        MusicPitch
-        MusicVolume
-        NetworkConnection
-        ObjPath
-        Position2D
-        Position3D
-        Scale
-        Size1D
-        SoundPath
-        SoundPitch
-        SoundVolume
-        SpriteSheetAnimation
-        Text
-        TextPosition2D
-        TexturePath
-        TextureRect
-        Editable
-        Checkable
-        EntityId
-)
-
-foreach(component ${COMPONENTS})
-    create_default_component_lib(${component})
-endforeach()
-
-add_library(Player STATIC
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/PlayerComponent.hpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/PlayerParser/PlayerParser.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/PlayerParser/PlayerParser.hpp
-)
-
-target_include_directories(Player PUBLIC
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/PlayerParser/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
-)
-
-target_link_libraries(Player PRIVATE JsonCpp::JsonCpp)
 
 # system_initPlayerOne
 add_library(system_initPlayerOne SHARED
@@ -300,10 +215,10 @@ add_library(system_initConnectButton SHARED
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
     ../Error/AError.cpp
-    Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-    Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
+        Menus/Buttons/ConnectButton/ConnectButtonInitSystem.cpp
 )
 
 target_link_libraries(system_initConnectButton
@@ -323,48 +238,6 @@ target_link_libraries(system_initConnectButton
         ButtonTexturePath
         JsonCpp::JsonCpp
 )
-
-add_library(system_moveRight SHARED
-    Move/MoveSystemRight/MoveSystemRight.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-)
-target_link_libraries(system_moveRight
-    PRIVATE JsonCpp::JsonCpp
-    r-type_abi_network
-)
-
-add_library(system_moveLeft SHARED
-    Move/MoveSystemLeft/MoveSystemLeft.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-)
-target_link_libraries(system_moveLeft
-    PRIVATE JsonCpp::JsonCpp
-    r-type_abi_network
-)
-
-add_library(system_moveUp SHARED
-    Move/MoveSystemUp/MoveSystemUp.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-)
-target_link_libraries(system_moveUp
-    PRIVATE JsonCpp::JsonCpp
-    r-type_abi_network
-)
-
-add_library(system_moveDown SHARED
-    Move/MoveSystemDown/MoveSystemDown.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-)
-target_link_libraries(system_moveDown
-    PRIVATE JsonCpp::JsonCpp
-    r-type_abi_network
-)
-
-add_library(system_moveEntities SHARED Move/MoveEntities/MoveEntitiesSystem.cpp)
 
 add_library(system_shoot SHARED
     ../Error/AError.cpp
@@ -559,38 +432,6 @@ target_link_libraries(system_initPortTextButton PRIVATE
     JsonCpp::JsonCpp
 )
 
-add_library(system_handleMouse SHARED
-    ../Error/AError.cpp
-    Mouse/MouseSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
-)
-
-target_link_libraries(system_handleMouse PRIVATE
-    Position2D
-    Scale
-    TextureRect
-    Clickable
-    Editable
-    ButtonTexturePath
-    JsonCpp::JsonCpp
-)
-
-add_library(system_handleTyping SHARED
-    ../Error/AError.cpp
-    Typing/TypingSystem.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
-)
-
-target_link_libraries(system_handleTyping PRIVATE
-    Text
-    DefaultText
-    Editable
-    ButtonState
-    ButtonTexturePath
-    JsonCpp::JsonCpp
-)
-
 add_library(system_shootDamage SHARED
     ../Error/AError.cpp
     Shoot/ShootDamageSystem.cpp
@@ -696,8 +537,8 @@ target_link_libraries(system_initMultiplayerButton PRIVATE
 add_library(system_initMapEditorButton SHARED
     ../Error/AError.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-    Menus/Buttons/AButton/AButtonInitSystem.cpp
-    Menus/Buttons/MapEditorButton/MapEditorButtonInitSystem.cpp
+        Menus/Buttons/AButton/AButtonInitSystem.cpp
+        Menus/Buttons/MapEditorButton/MapEditorButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
 )
 
@@ -720,8 +561,8 @@ target_link_libraries(system_initMapEditorButton PRIVATE
 add_library(system_initServerConnectionText SHARED
     ../Error/AError.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-    AText/ATextInitSystem.cpp
-    Menus/Texts/ServerConnection/ServerConnectionTextInitSystem.cpp
+        AText/ATextInitSystem.cpp
+        Menus/Texts/ServerConnection/ServerConnectionTextInitSystem.cpp
 )
 
 target_link_libraries(system_initServerConnectionText PRIVATE
@@ -1272,3 +1113,43 @@ add_library(system_getRoomList SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         Menus/RoomList/GetRoomListSystem.cpp
 )
+
+add_library(system_playSounds SHARED
+        PlaySounds/PlaySoundsSystem.cpp
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+
+add_library(system_moveRight SHARED
+        Move/MoveSystemRight/MoveSystemRight.cpp
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveRight PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_moveLeft SHARED Move/MoveSystemLeft/MoveSystemLeft.cpp
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveLeft PRIVATE asio::asio)
+
+add_library(system_moveUp SHARED
+        Move/MoveSystemUp/MoveSystemUp.cpp
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveUp PRIVATE asio::asio)
+
+add_library(system_moveDown SHARED
+        Move/MoveSystemDown/MoveSystemDown.cpp
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_moveDown PRIVATE JsonCpp::JsonCpp)
+

@@ -5,7 +5,7 @@
 ** AccountManagementTextInitSystem.cpp
 */
 
-#include "DrawComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Draw/DrawComponent.hpp"
 #include "AccountManagementTextInitSystem.hpp"
 
 AccountManagementTextInitSystem::AccountManagementTextInitSystem() :

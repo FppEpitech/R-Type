@@ -76,6 +76,16 @@ add_library(eventHandler_createRoom SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
+add_library(eventHandler_PlaySounds SHARED
+        PlaySounds/PlaySoundsHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(eventHandler_PlaySounds PRIVATE asio::asio)
+
 add_library(eventHandler_joinRoom SHARED
     JoinRoom/JoinRoomHandler.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
@@ -103,37 +113,39 @@ add_library(eventHandler_getRoomInfos SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
+
 target_link_libraries(eventHandler_getRoomInfos PRIVATE r-type_abi_network asio::asio)
 
 add_library(eventHandler_sendRoomInfos SHARED
-    SendRoomInfos/SendRoomInfosHandler.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
-    ../Systems/Menus/Buttons/RoomInfosTextBox/RoomInfoTextBoxInitSystem.cpp
-    ../Systems/Menus/Buttons/JoinRoomButton/JoinRoomButtonInitSystem.cpp
-    ../Systems/Menus/Buttons/JoinRoomPasswordTextBox/JoinRoomPasswordTextBoxInitSystem.cpp
-    ../Systems/Menus/Buttons/AButton/AButtonInitSystem.cpp
+        SendRoomInfos/SendRoomInfosHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ../Systems/Menus/Buttons/RoomInfosTextBox/RoomInfoTextBoxInitSystem.cpp
+        ../Systems/Menus/Buttons/JoinRoomButton/JoinRoomButtonInitSystem.cpp
+        ../Systems/Menus/Buttons/JoinRoomPasswordTextBox/JoinRoomPasswordTextBoxInitSystem.cpp
+        ../Systems/Menus/Buttons/AButton/AButtonInitSystem.cpp
 )
+
 target_link_libraries(eventHandler_sendRoomInfos PRIVATE
-    Position2D
-    Text
-    EntityList
-    ButtonState
-    TextPosition2D
-    Scale
-    Size1D
-    Colour
-    Draw
-    FontPath
-    TextureRect
-    Clickable
-    ButtonTexturePath
-    TextLimit
-    Editable
-    DefaultText
-    EntityId
-    r-type_abi_network
-    asio::asio
+        Position2D
+        Text
+        EntityList
+        ButtonState
+        TextPosition2D
+        Scale
+        Size1D
+        Colour
+        Draw
+        FontPath
+        TextureRect
+        Clickable
+        ButtonTexturePath
+        TextLimit
+        Editable
+        DefaultText
+        EntityId
+        r-type_abi_network
+        asio::asio
 )

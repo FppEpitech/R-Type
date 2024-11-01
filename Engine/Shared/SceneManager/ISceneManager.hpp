@@ -71,6 +71,11 @@ namespace SceneManager {
              * @return ECS::Registry& The registry.
              */
             virtual std::shared_ptr<ECS::Registry> getRegistry() = 0;
+
+            /**
+             * @brief Get the unordered map of sounds.
+             */
+            virtual std::unordered_map<KEY_MAP, std::string> getSoundMap() = 0;
     };
 
     /**

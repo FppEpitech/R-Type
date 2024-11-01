@@ -9,9 +9,9 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "AEvent.hpp"
-#include "AButtonInitSystem.hpp"
-#include "GetGraphicalLibrary.hpp"
+#include "../../../../../Engine/Ecs/Src/Events/AEvent.hpp"
+#include "../AButton/AButtonInitSystem.hpp"
+#include "../../../../../Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.hpp"
 #include "LoginPageButtonInitSystem.hpp"
 
 LoginPageButtonInitSystem::LoginPageButtonInitSystem() :

@@ -40,6 +40,7 @@ void Application::run()
     while (_libGraphic->windowIsOpen()) {
         _packetHandler();
         _keyboardHandler(_libGraphic->getKeyDownInput());
+        _libGraphic->updateMusic();
         _libGraphic->startDraw();
         _libGraphic->clear();
         _registry->run_systems(-1);
