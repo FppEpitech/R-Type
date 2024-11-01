@@ -4,7 +4,8 @@
     "entities": [
         "libsystem_initBackground.so",
         "libsystem_initRoomJoiningText.so",
-        "libsystem_initRoomList.so"
+        "libsystem_initRoomList.so",
+        "libsystem_initBackToRoomManagementButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
