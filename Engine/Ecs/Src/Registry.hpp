@@ -252,7 +252,7 @@ class Registry {
 
         std::mutex _myBeautifulMutex;
 
-        Identity identity;
+        Identity identity;              // Identity of who use the Registry.
 
     private:
 

@@ -42,7 +42,7 @@ void Application::run()
         _keyboardHandler(_libGraphic->getKeyDownInput());
         _libGraphic->startDraw();
         _libGraphic->clear();
-        _registry->run_systems(-2);
+        _registry->run_systems(CLIENT);
         for (auto defaultSystem : _defaultSystems)
             defaultSystem(*_registry, -1);
         _eventListener->listen();
