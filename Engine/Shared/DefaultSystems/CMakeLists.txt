@@ -110,3 +110,40 @@ target_link_libraries(system_handleTyping PRIVATE
         ButtonTexturePath
         JsonCpp::JsonCpp
 )
+
+add_library(system_InitConsumption SHARED
+        DisplayConsumption/InitConsumptionSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_InitConsumption PRIVATE
+        TextPosition2D
+        DefaultText
+        Text
+        Size1D
+        Draw
+        FontPath
+        Colour
+        JsonCpp::JsonCpp
+)
+
+add_library(system_DisplayConsumption SHARED
+        DisplayConsumption/DisplayConsumptionSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_DisplayConsumption PRIVATE
+        DefaultText
+        Draw
+        JsonCpp::JsonCpp
+)
+
+add_library(system_UpdateConsumption SHARED
+        DisplayConsumption/UpdateConsumptionSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+)
+
+target_link_libraries(system_UpdateConsumption PRIVATE
+        JsonCpp::JsonCpp
+)

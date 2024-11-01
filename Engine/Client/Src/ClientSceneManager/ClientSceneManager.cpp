@@ -88,6 +88,12 @@ void SceneManager::ClientSceneManager::_loadSceneSounds(Json::Value root, std::s
     }
 }
 
+ConsumptionCompute SceneManager::ClientSceneManager::GetConsumptionCompute()
+{
+    static ConsumptionCompute consumptionCompute;
+    return consumptionCompute;
+}
+
 void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::size_t index)
 {
     std::ifstream file(_getScenesPath() + path);

@@ -19,6 +19,10 @@
         {
             "key": "KEY_SPACE",
             "path": "libsystem_shoot.so"
+        },
+        {
+            "key": "KEY_F3",
+            "path": "libsystem_DisplayConsumption.so"
         }
     ],
     "entities": [
@@ -34,7 +38,8 @@
         "libsystem_initPlayerTwo.so",
         "libsystem_initPlayerThree.so",
         "libsystem_initPlayerFour.so",
-        "libsystem_initMob.so"
+        "libsystem_initMob.so",
+        "libsystem_InitConsumption.so"
     ],
     "systems": [
         "libsystem_moveEntities.so",
@@ -43,6 +48,7 @@
         "libsystem_shoot_mob.so",
         "libsystem_moveMobs.so",
         "libsystem_shootDamage.so",
+        "libsystem_UpdateConsumption.so",
         "libsystem_playSounds.so"
     ],
     "eventHandlers": [
@@ -51,7 +57,8 @@
         "libeventHandler_DefaultPlaySounds.so",
         "libeventHandler_PlaySounds.so",
         "libeventHandler_createShoot.so",
-        "libeventHandler_shootMob.so"
+        "libeventHandler_shootMob.so",
+        "libeventHandler_UpdateConsumptionHandler.so"
     ],
     "networkUpdate": [
         {

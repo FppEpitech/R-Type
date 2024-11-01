@@ -100,6 +100,12 @@ namespace SceneManager {
              */
             std::unordered_map<KEY_MAP, std::string> getSoundMap();
 
+            /**
+             * @brief Get the ConsumptionCompute object.
+             * @return The ConsumptionCompute object.
+             */
+            ConsumptionCompute GetConsumptionCompute();
+
         protected:
 
             std::shared_ptr<ECS::Registry>                                                  _registry; // Registries for each scene.

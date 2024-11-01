@@ -11,6 +11,7 @@
 #include "KeyMaps/StringKeyMap.hpp"
 #include "../../../Network/Messages/UDPPacket/UDPPacket.hpp"
 #include "../../Ecs/Src/Registry.hpp"
+#include "../Consumption/ConsumptionCompute.hpp"
 
 /**
  * @brief Namespace for the scene manager.
@@ -76,6 +77,12 @@ namespace SceneManager {
              * @brief Get the unordered map of sounds.
              */
             virtual std::unordered_map<KEY_MAP, std::string> getSoundMap() = 0;
+
+            /**
+             * @brief Get the ConsumptionCompute object.
+             * @return The ConsumptionCompute object.
+             */
+            virtual ConsumptionCompute GetConsumptionCompute() = 0;
     };
 
     /**

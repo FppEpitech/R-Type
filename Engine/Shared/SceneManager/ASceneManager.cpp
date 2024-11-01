@@ -26,6 +26,11 @@ std::unordered_map<KEY_MAP, std::string> SceneManager::ASceneManager::getSoundMa
     return (std::unordered_map<KEY_MAP, std::string>());
 }
 
+ConsumptionCompute SceneManager::ASceneManager::GetConsumptionCompute()
+{
+    return ConsumptionCompute();
+}
+
 bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntities)
 {
     if (_keysSystems.find(key) != _keysSystems.end()) {

@@ -46,3 +46,16 @@ add_library(eventHandler_DefaultPlaySounds SHARED
 )
 
 target_link_libraries(eventHandler_DefaultPlaySounds PRIVATE asio::asio)
+
+add_library(eventHandler_UpdateConsumptionHandler SHARED
+        UpdateConsumption/UpdateConsumptionHandler.cpp
+        AEventHandler.cpp
+        ../../Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Consumption/ConsumptionCompute.cpp
+)
+
+target_link_libraries(eventHandler_UpdateConsumptionHandler PRIVATE asio::asio
+    DefaultText
+    Text
+)
