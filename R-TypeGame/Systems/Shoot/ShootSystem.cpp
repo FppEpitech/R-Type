@@ -21,6 +21,9 @@ void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
 {
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
 
+    if (reg.identity == ECS::Registry::Identity::Client)
+        return;
+
     auto now = std::chrono::steady_clock::now();
     auto durationSinceLastShoot = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastShootTime).count();
     if (durationSinceLastShoot < 500)
@@ -29,7 +32,7 @@ void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
 
     try {
         ECS::SparseArray<IComponent> draws = reg.get_components<IComponent>("DrawComponent");
-
+std::make_shared<ECS::Registry>();
         if (draws.size() <= idxPacketEntities)
             return;
         std::shared_ptr<DrawComponent> drawPlayer = std::dynamic_pointer_cast<DrawComponent>(draws[idxPacketEntities]);

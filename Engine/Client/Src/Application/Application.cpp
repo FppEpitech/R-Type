@@ -11,6 +11,7 @@
 Application::Application()
 {
     _registry = std::make_shared<ECS::Registry>();
+    _registry->identity = ECS::Registry::Identity::Client;
 
     try {
         _libGraphic = getGraphicalLibrary();
@@ -71,8 +72,8 @@ void Application::_keyboardHandler(std::size_t key)
         if (key == KEY_NULL || _client->getToken() == 0)
             return;
 
-        // if (!_sceneManager->processInput(KEY_MAP(key), _idxEntityPlayer))
-        //     return;
+        if (!_sceneManager->processInput(KEY_MAP(key), _idxEntityPlayer))
+            return;
 
         ABINetwork::sendPacketKey(_client, key);
     } catch (const std::exception& e) {

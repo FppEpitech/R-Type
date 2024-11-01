@@ -41,6 +41,11 @@ class Registry {
 
     public :
 
+        enum class Identity {
+            Serveur,
+            Client
+        };
+
         /**
          * @brief Register a component in the registry.
          *
@@ -247,7 +252,7 @@ class Registry {
 
         std::mutex _myBeautifulMutex;
 
-        std::vector<entity_t>                                               _dead_entities;             // Array of dead Entities indexes.
+        Identity identity;
 
     private:
 
@@ -257,6 +262,7 @@ class Registry {
 
         // Entities
         std::vector<entity_t>                                               _entities;                  // Array of Entities indexes.
+        std::vector<entity_t>                                               _dead_entities;             // Array of dead Entities indexes.
         entity_t                                                            _next_entity = 0;           // Index for the next Entity to create.
 
         std::vector<std::function<void(Registry&, int)>>                    _systems;                   // Array of systems.

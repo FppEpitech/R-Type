@@ -17,6 +17,7 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
 
     _roomServer = ABINetwork::createServer(_roomInfos.playerMax);
     _registries = std::make_shared<ECS::Registry>();
+    _registries->identity = ECS::Registry::Identity::Serveur;
 
     _eventListener = std::make_shared<EventListener>(_registries, nullptr, _roomServer, nullptr);
     _sceneManager = std::make_shared<SceneManager::ServerSceneManager>(_registries, _eventListener);
