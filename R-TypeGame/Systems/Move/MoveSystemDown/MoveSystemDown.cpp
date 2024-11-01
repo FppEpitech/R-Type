@@ -67,7 +67,6 @@ void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPac
             position->y = root["window"]["resolutions"][index]["h"].asInt() - textureRect->height * scale->scale;
         else
             position->y += speed->speedY;
-        speed->frameRate = std::chrono::high_resolution_clock::now();
 
         std::vector<std::any> valuesMoveEntity = {};
         valuesMoveEntity.push_back(idxPacketEntities);
