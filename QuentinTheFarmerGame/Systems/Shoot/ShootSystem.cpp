@@ -8,7 +8,6 @@
 #include "ShootSystem.hpp"
 #include "ShootInitSystem.hpp"
 #include "Position2D/Position2DComponent.hpp"
-#include "PlayerComponent.hpp"
 #include "Draw/DrawComponent.hpp"
 
 ShootSystem::ShootSystem() :

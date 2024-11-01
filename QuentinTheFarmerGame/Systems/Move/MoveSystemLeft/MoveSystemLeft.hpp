@@ -9,7 +9,7 @@
 
 #include "../../Network/ABI/ABIServer.hpp"
 #include "../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
-#include "SpeedComponent.hpp"
+#include "Speed/SpeedComponent.hpp"
 #include "../Position2D/Position2DComponent.hpp"
 #include "../Draw/DrawComponent.hpp"
 

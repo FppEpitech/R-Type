@@ -6,8 +6,8 @@
 */
 
 #include "MoveMobsSystem.hpp"
-#include "VelocityComponent.hpp"
-#include "../Position2D/Position2DComponent.hpp"
+#include "Velocity/VelocityComponent.hpp"
+#include "Position2D/Position2DComponent.hpp"
 #include <MobComponent.hpp>
 
 

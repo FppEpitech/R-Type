@@ -7,7 +7,7 @@
 
 #include "ShootSystem.hpp"
 #include "ShootInitSystem.hpp"
-#include "PlayerComponent.hpp"
+#include "Player/PlayerComponent.hpp"
 #include "updateShootSystem.hpp"
 #include "Position2D/Position2DComponent.hpp"
 
