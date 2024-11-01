@@ -10,4 +10,5 @@
 SpeedComponent::SpeedComponent(std::size_t speedX, std::size_t speedY) :
     speedX(speedX), speedY(speedY), AComponent("SpeedComponent")
 {
+    frameRate = std::chrono::high_resolution_clock::now();
 }

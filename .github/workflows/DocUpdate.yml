@@ -11,7 +11,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup Doxygen
-        run: sudo apt-get install -y doxygen graphviz texlive-latex-extra # Graphviz is required for generating diagrams
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz texlive-latex-extra
 
       - name: Generate Doxygen Documentation
         run: |

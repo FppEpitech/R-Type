@@ -74,7 +74,6 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
         valuesMoveEntity.push_back(position->y);
         std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", valuesMoveEntity);
         entityManager.addEvent(eventMoveEntity);
-
     } catch(const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
