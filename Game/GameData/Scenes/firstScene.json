@@ -82,8 +82,8 @@
     "music": "Assets/Musics/InGame.wav",
     "sounds": [
         {
-            "key": "KEY_SPACE",
-            "path": "Assets/Sounds/retro-laser.mp3"
+            "key": "MOUSE_LEFT_CLICK",
+            "path": "Assets/Sounds/ui-pop.mp3"
         }
     ]
 }

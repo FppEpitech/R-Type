@@ -21,14 +21,18 @@ void ShootSystem::_shoot(ECS::Registry& reg, int idxPacketEntities)
 {
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
 
-    if (reg.identity == ECS::Registry::Identity::Client)
-        return;
-
     auto now = std::chrono::steady_clock::now();
     auto durationSinceLastShoot = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastShootTime).count();
-    if (durationSinceLastShoot < 500)
+    if (durationSinceLastShoot < 300)
         return;
     lastShootTime = now;
+    if (reg.identity == ECS::Registry::Identity::Client) {
+        std::string soundPath = "Assets/Sounds/retro-laser.mp3";
+        std::vector<std::any> sound = {soundPath};
+        std::shared_ptr<IEvent> event = std::make_shared<AEvent>("DefaultPlaySounds", sound);
+        reg.addEvent(event);
+        return;
+    }
 
     try {
         ECS::SparseArray<IComponent> draws = reg.get_components<IComponent>("DrawComponent");
