@@ -76,6 +76,17 @@ void GameEngine::Room::_connectionHandler()
                     args.push_back(std::make_pair(ABINetwork::Type::Bool, true));
 
                     ABINetwork::sendUpdateComponent(_roomServer, "DrawComponent", 2, args);
+
+                    for (std::size_t i = 0; i < PlayerComponentArray.size(); i++) {
+                        std::shared_ptr<PlayerComponent> playerInfo = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[i]);
+                        if (playerInfo && playerInfo->token != 0) {
+                            std::shared_ptr<DrawComponent> drawInfo = std::dynamic_pointer_cast<DrawComponent>(DrawComponentArray[i]);
+                            std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> argsUpdate;
+                            argsUpdate.push_back(std::make_pair(ABINetwork::Type::Int, static_cast<int>(i)));
+                            argsUpdate.push_back(std::make_pair(ABINetwork::Type::Bool, drawInfo->draw));
+                            ABINetwork::sendUpdateComponent(_roomServer, "DrawComponent", 2, argsUpdate, player->token);
+                        }
+                    }
                 }
                 break;
             }

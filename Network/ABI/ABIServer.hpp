@@ -93,8 +93,9 @@ namespace ABINetwork
      * @param componentType COmponent type used to call system associeted.
      * @param nbArgs Number of args in variadic list.
      * @param vector<std::pair<int, std::variant<int, float, std::string, bool>>> Variadic List.
+     * @param token Token where send the packet
      */
-    void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args);
+    void sendUpdateComponent(std::shared_ptr<INetworkUnit> networkUnit, std::string componentType, int nbArgs, std::vector<std::pair<int, std::variant<int, float, std::string, bool>>> args, uint32_t token=0);
 
     /**
      * @brief Get the CreateRoom Info From Packet object
