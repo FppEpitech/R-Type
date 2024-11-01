@@ -46,21 +46,18 @@ set(SRC_EXE
     ../Shared/DefaultComponents/Size1D/Size1DComponent.cpp
     ../Shared/DefaultComponents/Text/TextComponent.cpp
     ../Shared/DefaultComponents/MaterialMap/MaterialMapComponent.cpp
-    ../Shared/DefaultComponents/MusicPath/MusicPathComponent.cpp
-    ../Shared/DefaultComponents/MusicPitch/MusicPitchComponent.cpp
-    ../Shared/DefaultComponents/MusicVolume/MusicVolumeComponent.cpp
-    ../Shared/DefaultComponents/SoundPath/SoundPathComponent.cpp
-    ../Shared/DefaultComponents/SoundPitch/SoundPitchComponent.cpp
-    ../Shared/DefaultComponents/SoundVolume/SoundVolumeComponent.cpp
+    ../Shared/DefaultComponents/Music/MusicComponent.cpp
+    ../Shared/DefaultComponents/Sound/SoundComponent.cpp
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
-    ../Shared/DefaultComponents/Entities/Player/PlayerComponent.cpp
+        ../Shared/DefaultComponents/Player/PlayerComponent.cpp
     ../../Network/Database/Database.cpp
     ../../Network/Database/Models/Scores/Scores.cpp
     ../../Network/Database/Models/Users/Users.cpp
     ../Shared/EventListener/EventListener.cpp
     ../Shared/DefaultComponents/Editable/EditableComponent.cpp
     ../Shared/DefaultComponents/Checkable/CheckableComponent.cpp
+    ../Shared/DefaultComponents/EntityId/EntityIdComponent.cpp
 )
 
 # Include directories for header files
@@ -78,7 +75,7 @@ include_directories(
     ../Shared/DefaultComponents/
     ../Shared/DefaultSystems/
     ../Shared/DefaultComponents/Entities
-    ../Shared/DefaultComponents/Entities/Player
+        ../Shared/DefaultComponents/Player
     ../../Network/Database
     ../../Network/Errors
     ../../Network/Database/Models/Scores

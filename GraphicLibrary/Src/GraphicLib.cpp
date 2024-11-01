@@ -14,9 +14,9 @@
 #define SETTINGS_PATH "./Config/Settings.json"
 
 extern "C" {
-EXPORT_SYMBOL IGraphic* loadGraphicInstance() {
-    return new GraphicLib();
-}
+    EXPORT_SYMBOL IGraphic* loadGraphicInstance() {
+        return new GraphicLib();
+    }
 }
 
 GraphicLib::~GraphicLib()
@@ -28,6 +28,7 @@ GraphicLib::~GraphicLib()
 void GraphicLib::init(const std::string &windowName)
 {
     InitWindow(1920, 1080, windowName.c_str());
+    InitAudioDevice();
     SetTargetFPS(140);
 
     Vector3 position = {0.0f, 0.0f, -10.0f};
@@ -346,10 +347,37 @@ float GraphicLib::getScaleWithWindow(float scale)
 bool GraphicLib::closeWindow()
 {
     if (windowIsOpen()) {
+        CloseAudioDevice();
         CloseWindow();
         return true;
     }
     return false;
+}
+
+void GraphicLib::playMusic(std::string path)
+{
+    if (_music.first == path)
+        return;
+    _music.first = path;
+    StopMusicStream(_music.second);
+    if (_music.first == "none")
+        return;
+    _music.second = LoadMusicStream(path.c_str());
+    PlayMusicStream(_music.second);
+}
+
+void GraphicLib::updateMusic()
+{
+    if (_music.first == "none")
+        return;
+    UpdateMusicStream(_music.second);
+}
+
+void GraphicLib::playSound(std::string path)
+{
+    if (_sounds.find(path) == _sounds.end())
+        _sounds[path] = LoadSound(path.c_str());
+    PlaySound(_sounds[path]);
 }
 
 bool GraphicLib::_isShaderReady()

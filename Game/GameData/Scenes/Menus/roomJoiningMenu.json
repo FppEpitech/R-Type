@@ -1,0 +1,25 @@
+{
+    "keyBinds": [
+    ],
+    "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initRoomJoiningText.so",
+        "libsystem_initRoomList.so"
+    ],
+    "systems": [
+        "libsystem_handleMouse.so",
+        "libsystem_handleTyping.so",
+        "libsystem_getRoomList.so",
+        "libsystem_playSounds.so"
+    ],
+    "eventHandlers": [
+        "libeventHandler_switchScene.so",
+        "libeventHandler_getRoomInfos.so",
+        "libeventHandler_sendRoomInfos.so",
+        "libeventHandler_joinRoom.so"
+    ],
+    "menus": {
+        "keyBinds": [
+        ]
+    }
+}

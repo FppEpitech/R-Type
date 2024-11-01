@@ -11,6 +11,7 @@
 Application::Application()
 {
     _registry = std::make_shared<ECS::Registry>();
+    _registry->identity = ECS::Registry::Identity::Client;
 
     try {
         _libGraphic = getGraphicalLibrary();
@@ -39,9 +40,10 @@ void Application::run()
     while (_libGraphic->windowIsOpen()) {
         _packetHandler();
         _keyboardHandler(_libGraphic->getKeyDownInput());
+        _libGraphic->updateMusic();
         _libGraphic->startDraw();
         _libGraphic->clear();
-        _registry->run_systems(-1);
+        _registry->run_systems(CLIENT);
         for (auto defaultSystem : _defaultSystems)
             defaultSystem(*_registry, -1);
         _eventListener->listen();
@@ -105,9 +107,20 @@ void Application::_handleCreateRoomPacket(ABINetwork::UDPPacket packet)
     ABINetwork::sendPacketJoinRoom(_client, std::get<0>(roomCreated), ABINetwork::getCurrentRoomPassword(_client));
 }
 
+void Application::_handleGetRoomPacket(ABINetwork::UDPPacket packet)
+{
+    std::vector<ABINetwork::roomInfo_t> roomInfos = ABINetwork::getRoomsInfos(packet);
+
+    ABINetwork::setListOfRooms(_client, roomInfos);
+    ABINetwork::setGetRoomState(_client, ABINetwork::INetworkUnit::GetRoomState::RECEIVED);
+}
+
 void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
 {
-    if (_roomInfos.tcpPort <= 0 || _roomInfos.udpPort <= 0)
+
+    _roomInfos.tcpPort = ABINetwork::getAllowedJoindRoomInfoFromPacket(packet);
+
+    if (_roomInfos.tcpPort <= 0)
         return;
     std::shared_ptr<ABINetwork::INetworkUnit> room = nullptr;
     try {

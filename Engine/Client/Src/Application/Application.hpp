@@ -117,6 +117,13 @@ class Application {
         void _handleAssignTokenPacket(ABINetwork::UDPPacket packet);
 
         /**
+         * @brief Handle packet received by the server for get room.
+         *
+         * @param packet
+         */
+        void _handleGetRoomPacket(ABINetwork::UDPPacket packet);
+
+        /**
          * @brief Function who handle keyboard signal.
          *
          * @param key Key entered.
@@ -143,7 +150,8 @@ class Application {
             {ABINetwork::IMessage::MessageType::FULL_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleFullRoomPacket(packet); }},
             {ABINetwork::IMessage::MessageType::LOGIN, [this](ABINetwork::UDPPacket packet) { this->_handleLoginPacket(packet); }},
             {ABINetwork::IMessage::MessageType::UPDATE_COMPONENT, [this](ABINetwork::UDPPacket packet) { this->_handleUpdateComponentPacket(packet); }},
-            {ABINetwork::IMessage::MessageType::ASSIGNTOKEN, [this](ABINetwork::UDPPacket packet) { this->_handleAssignTokenPacket(packet); }}
+            {ABINetwork::IMessage::MessageType::ASSIGNTOKEN, [this](ABINetwork::UDPPacket packet) { this->_handleAssignTokenPacket(packet); }},
+            {ABINetwork::IMessage::MessageType::GET_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleGetRoomPacket(packet); }}
         };
 
         networkInstance_t _serverInfos; // Informations about the server.

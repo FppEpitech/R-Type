@@ -11,7 +11,7 @@
 #include "Draw/DrawComponent.hpp"
 #include "TextureRect/TextureRectComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
-#include "VelocityComponent.hpp"
+#include "Velocity/VelocityComponent.hpp"
 #include "ShootComponent.hpp"
 #include "VelocityParser.hpp"
 #include "TextureRectParser.hpp"
@@ -20,8 +20,7 @@
 #include "SpeedParser.hpp"
 #include "ShootParser.hpp"
 #include "Colour/ColourComponent.hpp"
-
-#include <ColourParser.hpp>
+#include "../../Engine/Shared/DefaultParser/ColourParser/ColourParser.hpp"
 
 #define PATH_JSON "GameData/Entities/ShootMob.json"
 

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "../../DefaultComponents/ObjPath/FontPathComponent.hpp"
+#include "../../DefaultComponents/FontPath/FontPathComponent.hpp"
 
 std::shared_ptr<FontPathComponent> parseFontPath(std::string pathFile)
 {

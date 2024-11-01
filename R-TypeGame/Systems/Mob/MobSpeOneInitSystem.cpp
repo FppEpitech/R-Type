@@ -16,7 +16,7 @@
 #include "VelocityParser.hpp"
 #include "Position2DParser.hpp"
 #include "TextureRectParser.hpp"
-#include "VelocityComponent.hpp"
+#include "Velocity/VelocityComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
 #include "TextureRect/TextureRectComponent.hpp"
 #include "SpriteSheetAnimationParser.hpp"

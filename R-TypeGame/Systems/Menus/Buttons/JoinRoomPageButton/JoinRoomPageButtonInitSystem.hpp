@@ -7,10 +7,13 @@
 
 #pragma once
 
-#include "ISystem.hpp"
-#include "AButtonInitSystem.hpp"
+#include "../../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
+#include "../AButton/AButtonInitSystem.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/joinRoomPageButtonSystem.json"
+#define JOIN_ROOM "Menus/roomJoiningMenu.json"
+#define GET_ROOMS_INFOS "GetRoomsInfos"
+#define SWITCH_SCENE "SwitchScene"
 
 /**
  * @brief JoinRoomPageButtonInitSystem class

@@ -12,5 +12,8 @@
     "networkUpdate": [
     ],
     "menus": {
-    }
+    },
+    "music": "Assets/Musics/InGame.wav",
+    "sounds": [
+    ]
 }

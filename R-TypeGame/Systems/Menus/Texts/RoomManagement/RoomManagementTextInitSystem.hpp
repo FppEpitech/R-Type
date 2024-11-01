@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "ATextInitSystem.hpp"
-#include "ISystem.hpp"
+#include "../../../AText/ATextInitSystem.hpp"
+#include "../../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Texts/roomManagementTextSystem.json"
 

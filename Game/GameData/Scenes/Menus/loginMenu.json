@@ -6,18 +6,31 @@
         "libsystem_initUsernameTextButton.so",
         "libsystem_initPasswordTextButton.so",
         "libsystem_initLoginText.so",
-        "libsystem_initLoginButton.so"
+        "libsystem_initLoginButton.so",
+        "libsystem_initBackToAccountManagementButton.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
-        "libsystem_handleTyping.so"
+        "libsystem_handleTyping.so",
+        "libsystem_playSounds.so"
     ],
     "eventHandlers": [
         "libeventHandler_login.so",
-        "libeventHandler_loginAllowed.so"
+        "libeventHandler_loginAllowed.so",
+        "libeventHandler_switchScene.so",
+        "libeventHandler_DefaultPlayMusic.so",
+        "libeventHandler_DefaultPlaySounds.so",
+        "libeventHandler_PlaySounds.so"
     ],
     "menus": {
         "keyBinds": [
         ]
-    }
+    },
+    "music": "Assets/Musics/InMenu.wav",
+    "sounds": [
+        {
+            "key": "MOUSE_LEFT_CLICK",
+            "path": "Assets/Sounds/ui-pop.mp3"
+        }
+    ]
 }

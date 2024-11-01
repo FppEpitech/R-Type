@@ -9,7 +9,7 @@
 #include "MoveSystemUp.hpp"
 
 MoveSystemUp::MoveSystemUp() :
-    ASystem("MovementUpSystem")
+        ASystem("MovementUpSystem")
 {
 }
 

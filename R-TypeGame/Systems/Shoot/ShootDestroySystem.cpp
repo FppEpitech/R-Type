@@ -8,6 +8,7 @@
 #include "ShootDestroySystem.hpp"
 #include "Position2D/Position2DComponent.hpp"
 #include "ShootComponent.hpp"
+#include "../../../Engine/Ecs/Src/Events/AEvent.hpp"
 
 ShootDestroySystem::ShootDestroySystem() :
     ASystem("ShootDestroySystem")
@@ -17,6 +18,8 @@ ShootDestroySystem::ShootDestroySystem() :
 void ShootDestroySystem::_shootDestroy(ECS::Registry& reg, int idxPacketEntities)
 {
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
+    if (idxPacketEntities == CLIENT)
+        return;
     try {
 
         ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position2DComponent");
@@ -34,6 +37,14 @@ void ShootDestroySystem::_shootDestroy(ECS::Registry& reg, int idxPacketEntities
                 if (position->x >= -100 && position->x <= 1920 && position->y >= 0 && position->y <= 1080)
                     continue;
                 reg.kill_entity(entity);
+
+                std::vector<std::any> shootCreate = {};
+                int shootIdx = entity;
+                shootCreate.push_back(idxPacketEntities);
+                shootCreate.push_back(SHOOT_DESTROY);
+                shootCreate.push_back(shootIdx);
+                std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("Shoot", shootCreate);
+                reg.addEvent(eventMoveEntity);
             }
         }
     } catch (std::exception e){

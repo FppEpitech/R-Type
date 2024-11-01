@@ -9,28 +9,28 @@
 #include <iostream>
 #include <json/json.h>
 
-#include "TextParser.hpp"
-#include "ScaleParser.hpp"
-#include "Size1DParser.hpp"
-#include "ColourParser.hpp"
-#include "TextComponent.hpp"
-#include "DrawComponent.hpp"
-#include "FontPathParser.hpp"
-#include "ScaleComponent.hpp"
-#include "Size1DComponent.hpp"
-#include "ColourComponent.hpp"
-#include "Position2DParser.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/TextParser/TextParser.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/ScaleParser/ScaleParser.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/Size1DParser/Size1DParser.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/ColourParser/ColourParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Text/TextComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Draw/DrawComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/FontPathParser/FontPathParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Scale/ScaleComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Size1D/Size1DComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Colour/ColourComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/Position2DParser/Position2DParser.hpp"
 #include "AButtonInitSystem.hpp"
-#include "ButtonStateParser.hpp"
-#include "TextureRectParser.hpp"
-#include "ClickableComponent.hpp"
-#include "Position2DComponent.hpp"
-#include "ButtonStateComponent.hpp"
-#include "TextureRectComponent.hpp"
-#include "TextPosition2DParser.hpp"
-#include "TextPosition2DComponent.hpp"
-#include "ButtonTexturePathParser.hpp"
-#include "ButtonTexturePathComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/ButtonStateParser/ButtonStateParser.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/TextureRectParser/TextureRectParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Clickable/ClickableComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Position2D/Position2DComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/ButtonState/ButtonStateComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/TextureRect/TextureRectComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/TextPosition2DParser/TextPosition2DParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/TextPosition2D/TextPosition2DComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/ButtonTexturePathParser/ButtonTexturePathParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/ButtonTexturePath/ButtonTexturePathComponent.hpp"
 
 void AButtonInitSystem::_setButtonProperties(ECS::Registry &reg, int idxPacketEntities, const std::string &filePath, std::function<void(ECS::Registry &, int)> callback)
 {
@@ -91,9 +91,10 @@ void AButtonInitSystem::_setButtonProperties(ECS::Registry &reg, int idxPacketEn
     std::shared_ptr<ClickableComponent> clickableComponent = std::make_shared<ClickableComponent>([callback](ECS::Registry& reg, int idxPacketEntities){
         callback(reg, idxPacketEntities);
     });
-    reg.register_component<IComponent>(clickableComponent->getType());
-    reg.set_component<IComponent>(idxPacketEntities, clickableComponent, clickableComponent->getType());
-
+    if (clickableComponent) {
+        reg.register_component<IComponent>(clickableComponent->getType());
+        reg.set_component<IComponent>(idxPacketEntities, clickableComponent, clickableComponent->getType());
+    }
 
     std::shared_ptr<ButtonTexturePathComponent> buttonTexturePath = parseButtonTexturePath(filePath);
     if (buttonTexturePath) {

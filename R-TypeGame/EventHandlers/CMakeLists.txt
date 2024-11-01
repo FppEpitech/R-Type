@@ -18,6 +18,7 @@ find_package(asio CONFIG REQUIRED)
 # Include directories for header files
 include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/KeyMaps/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/
@@ -26,6 +27,11 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Network/ABI/
     ${CMAKE_SOURCE_DIR}/Network/Units/
     SwitchScene/
+    GetRoomInfos/
+    SendRoomInfos/
+    ../Systems/Menus/Buttons/
+    ../Systems/Menus/Buttons/AButton/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/
 )
 
 add_library(eventHandler_switchScene SHARED
@@ -64,6 +70,12 @@ add_library(eventHandler_createShoot SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
+add_library(eventHandler_shootMob SHARED
+    ShootMob/ShootMobHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
 add_library(eventHandler_register SHARED
     Register/RegisterHandler.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
@@ -76,11 +88,78 @@ add_library(eventHandler_createRoom SHARED
     ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
 )
 
+add_library(eventHandler_PlaySounds SHARED
+        PlaySounds/PlaySoundsHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(eventHandler_PlaySounds PRIVATE asio::asio)
+
+add_library(eventHandler_joinRoom SHARED
+    JoinRoom/JoinRoomHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+add_library(eventHandler_logout SHARED
+    Logout/LogoutHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
 target_link_libraries(eventHandler_switchScene PRIVATE asio::asio)
 target_link_libraries(eventHandler_connectServer PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_login PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_loginAllowed PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_moveEntity PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_createShoot PRIVATE r-type_abi_network asio::asio)
+target_link_libraries(eventHandler_shootMob PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_register PRIVATE r-type_abi_network asio::asio)
 target_link_libraries(eventHandler_createRoom PRIVATE r-type_abi_network asio::asio)
+target_link_libraries(eventHandler_joinRoom PRIVATE r-type_abi_network asio::asio)
+target_link_libraries(eventHandler_logout PRIVATE r-type_abi_network asio::asio)
+
+add_library(eventHandler_getRoomInfos SHARED
+    GetRoomInfos/GetRoomInfosHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+target_link_libraries(eventHandler_getRoomInfos PRIVATE r-type_abi_network asio::asio)
+
+add_library(eventHandler_sendRoomInfos SHARED
+        SendRoomInfos/SendRoomInfosHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ../Systems/Menus/Buttons/RoomInfosTextBox/RoomInfoTextBoxInitSystem.cpp
+        ../Systems/Menus/Buttons/JoinRoomButton/JoinRoomButtonInitSystem.cpp
+        ../Systems/Menus/Buttons/JoinRoomPasswordTextBox/JoinRoomPasswordTextBoxInitSystem.cpp
+        ../Systems/Menus/Buttons/AButton/AButtonInitSystem.cpp
+)
+
+target_link_libraries(eventHandler_sendRoomInfos PRIVATE
+        Position2D
+        Text
+        EntityList
+        ButtonState
+        TextPosition2D
+        Scale
+        Size1D
+        Colour
+        Draw
+        FontPath
+        TextureRect
+        Clickable
+        ButtonTexturePath
+        TextLimit
+        Editable
+        DefaultText
+        EntityId
+        r-type_abi_network
+        asio::asio
+)

@@ -24,37 +24,41 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Include/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/Interface/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Entities/Player/
-    ../Components/Speed/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Player/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Speed/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Editable/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Velocity/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Speed/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Velocity/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/TextureRectParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/Position2DParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/SpeedParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/VelocityParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ScaleParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
+    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
     ../Components/Life/
     ../Components/Shoot/
     ../Components/Planet/
-        ../../Engine/Shared/DefaultComponents/Editable/
     ../Components/ButtonState/
-        ../Components/Clickable/
+    ../Components/Clickable/
     ../Components/TextLimit/
-    ../Components/Velocity/
     ../Components/
+    ../Components/Mob/
+    ../Systems/ShootMob/
     ../../../Engine/Shared/DefaultSystems
     ../../../Engine/Shared/DefaultComponents
     ../../../Engine/Client/Src
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/DLLoader/
-    ${CMAKE_SOURCE_DIR}/Engine/Client/Src/Errors/
     ../Systems/Background/
     ../Systems/Shoot/
     ../../Engine/Ecs/Src/
-    ${CMAKE_SOURCE_DIR}/Engine/Shared/Enum/
-    Shoot/
-    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/
-    ../Components/Speed/
-    ../Components/Velocity/
     ../Components/Shoot/
-    ../../Engine/Shared/DefaultParser/TextureRectParser/
-    ../../Engine/Shared/DefaultParser/Position2DParser/
-    ../Parser/SpeedParser/
-    ../Parser/VelocityParser/
     ../Parser/ShootParser/
-    ../../Engine/Shared/DefaultParser/ScaleParser/
+    Shoot/
 )
 
 # Add a shared library target 'system_initPlayer'
@@ -66,6 +70,33 @@ target_link_libraries(update_position_component PRIVATE
     asio::asio
     JsonCpp::JsonCpp
     Player
+    r-type_abi_network
+)
+
+add_library(update_shoot_mob_system SHARED
+    UpdateShootMobSystem/updateShootMobSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+    ../Systems/ShootMob/ShootSystem.cpp
+    ../Systems/ShootMob/ShootInitSystem.cpp
+    ../Systems/ShootMob/MobSpeOneShootInitSystem.cpp
+    ../Systems/ShootMob/MobSpeTwoShootInitSystem.cpp
+)
+
+target_link_libraries(update_shoot_mob_system PRIVATE
+    asio::asio
+    JsonCpp::JsonCpp
+    Position2D
+    Scale
+    TextureRect
+    Draw
+    Speed
+    Velocity
+    Shoot
+    SpriteSheetAnimation
+    ShootType
+    Colour
+    JsonCpp::JsonCpp
     r-type_abi_network
 )
 

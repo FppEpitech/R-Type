@@ -9,6 +9,9 @@
 
 #include "ABINetwork.hpp"
 
+#include "../Messages/RoomMessage/RoomMessage.hpp"
+
+
 /**
  * @namespace ABINetwork
  * @brief Contains functions to manage network communication and operations.
@@ -32,6 +35,13 @@ namespace ABINetwork
      * @return False if connection failed.
      */
     bool connectToServer(std::shared_ptr<INetworkUnit> client, std::string ipServer, int tcp_port);
+
+    /**
+     * @brief Disconnect to a client.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     */
+    void disconnectToServer(std::shared_ptr<INetworkUnit> networkUnit);
 
     /**
      * @brief Get the Server Ip object.
@@ -241,4 +251,51 @@ namespace ABINetwork
      */
     std::string getCurrentRoomPassword(std::shared_ptr<INetworkUnit> networkUnit);
 
+    /**
+     * @brief Get the Rooms Infos object.
+     *
+     * @param packet Packet received from the server.
+     * @return std::vector<ABINetwork::roomInfo_t>
+     */
+    std::vector<ABINetwork::roomInfo_t> getRoomsInfos(UDPPacket packet);
+
+    /**
+     * @brief Set the List Of Rooms object.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param listRooms List of room Infos to set.
+     */
+    void setListOfRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> listRooms);
+
+    /**
+     * @brief Get the List Of Rooms object.
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @return std::vector<ABINetwork::roomInfo_t> List of rooms.
+     */
+    std::vector<ABINetwork::roomInfo_t> getListOfRooms(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Set the Get Room State object
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @param getRoomState The value to set.
+     */
+    void setGetRoomState(std::shared_ptr<INetworkUnit> networkUnit, INetworkUnit::GetRoomState getRoomState);
+
+    /**
+     * @brief Get the Room State object
+     *
+     * @param networkUnit A shared pointer to the network unit representing the client connection.
+     * @return INetworkUnit::GetRoomState The actual state of the request getRoom.
+     */
+    INetworkUnit::GetRoomState getRoomState(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Get the Joind Room Info From Packet object.
+     *
+     * @param packet Packet received from the server.
+     * @return int Tcp port.
+     */
+    int getAllowedJoindRoomInfoFromPacket(UDPPacket packet);
 }

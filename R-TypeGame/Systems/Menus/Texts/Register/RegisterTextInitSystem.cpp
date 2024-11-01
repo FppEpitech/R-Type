@@ -5,7 +5,7 @@
 ** RegisterTextInitSystem.cpp
 */
 
-#include "DrawComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Draw/DrawComponent.hpp"
 #include "RegisterTextInitSystem.hpp"
 
 RegisterTextInitSystem::RegisterTextInitSystem() :

@@ -7,6 +7,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <chrono>
 
 #include "ASceneManager.hpp"
 #include "DLLoader/DLLoader.hpp"
@@ -18,6 +19,11 @@ SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> regist
     _registry = registry;
     _eventListener = eventListener;
     _initialiseDefaultComponents();
+}
+
+std::unordered_map<KEY_MAP, std::string> SceneManager::ASceneManager::getSoundMap()
+{
+    return (std::unordered_map<KEY_MAP, std::string>());
 }
 
 bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntities)
@@ -142,8 +148,15 @@ void SceneManager::ASceneManager::changeScene(std::pair<std::size_t, std::string
     _registry->clearSystems();
     _registry->clearComponentsArray();
     _registry->clearEntities();
+    _eventListener->clearHandlers();
+    _soundMap.clear();
     _initialiseDefaultComponents();
     _loadScene(scene.second, CURRENT);
+}
+
+std::shared_ptr<ECS::Registry> SceneManager::ASceneManager::getRegistry()
+{
+    return _registry;
 }
 
 void SceneManager::ASceneManager::_initialiseDefaultComponents()
@@ -151,17 +164,13 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(ColourComponent().getType());
     _registry->register_component<IComponent>(FontPathComponent().getType());
     _registry->register_component<IComponent>(MaterialMapComponent().getType());
-    _registry->register_component<IComponent>(MusicPathComponent().getType());
-    _registry->register_component<IComponent>(MusicPitchComponent().getType());
-    _registry->register_component<IComponent>(MusicVolumeComponent().getType());
+    _registry->register_component<IComponent>(MusicComponent().getType());
     _registry->register_component<IComponent>(ObjPathComponent().getType());
     _registry->register_component<IComponent>(Position2DComponent().getType());
     _registry->register_component<IComponent>(Position3DComponent().getType());
     _registry->register_component<IComponent>(ScaleComponent().getType());
     _registry->register_component<IComponent>(Size1DComponent().getType());
-    _registry->register_component<IComponent>(SoundPathComponent().getType());
-    _registry->register_component<IComponent>(SoundPitchComponent().getType());
-    _registry->register_component<IComponent>(SoundVolumeComponent().getType());
+    _registry->register_component<IComponent>(SoundComponent().getType());
     _registry->register_component<IComponent>(TextComponent().getType());
     _registry->register_component<IComponent>(TexturePathComponent().getType());
     _registry->register_component<IComponent>(TextureRectComponent().getType());
@@ -172,4 +181,5 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(DrawComponent().getType());
     _registry->register_component<IComponent>(EditableComponent().getType());
     _registry->register_component<IComponent>(CheckableComponent().getType());
+    _registry->register_component<IComponent>(EntityIdComponent().getType());
 }

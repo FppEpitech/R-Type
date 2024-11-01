@@ -141,8 +141,11 @@ std::unordered_map<uint32_t, asio::ip::udp::endpoint>& Server::getClientsList()
 void Server::sendMessage(std::vector<uint8_t> message, uint32_t token)
 {
     if (token == 0)
-        for (auto clientEndpoint : _clients)
+        for (auto clientEndpoint : _clients) {
+            if (clientEndpoint.second.address().to_string() == "0.0.0.0" && clientEndpoint.second.port() == 0)
+                continue;
             _udp_socket->send_to(asio::buffer(message), clientEndpoint.second);
+        }
     else if (_clients.find(token) != _clients.end())
         _udp_socket->send_to(asio::buffer(message), _clients[token]);
 }

@@ -32,6 +32,15 @@ bool connectToServer(std::shared_ptr<INetworkUnit> networkUnit, std::string ipSe
     return client->connectToServer(ipServer, tcp_port);
 }
 
+void disconnectToServer(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return;
+    return client->disconnectToServer();
+}
+
+
 std::string getServerIp(std::shared_ptr<INetworkUnit> networkUnit)
 {
     std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
@@ -205,6 +214,56 @@ std::string getCurrentRoomPassword(std::shared_ptr<INetworkUnit> networkUnit)
     if (!client)
         return "";
     return client->getCurrentRoomPassword();
+}
+
+std::vector<ABINetwork::roomInfo_t> getRoomsInfos(UDPPacket packet)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return {};
+    return message->getRoomsInfoFromPacket(packet);
+}
+
+void setListOfRooms(std::shared_ptr<INetworkUnit> networkUnit, std::vector<ABINetwork::roomInfo_t> listRooms)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return;
+    return client->setListOfRooms(listRooms);
+}
+
+std::vector<ABINetwork::roomInfo_t> getListOfRooms(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return{};
+    return client->getListOfRooms();
+}
+
+void setGetRoomState(std::shared_ptr<INetworkUnit> networkUnit, INetworkUnit::GetRoomState getRoomState)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return;
+    client->setGetRoomState(getRoomState);
+}
+
+INetworkUnit::GetRoomState getRoomState(std::shared_ptr<INetworkUnit> networkUnit)
+{
+    std::shared_ptr<Client> client = std::dynamic_pointer_cast<Client>(networkUnit);
+    if (!client)
+        return INetworkUnit::GetRoomState::NOT_SENT;
+    return client->getRoomState();
+}
+
+int getAllowedJoindRoomInfoFromPacket(UDPPacket packet)
+{
+    std::shared_ptr<RoomMessage> message = std::make_shared<RoomMessage>();
+
+    if (!message)
+        return 0;
+    return message->getAllowedJoinRoomInfoFromPacket(packet);
 }
 
 }

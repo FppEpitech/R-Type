@@ -17,6 +17,9 @@
  */
 class UpdateShootSystem : public ISystemNetworkUpdate {
 
+    #define SHOOT_CREATE 1
+    #define SHOOT_DESTROY 2
+
     public:
 
         /**

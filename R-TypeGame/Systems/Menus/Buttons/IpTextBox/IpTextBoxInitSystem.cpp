@@ -8,16 +8,16 @@
 #include <fstream>
 #include <json/json.h>
 
-#include "TextComponent.hpp"
-#include "DrawComponent.hpp"
-#include "TextLimitParser.hpp"
-#include "EditableComponent.hpp"
-#include "DefaultTextParser.hpp"
-#include "ClickableComponent.hpp"
-#include "TextLimitComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Text/TextComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Draw/DrawComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/TextLimitParser/TextLimitParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Editable/EditableComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultParser/DefaultTextParser/DefaultTextParser.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/Clickable/ClickableComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/TextLimit/TextLimitComponent.hpp"
 #include "IpTextBoxInitSystem.hpp"
-#include "ButtonStateComponent.hpp"
-#include "DefaultTextComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/ButtonState/ButtonStateComponent.hpp"
+#include "../../../../../Engine/Shared/DefaultComponents/DefaultText/DefaultTextComponent.hpp"
 
 IpTextBoxInitSystem::IpTextBoxInitSystem() :
         ASystem("ButtonInitSystem") {}

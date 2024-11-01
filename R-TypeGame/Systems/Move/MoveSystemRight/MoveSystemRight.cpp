@@ -14,7 +14,7 @@
 #define SETTINGS_PATH "./Config/Settings.json"
 
 MoveSystemRight::MoveSystemRight() :
-    ASystem("MovementRightSystem")
+        ASystem("MovementRightSystem")
 {
 }
 
@@ -42,7 +42,7 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
         ECS::SparseArray<IComponent> ScaleComponents = entityManager.get_components<IComponent>("ScaleComponent");
 
         if (PositionComponentArray.size() <= idxPacketEntities || SpeedComponentArray.size() <= idxPacketEntities ||
-        texturesRectComponents.size() <= idxPacketEntities || ScaleComponents.size() <= idxPacketEntities)
+            texturesRectComponents.size() <= idxPacketEntities || ScaleComponents.size() <= idxPacketEntities)
             return;
 
         Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
@@ -74,7 +74,6 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
         valuesMoveEntity.push_back(position->y);
         std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", valuesMoveEntity);
         entityManager.addEvent(eventMoveEntity);
-
     } catch(const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
