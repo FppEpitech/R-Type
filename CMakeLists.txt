@@ -22,7 +22,12 @@ option(BUILD_TESTS "Build the tests" ON)
 add_subdirectory(Network)        # ABI Network
 add_subdirectory(GraphicLibrary) # Graphic Library
 add_subdirectory(Engine)         # Engine
-add_subdirectory(R-TypeGame)     # R-Type Game
+
+if (QUENTIN_THE_FARMER_GAME)
+    add_subdirectory(QuentinTheFarmerGame)  # QuentinTheFarmer Game
+else()
+    add_subdirectory(R-TypeGame)            # R-Type Game
+endif()
 
 # Add subdirectory for tests if the option is enabled
 if(BUILD_TESTS)

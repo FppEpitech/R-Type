@@ -95,6 +95,8 @@ void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::
     Json::Value root;
     Json::Value menus;
 
+    if (!file)
+        throw SceneManagerErrors("Failed to open the scene file: " + path);
     if (!reader.parse(file, root, false))
         throw SceneManagerErrors("Error while parsing the scene file: " + path);
     menus = root["menus"];
