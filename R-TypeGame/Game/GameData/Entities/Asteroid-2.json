@@ -1,0 +1,21 @@
+{
+    "TextureRectComponent":
+    {
+        "path":"./Assets/asteroid-2.png",
+        "left": 0,
+        "top": 0,
+        "width": 21,
+        "height": 17
+    },
+    "ScaleComponent": 6,
+    "Position2DComponent":
+    {
+        "x": 1920,
+        "y": 100
+    },
+    "VelocityComponent":
+    {
+        "vx": -5,
+        "vy": 0
+    }
+}

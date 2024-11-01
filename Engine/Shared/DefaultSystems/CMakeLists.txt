@@ -110,3 +110,14 @@ target_link_libraries(system_handleTyping PRIVATE
         ButtonTexturePath
         JsonCpp::JsonCpp
 )
+
+add_library(system_handleGravity SHARED
+        ../../Error/AError.cpp
+        Gravity/GravitySystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_handleGravity PRIVATE
+        Position3D
+        Gravity
+)

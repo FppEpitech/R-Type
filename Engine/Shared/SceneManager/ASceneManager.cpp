@@ -182,4 +182,7 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(EditableComponent().getType());
     _registry->register_component<IComponent>(CheckableComponent().getType());
     _registry->register_component<IComponent>(EntityIdComponent().getType());
+    _registry->register_component<IComponent>(Velocity3DComponent().getType());
+    _registry->register_component<IComponent>(VelocityComponent().getType());
+    _registry->register_component<IComponent>(GravityComponent().getType());
 }

@@ -50,6 +50,7 @@ include_directories(
         ./TexturePath/
         ./TextureRect/
         ./Velocity/
+        ./Velocity3D/
         # Default systems directories
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems
         # Parser directories
@@ -116,6 +117,7 @@ set(COMPONENTS
         TexturePath
         TextureRect
         Velocity
+        Velocity3D
 )
 
 foreach(component ${COMPONENTS})
