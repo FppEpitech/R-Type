@@ -7,6 +7,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <chrono>
 
 #include "ASceneManager.hpp"
 #include "DLLoader/DLLoader.hpp"

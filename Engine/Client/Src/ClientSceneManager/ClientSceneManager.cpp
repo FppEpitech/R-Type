@@ -42,6 +42,25 @@ std::string SceneManager::ClientSceneManager::_getScenesPath() const
     return SCENE_PATH;
 }
 
+bool SceneManager::ClientSceneManager::processInput(KEY_MAP key, int idxPacketEntities)
+{
+    static std::chrono::high_resolution_clock::time_point lastCall = std::chrono::high_resolution_clock::now();
+    if (_keysSystems.find(key) != _keysSystems.end()) {
+        const std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
+        double timeElapsed = std::chrono::duration<double, std::milli>(now - lastCall).count() / 1000;
+        if (timeElapsed > 0.005) {
+            lastCall = std::chrono::high_resolution_clock::now();
+            _keysSystems.at(key)->getFunction()(*_registry, idxPacketEntities);
+            return true;
+        }
+    }
+    if (_keysScenes.find(key) != _keysScenes.end()) {
+        changeScene(_keysScenes.at(key));
+        return true;
+    }
+    return false;
+}
+
 void SceneManager::ClientSceneManager::_loadSceneMusic(Json::Value root, std::size_t index)
 {
     const Json::Value& music = root["music"];

@@ -43,6 +43,14 @@ namespace SceneManager {
             ~ClientSceneManager() = default;
 
             /**
+             * @brief Process input for the scene manager.
+             * @param key The key input to process.
+             * @param idxPacketEntities The index of the packet entities.
+             * @return True if the input was processed successfully, false otherwise.
+             */
+            bool processInput(KEY_MAP key, int idxPacketEntities) override;
+
+            /**
              * @brief Get the unordered map of sounds.
              */
             std::unordered_map<KEY_MAP, std::string> getSoundMap() override;

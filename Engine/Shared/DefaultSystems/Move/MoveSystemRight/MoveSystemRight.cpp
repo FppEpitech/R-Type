@@ -29,7 +29,6 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
 {
     std::lock_guard<std::mutex> lock(entityManager._myBeautifulMutex);
     try {
-        static std::chrono::high_resolution_clock::time_point frameRate = std::chrono::high_resolution_clock::now();
         ECS::SparseArray<IComponent> DrawComponentArray = entityManager.get_components<IComponent>("DrawComponent");
         if (DrawComponentArray.size() <= idxPacketEntities)
             return;
@@ -64,15 +63,10 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
         if (root["window"]["resolutions"].size() <= index)
             return;
 
-        const std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
-        double timeElapsed = std::chrono::duration<double, std::milli>(now - frameRate).count() / 1000;
-        if (0.005 < timeElapsed) {
-            if (position->x + speed->speedX + textureRect->width * scale->scale > root["window"]["resolutions"][index]["w"].asInt())
-                position->x = root["window"]["resolutions"][index]["w"].asInt() - textureRect->width * scale->scale;
-            else
-                position->x += speed->speedX;
-            frameRate = std::chrono::high_resolution_clock::now();
-        }
+        if (position->x + speed->speedX + textureRect->width * scale->scale > root["window"]["resolutions"][index]["w"].asInt())
+            position->x = root["window"]["resolutions"][index]["w"].asInt() - textureRect->width * scale->scale;
+        else
+            position->x += speed->speedX;
 
         std::vector<std::any> valuesMoveEntity = {};
         valuesMoveEntity.push_back(idxPacketEntities);
@@ -80,7 +74,6 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
         valuesMoveEntity.push_back(position->y);
         std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", valuesMoveEntity);
         entityManager.addEvent(eventMoveEntity);
-
     } catch(const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }

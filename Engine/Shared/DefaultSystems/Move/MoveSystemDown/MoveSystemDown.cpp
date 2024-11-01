@@ -29,7 +29,6 @@ void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPac
 {
     std::lock_guard<std::mutex> lock(entityManager._myBeautifulMutex);
     try {
-        static std::chrono::high_resolution_clock::time_point frameRate = std::chrono::high_resolution_clock::now();
         ECS::SparseArray<IComponent> DrawComponentArray = entityManager.get_components<IComponent>("DrawComponent");
         if (DrawComponentArray.size() <= idxPacketEntities)
             return;
@@ -64,15 +63,10 @@ void MoveSystemDown::updateDownPosition(ECS::Registry& entityManager, int idxPac
         if (root["window"]["resolutions"].size() <= index)
             return;
 
-        const std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
-        double timeElapsed = std::chrono::duration<double, std::milli>(now - frameRate).count() / 1000;
-        if (0.005 < timeElapsed) {
-            if (position->y + speed->speedY * timeElapsed + textureRect->height * scale->scale > root["window"]["resolutions"][index]["h"].asInt())
-                position->y = root["window"]["resolutions"][index]["h"].asInt() - textureRect->height * scale->scale;
-            else
-                position->y += speed->speedY * timeElapsed;
-            frameRate = std::chrono::high_resolution_clock::now();
-        }
+        if (position->y + speed->speedY + textureRect->height * scale->scale > root["window"]["resolutions"][index]["h"].asInt())
+            position->y = root["window"]["resolutions"][index]["h"].asInt() - textureRect->height * scale->scale;
+        else
+            position->y += speed->speedY;
 
         std::vector<std::any> valuesMoveEntity = {};
         valuesMoveEntity.push_back(idxPacketEntities);

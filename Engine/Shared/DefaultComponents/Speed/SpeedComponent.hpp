@@ -7,7 +7,9 @@
 
 #pragma once
 
-#include "../IComponent.hpp"
+#include <chrono>
+
+#include "IComponent.hpp"
 
 /**
  * @brief Component Speed for R-Type Game.
@@ -19,6 +21,7 @@ class SpeedComponent : public AComponent {
 
         std::size_t speedX;  // Speed X.
         std::size_t speedY;  // Speed Y.
+        std::chrono::high_resolution_clock::time_point frameRate;  // Frame rate.
 
         /**
          * @brief Construct a new Speed Component object.
