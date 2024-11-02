@@ -18,7 +18,7 @@
 #include "Position2DParser.hpp"
 #include "LifeParser.hpp"
 #include "PlayerParser.hpp"
-#include "Speed3DParser.hpp"
+#include "SpeedParser.hpp"
 
 #include <fstream>
 #include <json/json.h>

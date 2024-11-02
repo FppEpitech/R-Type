@@ -17,7 +17,7 @@
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
-#include "Speed3DParser.hpp"
+#include "SpeedParser.hpp"
 #include "ShootParser.hpp"
 
 #include <fstream>
