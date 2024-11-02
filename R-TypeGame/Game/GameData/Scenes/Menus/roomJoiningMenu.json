@@ -1,21 +1,40 @@
 {
     "keyBinds": [
+        {
+            "key": "KEY_F3",
+            "path": "libsystem_DisplayConsumption.so"
+        },
+        {
+            "key": "KEY_F1",
+            "path": "libsystem_DisplayShaderInfo.so"
+        }
     ],
     "entities": [
         "libsystem_initBackground.so",
         "libsystem_initRoomJoiningText.so",
-        "libsystem_initRoomList.so"
+        "libsystem_initRoomList.so",
+        "libsystem_initBackToRoomManagementButton.so",
+        "libsystem_InitConsumption.so",
+        "libsystem_InitShaderInfo.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
         "libsystem_handleTyping.so",
-        "libsystem_getRoomList.so"
+        "libsystem_getRoomList.so",
+        "libsystem_playSounds.so",
+        "libsystem_UpdateConsumption.so",
+        "libsystem_UpdateShaderInfo.so",
+        "libsystem_Shader.so"
     ],
     "eventHandlers": [
         "libeventHandler_switchScene.so",
         "libeventHandler_getRoomInfos.so",
         "libeventHandler_sendRoomInfos.so",
-        "libeventHandler_joinRoom.so"
+        "libeventHandler_joinRoom.so",
+        "libeventHandler_FullScreenHandler.so",
+        "libeventHandler_UpdateConsumptionHandler.so",
+        "libeventHandler_UpdateShaderInfoHandler.so",
+        "libeventHandler_ShaderHandler.so"
     ],
     "menus": {
         "keyBinds": [
