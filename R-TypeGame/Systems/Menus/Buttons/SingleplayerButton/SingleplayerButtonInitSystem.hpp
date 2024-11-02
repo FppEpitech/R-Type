@@ -11,6 +11,7 @@
 #include "../AButton/AButtonInitSystem.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/singleplayerButtonSystem.json"
+#define FIRST_GAME_SCENE "firstScene.json"
 
 /**
  * @brief SingleplayerButtonInitSystem class

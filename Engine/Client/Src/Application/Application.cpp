@@ -10,6 +10,7 @@
 
 Application::Application()
 {
+    _idxEntityPlayer = -1;
     _registry = std::make_shared<ECS::Registry>();
     _registry->identity = ECS::Registry::Identity::Client;
 
@@ -64,7 +65,7 @@ void Application::_initDefaultGraphicSystems()
 
 void Application::_handleAssignTokenPacket(ABINetwork::UDPPacket packet)
 {
-    _idxEntityPlayer = ABINetwork::getAssignTokenInfoFromPacket(packet);
+    _sceneManager->setIndexPlayer(ABINetwork::getAssignTokenInfoFromPacket(packet));
 }
 
 void Application::_keyboardHandler(std::size_t key)
@@ -73,7 +74,7 @@ void Application::_keyboardHandler(std::size_t key)
         if (key == KEY_NULL || _client->getToken() == 0)
             return;
 
-        if (!_sceneManager->processInput(KEY_MAP(key), _idxEntityPlayer))
+        if (!_sceneManager->processInput(KEY_MAP(key), _sceneManager->getIndexPlayer()))
             return;
 
         ABINetwork::sendPacketKey(_client, key);

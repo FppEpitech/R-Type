@@ -16,6 +16,7 @@
 
 SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> registry, std::shared_ptr<EventListener> eventListener)
 {
+    _indexPlayer = -1;
     _registry = registry;
     _eventListener = eventListener;
     _initialiseDefaultComponents();
@@ -186,4 +187,14 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(VelocityComponent().getType());
     _registry->register_component<IComponent>(GravityComponent().getType());
     _registry->register_component<IComponent>(Speed3DComponent().getType());
+}
+
+void SceneManager::ASceneManager::setIndexPlayer(int indexPlayer)
+{
+    _indexPlayer = indexPlayer;
+}
+
+int SceneManager::ASceneManager::getIndexPlayer()
+{
+    return _indexPlayer;
 }

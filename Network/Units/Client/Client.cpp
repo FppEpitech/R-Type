@@ -127,6 +127,8 @@ void Client::_startReceive()
 
 void Client::sendMessage(std::vector<uint8_t> message, uint32_t token)
 {
+    if (!_server_endpoint)
+        return;
     try {
         _udp_socket->send_to(asio::buffer(message), *_server_endpoint);
     } catch (const std::exception& e) {
