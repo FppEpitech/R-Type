@@ -18,7 +18,7 @@ ShootDestroySystem::ShootDestroySystem() :
 void ShootDestroySystem::_shootDestroy(ECS::Registry& reg, int idxPacketEntities)
 {
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
-    if (idxPacketEntities == CLIENT)
+    if (reg.identity == ECS::Registry::Identity::Client)
         return;
     try {
 
