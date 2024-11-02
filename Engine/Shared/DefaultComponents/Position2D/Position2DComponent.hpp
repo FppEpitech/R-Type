@@ -35,7 +35,7 @@ class Position2DComponent : public AComponent {
          * @param x Initial x position (default is 0).
          * @param y Initial y position (default is 0).
          */
-        Position2DComponent(float x = 0, float y = 0) ;
+        Position2DComponent(float x = 0, float y = 0);
 
 
         /**
