@@ -8,16 +8,16 @@
     },
     "ObjPathComponent": "./Assets/player.glb",
     "LifeComponent":100,
-    "SpeedComponent":
+    "Speed3DComponent":
     {
-        "x":5,
-        "y":5,
-        "z":0
+        "x":0.05,
+        "y":0.05,
+        "z":0.05
     },
     "GravityComponent":
     {
         "x":0,
-        "y":-0.05,
+        "y":0.01,
         "z":0
     },
     "SpriteSheetAnimationComponent":
