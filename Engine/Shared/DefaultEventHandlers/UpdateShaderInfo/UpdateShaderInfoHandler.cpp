@@ -27,7 +27,7 @@ bool UpdateShaderInfoHandler::processEvent(std::shared_ptr<IEvent> event,
         for (ECS::entity_t entity = 0; entity < Text.size() && entity < DefaultText.size(); entity++) {
             std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(DefaultText[entity]);
             std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(Text[entity]);
-            if (!defaultText || !text || defaultText->text != "666")
+            if (!defaultText || !text || defaultText->text != "UpdateShader")
                 continue;
             std::string intensity = std::to_string(graphicLib->getCurrentShaderIntensity());
             intensity = (intensity[0] == '1') ? intensity = "1" : intensity.substr(0, 3);

@@ -206,6 +206,8 @@ void GraphicLib::changeShaderIntensity(float intensity)
         return;
     Json::Value root;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
     settingsFile >> root;
     settingsFile.close();
 
@@ -213,6 +215,8 @@ void GraphicLib::changeShaderIntensity(float intensity)
         SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
     root["color_blindness"]["intensity"] = intensity;
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << root;
     settingsFileOut.close();
 }
@@ -222,6 +226,8 @@ void GraphicLib::changeCurrentShader(std::string name)
     Json::Value root;
     Json::StreamWriterBuilder writer;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
     settingsFile >> root;
     settingsFile.close();
 
@@ -236,6 +242,8 @@ void GraphicLib::changeCurrentShader(std::string name)
     }
 
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << Json::writeString(writer, root);
     settingsFileOut.close();
 }
@@ -285,6 +293,8 @@ float GraphicLib::getCurrentShaderIntensity()
         return 0;
     Json::Value root;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return 0;
     settingsFile >> root;
     settingsFile.close();
     return root["color_blindness"]["intensity"].asFloat();
@@ -296,6 +306,8 @@ void GraphicLib::nextShaderIntensity()
         return;
     Json::Value root;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
     settingsFile >> root;
     settingsFile.close();
 
@@ -308,6 +320,8 @@ void GraphicLib::nextShaderIntensity()
         SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
     root["color_blindness"]["intensity"] = intensity;
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << root;
     settingsFileOut.close();
 }
@@ -318,6 +332,8 @@ void GraphicLib::previousShaderIntensity()
         return;
     Json::Value root;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
     settingsFile >> root;
     settingsFile.close();
 
@@ -330,6 +346,8 @@ void GraphicLib::previousShaderIntensity()
         SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
     root["color_blindness"]["intensity"] = intensity;
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << root;
     settingsFileOut.close();
 }
@@ -397,11 +415,15 @@ void GraphicLib::changeResolution(int width, int height) {
     Json::Value root;
     Json::StreamWriterBuilder writer;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
 
     settingsFile >> root;
     settingsFile.close();
     root["window"]["resolutionIndex"] = std::find(_resolutions.begin(), _resolutions.end(), std::make_pair(width, height)) - _resolutions.begin();
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << Json::writeString(writer, root);
     settingsFileOut.close();
 }
@@ -418,11 +440,15 @@ void GraphicLib::changeFullscreen()
     Json::Value root;
     Json::StreamWriterBuilder writer;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
 
     settingsFile >> root;
     settingsFile.close();
     root["window"]["fullscreen"] = !root["window"]["fullscreen"].asBool();
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << Json::writeString(writer, root);
     settingsFileOut.close();
 }

@@ -24,7 +24,7 @@ void DisplayConsumptionSystem::_handlePlaySounds(ECS::Registry &reg, int idxPack
         for (ECS::entity_t entity = 0; entity < Draw.size() && entity < DefaultText.size(); entity++) {
             std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(DefaultText[entity]);
             std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(Draw[entity]);
-            if (!defaultText || !draw || defaultText->text != "999")
+            if (!defaultText || !draw || defaultText->text != "UpdateConsumption")
                 continue;
             draw->draw = !draw->draw;
         }

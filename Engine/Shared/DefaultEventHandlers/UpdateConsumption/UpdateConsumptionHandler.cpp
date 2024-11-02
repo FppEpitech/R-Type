@@ -27,7 +27,7 @@ bool UpdateConsumptionHandler::processEvent(std::shared_ptr<IEvent> event,
         for (ECS::entity_t entity = 0; entity < Text.size() && entity < DefaultText.size(); entity++) {
             std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(DefaultText[entity]);
             std::shared_ptr<TextComponent> text = std::dynamic_pointer_cast<TextComponent>(Text[entity]);
-            if (!defaultText || !text || defaultText->text != "999")
+            if (!defaultText || !text || defaultText->text != "UpdateConsumption")
                 continue;
             std::ostringstream consumption;
             consumption << "CPU: " << sceneManager->GetConsumptionCompute().ComputeCPUInfo() << "%\nRAM: " << sceneManager->GetConsumptionCompute().ComputeRAMInfo() << "MB";

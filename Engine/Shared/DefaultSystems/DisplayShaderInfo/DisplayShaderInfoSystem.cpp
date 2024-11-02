@@ -24,7 +24,7 @@ void DisplayShaderInfoSystem::_handlePlaySounds(ECS::Registry &reg, int idxPacke
         for (ECS::entity_t entity = 0; entity < Draw.size() && entity < DefaultText.size(); entity++) {
             std::shared_ptr<DefaultTextComponent> defaultText = std::dynamic_pointer_cast<DefaultTextComponent>(DefaultText[entity]);
             std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(Draw[entity]);
-            if (!defaultText || !draw || defaultText->text != "666")
+            if (!defaultText || !draw || defaultText->text != "UpdateShader")
                 continue;
             draw->draw = !draw->draw;
         }

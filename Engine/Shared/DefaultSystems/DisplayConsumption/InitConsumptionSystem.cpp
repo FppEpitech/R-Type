@@ -21,7 +21,7 @@ InitConsumptionSystem::InitConsumptionSystem() : ASystem("InitConsumptionSystem"
 void InitConsumptionSystem::_handlePlaySounds(ECS::Registry &reg, int idxPacketEntities)
 {
     reg.register_component<IComponent>("DefaultTextComponent");
-    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DefaultTextComponent>("999"), "DefaultTextComponent");
+    reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DefaultTextComponent>("UpdateConsumption"), "DefaultTextComponent");
     reg.register_component<IComponent>("DrawComponent");
     reg.set_component<IComponent>(idxPacketEntities, std::make_shared<DrawComponent>(false), "DrawComponent");
     reg.register_component<IComponent>("TextComponent");

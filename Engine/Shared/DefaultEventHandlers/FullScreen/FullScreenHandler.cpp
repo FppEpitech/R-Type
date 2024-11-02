@@ -21,8 +21,6 @@ bool FullScreenHandler::processEvent(std::shared_ptr<IEvent> event,
         int key = graphicLib->getKeyPressedInput();
         if (key == KEY_F2)
             graphicLib->changeFullscreen();
-        else
-            return true;
     } catch (const std::exception &e) {
         throw FullScreenHandlerError("Error while processing the event: " + std::string(e.what()));
     }

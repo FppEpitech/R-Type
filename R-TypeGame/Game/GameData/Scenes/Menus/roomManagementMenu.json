@@ -1,13 +1,5 @@
 {
     "keyBinds": [
-        {
-            "key": "KEY_F3",
-            "path": "libsystem_DisplayConsumption.so"
-        },
-        {
-            "key": "KEY_F1",
-            "path": "libsystem_DisplayShaderInfo.so"
-        }
     ],
     "entities": [
         "libsystem_initBackground.so",
@@ -38,6 +30,14 @@
     ],
     "menus": {
         "keyBinds": [
+            {
+                "key": "KEY_F3",
+                "path": "libsystem_DisplayConsumption.so"
+            },
+            {
+                "key": "KEY_F1",
+                "path": "libsystem_DisplayShaderInfo.so"
+            }
         ]
     },
     "music": "Assets/Musics/InMenu.wav",

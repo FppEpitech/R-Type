@@ -27,8 +27,6 @@ bool ShadersHandler::processEvent(std::shared_ptr<IEvent> event,
             graphicLib->nextShaderIntensity();
         else if (key == KEY_DOWN)
             graphicLib->previousShaderIntensity();
-        else
-            return true;
     } catch (const std::exception &e) {
         throw ShadersHandlerError("Error while processing the event: " + std::string(e.what()));
     }
