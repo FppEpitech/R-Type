@@ -76,6 +76,20 @@ namespace SceneManager {
              * @brief Get the unordered map of sounds.
              */
             virtual std::unordered_map<KEY_MAP, std::string> getSoundMap() = 0;
+
+            /**
+             * @brief Set the Index Player object.
+             *
+             * @param indexPlayer Index to set.
+             */
+            virtual void setIndexPlayer(int indexPlayer) = 0;
+
+            /**
+             * @brief Get the Index Player object.
+             *
+             * @return int Index of the player.
+             */
+            virtual int getIndexPlayer() = 0;
     };
 
     /**
