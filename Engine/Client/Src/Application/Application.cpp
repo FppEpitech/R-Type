@@ -69,6 +69,7 @@ void Application::_initDefaultGraphicSystems()
     _defaultSystems.push_back(DrawOBJSystem().getFunction());
     _defaultSystems.push_back(DrawTextureSystem().getFunction());
     _defaultSystems.push_back(DrawTextureRectSystem().getFunction());
+    _defaultSystems.push_back(DrawHitBoxesSystem().getFunction());
     _defaultSystems.push_back(DrawTextSystem().getFunction());
     _defaultSystems.push_back(SpriteSheetAnimationSystem().getFunction());
 }
