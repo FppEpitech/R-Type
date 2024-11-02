@@ -1180,3 +1180,10 @@ add_library(system_moveDown SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
 target_link_libraries(system_moveDown PRIVATE JsonCpp::JsonCpp)
+
+add_library(system_loginCheck SHARED
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        Menus/Login/LoginCheckSystem.cpp
+)

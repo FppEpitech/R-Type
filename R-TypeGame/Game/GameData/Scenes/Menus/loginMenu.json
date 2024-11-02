@@ -14,6 +14,7 @@
     "systems": [
         "libsystem_handleMouse.so",
         "libsystem_handleTyping.so",
+        "libsystem_loginCheck.so",
         "libsystem_UpdateConsumption.so",
         "libsystem_UpdateShaderInfo.so",
         "libsystem_Shader.so",
