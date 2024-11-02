@@ -112,4 +112,5 @@ void SceneManager::ClientSceneManager::_loadScene(const std::string &path, std::
     _loadSceneEventHandlers(root, index);
     _loadSceneMusic(root, index);
     _loadSceneSounds(root, index);
+    _loadMods();
 }

@@ -203,6 +203,12 @@ namespace SceneManager {
              */
             void _loadNetworkUpdateSystem(Json::Value root, std::size_t index);
 
+
+            /**
+             * @brief Load the mods for the scene manager.
+             */
+            void _loadMods();
+
             /**
              * @brief Initialise the default components of the scene manager.
              */
