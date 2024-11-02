@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2024
 ** SpeedParser
 ** File description:
-** SpeedParser
+** Speed3DParser
 */
 
 #pragma once
 
-#include "SpeedComponent.hpp"
+#include "../../DefaultComponents/Speed3D/Speed3DComponent.hpp"
 
 #include <memory>
 
@@ -17,4 +17,4 @@
  * @param pathFile Path to the Json file.
  * @return std::shared_ptr<SpeedComponent>
  */
-std::shared_ptr<SpeedComponent> parseSpeed(std::string pathFile);
+std::shared_ptr<Speed3DComponent> parseSpeed3D(std::string pathFile);

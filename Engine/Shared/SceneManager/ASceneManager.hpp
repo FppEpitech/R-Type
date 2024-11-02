@@ -24,6 +24,7 @@
 #include "Size1D/Size1DComponent.hpp"
 #include "ObjPath/ObjPathComponent.hpp"
 #include "Gravity/GravityComponent.hpp"
+#include "Speed3D/Speed3DComponent.hpp"
 #include "FontPath/FontPathComponent.hpp"
 #include "Editable/EditableComponent.hpp"
 #include "Velocity/VelocityComponent.hpp"

@@ -50,7 +50,8 @@ set(SRC_EXE
     ../Shared/DefaultComponents/Sound/SoundComponent.cpp
     ../Shared/DefaultComponents/NetworkConnection/NetworkConnectionComponent.cpp
     ../Shared/DefaultComponents/SpriteSheetAnimation/SpriteSheetAnimationComponent.cpp
-        ../Shared/DefaultComponents/Player/PlayerComponent.cpp
+    ../Shared/DefaultComponents/Speed3D/Speed3DComponent.cpp
+    ../Shared/DefaultComponents/Player/PlayerComponent.cpp
     ../../Network/Database/Database.cpp
     ../../Network/Database/Models/Scores/Scores.cpp
     ../../Network/Database/Models/Users/Users.cpp
