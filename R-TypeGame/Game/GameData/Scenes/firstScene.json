@@ -54,7 +54,6 @@
         "libsystem_moveMobs.so",
         "libsystem_shootDamage.so",
         "libsystem_playSounds.so",
-        "libsystem_luaScriptSystem.so",
         "libsystem_UpdateConsumption.so",
         "libsystem_UpdateShaderInfo.so",
         "libsystem_Shader.so"

@@ -17,8 +17,7 @@
         "libsystem_UpdateConsumption.so",
         "libsystem_UpdateShaderInfo.so",
         "libsystem_playSounds.so",
-        "libsystem_FullScreen.so",
-        "libsystem_luaScriptSystem.so"
+        "libsystem_FullScreen.so"
     ],
     "eventHandlers": [
         "libeventHandler_switchScene.so",
