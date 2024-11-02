@@ -8,7 +8,7 @@
 #pragma once
 
 #include "../AEventHandler.hpp"
-#include "../../../../R-TypeGame/Error/AError.hpp"
+#include "../Error/AError.hpp"
 
 class MoveEntityHandler : public AEventHandler {
 
