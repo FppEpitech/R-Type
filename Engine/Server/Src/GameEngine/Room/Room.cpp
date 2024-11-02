@@ -16,6 +16,8 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
     _roomInfos = roomInfo;
 
     _roomServer = ABINetwork::createServer(_roomInfos.playerMax);
+    if (!_roomServer)
+        throw RoomError("Error while creating a room");
     _registries = std::make_shared<ECS::Registry>();
     _registries->identity = ECS::Registry::Identity::Serveur;
 
@@ -33,14 +35,21 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
 
 void GameEngine::Room::run(std::mutex &mutex)
 {
+    _threads.push_back(std::make_shared<std::thread>([this]() { this->_sendMessages(); }));
+
     while (_isRoomOpen) {
         _numberPlayers = _roomServer->getNumberClient();
         _packetHandler();
         _connectionHandler();
         _eventListener->listen();
-        ABINetwork::sendMessages(_roomServer);
         _registries->run_systems(-1);
     }
+}
+
+void GameEngine::Room::_sendMessages()
+{
+    while(_isRoomOpen)
+        ABINetwork::sendMessages(_roomServer);
 }
 
 void GameEngine::Room::_connectionHandler()

@@ -32,11 +32,19 @@ Application::Application()
     _initDefaultGraphicSystems();
 }
 
+Application::~Application()
+{
+    for (auto thread : _threads)
+        if (thread)
+            thread->join();
+}
+
 void Application::run()
 {
     InitWindow InitWindow(_libGraphic);
     InitShader InitShader(_libGraphic);
     ConsumptionCompute consumptionCompute;
+    _threads.push_back(std::make_shared<std::thread>([this]() { this->_sendMessages(); }));
 
     while (_libGraphic->windowIsOpen()) {
         _packetHandler();
@@ -49,9 +57,13 @@ void Application::run()
             defaultSystem(*_registry, -1);
         _eventListener->listen();
         _libGraphic->endDraw();
-        if (_client)
-            ABINetwork::sendMessages(_client);
     }
+}
+
+void Application::_sendMessages()
+{
+    while(_libGraphic->windowIsOpen())
+        ABINetwork::sendMessages(_client);
 }
 
 void Application::_initDefaultGraphicSystems()

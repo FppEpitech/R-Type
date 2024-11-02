@@ -29,6 +29,7 @@ namespace ABINetwork
         if (!networkUnit)
             return;
         while (!networkUnit->getMessageToSendQueue().empty()) {
+            std::lock_guard<std::mutex> lock(networkUnit->getMutex());
             std::pair<std::vector<uint8_t>, uint32_t> message = getMessageInQueue(networkUnit);
             if (!message.first.empty())
                 networkUnit->sendMessage(message.first, message.second);

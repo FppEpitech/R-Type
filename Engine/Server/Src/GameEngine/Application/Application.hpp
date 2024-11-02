@@ -104,6 +104,13 @@ class Application {
          */
         void _handleRegister(ABINetwork::UDPPacket packet);
 
+        /**
+         * @brief Send messages to clients.
+         *
+         */
+        void _sendMessages();
+
+
         std::shared_ptr<ABINetwork::INetworkUnit>                                       _server;            // Network class for server.
         std::size_t                                                                     _nbRoom;            // Number of current rooms in the server.
         std::unordered_map<std::string, std::shared_ptr<GameEngine::Room>>              _rooms;             // List of rooms.
