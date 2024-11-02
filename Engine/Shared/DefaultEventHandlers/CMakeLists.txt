@@ -46,3 +46,57 @@ add_library(eventHandler_DefaultPlaySounds SHARED
 )
 
 target_link_libraries(eventHandler_DefaultPlaySounds PRIVATE asio::asio)
+
+add_library(eventHandler_UpdateConsumptionHandler SHARED
+        UpdateConsumption/UpdateConsumptionHandler.cpp
+        AEventHandler.cpp
+        ../../Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/Consumption/ConsumptionCompute.cpp
+)
+
+target_link_libraries(eventHandler_UpdateConsumptionHandler PRIVATE asio::asio
+    DefaultText
+    Text
+)
+
+add_library(eventHandler_ShaderHandler SHARED
+        Shaders/ShadersHandler.cpp
+        AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(eventHandler_ShaderHandler PRIVATE asio::asio)
+
+add_library(eventHandler_FullScreenHandler SHARED
+        FullScreen/FullScreenHandler.cpp
+        AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(eventHandler_FullScreenHandler PRIVATE asio::asio)
+
+add_library(eventHandler_UpdateShaderInfoHandler SHARED
+        UpdateShaderInfo/UpdateShaderInfoHandler.cpp
+        AEventHandler.cpp
+        ../../Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+target_link_libraries(eventHandler_UpdateShaderInfoHandler PRIVATE asio::asio
+        DefaultText
+        Text
+)
+
+add_library(eventHandler_moveEntity SHARED
+        MoveEntity/MoveEntityHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+target_link_libraries(eventHandler_moveEntity PRIVATE r-type_abi_network asio::asio)

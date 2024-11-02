@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <json/json.h>
 #include <fstream>
+#include <cmath>
 
 #define SETTINGS_PATH "./Config/Settings.json"
 
@@ -205,6 +206,8 @@ void GraphicLib::changeShaderIntensity(float intensity)
         return;
     Json::Value root;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
     settingsFile >> root;
     settingsFile.close();
 
@@ -212,6 +215,8 @@ void GraphicLib::changeShaderIntensity(float intensity)
         SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
     root["color_blindness"]["intensity"] = intensity;
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << root;
     settingsFileOut.close();
 }
@@ -221,6 +226,8 @@ void GraphicLib::changeCurrentShader(std::string name)
     Json::Value root;
     Json::StreamWriterBuilder writer;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
     settingsFile >> root;
     settingsFile.close();
 
@@ -235,7 +242,113 @@ void GraphicLib::changeCurrentShader(std::string name)
     }
 
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << Json::writeString(writer, root);
+    settingsFileOut.close();
+}
+
+void GraphicLib::nextCurrentShader()
+{
+    if (!windowIsOpen() || _shaders.empty())
+        return;
+    if (_currentShader == "none") {
+        changeCurrentShader(_shaders.begin()->first);
+        return;
+    }
+    auto it = _shaders.find(_currentShader);
+    if (it == _shaders.end())
+        return;
+    it++;
+    if (it == _shaders.end())
+        return;
+    changeCurrentShader(it->first);
+}
+
+void GraphicLib::previousCurrentShader()
+{
+    if (!windowIsOpen() || _shaders.empty() || _currentShader == "none")
+        return;
+
+    auto it = _shaders.find(_currentShader);
+    if (it == _shaders.begin()) {
+        _currentShader = "none";
+        return;
+    }
+
+    auto prevIt = _shaders.begin();
+    for (auto nextIt = _shaders.begin(); nextIt != it; ++nextIt)
+        prevIt = nextIt;
+    changeCurrentShader(prevIt->first);
+}
+
+std::string GraphicLib::getCurrentShader()
+{
+    return _currentShader;
+}
+
+float GraphicLib::getCurrentShaderIntensity()
+{
+    if (!windowIsOpen())
+        return 0;
+    Json::Value root;
+    std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return 0;
+    settingsFile >> root;
+    settingsFile.close();
+    return root["color_blindness"]["intensity"].asFloat();
+}
+
+void GraphicLib::nextShaderIntensity()
+{
+    if (!windowIsOpen())
+        return;
+    Json::Value root;
+    std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
+    settingsFile >> root;
+    settingsFile.close();
+
+    float intensity = root["color_blindness"]["intensity"].asFloat();
+    if (intensity + 0.1 > 1)
+        return;
+    intensity += 0.1;
+    intensity = std::round(intensity * 10) / 10.0;
+    for (auto shader : _shaders)
+        SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
+    root["color_blindness"]["intensity"] = intensity;
+    std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
+    settingsFileOut << root;
+    settingsFileOut.close();
+}
+
+void GraphicLib::previousShaderIntensity()
+{
+    if (!windowIsOpen())
+        return;
+    Json::Value root;
+    std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
+    settingsFile >> root;
+    settingsFile.close();
+
+    float intensity = root["color_blindness"]["intensity"].asFloat();
+    if (intensity - 0.1 < 0)
+        return;
+    intensity -= 0.1;
+    intensity = std::round(intensity * 10) / 10.0;
+    for (auto shader : _shaders)
+        SetShaderValue(_shaders[shader.first], GetShaderLocation(_shaders[shader.first], "intensity"), &intensity, SHADER_UNIFORM_FLOAT);
+    root["color_blindness"]["intensity"] = intensity;
+    std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
+    settingsFileOut << root;
     settingsFileOut.close();
 }
 
@@ -302,11 +415,15 @@ void GraphicLib::changeResolution(int width, int height) {
     Json::Value root;
     Json::StreamWriterBuilder writer;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
 
     settingsFile >> root;
     settingsFile.close();
     root["window"]["resolutionIndex"] = std::find(_resolutions.begin(), _resolutions.end(), std::make_pair(width, height)) - _resolutions.begin();
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << Json::writeString(writer, root);
     settingsFileOut.close();
 }
@@ -323,11 +440,15 @@ void GraphicLib::changeFullscreen()
     Json::Value root;
     Json::StreamWriterBuilder writer;
     std::ifstream settingsFile(SETTINGS_PATH, std::ifstream::binary);
+    if (!settingsFile.is_open())
+        return;
 
     settingsFile >> root;
     settingsFile.close();
     root["window"]["fullscreen"] = !root["window"]["fullscreen"].asBool();
     std::ofstream settingsFileOut(SETTINGS_PATH, std::ofstream::binary);
+    if (!settingsFileOut.is_open())
+        return;
     settingsFileOut << Json::writeString(writer, root);
     settingsFileOut.close();
 }

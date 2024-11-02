@@ -33,25 +33,25 @@ class GraphicLib : public IGraphic {
         */
         class WrongCurrentShaderName : public AError {
         public:
-        /**
-         * @brief Construct a new WrongCurrentShaderName exception.
-         *
-         * @param message The error message.
-        */
-        WrongCurrentShaderName(const std::string &message) : AError(message) {}
-        };
+            /**
+             * @brief Construct a new WrongCurrentShaderName exception.
+             *
+             * @param message The error message.
+            */
+            WrongCurrentShaderName(const std::string &message) : AError(message) {}
+            };
 
-        /**
-         * @brief Exception class for handling errors related to loading shaders.
-        */
+            /**
+             * @brief Exception class for handling errors related to loading shaders.
+            */
         class LoadShaderError : public AError {
         public:
-        /**
-         * @brief Construct a new LoadShaderError exception.
-         *
-         * @param message The error message.
-        */
-        LoadShaderError(const std::string &message) : AError(message) {}
+            /**
+             * @brief Construct a new LoadShaderError exception.
+             *
+             * @param message The error message.
+            */
+            LoadShaderError(const std::string &message) : AError(message) {}
         };
 
         /**
@@ -59,12 +59,12 @@ class GraphicLib : public IGraphic {
         */
         class ResolutionError : public AError {
         public:
-        /**
-         * @brief Construct a new ResolutionError exception.
-         *
-         * @param message The error message.
-        */
-        ResolutionError(const std::string &message) : AError(message) {}
+            /**
+             * @brief Construct a new ResolutionError exception.
+             *
+             * @param message The error message.
+            */
+            ResolutionError(const std::string &message) : AError(message) {}
         };
 
         /**
@@ -196,6 +196,40 @@ class GraphicLib : public IGraphic {
          * @param name The name of the shader to change to.
         */
         void changeCurrentShader(std::string name);
+
+        /**
+         * @brief Switch to the next shader in the list.
+         */
+        void nextCurrentShader();
+
+        /**
+         * @brief Switch to the previous shader in the list.
+         */
+        void previousCurrentShader();
+
+        /**
+         * @brief Get the name of the current shader.
+         *
+         * @return std::string The name of the current shader.
+         */
+        std::string getCurrentShader();
+
+        /**
+         * @brief Get the intensity of the current shader.
+         *
+         * @return float The intensity of the current shader.
+         */
+        float getCurrentShaderIntensity();
+
+        /**
+         * @brief Increase the intensity of the current shader.
+         */
+        void nextShaderIntensity();
+
+        /**
+         * @brief Decrease the intensity of the current shader.
+         */
+        void previousShaderIntensity();
 
         /**
          * @brief Change the intensity of the current shader.

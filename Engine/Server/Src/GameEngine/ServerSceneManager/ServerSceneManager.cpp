@@ -45,4 +45,5 @@ void SceneManager::ServerSceneManager::_loadScene(const std::string &path, std::
     _loadSceneSystems(root, index);
     _loadSceneKeys(root, index);
     _loadSceneEventHandlers(root, index);
+    _loadMods();
 }

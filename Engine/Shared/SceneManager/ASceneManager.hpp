@@ -117,6 +117,12 @@ namespace SceneManager {
              */
             int getIndexPlayer();
 
+            /**
+             * @brief Get the ConsumptionCompute object.
+             * @return The ConsumptionCompute object.
+             */
+            ConsumptionCompute GetConsumptionCompute();
+
         protected:
 
             std::shared_ptr<ECS::Registry>                                                  _registry; // Registries for each scene.
@@ -215,6 +221,12 @@ namespace SceneManager {
              * @param index Index of the registry to load the scene.
              */
             void _loadNetworkUpdateSystem(Json::Value root, std::size_t index);
+
+
+            /**
+             * @brief Load the mods for the scene manager.
+             */
+            void _loadMods();
 
             /**
              * @brief Initialise the default components of the scene manager.

@@ -8,6 +8,7 @@
 #include <fstream>
 #include <algorithm>
 #include <chrono>
+#include <filesystem>
 
 #include "ASceneManager.hpp"
 #include "DLLoader/DLLoader.hpp"
@@ -25,6 +26,11 @@ SceneManager::ASceneManager::ASceneManager(std::shared_ptr<ECS::Registry> regist
 std::unordered_map<KEY_MAP, std::string> SceneManager::ASceneManager::getSoundMap()
 {
     return (std::unordered_map<KEY_MAP, std::string>());
+}
+
+ConsumptionCompute SceneManager::ASceneManager::GetConsumptionCompute()
+{
+    return ConsumptionCompute();
 }
 
 bool SceneManager::ASceneManager::processInput(KEY_MAP key, int idxPacketEntities)
@@ -140,6 +146,19 @@ void SceneManager::ASceneManager::_loadSceneKeysSystem(std::string key, std::str
         _keysSystems[stringKeyMap.at(key)] = system;
     } else
         throw SceneManagerJsonErrors("Error while loading the key: " + key);
+}
+
+void SceneManager::ASceneManager::_loadMods()
+{
+    if (std::filesystem::exists("./Mods")) {
+        for (const auto& entry : std::filesystem::directory_iterator("./Mods")) {
+            if (entry.path().extension() == LIB_SUFFIX) {
+                std::shared_ptr<ISystem> system = DLLoader<ISystem>::load(entry.path().string(), "loadSystemInstance");
+                if (system)
+                    _registry->add_system(system->getFunction());
+            }
+        }
+    }
 }
 
 void SceneManager::ASceneManager::changeScene(std::pair<std::size_t, std::string> scene)

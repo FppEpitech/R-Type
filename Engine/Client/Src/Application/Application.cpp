@@ -6,7 +6,6 @@
 */
 
 #include "Application.hpp"
-#include "ConsumptionCompute.hpp"
 
 Application::Application()
 {
@@ -43,7 +42,6 @@ void Application::run()
 {
     InitWindow InitWindow(_libGraphic);
     InitShader InitShader(_libGraphic);
-    ConsumptionCompute consumptionCompute;
     _threads.push_back(std::make_shared<std::thread>([this]() { this->_sendMessages(); }));
 
     while (_libGraphic->windowIsOpen()) {
@@ -83,12 +81,12 @@ void Application::_handleAssignTokenPacket(ABINetwork::UDPPacket packet)
 void Application::_keyboardHandler(std::size_t key)
 {
     try {
-        if (key == KEY_NULL || _client->getToken() == 0)
+        if (key == KEY_NULL)
             return;
-
         if (!_sceneManager->processInput(KEY_MAP(key), _sceneManager->getIndexPlayer()))
             return;
-
+        if (_client->getToken() == 0)
+            return;
         ABINetwork::sendPacketKey(_client, key);
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
