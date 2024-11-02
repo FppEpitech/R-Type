@@ -70,7 +70,7 @@ find_package(jsoncpp REQUIRED)
 find_package(asio CONFIG REQUIRED)
 
 add_library(system_moveEntities SHARED
-        Move/MoveEntities/MoveEntitiesSystem.cpp
+        MoveEntities/MoveEntitiesSystem.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
@@ -145,5 +145,56 @@ add_library(system_UpdateConsumption SHARED
 )
 
 target_link_libraries(system_UpdateConsumption PRIVATE
+        JsonCpp::JsonCpp
+)
+
+add_library(system_Shader SHARED
+        Shaders/ShaderSystem.cpp
+        ../../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+)
+
+add_library(system_FullScreen SHARED
+        FullScreen/FullScreenSystem.cpp
+        ../../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+)
+
+add_library(system_InitShaderInfo SHARED
+        DisplayShaderInfo/InitShaderInfoSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_InitShaderInfo PRIVATE
+        TextPosition2D
+        DefaultText
+        Text
+        Size1D
+        Draw
+        FontPath
+        Colour
+        JsonCpp::JsonCpp
+)
+
+add_library(system_DisplayShaderInfo SHARED
+        DisplayShaderInfo/DisplayShaderInfoSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_DisplayShaderInfo PRIVATE
+        DefaultText
+        Draw
+        JsonCpp::JsonCpp
+)
+
+add_library(system_UpdateShaderInfo SHARED
+        DisplayShaderInfo/UpdateShaderInfoSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+)
+
+target_link_libraries(system_UpdateShaderInfo PRIVATE
         JsonCpp::JsonCpp
 )
