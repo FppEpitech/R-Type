@@ -24,6 +24,7 @@
 #include "Size1D/Size1DComponent.hpp"
 #include "ObjPath/ObjPathComponent.hpp"
 #include "Gravity/GravityComponent.hpp"
+#include "Speed3D/Speed3DComponent.hpp"
 #include "FontPath/FontPathComponent.hpp"
 #include "Editable/EditableComponent.hpp"
 #include "Velocity/VelocityComponent.hpp"
@@ -103,6 +104,20 @@ namespace SceneManager {
              */
             std::unordered_map<KEY_MAP, std::string> getSoundMap();
 
+            /**
+             * @brief Set the Index Player object.
+             *
+             * @param indexPlayer Index to set.
+             */
+            void setIndexPlayer(int indexPlayer);
+
+            /**
+             * @brief Get the Index Player object.
+             *
+             * @return int Index of the player.
+             */
+            int getIndexPlayer();
+
         protected:
 
             std::shared_ptr<ECS::Registry>                                                  _registry; // Registries for each scene.
@@ -117,6 +132,8 @@ namespace SceneManager {
             std::shared_ptr<EventListener>                                                  _eventListener; // Event listener for the scene manager.
 
             std::unordered_map<KEY_MAP, std::string>                                        _soundMap; // Sound map for the scene manager.
+
+            int                                                                             _indexPlayer; //Index of the player in the registry.
 
             /**
              * @brief Get the component lib path.

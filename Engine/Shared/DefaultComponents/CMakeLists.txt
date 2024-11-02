@@ -43,6 +43,7 @@ include_directories(
         ./Size1D/
         ./Sound/
         ./Speed/
+        ./Speed3D/
         ./SpriteSheetAnimation/
         ./Text/
         ./TextLimit/
@@ -110,6 +111,7 @@ set(COMPONENTS
         Size1D
         Sound
         Speed
+        Speed3D
         SpriteSheetAnimation
         Text
         TextLimit

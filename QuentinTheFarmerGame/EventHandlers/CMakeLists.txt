@@ -22,6 +22,8 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/KeyMaps/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ColourParser/
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Colour/
     ${CMAKE_SOURCE_DIR}/Engine/Shared/
     ${CMAKE_SOURCE_DIR}/Network/Messages/
     ${CMAKE_SOURCE_DIR}/Network/ABI/

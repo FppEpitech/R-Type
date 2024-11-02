@@ -81,6 +81,13 @@ class ANetworkUnit : public INetworkUnit
         uint32_t getToken() override;
 
         /**
+         * @brief Set the Token object.
+         *
+         * @param token Token to set.
+         */
+        void setToken(uint32_t token) override;
+
+        /**
          * @brief Get the Id Message object.
          *
          * @return uint32_t

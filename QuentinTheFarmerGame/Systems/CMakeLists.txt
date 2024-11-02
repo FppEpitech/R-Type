@@ -49,29 +49,32 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/TextureRect/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Editable/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Checkable/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultComponents/Speed/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultComponents/Velocity/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultComponents/Velocity3D/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Speed/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Speed3D/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Velocity/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Velocity3D/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/EntityId/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Gravity/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/ScaleParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/Position2DParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/PlayerParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/SpeedParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/TextureRectParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/VelocityParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/Velocity3DParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/SpriteSheetAnimationParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/FontPathParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/TextParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/ButtonStateParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/ColourParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/Size1DParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/TextPosition2DParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/DefaultTextParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/TextLimitParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/ButtonTexturePathParser/
-        ${CMAKE_SOURCE_DIR}/Engine/shared/DefaultParser/Gravity/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ScaleParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/Position2DParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/PlayerParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/SpeedParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/Speed3DParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/TextureRectParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/VelocityParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/Velocity3DParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/SpriteSheetAnimationParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/FontPathParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/TextParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ButtonStateParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ColourParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/Size1DParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/TextPosition2DParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/DefaultTextParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/TextLimitParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ButtonTexturePathParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/GravityParser/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ColourParser/
         ../Components/Life/
         ../Components/Shoot/
         ../Components/Planet/
@@ -152,7 +155,7 @@ target_link_libraries(system_initPlayerOne
         Player
         Draw
         Life
-        Speed
+        Speed3D
         Shoot
         ObjPath
         Position3D
@@ -1126,6 +1129,16 @@ add_library(system_playSounds SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
 
+add_library(system_jump SHARED
+        Move/JumpSystem/JumpSystem.cpp
+        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+target_link_libraries(system_jump PRIVATE
+        Player
+        JsonCpp::JsonCpp
+)
 
 add_library(system_moveRight SHARED
         Move/MoveSystemRight/MoveSystemRight.cpp
@@ -1133,14 +1146,20 @@ add_library(system_moveRight SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
-target_link_libraries(system_moveRight PRIVATE JsonCpp::JsonCpp)
+target_link_libraries(system_moveRight PRIVATE
+        Player
+        JsonCpp::JsonCpp
+)
 
 add_library(system_moveLeft SHARED Move/MoveSystemLeft/MoveSystemLeft.cpp
         ../Error/AError.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
-target_link_libraries(system_moveLeft PRIVATE asio::asio)
+target_link_libraries(system_moveLeft PRIVATE
+        Player
+        asio::asio
+)
 
 add_library(system_moveUp SHARED
         Move/MoveSystemUp/MoveSystemUp.cpp
@@ -1148,7 +1167,10 @@ add_library(system_moveUp SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
-target_link_libraries(system_moveUp PRIVATE asio::asio)
+target_link_libraries(system_moveUp PRIVATE
+        Player
+        asio::asio
+)
 
 add_library(system_moveDown SHARED
         Move/MoveSystemDown/MoveSystemDown.cpp
@@ -1156,5 +1178,8 @@ add_library(system_moveDown SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
-target_link_libraries(system_moveDown PRIVATE JsonCpp::JsonCpp)
+target_link_libraries(system_moveDown PRIVATE
+        Player
+        JsonCpp::JsonCpp
+)
 

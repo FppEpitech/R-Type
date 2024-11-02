@@ -27,9 +27,9 @@ void GravitySystem::_handleGravity(ECS::Registry &reg, int idxPacketEntities)
             if (!position3D || !gravity)
                 continue;
 
-            position3D->x += gravity->gravityX;
-            position3D->y += gravity->gravityY;
-            position3D->z += gravity->gravityZ;
+            position3D->x -= gravity->gravityX;
+            position3D->y -= gravity->gravityY;
+            position3D->z -= gravity->gravityZ;
         }
     } catch (std::exception e) {
     }
