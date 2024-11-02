@@ -5,6 +5,8 @@
       "raylib",
       "jsoncpp",
       "sqlite3",
-      "libsodium"
+      "libsodium",
+      "lua",
+      "sol2"
     ]
 }

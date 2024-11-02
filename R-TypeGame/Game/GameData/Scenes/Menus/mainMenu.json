@@ -10,7 +10,8 @@
     ],
     "systems": [
         "libsystem_handleMouse.so",
-        "libsystem_handleTyping.so"
+        "libsystem_handleTyping.so",
+        "libsystem_luaScriptSystem.so"
     ],
     "eventHandlers": [
         "libeventHandler_switchScene.so",
