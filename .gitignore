@@ -56,3 +56,4 @@ vcpkg.zip
 #Game
 /Game/
 !R-TypeGame/Game/
+!QuentinTheFarmerGame/Game/
