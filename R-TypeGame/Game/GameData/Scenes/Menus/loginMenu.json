@@ -11,7 +11,8 @@
     ],
     "systems": [
         "libsystem_handleMouse.so",
-        "libsystem_handleTyping.so"
+        "libsystem_handleTyping.so",
+        "libsystem_loginCheck.so"
     ],
     "eventHandlers": [
         "libeventHandler_login.so",

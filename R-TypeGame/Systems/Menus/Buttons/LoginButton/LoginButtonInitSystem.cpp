@@ -72,11 +72,6 @@ static void handleThis(ECS::Registry& reg, int idxPacketEntities)
     valuesLogin.push_back(passwordText->text);
     std::shared_ptr<IEvent> eventLogin = std::make_shared<AEvent>("Login", valuesLogin);
     reg.addEvent(eventLogin);
-
-    std::vector<std::any> valuesLoginAllowed = {};
-    valuesLoginAllowed.push_back(std::string(LOGIN));
-    std::shared_ptr<IEvent> eventLoginAllowed = std::make_shared<AEvent>("LoginAllowed", valuesLoginAllowed);
-    reg.addEvent(eventLoginAllowed);
 }
 
 void LoginButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)

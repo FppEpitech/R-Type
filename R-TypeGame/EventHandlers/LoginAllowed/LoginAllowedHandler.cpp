@@ -25,7 +25,7 @@ bool LoginAllowedHandler::processEvent(std::shared_ptr<IEvent> event,
             throw LoginAllowedHandlerError("Failed to log, error with the client unit.");
 
         if (ABINetwork::getClientLogin(networkUnit) == ABINetwork::INetworkUnit::LoginState::NONE)
-            return false;
+            return true;
         if (ABINetwork::getClientLogin(networkUnit) == ABINetwork::INetworkUnit::LoginState::JUST_FAILED) {
             ABINetwork::setClientLogin(networkUnit, ABINetwork::INetworkUnit::LoginState::NONE);
             return true;
