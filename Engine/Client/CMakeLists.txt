@@ -46,6 +46,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/Velocity/VelocityComponent.cpp
     ../Shared/DefaultComponents/Velocity3D/Velocity3DComponent.cpp
     ../Shared/DefaultComponents/Gravity/GravityComponent.cpp
+    ../Shared/DefaultComponents/Speed3D/Speed3DComponent.cpp
 )
 
 # Define system source files

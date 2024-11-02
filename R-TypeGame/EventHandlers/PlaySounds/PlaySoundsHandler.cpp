@@ -22,10 +22,12 @@ bool PlaySoundsHandler::processEvent(std::shared_ptr<IEvent> event,
         int key = graphicLib->getKeyDownInput();
         if (graphicLib->isMouseButtonDown(IGraphic::MouseButtons::MOUSE_LEFT))
             key = MOUSE_LEFT_CLICK;
-        if (graphicLib->isMouseButtonDown(IGraphic::MouseButtons::MOUSE_RIGHT))
+        else if (graphicLib->isMouseButtonDown(IGraphic::MouseButtons::MOUSE_RIGHT))
             key = MOUSE_RIGHT_CLICK;
-        if (graphicLib->isMouseButtonDown(IGraphic::MouseButtons::MOUSE_MIDDLE))
+        else if (graphicLib->isMouseButtonDown(IGraphic::MouseButtons::MOUSE_MIDDLE))
             key = MOUSE_MIDDLE_CLICK;
+        else
+            return true;
         if (sceneManager->getSoundMap().contains(static_cast<KEY_MAP>(key))) {
             std::string path = sceneManager->getSoundMap().at(static_cast<KEY_MAP>(key));
             std::vector<std::any> soundPath = {path};

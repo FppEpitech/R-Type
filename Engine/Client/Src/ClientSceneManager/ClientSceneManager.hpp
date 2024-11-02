@@ -55,6 +55,12 @@ namespace SceneManager {
              */
             std::unordered_map<KEY_MAP, std::string> getSoundMap() override;
 
+            /**
+             * @brief Get the ConsumptionCompute object.
+             * @return The ConsumptionCompute object.
+             */
+            ConsumptionCompute GetConsumptionCompute() override;
+
         private:
 
             /**

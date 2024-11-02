@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** MoveEntityHandler.hpp
+** FullScreenHandler.hpp
 */
 
 #pragma once
@@ -10,22 +10,22 @@
 #include "AEventHandler.hpp"
 #include "../Error/AError.hpp"
 
-class MoveEntityHandler : public AEventHandler {
+class FullScreenHandler : public AEventHandler {
 
     public:
 
         /**
-         * @brief Construct a new MoveEntityHandler object
+         * @brief Construct a new FullScreenHandler object
          *
          * @param eventType Event type
          */
-        MoveEntityHandler(std::string eventType = "");
+        FullScreenHandler(std::string eventType = "");
 
         /**
-         * @brief Destroy the MoveEntityHandler object
+         * @brief Destroy the FullScreenHandler object
          *
          */
-        ~MoveEntityHandler() = default;
+        ~FullScreenHandler() = default;
 
         /**
          * @brief Process the event
@@ -40,14 +40,14 @@ class MoveEntityHandler : public AEventHandler {
         bool processEvent(std::shared_ptr<IEvent> event, std::shared_ptr<SceneManager::ISceneManager> sceneManager, std::shared_ptr<ABINetwork::INetworkUnit> networkUnit, std::shared_ptr<IGraphic> graphicLib) override;
 };
 
-class MoveEntityHandlerError : public AError {
+class FullScreenHandlerError : public AError {
 
     public:
 
         /**
-         * @brief Construct a new MoveEntityHandlerError object
+         * @brief Construct a new FullScreenHandlerError object
          *
          * @param message Message
          */
-        MoveEntityHandlerError(std::string message) : AError(message) {}
+        FullScreenHandlerError(std::string message) : AError(message) {}
 };

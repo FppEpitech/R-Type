@@ -9,50 +9,44 @@
 #include "MoveSystemUp.hpp"
 
 MoveSystemUp::MoveSystemUp() :
-    ASystem("MovementUpSystem")
-{
-}
+        ASystem("MoveSystemUp") {}
 
-std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemUp::getFunction()
+std::function<void(ECS::Registry& reg, int idxEntity)> MoveSystemUp::getFunction()
 {
-    return [this](ECS::Registry& reg, int idxPacketEntities) {
-        updateUpPosition(reg, idxPacketEntities);
+    return [this](ECS::Registry& reg, int idxEntity) {
+        updateUpPosition(reg, idxEntity);
     };
 }
 
-void MoveSystemUp::updateUpPosition(ECS::Registry& entityManager, int idxPacketEntities)
+void MoveSystemUp::updateUpPosition(ECS::Registry& reg, int idxEntity)
 {
-    std::lock_guard<std::mutex> lock(entityManager._myBeautifulMutex);
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
-        ECS::SparseArray<IComponent> DrawComponentArray = entityManager.get_components<IComponent>("DrawComponent");
-        if (DrawComponentArray.size() <= idxPacketEntities)
-            return;
-        DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[idxPacketEntities].get());
-        if (!draw || !draw->draw)
-            return;
+        ECS::SparseArray<IComponent> draws = reg.get_components<IComponent>("DrawComponent");
+        ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position3DComponent");
+        ECS::SparseArray<IComponent> speeds = reg.get_components<IComponent>("Speed3DComponent");
+        ECS::SparseArray<IComponent> player = reg.get_components<IComponent>("PlayerComponent");
 
-        ECS::SparseArray<IComponent> PositionComponentArray = entityManager.get_components<IComponent>("Position2DComponent");
-        ECS::SparseArray<IComponent> SpeedComponentArray = entityManager.get_components<IComponent>("SpeedComponent");
+        for (ECS::entity_t entity = 0; entity < draws.size() && entity < positions.size() && entity < speeds.size() && entity < player.size(); entity++) {
+            std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(draws[entity]);
+            std::shared_ptr<Position3DComponent> position = std::dynamic_pointer_cast<Position3DComponent>(positions[entity]);
+            std::shared_ptr<Speed3DComponent> speed = std::dynamic_pointer_cast<Speed3DComponent>(speeds[entity]);
+            std::shared_ptr<PlayerComponent> playerComponent = std::dynamic_pointer_cast<PlayerComponent>(player[entity]);
 
-        if (PositionComponentArray.size() <= idxPacketEntities || SpeedComponentArray.size() <= idxPacketEntities)
-            return;
+            if (!position || !speed || !draw || !playerComponent)
+                return;
 
-        Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
-        SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
+            position->z += speed->speedZ;
 
-        if (!position || !speed)
-            return;
-        if (position->y - speed->speedY < 0)
-            position->y = 0;
-        else
-            position->y -= speed->speedY;
+            /*std::vector<std::any> values = {};
+            values.push_back(idxEntity);
+            values.push_back(position->x);
+            values.push_back(position->y);
+            values.push_back(position->z);
+            std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", values);
+            reg.addEvent(eventMoveEntity);*/
+        }
 
-        std::vector<std::any> valuesMoveEntity = {};
-        valuesMoveEntity.push_back(idxPacketEntities);
-        valuesMoveEntity.push_back(position->x);
-        valuesMoveEntity.push_back(position->y);
-        std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", valuesMoveEntity);
-        entityManager.addEvent(eventMoveEntity);
     } catch(const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
