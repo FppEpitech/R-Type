@@ -89,3 +89,11 @@ target_link_libraries(eventHandler_UpdateShaderInfoHandler PRIVATE asio::asio
         DefaultText
         Text
 )
+
+add_library(eventHandler_moveEntity SHARED
+        MoveEntity/MoveEntityHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+target_link_libraries(eventHandler_moveEntity PRIVATE r-type_abi_network asio::asio)
