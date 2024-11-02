@@ -173,11 +173,45 @@ class IGraphic {
         virtual void changeCurrentShader(std::string name) = 0;
 
         /**
+         * @brief Switch to the next shader in the list.
+         */
+        virtual void nextCurrentShader() = 0;
+
+        /**
+         * @brief Switch to the previous shader in the list.
+         */
+        virtual void previousCurrentShader() = 0;
+
+        /**
+         * @brief Get the name of the current shader.
+         *
+         * @return std::string The name of the current shader.
+         */
+        virtual std::string getCurrentShader() = 0;
+
+        /**
+         * @brief Get the intensity of the current shader.
+         *
+         * @return float The intensity of the current shader.
+         */
+        virtual float getCurrentShaderIntensity() = 0;
+
+        /**
          * @brief Change the intensity of the current shader.
          *
          * @param intensity The new intensity value for the shader.
          */
         virtual void changeShaderIntensity(float intensity) = 0;
+
+        /**
+         * @brief Increase the intensity of the current shader.
+         */
+        virtual void nextShaderIntensity() = 0;
+
+        /**
+         * @brief Decrease the intensity of the current shader.
+         */
+        virtual void previousShaderIntensity() = 0;
 
         /**
          * @brief Reset the current shader to its default state.
