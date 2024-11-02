@@ -205,6 +205,7 @@ void SceneManager::ASceneManager::_initialiseDefaultComponents()
     _registry->register_component<IComponent>(Velocity3DComponent().getType());
     _registry->register_component<IComponent>(VelocityComponent().getType());
     _registry->register_component<IComponent>(GravityComponent().getType());
+    _registry->register_component<IComponent>(Speed3DComponent().getType());
 }
 
 void SceneManager::ASceneManager::setIndexPlayer(int indexPlayer)
