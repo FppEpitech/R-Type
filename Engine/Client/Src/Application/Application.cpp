@@ -68,12 +68,12 @@ void Application::_handleAssignTokenPacket(ABINetwork::UDPPacket packet)
 void Application::_keyboardHandler(std::size_t key)
 {
     try {
-        if (key == KEY_NULL || _client->getToken() == 0)
+        if (key == KEY_NULL)
             return;
-
         if (!_sceneManager->processInput(KEY_MAP(key), _idxEntityPlayer))
             return;
-
+        if (_client->getToken() == 0)
+            return;
         ABINetwork::sendPacketKey(_client, key);
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
