@@ -51,7 +51,7 @@ class Application {
          * @brief Destroy the Application object
          *
          */
-        ~Application() = default;
+        ~Application();
 
         /**
          * @brief Run the application
@@ -136,12 +136,22 @@ class Application {
          */
         void _initDefaultGraphicSystems();
 
+        /**
+         * @brief Send Messages to the server.
+         * This method is multi-threaded.
+         * It take all messages in the client queue and send them.
+         *
+         */
+        void _sendMessages();
+
+
         std::shared_ptr<ECS::Registry>                                              _registry;          // Registries for each scene.
         std::vector<std::function<void(ECS::Registry& reg, int idxPacketEntities)>> _defaultSystems;    // Default system.
         std::shared_ptr<ABINetwork::INetworkUnit>                                   _client;            // Client Network unit.
         std::shared_ptr<SceneManager::ClientSceneManager>                           _sceneManager;      // load and handle scene in the ECS.
         std::shared_ptr<EventListener>                                              _eventListener;     // Event listener for the client.
         std::shared_ptr<IGraphic>                                                   _libGraphic;        // Graphic library.
+        std::vector<std::shared_ptr<std::thread>>                                   _threads;           // Vector of threads
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
             {ABINetwork::IMessage::MessageType::CREATE_ROOM, [this](ABINetwork::UDPPacket packet) { this->_handleCreateRoomPacket(packet); }},
