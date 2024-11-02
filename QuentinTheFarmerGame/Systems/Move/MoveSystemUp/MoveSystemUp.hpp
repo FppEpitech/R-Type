@@ -10,8 +10,9 @@
 #include "../../Network/ABI/ABIServer.hpp"
 #include "../../../../Engine/Shared/DefaultSystems/ISystem.hpp"
 #include "../Draw/DrawComponent.hpp"
-#include "Speed/SpeedComponent.hpp"
-#include "../Position2D/Position2DComponent.hpp"
+#include "Speed3D/Speed3DComponent.hpp"
+#include "../Position3D/Position3DComponent.hpp"
+#include "../Player/PlayerComponent.hpp"
 
 class MoveSystemUp : public ASystem
 {

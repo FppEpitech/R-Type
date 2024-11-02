@@ -150,6 +150,9 @@ std::pair<std::string, std::string> RoomMessage::getJoinRoomInfoFromPacket(UDPPa
     if (roomPasswordLength == 0)
         return {roomName, ""};
     offset += sizeof(uint32_t);
+
+    if (roomPasswordLength == 0)
+        return {roomName, ""};
     std::string roomPassword;
     roomPassword.assign(reinterpret_cast<const char*>(&packet.getPayload()[offset]), roomPasswordLength);
     offset += roomPasswordLength;

@@ -390,6 +390,23 @@ add_library(system_hitboxPlayer SHARED
     ../Error/AError.cpp
 )
 
+target_link_libraries(system_hitboxPlayer PRIVATE
+    Position2D
+    Player
+    Planet
+    Scale
+    TextureRect
+    Text
+    Life
+    JsonCpp::JsonCpp
+)
+
+set_target_properties(system_hitboxPlayer PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Mods
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Mods
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Game/Mods
+)
+
 add_library(system_initIpTextButton SHARED
     ../Error/AError.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp

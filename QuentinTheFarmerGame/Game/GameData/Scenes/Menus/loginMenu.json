@@ -1,5 +1,13 @@
 {
     "keyBinds": [
+        {
+            "key": "KEY_F3",
+            "path": "libsystem_DisplayConsumption.so"
+        },
+        {
+            "key": "KEY_F1",
+            "path": "libsystem_DisplayShaderInfo.so"
+        }
     ],
     "entities": [
         "libsystem_initBackground.so",
@@ -7,11 +15,16 @@
         "libsystem_initPasswordTextButton.so",
         "libsystem_initLoginText.so",
         "libsystem_initLoginButton.so",
-        "libsystem_initBackToAccountManagementButton.so"
+        "libsystem_initBackToAccountManagementButton.so",
+        "libsystem_InitConsumption.so",
+        "libsystem_InitShaderInfo.so"
     ],
     "systems": [
         "libsystem_handleMouse.so",
         "libsystem_handleTyping.so",
+        "libsystem_UpdateConsumption.so",
+        "libsystem_UpdateShaderInfo.so",
+        "libsystem_Shader.so",
         "libsystem_playSounds.so"
     ],
     "eventHandlers": [
@@ -20,7 +33,11 @@
         "libeventHandler_switchScene.so",
         "libeventHandler_DefaultPlayMusic.so",
         "libeventHandler_DefaultPlaySounds.so",
-        "libeventHandler_PlaySounds.so"
+        "libeventHandler_PlaySounds.so",
+        "libeventHandler_FullScreenHandler.so",
+        "libeventHandler_UpdateConsumptionHandler.so",
+        "libeventHandler_UpdateShaderInfoHandler.so",
+        "libeventHandler_ShaderHandler.so"
     ],
     "menus": {
         "keyBinds": [

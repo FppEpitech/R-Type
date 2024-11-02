@@ -24,6 +24,7 @@
 #include "Size1D/Size1DComponent.hpp"
 #include "ObjPath/ObjPathComponent.hpp"
 #include "Gravity/GravityComponent.hpp"
+#include "Speed3D/Speed3DComponent.hpp"
 #include "FontPath/FontPathComponent.hpp"
 #include "Editable/EditableComponent.hpp"
 #include "Velocity/VelocityComponent.hpp"
@@ -116,6 +117,12 @@ namespace SceneManager {
              * @return int Index of the player.
              */
             int getIndexPlayer();
+
+            /**
+             * @brief Get the ConsumptionCompute object.
+             * @return The ConsumptionCompute object.
+             */
+            ConsumptionCompute GetConsumptionCompute();
 
         protected:
 
@@ -215,6 +222,12 @@ namespace SceneManager {
              * @param index Index of the registry to load the scene.
              */
             void _loadNetworkUpdateSystem(Json::Value root, std::size_t index);
+
+
+            /**
+             * @brief Load the mods for the scene manager.
+             */
+            void _loadMods();
 
             /**
              * @brief Initialise the default components of the scene manager.

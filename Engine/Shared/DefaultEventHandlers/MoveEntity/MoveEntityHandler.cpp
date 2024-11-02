@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-#include "AEvent.hpp"
-#include "ABIServer.hpp"
+#include "../../../Ecs/Src/Events/AEvent.hpp"
+#include "../../../../Network/ABI/ABIServer.hpp"
 #include "MoveEntityHandler.hpp"
 
 MoveEntityHandler::MoveEntityHandler(std::string eventType)

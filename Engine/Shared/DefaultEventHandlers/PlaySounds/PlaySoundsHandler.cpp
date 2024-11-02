@@ -16,6 +16,8 @@ bool PlaySoundsHandler::processEvent(std::shared_ptr<IEvent> event,
                                       std::shared_ptr<IGraphic> graphicLib)
 {
     try {
+        if (!graphicLib)
+            return true;
         std::string soundPath = std::any_cast<std::string>(event->getValues()[0]);
         graphicLib->playSound(soundPath);
     } catch (const std::exception &e) {
