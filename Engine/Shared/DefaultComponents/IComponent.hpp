@@ -10,6 +10,7 @@
 #include <string>
 
 #include "../../Error/AError.hpp"
+#include <any>
 
 /**
  * @brief Interface class for ECS components.
@@ -32,6 +33,20 @@ class IComponent {
          * @return const std::string&
          */
         virtual const std::string &getType() = 0;
+
+        /**
+         * @brief Get the Arg object
+         *
+         * @return std::any
+         */
+        virtual std::any getArg(std::string key) = 0;
+
+        /**
+         * @brief Set the Arg object
+         *
+         * @return bool
+         */
+        virtual bool setArg(std::string key, std::any value) = 0;
 };
 
 /**
@@ -62,6 +77,20 @@ class AComponent : public IComponent {
          * @return const std::string& The type of the component.
          */
         const std::string &getType() override { return _type; }
+
+        /**
+         * @brief Get the Arg object
+         *
+         * @return std::any
+         */
+        std::any getArg(std::string key) override { return std::any(84); };
+
+        /**
+         * @brief Set the Arg object
+         *
+         * @return bool
+         */
+        bool setArg(std::string key, std::any value) override { return false; };
 
     private:
         std::string _type; //< The type identifier for this component.

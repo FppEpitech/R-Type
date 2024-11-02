@@ -52,3 +52,8 @@ vcpkg.zip
 
 #db
 *.db
+
+#Game
+/Game/
+!R-TypeGame/Game/
+!QuentinTheFarmerGame/Game/

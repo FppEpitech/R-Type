@@ -515,6 +515,7 @@ target_link_libraries(system_initExitButton PRIVATE
 add_library(system_initSingleplayerButton SHARED
     ../Error/AError.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
     Menus/Buttons/AButton/AButtonInitSystem.cpp
     Menus/Buttons/SingleplayerButton/SingleplayerButtonInitSystem.cpp
     ${CMAKE_SOURCE_DIR}/Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.cpp
@@ -1179,4 +1180,3 @@ add_library(system_moveDown SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
 target_link_libraries(system_moveDown PRIVATE JsonCpp::JsonCpp)
-

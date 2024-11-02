@@ -147,6 +147,8 @@ std::pair<std::string, std::string> RoomMessage::getJoinRoomInfoFromPacket(UDPPa
 
     uint32_t roomPasswordLength;
     std::memcpy(&roomPasswordLength, &packet.getPayload()[offset], sizeof(uint32_t));
+    if (roomPasswordLength == 0)
+        return {roomName, ""};
     offset += sizeof(uint32_t);
 
     if (roomPasswordLength == 0)

@@ -16,17 +16,20 @@
 #include "PlayerComponent.hpp"
 #include "Text/TextComponent.hpp"
 #include "Draw/DrawComponent.hpp"
+#include "Music/MusicComponent.hpp"
+#include "Sound/SoundComponent.hpp"
 #include "Scale/ScaleComponent.hpp"
 #include "KeyMaps/StringKeyMap.hpp"
 #include "Colour/ColourComponent.hpp"
 #include "Size1D/Size1DComponent.hpp"
 #include "ObjPath/ObjPathComponent.hpp"
+#include "Gravity/GravityComponent.hpp"
 #include "FontPath/FontPathComponent.hpp"
 #include "Editable/EditableComponent.hpp"
+#include "Velocity/VelocityComponent.hpp"
 #include "EntityId/EntityIdComponent.hpp"
 #include "Checkable/CheckableComponent.hpp"
-#include "Music/MusicComponent.hpp"
-#include "Sound/SoundComponent.hpp"
+#include "Velocity3D/Velocity3DComponent.hpp"
 #include "Position2D/Position2DComponent.hpp"
 #include "Position3D/Position3DComponent.hpp"
 #include "MaterialMap/MaterialMapComponent.hpp"
@@ -101,6 +104,20 @@ namespace SceneManager {
             std::unordered_map<KEY_MAP, std::string> getSoundMap();
 
             /**
+             * @brief Set the Index Player object.
+             *
+             * @param indexPlayer Index to set.
+             */
+            void setIndexPlayer(int indexPlayer);
+
+            /**
+             * @brief Get the Index Player object.
+             *
+             * @return int Index of the player.
+             */
+            int getIndexPlayer();
+
+            /**
              * @brief Get the ConsumptionCompute object.
              * @return The ConsumptionCompute object.
              */
@@ -120,6 +137,8 @@ namespace SceneManager {
             std::shared_ptr<EventListener>                                                  _eventListener; // Event listener for the scene manager.
 
             std::unordered_map<KEY_MAP, std::string>                                        _soundMap; // Sound map for the scene manager.
+
+            int                                                                             _indexPlayer; //Index of the player in the registry.
 
             /**
              * @brief Get the component lib path.

@@ -1,0 +1,37 @@
+{
+    "MobComponent": {
+        "minY": -50,
+        "maxY": 850,
+        "oscillateSpeed": 3,
+        "xStartOscillate": 1600,
+        "shootSpeed": 1
+    },
+    "TextureRectComponent": {
+        "path": "./Assets/mob-1.gif",
+        "left": 0,
+        "top": 0,
+        "width": 65.2,
+        "height": 66
+    },
+    "ScaleComponent": 4,
+    "LifeComponent":1000,
+    "Position2DComponent": {
+        "x": 2500,
+        "y": 350
+    },
+    "VelocityComponent": {
+        "vx": -100,
+        "vy": 0
+    },
+    "SpriteSheetAnimationComponent":
+    {
+        "nbFrame": 5,
+        "timeFrame": 0.5,
+        "vx": 65.2,
+        "vy": 0,
+        "startX": 0,
+        "startY": 0,
+        "reverseMod": true
+    },
+    "ShootTypeComponent": "SINGLE"
+}

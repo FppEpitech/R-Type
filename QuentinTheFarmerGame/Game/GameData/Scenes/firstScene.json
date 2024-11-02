@@ -1,0 +1,25 @@
+{
+    "keyBinds": [
+    ],
+    "entities": [
+        "libsystem_initPlayerOne.so"
+    ],
+    "systems": [
+        "libsystem_handleGravity.so"
+    ],
+    "eventHandlers": [
+    ],
+    "networkUpdate": [
+    ],
+    "menus": {
+        "keyBinds": [
+        ]
+    },
+    "music": "Assets/Musics/InGame.wav",
+    "sounds": [
+        {
+            "key": "KEY_SPACE",
+            "path": "Assets/Sounds/retro-laser.mp3"
+        }
+    ]
+}

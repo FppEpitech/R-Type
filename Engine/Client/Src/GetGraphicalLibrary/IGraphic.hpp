@@ -341,4 +341,54 @@ class IGraphic {
          * @param path Path to the sound file to play.
          */
         virtual void playSound(std::string path) = 0;
+
+        /**
+         * @brief Set the camera settings.
+         *
+         * @param posX Position x.
+         * @param posY Position y.
+         * @param posZ Position z.
+         * @param targetX Target x.
+         * @param targetY Target y.
+         * @param targetZ Target z.
+         * @param upX Up x.
+         * @param upY Up y.
+         * @param upZ Up z.
+         * @param fovY Field of view y.
+         */
+        virtual void setCameraSettings(float posX, float posY, float posZ, float targetX, float targetY, float targetZ, float upX, float upY, float upZ, float fovY) = 0;
+
+        /**
+         * @brief Set the camera position.
+         *
+         * @param posX Position x.
+         * @param posY Position y.
+         * @param posZ Position z.
+         */
+        virtual void setCameraPosition(float posX, float posY, float posZ) = 0;
+
+        /**
+         * @brief Set the camera target
+         *
+         * @param targetX Target x.
+         * @param targetY Target y.
+         * @param targetZ Target z.
+         */
+        virtual void setCameraTarget(float targetX, float targetY, float targetZ) = 0;
+
+        /**
+         * @brief Set the camera up.
+         *
+         * @param upX Up x.
+         * @param upY Up y.
+         * @param upZ Up z.
+         */
+        virtual void setCameraUp(float upX, float upY, float upZ) = 0;
+
+        /**
+         * @brief Set the camera field of view.
+         *
+         * @param fovY Field of view y.
+         */
+        virtual void setCameraFovY(float fovY) = 0;
 };

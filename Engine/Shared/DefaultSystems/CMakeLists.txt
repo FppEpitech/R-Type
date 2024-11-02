@@ -111,6 +111,30 @@ target_link_libraries(system_handleTyping PRIVATE
         JsonCpp::JsonCpp
 )
 
+add_library(system_handleGravity SHARED
+        ../../Error/AError.cpp
+        Gravity/GravitySystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_handleGravity PRIVATE
+        Position3D
+        Gravity
+)
+
+find_package(sol2 CONFIG REQUIRED)
+find_package(Lua CONFIG REQUIRED)
+add_library(system_luaScriptSystem SHARED
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        LuaScript/LuaScriptSystem.cpp
+)
+target_include_directories(system_luaScriptSystem PRIVATE ${LUA_INCLUDE_DIR})
+target_link_libraries(system_luaScriptSystem PRIVATE
+    ${LUA_LIBRARIES}
+    sol2
+)
+
 add_library(system_InitConsumption SHARED
         DisplayConsumption/InitConsumptionSystem.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp

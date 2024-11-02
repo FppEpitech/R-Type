@@ -475,6 +475,35 @@ void GraphicLib::playSound(std::string path)
     PlaySound(_sounds[path]);
 }
 
+void GraphicLib::setCameraSettings(float posX, float posY, float posZ, float targetX, float targetY, float targetZ,
+                                   float upX, float upY, float upZ, float fovY)
+{
+    _camera.position = {posX, posY, posZ};
+    _camera.target = {targetX, targetY, targetZ};
+    _camera.up = {upX, upY, upZ};
+    _camera.fovy = fovY;
+}
+
+void GraphicLib::setCameraPosition(float posX, float posY, float posZ)
+{
+    _camera.position = {posX, posY, posZ};
+}
+
+void GraphicLib::setCameraTarget(float targetX, float targetY, float targetZ)
+{
+    _camera.target = {targetX, targetY, targetZ};
+}
+
+void GraphicLib::setCameraUp(float upX, float upY, float upZ)
+{
+    _camera.up = {upX, upY, upZ};
+}
+
+void GraphicLib::setCameraFovY(float fovY)
+{
+    _camera.fovy = fovY;
+}
+
 bool GraphicLib::_isShaderReady()
 {
     return _currentShader != "none";

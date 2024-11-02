@@ -49,6 +49,11 @@ namespace ABINetwork
         return _token;
     }
 
+    void ANetworkUnit::setToken(uint32_t token)
+    {
+        _token = token;
+    }
+
     uint32_t &ANetworkUnit::getIdMessage()
     {
         return _messageId;

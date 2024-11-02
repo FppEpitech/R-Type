@@ -9,6 +9,7 @@
 #include <iostream>
 #include <json/json.h>
 
+#include "AEvent.hpp"
 #include "../AButton/AButtonInitSystem.hpp"
 #include "../../../../../Engine/Client/Src/GetGraphicalLibrary/GetGraphicalLibrary.hpp"
 #include "SingleplayerButtonInitSystem.hpp"
@@ -18,9 +19,11 @@ SingleplayerButtonInitSystem::SingleplayerButtonInitSystem() :
 
 static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 {
-    try {
-    } catch (const std::exception& e) {
-    }
+    std::vector<std::any> values = {};
+
+    values.push_back(std::string(FIRST_GAME_SCENE));
+    std::shared_ptr<IEvent> eventSinglePlayer = std::make_shared<AEvent>("SinglePlayer", values);
+    reg.addEvent(eventSinglePlayer);
 }
 
 void SingleplayerButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)

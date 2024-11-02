@@ -24,7 +24,7 @@ ShootSystem::ShootSystem() :
 
 void ShootSystem::_shootIfNeeded(ECS::Registry& reg, int idxPacketEntities)
 {
-    if (idxPacketEntities == CLIENT)
+    if (reg.identity == ECS::Registry::Identity::Client)
         return;
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {

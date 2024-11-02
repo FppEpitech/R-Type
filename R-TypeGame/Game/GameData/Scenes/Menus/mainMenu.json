@@ -1,0 +1,24 @@
+{
+    "keyBinds": [
+    ],
+    "entities": [
+        "libsystem_initBackground.so",
+        "libsystem_initExitButton.so",
+        "libsystem_initSingleplayerButton.so",
+        "libsystem_initMultiplayerButton.so",
+        "libsystem_initMapEditorButton.so"
+    ],
+    "systems": [
+        "libsystem_handleMouse.so",
+        "libsystem_handleTyping.so",
+        "libsystem_luaScriptSystem.so"
+    ],
+    "eventHandlers": [
+        "libeventHandler_switchScene.so",
+        "libeventHandler_singlePlayer.so"
+    ],
+    "menus": {
+        "keyBinds": [
+        ]
+    }
+}

@@ -156,3 +156,14 @@ target_link_libraries(eventHandler_sendRoomInfos PRIVATE
         r-type_abi_network
         asio::asio
 )
+
+add_library(eventHandler_singlePlayer SHARED
+    SinglePlayer/SinglePlayerHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+target_link_libraries(eventHandler_singlePlayer PRIVATE
+        Player
+        Draw
+        r-type_abi_network
+        asio::asio)

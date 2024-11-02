@@ -37,6 +37,8 @@ void SceneManager::ServerSceneManager::_loadScene(const std::string &path, std::
     Json::Reader reader;
     Json::Value root;
 
+    if (!file)
+        throw SceneManagerErrors("Failed to open the scene file: " + path);
     if (!reader.parse(file, root, false))
         throw SceneManagerErrors("Error while parsing the scene file: " + path);
     _loadSceneEntities(root, index);

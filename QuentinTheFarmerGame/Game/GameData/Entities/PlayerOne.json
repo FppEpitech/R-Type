@@ -1,0 +1,33 @@
+{
+    "ScaleComponent": 1,
+    "Position3DComponent":
+    {
+        "x": 0,
+        "y": 0,
+        "z": 0
+    },
+    "ObjPathComponent": "./Assets/player.glb",
+    "LifeComponent":100,
+    "SpeedComponent":
+    {
+        "x":5,
+        "y":5,
+        "z":0
+    },
+    "GravityComponent":
+    {
+        "x":0,
+        "y":-0.05,
+        "z":0
+    },
+    "SpriteSheetAnimationComponent":
+    {
+        "nbFrame": 5,
+        "timeFrame": 0.5,
+        "vx": 33.2,
+        "vy": 0,
+        "startX": 0,
+        "startY": 0,
+        "reverseMod": true
+    }
+}

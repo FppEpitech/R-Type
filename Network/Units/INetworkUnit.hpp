@@ -88,6 +88,13 @@ class INetworkUnit
         virtual uint32_t getToken() = 0;
 
         /**
+         * @brief Set the Token object.
+         *
+         * @param token Token to set.
+         */
+        virtual void setToken(uint32_t token) = 0;
+
+        /**
          * @brief Get the Id Message object.
          *
          * @return uint32_t
