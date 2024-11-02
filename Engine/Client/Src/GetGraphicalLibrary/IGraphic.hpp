@@ -23,6 +23,23 @@
     #define EXPORT_SYMBOL
 #endif
 
+typedef struct Position3D {
+    float x;
+    float y;
+    float z;
+} Position3D;
+
+typedef struct HitBox {
+    Position3D min;
+    Position3D max;
+
+    bool hit(const HitBox& other) const {
+        return (min.x <= other.max.x && max.x >= other.min.x) &&
+               (min.y <= other.max.y && max.y >= other.min.y) &&
+               (min.z <= other.max.z && max.z >= other.min.z);
+    }
+} HitBox;
+
 /**
  * @class IGraphic
  * @brief Interface for the graphic module.

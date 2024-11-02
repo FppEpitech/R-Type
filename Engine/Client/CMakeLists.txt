@@ -47,6 +47,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/Velocity3D/Velocity3DComponent.cpp
     ../Shared/DefaultComponents/Gravity/GravityComponent.cpp
     ../Shared/DefaultComponents/Speed3D/Speed3DComponent.cpp
+    ../Shared/DefaultComponents/HitBox/HitBoxComponent.cpp
 )
 
 # Define system source files
