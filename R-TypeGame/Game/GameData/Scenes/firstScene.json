@@ -43,7 +43,8 @@
         "libsystem_shoot_mob.so",
         "libsystem_moveMobs.so",
         "libsystem_shootDamage.so",
-        "libsystem_playSounds.so"
+        "libsystem_playSounds.so",
+        "libsystem_luaScriptSystem.so"
     ],
     "eventHandlers": [
         "libeventHandler_moveEntity.so",

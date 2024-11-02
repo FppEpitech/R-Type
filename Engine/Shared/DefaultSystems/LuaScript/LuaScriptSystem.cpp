@@ -14,19 +14,30 @@ LuaScriptSystem::LuaScriptSystem() : ASystem("LuaScriptSystem") {}
 
 template <typename T>
 bool LuaScriptSystem::argSetter(ECS::Registry &reg, int entity, std::string componentName, std::string key, T value) {
-    ECS::SparseArray<IComponent> comp = reg.get_components<IComponent>(componentName);
+
+    try {
+        ECS::SparseArray<IComponent> comp = reg.get_components<IComponent>(componentName);
         if (entity >= comp.size() || !comp[entity])
             return false;
-    comp[entity]->setArg(key, value);
+        comp[entity]->setArg(key, value);
+    } catch (std::exception e) {
+        return false;
+    }
     return true;
 }
 
 template <typename T>
 std::optional<T> LuaScriptSystem::argGetter(ECS::Registry &reg, int entity, std::string componentName, std::string argKey) {
+    ECS::SparseArray<IComponent> comp;
+    try {
         ECS::SparseArray<IComponent> comp = reg.get_components<IComponent>(componentName);
         if (entity >= comp.size() || !comp[entity])
             return std::nullopt;
-        return std::any_cast<T>(comp[entity]->getArg(argKey));
+         return std::any_cast<T>(comp[entity]->getArg(argKey));
+    } catch (std::exception e) {
+        return std::nullopt;
+    }
+    return std::nullopt;
 }
 
 template <typename T>
@@ -55,8 +66,12 @@ void LuaScriptSystem::_runScripts(ECS::Registry& reg, int idx)
             sol::state lua;
 
             lua.set_function("getComponentsSize", [&reg, this](std::string componentName) {
-                return reg.get_components<IComponent>(componentName).size();
-
+                try {
+                    int size = reg.get_components<IComponent>(componentName).size();
+                    return size;
+                } catch (std::exception e) {
+                    return 0;
+                }
             });
 
             registerGetter<float>(reg, "Float", lua); //getComponentFloatArg

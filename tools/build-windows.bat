@@ -16,6 +16,6 @@ cmake . -DCMAKE_TOOLCHAIN_FILE="%CD%\vcpkg\scripts\buildsystems\vcpkg.cmake" -DC
 
 cd build
 
-make -j 10
+cmake --build . --parallel 10
 
 cd ..
