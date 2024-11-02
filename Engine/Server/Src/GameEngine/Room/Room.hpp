@@ -98,6 +98,12 @@ class Room {
          */
         void _handleLeaveRoom(ABINetwork::UDPPacket packet);
 
+        /**
+         * @brief Send messages in queue to client.
+         *
+         */
+        void _sendMessages();
+
         ABINetwork::roomInfo_t  _roomInfos;         // Infos of the room.
         bool                    _isRoomOpen;        // False if the room should close.
         int                     _numberPlayers;     // Number of players in the room.
@@ -106,6 +112,7 @@ class Room {
         std::shared_ptr<ECS::Registry>                          _registries;        // vector of registries class for ECS management.
         std::shared_ptr<SceneManager::ServerSceneManager>       _sceneManager;      // load and handle scene in the ECS.
         std::shared_ptr<EventListener>                          _eventListener;     // Event listener for the server.
+        std::vector<std::shared_ptr<std::thread>>               _threads;           // Vector of threads
 
         std::unordered_map<ABINetwork::IMessage::MessageType, std::function<void(ABINetwork::UDPPacket)>> _handlePacketsMap = {
             {ABINetwork::IMessage::MessageType::INIT, [this](ABINetwork::UDPPacket packet) { this->_handleInit(packet); }},
