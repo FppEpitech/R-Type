@@ -63,6 +63,8 @@ void LuaScriptSystem::_runScripts(ECS::Registry& reg, int idx)
     try {
         for (auto &f : std::filesystem::directory_iterator("GameData/Scripts/")) {
             std::string path(f.path().string());
+            if (f.path().extension() != ".lua")
+                continue;
             sol::state lua;
 
             lua.set_function("getComponentsSize", [&reg, this](std::string componentName) {
