@@ -49,7 +49,6 @@ void LuaScriptSystem::registerSetter(ECS::Registry &reg, std::string type, sol::
 void LuaScriptSystem::_runScripts(ECS::Registry& reg, int idx)
 {
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
-    std::cout << "hello";
     try {
         for (auto &f : std::filesystem::directory_iterator("GameData/Scripts/")) {
             std::string path(f.path().string());
