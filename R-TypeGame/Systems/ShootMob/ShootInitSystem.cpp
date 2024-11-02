@@ -17,7 +17,7 @@
 #include "TextureRectParser.hpp"
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
-#include "SpeedParser.hpp"
+#include "Speed3DParser.hpp"
 #include "ShootParser.hpp"
 #include "Colour/ColourComponent.hpp"
 #include "../../Engine/Shared/DefaultParser/ColourParser/ColourParser.hpp"

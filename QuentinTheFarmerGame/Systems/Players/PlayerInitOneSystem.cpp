@@ -7,7 +7,7 @@
 
 #include "LifeParser.hpp"
 #include "ScaleParser.hpp"
-#include "SpeedParser.hpp"
+#include "Speed3DParser.hpp"
 #include "ObjPathParser.hpp"
 #include "GravityParser.hpp"
 #include "PlayerComponent.hpp"
@@ -56,7 +56,7 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxPacketEntities)
     reg.register_component<IComponent>("PlayerComponent");
     reg.set_component<IComponent>(idxPacketEntities, std::make_shared<PlayerComponent>(), "PlayerComponent");
 
-    std::shared_ptr<SpeedComponent> speed = parseSpeed(PATH_JSON);
+    std::shared_ptr<Speed3DComponent> speed = parseSpeed3D(PATH_JSON);
     if (speed) {
         reg.register_component<IComponent>(speed->getType());
         reg.set_component<IComponent>(idxPacketEntities, speed, speed->getType());

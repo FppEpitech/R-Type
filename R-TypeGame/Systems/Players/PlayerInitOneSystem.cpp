@@ -18,7 +18,7 @@
 #include "ScaleParser.hpp"
 #include "Position2DParser.hpp"
 #include "LifeParser.hpp"
-#include "SpeedParser.hpp"
+#include "Speed3DParser.hpp"
 #include "SpriteSheetAnimationParser.hpp"
 
 #include <fstream>
