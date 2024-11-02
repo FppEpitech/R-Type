@@ -162,6 +162,17 @@ class IGraphic {
             unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255) = 0;
 
         /**
+         * @brief Draw HitBoxes on the screen.
+         *
+         * @param hitBoxes A vector of HitBox objects.
+         * @param r Color value r.
+         * @param g Color value g.
+         * @param b Color value b.
+         * @param a Color value a.
+         */
+        virtual void drawHitBoxes(std::vector<HitBox> hitBoxes, unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255) = 0;
+
+        /**
          * @brief Initialize shaders with a map of shader names and paths.
          *
          * @param shaders A map where the key is the shader name and the value is the shader path.
@@ -408,4 +419,16 @@ class IGraphic {
          * @param fovY Field of view y.
          */
         virtual void setCameraFovY(float fovY) = 0;
+
+        /**
+         * @brief Get the camera position.
+         *
+         * @param objPath Path to the OBJ Model to get the HitBoxes from.
+         * @param posX Position x of the model.
+         * @param posY Position y of the model.
+         * @param posZ Position z of the model.
+         * @param scale Scale of the model.
+         * @return std::vector<HitBox> A vector of HitBox objects.
+         */
+        virtual std::vector<HitBox> getHitBoxesFromModel(std::string modelPath, float posX, float posY, float posZ, float scale) = 0;
 };
