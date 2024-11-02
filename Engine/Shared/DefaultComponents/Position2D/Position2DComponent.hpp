@@ -8,6 +8,7 @@
 #pragma once
 
 #include "../IComponent.hpp"
+#include <any>
 
 /**
  * @class Position2DComponent
@@ -34,5 +35,35 @@ class Position2DComponent : public AComponent {
          * @param x Initial x position (default is 0).
          * @param y Initial y position (default is 0).
          */
-        Position2DComponent(float x = 0, float y = 0);
+        Position2DComponent(float x = 0, float y = 0) ;
+
+
+        /**
+         * @brief Get the Arg object(mainly for lua api).
+         *
+         * @return std::any
+         */
+        std::any getArg(std::string key) override {
+            if (key == "x")
+                return std::any(x);
+            if (key == "y")
+                return std::any(y);
+            return std::any(84);
+        }
+
+        /**
+         * @brief Set the Arg object (mainly for lua api).
+         *
+         * @return bool
+         */
+        bool setArg(std::string key, std::any value) override {
+            if (key == "x") {
+                x = std::any_cast<float>(value);
+            } else if (key == "y") {
+                y = std::any_cast<float>(value);
+            } else {
+                return false;
+            }
+            return true;
+        }
 };
