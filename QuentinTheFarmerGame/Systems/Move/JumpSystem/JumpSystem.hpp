@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type Server
 ** File description:
-** MoveSystemUp
+** JumpSystem
 */
 
 #include <iostream>
@@ -14,7 +14,7 @@
 #include "../Position3D/Position3DComponent.hpp"
 #include "../Player/PlayerComponent.hpp"
 
-class MoveSystemUp : public ASystem
+class JumpSystem : public ASystem
 {
     public:
 
@@ -22,7 +22,7 @@ class MoveSystemUp : public ASystem
          * @brief Construct a new Move System Up object
          *
          */
-        MoveSystemUp();
+        JumpSystem();
 
         /**
          * @brief Get the function system.
@@ -36,5 +36,5 @@ class MoveSystemUp : public ASystem
          *
          * @param entityManager Class with all entities and component.
          */
-        void updateUpPosition(ECS::Registry& entityManager, int idxPacketEntities);
+        void updatePosition(ECS::Registry& entityManager, int idxPacketEntities);
 };

@@ -8,72 +8,44 @@
 #include "AEvent.hpp"
 #include "MoveSystemRight.hpp"
 
-#include <fstream>
-#include <json/json.h>
-
-#define SETTINGS_PATH "./Config/Settings.json"
-
 MoveSystemRight::MoveSystemRight() :
-    ASystem("MovementRightSystem")
-{
-}
+        ASystem("MoveSystemRight") {}
 
-std::function<void(ECS::Registry& reg, int idxPacketEntities)> MoveSystemRight::getFunction()
+std::function<void(ECS::Registry& reg, int idxEntity)> MoveSystemRight::getFunction()
 {
-    return [this](ECS::Registry& reg, int idxPacketEntities) {
-        updateRightPosition(reg, idxPacketEntities);
+    return [this](ECS::Registry& reg, int idxEntity) {
+        updateRightPosition(reg, idxEntity);
     };
 }
 
-void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxPacketEntities)
+void MoveSystemRight::updateRightPosition(ECS::Registry& reg, int idxEntity)
 {
-    std::lock_guard<std::mutex> lock(entityManager._myBeautifulMutex);
+    std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
     try {
-        ECS::SparseArray<IComponent> DrawComponentArray = entityManager.get_components<IComponent>("DrawComponent");
-        if (DrawComponentArray.size() <= idxPacketEntities)
-            return;
-        DrawComponent* draw = dynamic_cast<DrawComponent*>(DrawComponentArray[idxPacketEntities].get());
-        if (!draw || !draw->draw)
-            return;
+        ECS::SparseArray<IComponent> draws = reg.get_components<IComponent>("DrawComponent");
+        ECS::SparseArray<IComponent> positions = reg.get_components<IComponent>("Position3DComponent");
+        ECS::SparseArray<IComponent> speeds = reg.get_components<IComponent>("Speed3DComponent");
+        ECS::SparseArray<IComponent> player = reg.get_components<IComponent>("PlayerComponent");
 
-        ECS::SparseArray<IComponent> PositionComponentArray = entityManager.get_components<IComponent>("Position2DComponent");
-        ECS::SparseArray<IComponent> SpeedComponentArray = entityManager.get_components<IComponent>("SpeedComponent");
-        ECS::SparseArray<IComponent> texturesRectComponents = entityManager.get_components<IComponent>("TextureRectComponent");
-        ECS::SparseArray<IComponent> ScaleComponents = entityManager.get_components<IComponent>("ScaleComponent");
+        for (ECS::entity_t entity = 0; entity < draws.size() && entity < positions.size() && entity < speeds.size() && entity < player.size(); entity++) {
+            std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(draws[entity]);
+            std::shared_ptr<Position3DComponent> position = std::dynamic_pointer_cast<Position3DComponent>(positions[entity]);
+            std::shared_ptr<Speed3DComponent> speed = std::dynamic_pointer_cast<Speed3DComponent>(speeds[entity]);
+            std::shared_ptr<PlayerComponent> playerComponent = std::dynamic_pointer_cast<PlayerComponent>(player[entity]);
 
-        if (PositionComponentArray.size() <= idxPacketEntities || SpeedComponentArray.size() <= idxPacketEntities ||
-        texturesRectComponents.size() <= idxPacketEntities || ScaleComponents.size() <= idxPacketEntities)
-            return;
+            if (!position || !speed || !draw || !playerComponent)
+                return;
 
-        Position2DComponent* position = dynamic_cast<Position2DComponent*>(PositionComponentArray[idxPacketEntities].get());
-        SpeedComponent* speed = dynamic_cast<SpeedComponent*>(SpeedComponentArray[idxPacketEntities].get());
-        TextureRectComponent* textureRect = dynamic_cast<TextureRectComponent*>(texturesRectComponents[idxPacketEntities].get());
-        ScaleComponent* scale = dynamic_cast<ScaleComponent*>(ScaleComponents[idxPacketEntities].get());
+            position->x -= speed->speedX;
 
-        if (!position || !speed || !textureRect || !scale)
-            return;
-
-        Json::Value root;
-        Json::Reader reader;
-        std::ifstream file(SETTINGS_PATH);
-        std::vector<std::pair<int, int>> allResolutions;
-        if (!reader.parse(file, root, false))
-            return;
-        int index = root["window"]["resolutionIndex"].asInt();
-        if (root["window"]["resolutions"].size() <= index)
-            return;
-
-        if (position->x + speed->speedX + textureRect->width * scale->scale > root["window"]["resolutions"][index]["w"].asInt())
-            position->x = root["window"]["resolutions"][index]["w"].asInt() - textureRect->width * scale->scale;
-        else
-            position->x += speed->speedX;
-
-        std::vector<std::any> valuesMoveEntity = {};
-        valuesMoveEntity.push_back(idxPacketEntities);
-        valuesMoveEntity.push_back(position->x);
-        valuesMoveEntity.push_back(position->y);
-        std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", valuesMoveEntity);
-        entityManager.addEvent(eventMoveEntity);
+            /*std::vector<std::any> values = {};
+            values.push_back(idxEntity);
+            values.push_back(position->x);
+            values.push_back(position->y);
+            values.push_back(position->z);
+            std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", values);
+            reg.addEvent(eventMoveEntity);*/
+        }
 
     } catch(const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
