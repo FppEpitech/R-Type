@@ -166,6 +166,7 @@ target_link_libraries(system_initPlayerTwo
         Position2D
         Scale
         TextureRect
+        SpriteSheetAnimation
         Player
         Draw
         Life
@@ -183,6 +184,7 @@ target_link_libraries(system_initPlayerThree
         Position2D
         Scale
         TextureRect
+        SpriteSheetAnimation
         Player
         Draw
         Life
@@ -200,6 +202,7 @@ target_link_libraries(system_initPlayerFour
         Position2D
         Scale
         TextureRect
+        SpriteSheetAnimation
         Player
         Draw
         Life
