@@ -19,6 +19,10 @@ bool CameraUpdateHandler::processEvent(std::shared_ptr<IEvent> event,
     try {
         if (!graphicLib)
             return true;
+
+        if (event->getValues().size() != 3)
+            throw CameraUpdateHandlerError("Error while processing the event: invalid number of arguments");
+
         static bool cameraPov = false;
         std::vector<float> position;
         position.push_back(std::any_cast<float>(event->getValues()[0]));

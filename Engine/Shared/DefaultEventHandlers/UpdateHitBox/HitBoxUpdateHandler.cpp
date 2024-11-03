@@ -21,6 +21,10 @@ bool HitBoxUpdateHandler::processEvent(std::shared_ptr<IEvent> event,
         std::lock_guard<std::mutex> lock(reg->_myBeautifulMutex);
         if (!graphicLib)
             return true;
+
+        if (event->getValues().size() != 6)
+            throw HitBoxUpdateHandlerError("Error while processing the event: invalid number of arguments");
+
         std::vector<float> position;
         position.push_back(std::any_cast<float>(event->getValues()[0]));
         position.push_back(std::any_cast<float>(event->getValues()[1]));

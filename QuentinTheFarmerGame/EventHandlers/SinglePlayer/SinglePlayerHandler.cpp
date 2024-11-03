@@ -23,6 +23,8 @@ bool SinglePlayerHandler::processEvent(std::shared_ptr<IEvent> event,
                                       std::shared_ptr<IGraphic> graphicLib)
 {
     try {
+        if (event->getValues().size() != 1)
+            return false;
         std::string sceneName = std::any_cast<std::string>(event->getValues()[0]);
         std::pair<std::size_t, std::string> scenePair = std::make_pair(0, sceneName);
         sceneManager->changeScene(scenePair);

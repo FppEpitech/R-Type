@@ -21,6 +21,9 @@ bool HitBoxesDrawHandler::processEvent(std::shared_ptr<IEvent> event,
         if (!graphicLib)
             return true;
 
+        if (event->getValues().size() != 5)
+            throw HitBoxesDrawHandlerError("Error while processing the event: invalid number of arguments");
+
         std::vector<HitBox> hitBoxes = std::any_cast<std::vector<HitBox>>(event->getValues()[0]);
         unsigned int r = std::any_cast<unsigned int>(event->getValues()[1]);
         unsigned int g = std::any_cast<unsigned int>(event->getValues()[2]);
