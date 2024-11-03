@@ -49,13 +49,24 @@ void Application::run()
         _keyboardHandler(_libGraphic->getKeyDownInput());
         _libGraphic->updateMusic();
         _libGraphic->startDraw();
-        _libGraphic->clear();
-        _registry->run_systems(CLIENT);
-        for (auto defaultSystem : _defaultSystems)
-            defaultSystem(*_registry, -1);
-        _eventListener->listen();
-        _libGraphic->endDraw();
+        _runSystems();
     }
+}
+
+void Application::_runSystems()
+{
+    static std::chrono::high_resolution_clock::time_point lastCall = std::chrono::high_resolution_clock::now();
+    const std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
+    double timeElapsed = std::chrono::duration<double, std::milli>(now - lastCall).count() / 1000;
+    if (timeElapsed < 0.005)
+        return;
+    _libGraphic->clear();
+    _registry->run_systems(CLIENT);
+    for (auto defaultSystem : _defaultSystems)
+        defaultSystem(*_registry, -1);
+    _eventListener->listen();
+    _libGraphic->endDraw();
+    lastCall = std::chrono::high_resolution_clock::now();
 }
 
 void Application::_sendMessages()

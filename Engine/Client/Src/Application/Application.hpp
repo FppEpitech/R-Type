@@ -145,6 +145,12 @@ class Application {
          */
         void _sendMessages();
 
+        /**
+         * @brief Run all systems and defaults systems of the registry.
+         * This method is clocked to be frame rate dependent.
+         */
+        void _runSystems();
+
 
         std::shared_ptr<ECS::Registry>                                              _registry;          // Registries for each scene.
         std::vector<std::function<void(ECS::Registry& reg, int idxPacketEntities)>> _defaultSystems;    // Default system.

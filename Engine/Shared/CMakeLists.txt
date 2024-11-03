@@ -9,6 +9,3 @@ add_subdirectory(DefaultEventHandlers)
 
 # Add subdirectories for default components of the Engine
 add_subdirectory(DefaultSystems)
-
-# Add subdirectories for different components of the Engine
-add_subdirectory(Network)
