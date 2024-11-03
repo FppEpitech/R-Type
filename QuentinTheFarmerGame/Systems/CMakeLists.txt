@@ -164,6 +164,7 @@ target_link_libraries(system_initPlayerOne
         Position3D
         Gravity
         HitBox
+        CanJump
         JsonCpp::JsonCpp
 )
 
@@ -1143,6 +1144,7 @@ add_library(system_jump SHARED
 target_link_libraries(system_jump PRIVATE
         Player
         HitBox
+        CanJump
         JsonCpp::JsonCpp
 )
 
@@ -1202,5 +1204,41 @@ target_link_libraries(system_initGround
         ObjPath
         Position3D
         HitBox
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initTree SHARED
+        ../Error/AError.cpp
+        Trees/TreesInitSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_initTree
+        Scale
+        Draw
+        ObjPath
+        Position3D
+        HitBox
+        Gravity
+        ColliderDamage
+        JsonCpp::JsonCpp
+)
+
+add_library(system_restartTree SHARED
+        ../Error/AError.cpp
+        Trees/TreeRestartSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_restartTree
+        Scale
+        Draw
+        ObjPath
+        Position3D
+        HitBox
+        Gravity
+        ColliderDamage
         JsonCpp::JsonCpp
 )
