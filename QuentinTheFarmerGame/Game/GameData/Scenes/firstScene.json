@@ -6,13 +6,19 @@
         }
     ],
     "entities": [
-        "libsystem_initPlayerOne.so"
+        "libsystem_initPlayerOne.so",
+        "libsystem_initGround.so"
     ],
     "systems": [
         "libsystem_handleGravity.so",
         "libsystem_moveEntities.so"
     ],
     "eventHandlers": [
+        "libeventHandler_InitCamera.so",
+        "libeventHandler_UpdateCamera.so",
+        "libeventHandler_InitHitBox.so",
+        "libeventHandler_DrawHitBoxes.so",
+        "libeventHandler_UpdateHitBox.so"
     ],
     "networkUpdate": [
     ],
