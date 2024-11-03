@@ -23,7 +23,7 @@ bool CameraUpdateHandler::processEvent(std::shared_ptr<IEvent> event,
         position.push_back(std::any_cast<float>(event->getValues()[1]));
         position.push_back(std::any_cast<float>(event->getValues()[2]));
 
-        graphicLib->setCameraSettings(position[0], position[1] + 20, position[2] - 20, position[0], position[1], position[2], 0, 1, 0, 45);
+        graphicLib->setCameraSettings(position[0], position[1] + 10, position[2] - 20, position[0], position[1], position[2], 0, 1, 0, 45);
     } catch (const std::exception &e) {
         throw CameraUpdateHandlerError("Error while processing the event: " + std::string(e.what()));
     }
