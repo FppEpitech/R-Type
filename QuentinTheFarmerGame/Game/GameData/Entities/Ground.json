@@ -6,5 +6,11 @@
         "y": 0,
         "z": 0
     },
-    "ObjPathComponent": "./Assets/ground.glb"
+    "ObjPathComponent": "./Assets/ground.glb",
+    "GravityComponent":
+    {
+        "x":0.0,
+        "y":0,
+        "z":0
+    }
 }
