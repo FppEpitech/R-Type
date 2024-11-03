@@ -55,6 +55,7 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Velocity3D/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/EntityId/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Gravity/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/HitBox/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ScaleParser/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/Position2DParser/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/PlayerParser/
@@ -1190,6 +1191,8 @@ target_link_libraries(system_moveDown PRIVATE
 add_library(system_initGround SHARED
         ../Error/AError.cpp
         Ground/GroundInitSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
 )
 
 target_link_libraries(system_initGround
@@ -1197,5 +1200,6 @@ target_link_libraries(system_initGround
         Draw
         ObjPath
         Position3D
+        HitBox
         JsonCpp::JsonCpp
 )
