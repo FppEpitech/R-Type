@@ -1,35 +1,25 @@
 /*
 ** EPITECH PROJECT, 2024
-** PlayerInitSystem
+** GroundInitSystem
 ** File description:
-** PlayerInitSystem
+** GroundInitSystem
 */
 
 #include "AEvent.hpp"
-#include "LifeParser.hpp"
 #include "ScaleParser.hpp"
-#include "Speed3DParser.hpp"
 #include "ObjPathParser.hpp"
-#include "GravityParser.hpp"
 #include "HitBoxComponent.hpp"
-#include "PlayerComponent.hpp"
-#include "PlayerInitSystem.hpp"
+#include "GroundInitSystem.hpp"
 #include "Position3DParser.hpp"
 #include "Draw/DrawComponent.hpp"
-#include "Life/LifeComponent.hpp"
+#include "Scale/ScaleComponent.hpp"
 
-#define PATH_JSON "GameData/Entities/PlayerOne.json"
+#define PATH_JSON "GameData/Entities/Ground.json"
 
-PlayerInitSystem::PlayerInitSystem() :
-        ASystem("PlayerInitSystem")
+GroundInitSystem::GroundInitSystem() : ASystem("GroundInitSystem") {}
+
+void GroundInitSystem::_initGround(ECS::Registry& reg, int idxEntity)
 {
-}
-
-void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxEntity)
-{
-
-    reg.register_component<IComponent>("ShootComponent");
-
     std::shared_ptr<ScaleComponent> scale = parseScale(PATH_JSON);
     if (scale) {
         reg.register_component<IComponent>(scale->getType());
@@ -48,27 +38,6 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxEntity)
         reg.set_component<IComponent>(idxEntity, objPath, objPath->getType());
     }
 
-    std::shared_ptr<LifeComponent> life = parseLife(PATH_JSON);
-    if (life) {
-        reg.register_component<IComponent>(life->getType());
-        reg.set_component<IComponent>(idxEntity, life, life->getType());
-    }
-
-    reg.register_component<IComponent>("PlayerComponent");
-    reg.set_component<IComponent>(idxEntity, std::make_shared<PlayerComponent>(), "PlayerComponent");
-
-    std::shared_ptr<Speed3DComponent> speed = parseSpeed3D(PATH_JSON);
-    if (speed) {
-        reg.register_component<IComponent>(speed->getType());
-        reg.set_component<IComponent>(idxEntity, speed, speed->getType());
-    }
-
-    std::shared_ptr<GravityComponent> gravity = parseGravity(PATH_JSON);
-    if (gravity) {
-        reg.register_component<IComponent>(gravity->getType());
-        reg.set_component<IComponent>(idxEntity, gravity, gravity->getType());
-    }
-
     reg.register_component<IComponent>("DrawComponent");
     reg.set_component<IComponent>(idxEntity, std::make_shared<DrawComponent>(true), "DrawComponent");
 
@@ -84,17 +53,10 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxEntity)
     playerValues.push_back((int)idxEntity);
     std::shared_ptr<IEvent> hitBoxEvent = std::make_shared<AEvent>("UpdateHitBox", playerValues);
     reg.addEvent(hitBoxEvent);
-
-    std::vector<std::any> cameraValues = {};
-    cameraValues.push_back((float)position3D->x);
-    cameraValues.push_back((float)position3D->y);
-    cameraValues.push_back((float)position3D->z);
-    std::shared_ptr<IEvent> cameraEvent = std::make_shared<AEvent>("UpdateCamera", cameraValues);
-    reg.addEvent(cameraEvent);
 }
 
 extern "C" {
-EXPORT_SYMBOL ISystem* loadSystemInstance() {
-    return new PlayerInitSystem();
-}
+    EXPORT_SYMBOL ISystem* loadSystemInstance() {
+        return new GroundInitSystem();
+    }
 }

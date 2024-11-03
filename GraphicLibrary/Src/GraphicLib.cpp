@@ -162,6 +162,30 @@ void GraphicLib::drawText(std::string text, float posx, float posy, int fontSize
         EndShaderMode();
 }
 
+void GraphicLib::drawHitBoxes(std::vector <HitBox> hitBoxes, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+    if (!windowIsOpen())
+        return;
+    Color color = {r, g, b, a};
+
+    BeginMode3D(_camera);
+
+    if (_isShaderReady())
+        BeginShaderMode(_shaders[_currentShader]);
+
+    for (auto hitBox : hitBoxes) {
+        Vector3 min = {hitBox.min.x, hitBox.min.y, hitBox.min.z};
+        Vector3 max = {hitBox.max.x, hitBox.max.y, hitBox.max.z};
+        BoundingBox box = {min, max};
+        DrawBoundingBox(box, color);
+    }
+
+    if (_isShaderReady())
+        EndShaderMode();
+
+    EndMode3D();
+}
+
 void GraphicLib::initShaderWithMap(std::unordered_map <std::string, std::string> shaders)
 {
     if (!windowIsOpen())
@@ -528,6 +552,41 @@ void GraphicLib::setCameraUp(float upX, float upY, float upZ)
 void GraphicLib::setCameraFovY(float fovY)
 {
     _camera.fovy = fovY;
+}
+
+std::vector<HitBox> GraphicLib::getHitBoxesFromModel(std::string modelPath, float posX, float posY, float posZ, float scale)
+{
+    std::vector<HitBox> hitBoxes;
+    if (_models.find(modelPath) == _models.end())
+        _models[modelPath] = LoadModel(modelPath.c_str());
+
+    Model model = _models[modelPath];
+
+    for (int i = 0; i < model.meshCount; i++) {
+        BoundingBox bbox = GetMeshBoundingBox(model.meshes[i]);
+
+        bbox.min.x *= scale;
+        bbox.min.y *= scale;
+        bbox.min.z *= scale;
+
+        bbox.max.x *= scale;
+        bbox.max.y *= scale;
+        bbox.max.z *= scale;
+
+        bbox.min.x += posX;
+        bbox.min.y += posY;
+        bbox.min.z += posZ;
+
+        bbox.max.x += posX;
+        bbox.max.y += posY;
+        bbox.max.z += posZ;
+
+        Position3D min = {bbox.min.x, bbox.min.y, bbox.min.z};
+        Position3D max = {bbox.max.x, bbox.max.y, bbox.max.z};
+        HitBox hitBox = {min, max};
+        hitBoxes.push_back(hitBox);
+    }
+    return hitBoxes;
 }
 
 bool GraphicLib::_isShaderReady()

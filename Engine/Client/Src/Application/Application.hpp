@@ -23,6 +23,7 @@
 #include "DrawText/DrawTextSystem.hpp"
 #include "DrawTexture/DrawTextureSystem.hpp"
 #include "../GetGraphicalLibrary/IGraphic.hpp"
+#include "DrawHitBoxes/DrawHitBoxesSystem.hpp"
 #include "DrawTextureRect/DrawTextureRectSystem.hpp"
 #include "NetworkConnection/NetworkConnectionComponent.hpp"
 #include "SpriteSheetAnimation/SpriteSheetAnimationSystem.hpp"

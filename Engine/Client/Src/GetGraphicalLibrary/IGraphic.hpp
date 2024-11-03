@@ -23,6 +23,23 @@
     #define EXPORT_SYMBOL
 #endif
 
+typedef struct Position3D {
+    float x;
+    float y;
+    float z;
+} Position3D;
+
+typedef struct HitBox {
+    Position3D min;
+    Position3D max;
+
+    bool hit(const HitBox& other) const {
+        return (min.x <= other.max.x && max.x >= other.min.x) &&
+               (min.y <= other.max.y && max.y >= other.min.y) &&
+               (min.z <= other.max.z && max.z >= other.min.z);
+    }
+} HitBox;
+
 /**
  * @class IGraphic
  * @brief Interface for the graphic module.
@@ -143,6 +160,17 @@ class IGraphic {
          */
         virtual void drawText(std::string text, float posx, float posy, int fontSize, std::string fontPath,
             unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255) = 0;
+
+        /**
+         * @brief Draw HitBoxes on the screen.
+         *
+         * @param hitBoxes A vector of HitBox objects.
+         * @param r Color value r.
+         * @param g Color value g.
+         * @param b Color value b.
+         * @param a Color value a.
+         */
+        virtual void drawHitBoxes(std::vector<HitBox> hitBoxes, unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255) = 0;
 
         /**
          * @brief Initialize shaders with a map of shader names and paths.
@@ -391,4 +419,16 @@ class IGraphic {
          * @param fovY Field of view y.
          */
         virtual void setCameraFovY(float fovY) = 0;
+
+        /**
+         * @brief Get the camera position.
+         *
+         * @param objPath Path to the OBJ Model to get the HitBoxes from.
+         * @param posX Position x of the model.
+         * @param posY Position y of the model.
+         * @param posZ Position z of the model.
+         * @param scale Scale of the model.
+         * @return std::vector<HitBox> A vector of HitBox objects.
+         */
+        virtual std::vector<HitBox> getHitBoxesFromModel(std::string modelPath, float posX, float posY, float posZ, float scale) = 0;
 };
