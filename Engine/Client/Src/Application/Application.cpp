@@ -31,18 +31,10 @@ Application::Application()
     _initDefaultGraphicSystems();
 }
 
-Application::~Application()
-{
-    for (auto thread : _threads)
-        if (thread)
-            thread->join();
-}
-
 void Application::run()
 {
     InitWindow InitWindow(_libGraphic);
     InitShader InitShader(_libGraphic);
-    _threads.push_back(std::make_shared<std::thread>([this]() { this->_sendMessages(); }));
 
     while (_libGraphic->windowIsOpen()) {
         _packetHandler();
@@ -50,6 +42,7 @@ void Application::run()
         _libGraphic->updateMusic();
         _libGraphic->startDraw();
         _runSystems();
+        ABINetwork::sendMessages(_client);
     }
 }
 
@@ -69,17 +62,12 @@ void Application::_runSystems()
     lastCall = std::chrono::high_resolution_clock::now();
 }
 
-void Application::_sendMessages()
-{
-    while(_libGraphic->windowIsOpen())
-        ABINetwork::sendMessages(_client);
-}
-
 void Application::_initDefaultGraphicSystems()
 {
     _defaultSystems.push_back(DrawOBJSystem().getFunction());
     _defaultSystems.push_back(DrawTextureSystem().getFunction());
     _defaultSystems.push_back(DrawTextureRectSystem().getFunction());
+    _defaultSystems.push_back(DrawHitBoxesSystem().getFunction());
     _defaultSystems.push_back(DrawTextSystem().getFunction());
     _defaultSystems.push_back(SpriteSheetAnimationSystem().getFunction());
 }

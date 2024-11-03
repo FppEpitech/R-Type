@@ -35,13 +35,12 @@ GameEngine::Room::Room(ABINetwork::roomInfo_t roomInfo)
 
 void GameEngine::Room::run(std::mutex &mutex)
 {
-    _threads.push_back(std::make_shared<std::thread>([this]() { this->_sendMessages(); }));
-
     while (_isRoomOpen) {
         _numberPlayers = _roomServer->getNumberClient();
         _packetHandler();
         _connectionHandler();
         _runSystems();
+        ABINetwork::sendMessages(_roomServer);
     }
 }
 
@@ -55,12 +54,6 @@ void GameEngine::Room::_runSystems()
     _eventListener->listen();
     _registries->run_systems(SERVER);
     lastCall = std::chrono::high_resolution_clock::now();
-}
-
-void GameEngine::Room::_sendMessages()
-{
-    while(_isRoomOpen)
-        ABINetwork::sendMessages(_roomServer);
 }
 
 void GameEngine::Room::_connectionHandler()

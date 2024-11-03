@@ -47,6 +47,7 @@ set(COMPONENT_SRC_FILE
     ../Shared/DefaultComponents/Velocity3D/Velocity3DComponent.cpp
     ../Shared/DefaultComponents/Gravity/GravityComponent.cpp
     ../Shared/DefaultComponents/Speed3D/Speed3DComponent.cpp
+    ../Shared/DefaultComponents/HitBox/HitBoxComponent.cpp
 )
 
 # Define system source files
@@ -56,6 +57,7 @@ set(SYSTEM_SRC_FILE
     ${EXE_SRC_PATH}/Systems/DrawText/DrawTextSystem.cpp
     ${EXE_SRC_PATH}/Systems/DrawTextureRect/DrawTextureRectSystem.cpp
     ${EXE_SRC_PATH}/Systems/SpriteSheetAnimation/SpriteSheetAnimationSystem.cpp
+    ${EXE_SRC_PATH}/Systems/DrawHitBoxes/DrawHitBoxesSystem.cpp
 )
 
 # Define the main source files for the executable
