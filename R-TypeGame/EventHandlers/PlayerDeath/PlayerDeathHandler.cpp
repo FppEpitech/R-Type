@@ -37,7 +37,7 @@ bool PlayerDeathHandler::processEvent(std::shared_ptr<IEvent> event,
         if (entity != sceneManager->getIndexPlayer())
             return true;
 
-        // ABINetwork::sendPacketLeaveRoom(networkUnit);
+        ABINetwork::sendPacketLeaveRoom(networkUnit);
         ABINetwork::disconnectToServer(networkUnit);
 
         std::pair<std::size_t, std::string> scenePair = std::make_pair(0, END_SCENE);

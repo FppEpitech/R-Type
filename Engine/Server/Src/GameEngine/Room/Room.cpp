@@ -171,7 +171,6 @@ void GameEngine::Room::_handleLeaveRoom(ABINetwork::UDPPacket packet)
     for (std::size_t index = 0; index < PlayerComponentArray.size(); index++) {
         std::shared_ptr<PlayerComponent> player = std::dynamic_pointer_cast<PlayerComponent>(PlayerComponentArray[index]);
         if (player && player->token == packet.getToken()) {
-            player->token = 0;
             _roomInfos.nbPlayers--;
             break;
         }
