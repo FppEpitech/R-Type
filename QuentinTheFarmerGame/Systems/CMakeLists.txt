@@ -55,6 +55,7 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Velocity3D/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/EntityId/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/Gravity/
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultComponents/HitBox/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/ScaleParser/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/Position2DParser/
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultParser/PlayerParser/
@@ -146,7 +147,9 @@ endforeach()
 
 # system_initPlayerOne
 add_library(system_initPlayerOne SHARED
-        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Players/PlayerInitOneSystem.cpp
 )
 
@@ -160,6 +163,8 @@ target_link_libraries(system_initPlayerOne
         ObjPath
         Position3D
         Gravity
+        HitBox
+        CanJump
         JsonCpp::JsonCpp
 )
 
@@ -495,6 +500,7 @@ target_link_libraries(system_initExitButton PRIVATE
 
 add_library(system_initSingleplayerButton SHARED
         ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/SingleplayerButton/SingleplayerButtonInitSystem.cpp
@@ -1137,6 +1143,8 @@ add_library(system_jump SHARED
 )
 target_link_libraries(system_jump PRIVATE
         Player
+        HitBox
+        CanJump
         JsonCpp::JsonCpp
 )
 
@@ -1183,3 +1191,54 @@ target_link_libraries(system_moveDown PRIVATE
         JsonCpp::JsonCpp
 )
 
+add_library(system_initGround SHARED
+        ../Error/AError.cpp
+        Ground/GroundInitSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_initGround
+        Scale
+        Draw
+        ObjPath
+        Position3D
+        HitBox
+        JsonCpp::JsonCpp
+)
+
+add_library(system_initTree SHARED
+        ../Error/AError.cpp
+        Trees/TreesInitSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_initTree
+        Scale
+        Draw
+        ObjPath
+        Position3D
+        HitBox
+        Gravity
+        ColliderDamage
+        JsonCpp::JsonCpp
+)
+
+add_library(system_restartTree SHARED
+        ../Error/AError.cpp
+        Trees/TreeRestartSystem.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+)
+
+target_link_libraries(system_restartTree
+        Scale
+        Draw
+        ObjPath
+        Position3D
+        HitBox
+        Gravity
+        ColliderDamage
+        JsonCpp::JsonCpp
+)

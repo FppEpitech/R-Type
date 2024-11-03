@@ -1,0 +1,17 @@
+{
+    "ScaleComponent": 1,
+    "Position3DComponent":
+    {
+        "x": 0,
+        "y": 0,
+        "z": 50
+    },
+    "ObjPathComponent": "./Assets/tree.glb",
+    "GravityComponent":
+    {
+        "x":0,
+        "y":0,
+        "z":0.15
+    },
+    "ColliderDamageComponent": 999
+}

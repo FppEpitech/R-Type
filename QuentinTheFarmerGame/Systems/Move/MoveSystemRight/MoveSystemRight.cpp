@@ -38,6 +38,13 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& reg, int idxEntity)
 
             position->x -= speed->speedX;
 
+            std::vector<std::any> values = {};
+            values.push_back(position->x);
+            values.push_back(position->y);
+            values.push_back(position->z);
+            std::shared_ptr<IEvent> event = std::make_shared<AEvent>("UpdateCamera", values);
+            reg.addEvent(event);
+
             /*std::vector<std::any> values = {};
             values.push_back(idxEntity);
             values.push_back(position->x);

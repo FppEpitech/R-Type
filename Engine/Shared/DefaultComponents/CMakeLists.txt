@@ -52,6 +52,9 @@ include_directories(
         ./TextureRect/
         ./Velocity/
         ./Velocity3D/
+        ./HitBox/
+        ./ColliderDamage/
+        ./CanJump/
         # Default systems directories
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems
         # Parser directories
@@ -120,6 +123,9 @@ set(COMPONENTS
         TextureRect
         Velocity
         Velocity3D
+        HitBox
+        ColliderDamage
+        CanJump
 )
 
 foreach(component ${COMPONENTS})

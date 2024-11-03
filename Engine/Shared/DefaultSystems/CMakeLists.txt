@@ -115,11 +115,16 @@ add_library(system_handleGravity SHARED
         ../../Error/AError.cpp
         Gravity/GravitySystem.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
 )
 
 target_link_libraries(system_handleGravity PRIVATE
         Position3D
         Gravity
+        ColliderDamage
+        Life
+        HitBox
+        CanJump
 )
 
 find_package(sol2 CONFIG REQUIRED)
