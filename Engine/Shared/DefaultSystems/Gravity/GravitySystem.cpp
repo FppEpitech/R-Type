@@ -17,6 +17,26 @@
 
 GravitySystem::GravitySystem() : ASystem("GravitySystem") {}
 
+static void updateHitBox(ECS::Registry &reg, ECS::entity_t entity, ECS::SparseArray<IComponent> &hitBoxes, ECS::SparseArray<IComponent> &objPaths, ECS::SparseArray<IComponent> &scales, std::shared_ptr<Position3DComponent> position3D)
+{
+    if (entity < hitBoxes.size() && entity < objPaths.size() && entity < scales.size()) {
+        std::shared_ptr<HitBoxComponent> hitBox = std::dynamic_pointer_cast<HitBoxComponent>(hitBoxes[entity]);
+        std::shared_ptr<ObjPathComponent> objPath = std::dynamic_pointer_cast<ObjPathComponent>(objPaths[entity]);
+        std::shared_ptr<ScaleComponent> scale = std::dynamic_pointer_cast<ScaleComponent>(scales[entity]);
+        if (hitBox && objPath && scale) {
+            std::vector<std::any> hitBoxValues = {};
+            hitBoxValues.push_back((float)position3D->x);
+            hitBoxValues.push_back((float)position3D->y);
+            hitBoxValues.push_back((float)position3D->z);
+            hitBoxValues.push_back((float)scale->scale);
+            hitBoxValues.push_back((std::string)objPath->path);
+            hitBoxValues.push_back((int)entity);
+            std::shared_ptr<IEvent> hitBoxEvent = std::make_shared<AEvent>("UpdateHitBox", hitBoxValues);
+            reg.addEvent(hitBoxEvent);
+        }
+    }
+}
+
 void GravitySystem::_handleGravity(ECS::Registry &reg, int idxPacketEntities)
 {
     std::lock_guard<std::mutex> lock(reg._myBeautifulMutex);
@@ -33,10 +53,30 @@ void GravitySystem::_handleGravity(ECS::Registry &reg, int idxPacketEntities)
 
             if (!position3D || !gravity)
                 continue;
+            bool isColliding = false;
 
             position3D->x -= gravity->gravityX;
             position3D->y -= gravity->gravityY;
             position3D->z -= gravity->gravityZ;
+
+            for (ECS::entity_t entity2 = 0; entity2 < hitBoxes.size() && entity < hitBoxes.size(); entity2++) {
+                if (entity == entity2)
+                    continue;
+                std::shared_ptr<HitBoxComponent> hitBox = std::dynamic_pointer_cast<HitBoxComponent>(hitBoxes[entity]);
+                std::shared_ptr<HitBoxComponent> hitBox2 = std::dynamic_pointer_cast<HitBoxComponent>(hitBoxes[entity2]);
+                if (!hitBox || !hitBox2)
+                    continue;
+                if (hitBox->isColliding(hitBox2->hitBoxes)) {
+                    isColliding = true;
+                    break;
+                }
+            }
+            if (isColliding) {
+                position3D->x += gravity->gravityX;
+                position3D->y += gravity->gravityY;
+                position3D->z += gravity->gravityZ;
+                break;
+            }
 
             std::vector<std::any> values = {};
             values.push_back((float)position3D->x);
@@ -45,22 +85,7 @@ void GravitySystem::_handleGravity(ECS::Registry &reg, int idxPacketEntities)
             std::shared_ptr<IEvent> event = std::make_shared<AEvent>("UpdateCamera", values);
             reg.addEvent(event);
 
-            if (entity < hitBoxes.size() && entity < objPaths.size() && entity < scales.size()) {
-                std::shared_ptr<HitBoxComponent> hitBox = std::dynamic_pointer_cast<HitBoxComponent>(hitBoxes[entity]);
-                std::shared_ptr<ObjPathComponent> objPath = std::dynamic_pointer_cast<ObjPathComponent>(objPaths[entity]);
-                std::shared_ptr<ScaleComponent> scale = std::dynamic_pointer_cast<ScaleComponent>(scales[entity]);
-                if (hitBox && objPath && scale) {
-                    std::vector<std::any> hitBoxValues = {};
-                    hitBoxValues.push_back((float)position3D->x);
-                    hitBoxValues.push_back((float)position3D->y);
-                    hitBoxValues.push_back((float)position3D->z);
-                    hitBoxValues.push_back((float)scale->scale);
-                    hitBoxValues.push_back((std::string)objPath->path);
-                    hitBoxValues.push_back((int)entity);
-                    std::shared_ptr<IEvent> hitBoxEvent = std::make_shared<AEvent>("UpdateHitBox", hitBoxValues);
-                    reg.addEvent(hitBoxEvent);
-                }
-            }
+            updateHitBox(reg, entity, hitBoxes, objPaths, scales, position3D);
         }
     } catch (std::exception e) {
     }
