@@ -9,7 +9,8 @@
         "libsystem_initPlayerOne.so",
         "libsystem_initGround.so",
         "libsystem_InitConsumption.so",
-        "libsystem_InitShaderInfo.so"
+        "libsystem_InitShaderInfo.so",
+        "libsystem_initTree.so"
     ],
     "systems": [
         "libsystem_handleGravity.so",
@@ -17,7 +18,8 @@
         "libsystem_playSounds.so",
         "libsystem_UpdateConsumption.so",
         "libsystem_UpdateShaderInfo.so",
-        "libsystem_Shader.so"
+        "libsystem_Shader.so",
+        "libsystem_restartTree.so"
     ],
     "eventHandlers": [
         "libeventHandler_InitCamera.so",

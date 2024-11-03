@@ -9,6 +9,7 @@
 #include "JumpSystem.hpp"
 #include "ScaleComponent.hpp"
 #include "HitBoxComponent.hpp"
+#include "CanJumpComponent.hpp"
 #include "ObjPathComponent.hpp"
 
 JumpSystem::JumpSystem() :
@@ -32,15 +33,20 @@ void JumpSystem::updatePosition(ECS::Registry& reg, int idxEntity)
         ECS::SparseArray<IComponent> hitBoxes = reg.get_components<IComponent>("HitBoxComponent");
         ECS::SparseArray<IComponent> objPaths = reg.get_components<IComponent>("ObjPathComponent");
         ECS::SparseArray<IComponent> scales = reg.get_components<IComponent>("ScaleComponent");
+        ECS::SparseArray<IComponent> canJumps = reg.get_components<IComponent>("CanJumpComponent");
 
-        for (ECS::entity_t entity = 0; entity < draws.size() && entity < positions.size() && entity < speeds.size() && entity < player.size(); entity++) {
+        for (ECS::entity_t entity = 0; entity < draws.size() && entity < positions.size() && entity < speeds.size() && entity < player.size() && entity < canJumps.size(); entity++) {
             std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(draws[entity]);
             std::shared_ptr<Position3DComponent> position = std::dynamic_pointer_cast<Position3DComponent>(positions[entity]);
             std::shared_ptr<Speed3DComponent> speed = std::dynamic_pointer_cast<Speed3DComponent>(speeds[entity]);
             std::shared_ptr<PlayerComponent> playerComponent = std::dynamic_pointer_cast<PlayerComponent>(player[entity]);
+            std::shared_ptr<CanJumpComponent> canJump = std::dynamic_pointer_cast<CanJumpComponent>(canJumps[entity]);
 
             if (!position || !speed || !draw || !playerComponent)
                 return;
+
+            if (!canJump->canJump)
+                continue;
 
             position->y += speed->speedY;
 

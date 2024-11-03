@@ -4,13 +4,14 @@
     {
         "x": 0,
         "y": 0,
-        "z": 0
+        "z": 50
     },
-    "ObjPathComponent": "./Assets/ground.glb",
+    "ObjPathComponent": "./Assets/tree.glb",
     "GravityComponent":
     {
-        "x":0.0,
+        "x":0,
         "y":0,
-        "z":0
-    }
+        "z":0.15
+    },
+    "ColliderDamageComponent": 999
 }

@@ -121,7 +121,10 @@ add_library(system_handleGravity SHARED
 target_link_libraries(system_handleGravity PRIVATE
         Position3D
         Gravity
+        ColliderDamage
+        Life
         HitBox
+        CanJump
 )
 
 find_package(sol2 CONFIG REQUIRED)
