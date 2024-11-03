@@ -18,9 +18,6 @@ SingleplayerButtonInitSystem::SingleplayerButtonInitSystem() :
 
 static void handleThis(ECS::Registry& reg, int idxPacketEntities)
 {
-    try {
-    } catch (const std::exception& e) {
-    }
 }
 
 void SingleplayerButtonInitSystem::_initButton(ECS::Registry& reg, int idxPacketEntities)
