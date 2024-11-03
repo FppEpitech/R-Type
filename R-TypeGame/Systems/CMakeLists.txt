@@ -1187,3 +1187,16 @@ add_library(system_loginCheck SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         Menus/Login/LoginCheckSystem.cpp
 )
+
+add_library(system_playerDeath SHARED
+    ../Error/AError.cpp
+    Players/Death/PlayerDeathSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+)
+
+target_link_libraries(system_playerDeath PRIVATE
+    Player
+    Life
+    Draw
+)

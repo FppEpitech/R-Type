@@ -166,4 +166,12 @@ target_link_libraries(eventHandler_singlePlayer PRIVATE
         Player
         Draw
         r-type_abi_network
-        asio::asio)
+        asio::asio
+)
+
+add_library(eventHandler_playerDeath SHARED
+    PlayerDeath/PlayerDeathHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+target_link_libraries(eventHandler_playerDeath PRIVATE r-type_abi_network asio::asio)

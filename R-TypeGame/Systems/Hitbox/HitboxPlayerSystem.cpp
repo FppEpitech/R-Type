@@ -70,7 +70,7 @@ void HitboxPlayerSystem::_hitboxPlayer(ECS::Registry& reg, int idxPacketEntities
                 positionPlayer->y + textureRectPlayer->height * scalePlayerToUse > positionPlanet->y) {
                     updateNewPositions(velocityPlanet, positionPlanet);
                     if (lifePlayer->life <= PLANET_DAMAGE)
-                        reg.kill_entity(entityPlayer);
+                        lifePlayer->life = 0;
                     else
                         lifePlayer->life -= PLANET_DAMAGE;
                 }

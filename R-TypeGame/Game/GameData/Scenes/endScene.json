@@ -13,18 +13,23 @@
         "libsystem_initBackground.so",
         "libsystem_initEndLogo.so",
         "libsystem_InitConsumption.so",
-        "libsystem_InitShaderInfo.so"
+        "libsystem_InitShaderInfo.so",
+        "libsystem_initBackToMainButton.so"
     ],
     "systems": [
         "libsystem_UpdateConsumption.so",
         "libsystem_UpdateShaderInfo.so",
-        "libsystem_Shader.so"
+        "libsystem_Shader.so",
+
+        "libsystem_handleMouse.so",
+        "libsystem_playSounds.so"
     ],
     "eventHandlers": [
         "libeventHandler_FullScreenHandler.so",
         "libeventHandler_UpdateConsumptionHandler.so",
         "libeventHandler_UpdateShaderInfoHandler.so",
-        "libeventHandler_ShaderHandler.so"
+        "libeventHandler_ShaderHandler.so",
+        "libeventHandler_switchScene.so"
     ],
     "networkUpdate": [
     ],

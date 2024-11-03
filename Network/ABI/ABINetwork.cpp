@@ -28,11 +28,18 @@ namespace ABINetwork
     {
         if (!networkUnit)
             return;
+        std::lock_guard<std::mutex> lock(networkUnit->getMutex());
         while (!networkUnit->getMessageToSendQueue().empty()) {
-            std::lock_guard<std::mutex> lock(networkUnit->getMutex());
             std::pair<std::vector<uint8_t>, uint32_t> message = getMessageInQueue(networkUnit);
             if (!message.first.empty())
                 networkUnit->sendMessage(message.first, message.second);
         }
+    }
+
+    INetworkUnit::TypeOfNetwork getTypeOfNetwork(std::shared_ptr<INetworkUnit> networkUnit)
+    {
+        if (!networkUnit)
+            return INetworkUnit::TypeOfNetwork::TYPE_UNKNOWN;
+        return networkUnit->getTypeOfNetwork();
     }
 }

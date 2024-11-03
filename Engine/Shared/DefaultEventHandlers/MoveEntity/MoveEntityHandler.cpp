@@ -24,6 +24,9 @@ bool MoveEntityHandler::processEvent(std::shared_ptr<IEvent> event,
         if (event->getValues().size() != 3)
             throw MoveEntityHandlerError("Event values corrupted.");
 
+        if (ABINetwork::getTypeOfNetwork(networkUnit) != ABINetwork::INetworkUnit::TypeOfNetwork::TYPE_SERVER)
+            return true;
+
         int indexEntity = std::any_cast<int>(event->getValues()[0]);
         float posX = std::any_cast<float>(event->getValues()[1]);
         float posY = std::any_cast<float>(event->getValues()[2]);

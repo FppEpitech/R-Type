@@ -64,4 +64,10 @@ namespace ABINetwork
         return _mutex;
     }
 
+    ANetworkUnit::TypeOfNetwork ANetworkUnit::getTypeOfNetwork()
+    {
+        return _typeOfNetwork;
+    }
+
+
 } // namespace ABINetwork

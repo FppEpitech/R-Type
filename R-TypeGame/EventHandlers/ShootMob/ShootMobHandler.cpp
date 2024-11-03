@@ -24,6 +24,9 @@ bool ShootMobHandler::processEvent(std::shared_ptr<IEvent> event,
         if (event->getValues().size() != 2)
             throw ShootMobHandlerError("Event values corrupted.");
 
+        if (ABINetwork::getTypeOfNetwork(networkUnit) != ABINetwork::INetworkUnit::TypeOfNetwork::TYPE_SERVER)
+            return true;
+
         int indexPlayerEntity = std::any_cast<int>(event->getValues()[0]);
         int shootIdx = std::any_cast<int>(event->getValues()[1]);
 

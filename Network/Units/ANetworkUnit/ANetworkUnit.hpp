@@ -125,6 +125,13 @@ class ANetworkUnit : public INetworkUnit
          */
         virtual std::pair<int, int> getPorts() = 0;
 
+        /**
+         * @brief Get the Type Of Network object.
+         *
+         * @return int Type of Network.
+         */
+        TypeOfNetwork getTypeOfNetwork() override;
+
     protected:
 
         uint32_t                                                _token;                      // Token of client (used to be identify on server)
@@ -132,6 +139,7 @@ class ANetworkUnit : public INetworkUnit
         std::vector<UDPPacket>                                  _queueMessage;               // Message queue
         std::mutex                                              _mutex;                      // Mutex to lock inter threads data.
         std::list<std::pair< std::vector<uint8_t>, uint32_t>>   _queueMessageToSend;         // Message to send queue
+        TypeOfNetwork                                           _typeOfNetwork;              // Type of network unit.
 };
 
 }
