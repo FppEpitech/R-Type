@@ -1,22 +1,6 @@
 {
     "keyBinds": [
         {
-            "key": "KEY_D",
-            "path" : "libsystem_moveRight.so"
-        },
-        {
-            "key": "KEY_A",
-            "path" : "libsystem_moveLeft.so"
-        },
-        {
-            "key": "KEY_W",
-            "path" : "libsystem_moveUp.so"
-        },
-        {
-            "key": "KEY_S",
-            "path" : "libsystem_moveDown.so"
-        },
-        {
             "key": "KEY_SPACE",
             "path": "libsystem_jump.so"
         }
