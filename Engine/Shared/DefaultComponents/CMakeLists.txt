@@ -53,6 +53,7 @@ include_directories(
         ./Velocity/
         ./Velocity3D/
         ./HitBox/
+        ./ColliderDamage/
         ./CanJump/
         # Default systems directories
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems
@@ -123,6 +124,7 @@ set(COMPONENTS
         Velocity
         Velocity3D
         HitBox
+        ColliderDamage
         CanJump
 )
 
