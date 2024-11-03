@@ -104,6 +104,12 @@ class Room {
          */
         void _sendMessages();
 
+        /**
+         * @brief Run all systems of the registry.
+         * This method is clocked to be frame rate dependent.
+         */
+        void _runSystems();
+
         ABINetwork::roomInfo_t  _roomInfos;         // Infos of the room.
         bool                    _isRoomOpen;        // False if the room should close.
         int                     _numberPlayers;     // Number of players in the room.
