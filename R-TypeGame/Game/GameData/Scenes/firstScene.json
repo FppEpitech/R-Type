@@ -88,14 +88,6 @@
             "path": "libupdate_playerConnection_system.so"
         }
     ],
-    "menus": {
-        "keyBinds": [
-            {
-                "key": "KEY_F",
-                "path" : "Menus/mainMenu.json"
-            }
-        ]
-    },
     "music": "Assets/Musics/InGame.wav",
     "sounds": [
         {
