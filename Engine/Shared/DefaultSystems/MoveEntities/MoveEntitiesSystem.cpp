@@ -41,9 +41,9 @@ void MoveEntitiesSystem::_moveEntities(ECS::Registry& reg, int idxPacketEntities
 
                 std::vector<std::any> valuesMoveEntity = {};
                 int idxEntity = entity;
-                valuesMoveEntity.push_back(idxEntity);
-                valuesMoveEntity.push_back(position->x);
-                valuesMoveEntity.push_back(position->y);
+                valuesMoveEntity.push_back((int) idxEntity);
+                valuesMoveEntity.push_back((float) position->x);
+                valuesMoveEntity.push_back((float) position->y);
                 std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", valuesMoveEntity);
                 reg.addEvent(eventMoveEntity);
             }
