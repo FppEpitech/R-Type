@@ -146,7 +146,9 @@ endforeach()
 
 # system_initPlayerOne
 add_library(system_initPlayerOne SHARED
-        ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Players/PlayerInitOneSystem.cpp
 )
 
@@ -160,6 +162,7 @@ target_link_libraries(system_initPlayerOne
         ObjPath
         Position3D
         Gravity
+        HitBox
         JsonCpp::JsonCpp
 )
 
@@ -1137,6 +1140,7 @@ add_library(system_jump SHARED
 )
 target_link_libraries(system_jump PRIVATE
         Player
+        HitBox
         JsonCpp::JsonCpp
 )
 
@@ -1183,3 +1187,15 @@ target_link_libraries(system_moveDown PRIVATE
         JsonCpp::JsonCpp
 )
 
+add_library(system_initGround SHARED
+        ../Error/AError.cpp
+        Ground/GroundInitSystem.cpp
+)
+
+target_link_libraries(system_initGround
+        Scale
+        Draw
+        ObjPath
+        Position3D
+        JsonCpp::JsonCpp
+)
