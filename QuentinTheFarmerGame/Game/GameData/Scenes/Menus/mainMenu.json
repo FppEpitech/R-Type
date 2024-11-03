@@ -5,7 +5,6 @@
         "libsystem_initBackground.so",
         "libsystem_initExitButton.so",
         "libsystem_initSingleplayerButton.so",
-        "libsystem_initMultiplayerButton.so",
         "libsystem_initMapEditorButton.so",
         "libsystem_InitConsumption.so",
         "libsystem_InitShaderInfo.so"
