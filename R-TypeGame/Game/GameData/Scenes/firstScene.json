@@ -90,10 +90,6 @@
     ],
     "menus": {
         "keyBinds": [
-            {
-                "key": "KEY_F",
-                "path" : "Menus/mainMenu.json"
-            }
         ]
     },
     "music": "Assets/Musics/InGame.wav",
