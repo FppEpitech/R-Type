@@ -126,6 +126,7 @@ target_link_libraries(system_handleGravity PRIVATE
 
 find_package(sol2 CONFIG REQUIRED)
 find_package(Lua CONFIG REQUIRED)
+
 add_library(system_luaScriptSystem SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
@@ -136,6 +137,15 @@ target_link_libraries(system_luaScriptSystem PRIVATE
     ${LUA_LIBRARIES}
     sol2
 )
+
+# Only on windows, after build of the project, copy the dependencies to the output directory, the file will be copied from /Game/Engine to /Game
+if (WIN32)
+    add_custom_command(TARGET system_luaScriptSystem POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E echo "Copying lua.dll to output directory"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/Game/Engine/lua.dll" "${CMAKE_SOURCE_DIR}/Game"
+            COMMAND ${CMAKE_COMMAND} -E echo "Post-build commands completed"
+    )
+endif()
 
 add_library(system_InitConsumption SHARED
         DisplayConsumption/InitConsumptionSystem.cpp
