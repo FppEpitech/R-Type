@@ -88,6 +88,10 @@
             "path": "libupdate_playerConnection_system.so"
         }
     ],
+    "menus": {
+        "keyBinds": [
+        ]
+    },
     "music": "Assets/Musics/InGame.wav",
     "sounds": [
         {
