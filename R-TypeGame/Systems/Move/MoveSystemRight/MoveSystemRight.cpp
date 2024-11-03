@@ -69,9 +69,9 @@ void MoveSystemRight::updateRightPosition(ECS::Registry& entityManager, int idxP
             position->x += speed->speedX;
 
         std::vector<std::any> valuesMoveEntity = {};
-        valuesMoveEntity.push_back(idxPacketEntities);
-        valuesMoveEntity.push_back(position->x);
-        valuesMoveEntity.push_back(position->y);
+        valuesMoveEntity.push_back((int) idxPacketEntities);
+        valuesMoveEntity.push_back((float) position->x);
+        valuesMoveEntity.push_back((float) position->y);
         std::shared_ptr<IEvent> eventMoveEntity = std::make_shared<AEvent>("MoveEntity", valuesMoveEntity);
         entityManager.addEvent(eventMoveEntity);
     } catch(const std::exception& e) {

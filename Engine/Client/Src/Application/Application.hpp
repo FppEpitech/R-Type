@@ -52,7 +52,7 @@ class Application {
          * @brief Destroy the Application object
          *
          */
-        ~Application();
+        ~Application() = default;
 
         /**
          * @brief Run the application

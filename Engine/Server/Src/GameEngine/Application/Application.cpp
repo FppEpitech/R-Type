@@ -30,16 +30,10 @@ GameEngine::Application::Application()
 
 void GameEngine::Application::run()
 {
-    _threads.push_back(std::make_shared<std::thread>([this]() { this->_sendMessages(); }));
-
-    while (true)
+    while (true) {
         _packetHandler();
-}
-
-void GameEngine::Application::_sendMessages()
-{
-    while(true)
         ABINetwork::sendMessages(_server);
+    }
 }
 
 void GameEngine::Application::_packetHandler()
