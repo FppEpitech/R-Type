@@ -1,13 +1,5 @@
 {
     "keyBinds": [
-        {
-            "key": "KEY_F3",
-            "path": "libsystem_DisplayConsumption.so"
-        },
-        {
-            "key": "KEY_F1",
-            "path": "libsystem_DisplayShaderInfo.so"
-        }
     ],
     "entities": [
         "libsystem_initBackground.so",
@@ -25,7 +17,8 @@
         "libsystem_UpdateConsumption.so",
         "libsystem_UpdateShaderInfo.so",
         "libsystem_playSounds.so",
-        "libsystem_FullScreen.so"
+        "libsystem_FullScreen.so",
+        "libsystem_luaScriptSystem.so"
     ],
     "eventHandlers": [
         "libeventHandler_switchScene.so",
@@ -35,10 +28,19 @@
         "libeventHandler_FullScreenHandler.so",
         "libeventHandler_UpdateConsumptionHandler.so",
         "libeventHandler_UpdateShaderInfoHandler.so",
-        "libeventHandler_ShaderHandler.so"
+        "libeventHandler_ShaderHandler.so",
+        "libeventHandler_singlePlayer.so"
     ],
     "menus": {
         "keyBinds": [
+            {
+                "key": "KEY_F3",
+                "path": "libsystem_DisplayConsumption.so"
+            },
+            {
+                "key": "KEY_F1",
+                "path": "libsystem_DisplayShaderInfo.so"
+            }
         ]
     },
     "music": "Assets/Musics/InMenu.wav",

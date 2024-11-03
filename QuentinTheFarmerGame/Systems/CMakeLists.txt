@@ -499,6 +499,7 @@ target_link_libraries(system_initExitButton PRIVATE
 
 add_library(system_initSingleplayerButton SHARED
         ../Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         Menus/Buttons/AButton/AButtonInitSystem.cpp
         Menus/Buttons/SingleplayerButton/SingleplayerButtonInitSystem.cpp

@@ -7,18 +7,31 @@
     ],
     "entities": [
         "libsystem_initPlayerOne.so",
-        "libsystem_initGround.so"
+        "libsystem_initGround.so",
+        "libsystem_InitConsumption.so",
+        "libsystem_InitShaderInfo.so"
     ],
     "systems": [
         "libsystem_handleGravity.so",
-        "libsystem_moveEntities.so"
+        "libsystem_moveEntities.so",
+        "libsystem_playSounds.so",
+        "libsystem_UpdateConsumption.so",
+        "libsystem_UpdateShaderInfo.so",
+        "libsystem_Shader.so"
     ],
     "eventHandlers": [
         "libeventHandler_InitCamera.so",
         "libeventHandler_UpdateCamera.so",
         "libeventHandler_InitHitBox.so",
         "libeventHandler_DrawHitBoxes.so",
-        "libeventHandler_UpdateHitBox.so"
+        "libeventHandler_UpdateHitBox.so",
+        "libeventHandler_DefaultPlayMusic.so",
+        "libeventHandler_DefaultPlaySounds.so",
+        "libeventHandler_PlaySounds.so",
+        "libeventHandler_FullScreenHandler.so",
+        "libeventHandler_UpdateConsumptionHandler.so",
+        "libeventHandler_UpdateShaderInfoHandler.so",
+        "libeventHandler_ShaderHandler.so"
     ],
     "networkUpdate": [
     ],
