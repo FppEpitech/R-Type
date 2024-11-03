@@ -13,6 +13,7 @@
 #include "GravityParser.hpp"
 #include "HitBoxComponent.hpp"
 #include "PlayerComponent.hpp"
+#include "CanJumpComponent.hpp"
 #include "PlayerInitSystem.hpp"
 #include "Position3DParser.hpp"
 #include "Draw/DrawComponent.hpp"
@@ -74,6 +75,9 @@ void PlayerInitSystem::_initPlayer(ECS::Registry& reg, int idxEntity)
 
     reg.register_component<IComponent>("HitBoxComponent");
     reg.set_component<IComponent>(idxEntity, std::make_shared<HitBoxComponent>(), "HitBoxComponent");
+
+    reg.register_component<IComponent>("CanJumpComponent");
+    reg.set_component<IComponent>(idxEntity, std::make_shared<CanJumpComponent>(), "CanJumpComponent");
 
     std::vector<std::any> playerValues = {};
     playerValues.push_back((float)position3D->x);
