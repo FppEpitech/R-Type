@@ -53,6 +53,7 @@ include_directories(
         ./Velocity/
         ./Velocity3D/
         ./HitBox/
+        ./CanJump/
         # Default systems directories
         ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultSystems
         # Parser directories
@@ -122,6 +123,7 @@ set(COMPONENTS
         Velocity
         Velocity3D
         HitBox
+        CanJump
 )
 
 foreach(component ${COMPONENTS})
