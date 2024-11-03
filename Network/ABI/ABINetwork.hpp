@@ -58,4 +58,11 @@ namespace ABINetwork
      * @param networkUnit A shared pointer to the network unit from which the message will be retrieved.
      */
     void sendMessages(std::shared_ptr<INetworkUnit> networkUnit);
+
+    /**
+     * @brief Get the Type Of Network object.
+     *
+     * @param networkUnit A shared pointer to the network unit from which the message will be retrieved.
+     */
+    INetworkUnit::TypeOfNetwork getTypeOfNetwork(std::shared_ptr<INetworkUnit> networkUnit);
 }

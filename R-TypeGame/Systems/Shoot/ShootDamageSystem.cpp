@@ -98,15 +98,8 @@ static void areEntityShot(ECS::Registry &reg, ShootComponent::ShootType shootTyp
                     entityLife->life = 0;
                 else
                     entityLife->life -= shootComp->damage;
-                if (entityLife->life == 0) {
-                    if (std::is_same_v<TYPE,PlayerComponent>) {
-                        ((PlayerComponent *)entityObject.get())->isAlive = false;
-                        entityDraw->draw = false;
-                        _updatePlayerDeath(reg, entity);
-                    }
-                    else
-                        reg.kill_entity(entity);
-                }
+                if (entityLife->life == 0 && !std::is_same_v<TYPE,PlayerComponent>)
+                    reg.kill_entity(entity);
                 reg.kill_entity(shoot);
             }
         }

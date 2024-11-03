@@ -12,6 +12,7 @@ namespace ABINetwork
 
 Server::Server(std::size_t numberMaxPlayer)
 {
+    _typeOfNetwork = TypeOfNetwork::TYPE_SERVER;
     _io_context = std::make_shared<asio::io_context>();
     if (!_io_context)
         throw ABIError("Failed to create the server");

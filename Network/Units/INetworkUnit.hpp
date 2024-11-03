@@ -41,6 +41,12 @@ class INetworkUnit
             RECEIVED
         };
 
+        enum TypeOfNetwork {
+            TYPE_UNKNOWN = 0,
+            TYPE_SERVER,
+            TYPE_CLIENT
+        };
+
         /**
          * @brief Virtual destructor.
          *
@@ -131,6 +137,13 @@ class INetworkUnit
          * @return std::pair<int, int> Tcp and udp ports.
          */
         virtual std::pair<int, int> getPorts() = 0;
+
+        /**
+         * @brief Get the Type Of Network object.
+         *
+         * @return int Type of Network.
+         */
+        virtual TypeOfNetwork getTypeOfNetwork() = 0;
 };
 
 }

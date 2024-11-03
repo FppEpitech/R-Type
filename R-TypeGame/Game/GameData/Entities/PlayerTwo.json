@@ -18,5 +18,15 @@
     {
         "x":5,
         "y":5
+    },
+    "SpriteSheetAnimationComponent":
+    {
+        "nbFrame": 5,
+        "timeFrame": 0.5,
+        "vx": 33.2,
+        "vy": 0,
+        "startX": 0,
+        "startY": 0,
+        "reverseMod": true
     }
 }

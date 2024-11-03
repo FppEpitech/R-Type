@@ -68,6 +68,13 @@ class EventListener {
          */
         void setSceneManager(std::shared_ptr<SceneManager::ISceneManager> sceneManager);
 
+        /**
+         * @brief Set the network unit.
+         *
+         * @param networkUnit The network unit to set.
+         */
+        void setNetworkUnit(std::shared_ptr <ABINetwork::INetworkUnit> networkUnit);
+
     protected:
 
         std::shared_ptr<ECS::Registry>                                  _registry; // Registries to get the event queue

@@ -56,7 +56,8 @@
         "libsystem_playSounds.so",
         "libsystem_UpdateConsumption.so",
         "libsystem_UpdateShaderInfo.so",
-        "libsystem_Shader.so"
+        "libsystem_Shader.so",
+        "libsystem_playerDeath.so"
     ],
     "eventHandlers": [
         "libeventHandler_moveEntity.so",
@@ -68,7 +69,8 @@
         "libeventHandler_FullScreenHandler.so",
         "libeventHandler_UpdateConsumptionHandler.so",
         "libeventHandler_UpdateShaderInfoHandler.so",
-        "libeventHandler_ShaderHandler.so"
+        "libeventHandler_ShaderHandler.so",
+        "libeventHandler_playerDeath.so"
     ],
     "networkUpdate": [
         {

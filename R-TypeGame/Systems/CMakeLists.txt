@@ -166,6 +166,7 @@ target_link_libraries(system_initPlayerTwo
         Position2D
         Scale
         TextureRect
+        SpriteSheetAnimation
         Player
         Draw
         Life
@@ -183,6 +184,7 @@ target_link_libraries(system_initPlayerThree
         Position2D
         Scale
         TextureRect
+        SpriteSheetAnimation
         Player
         Draw
         Life
@@ -200,6 +202,7 @@ target_link_libraries(system_initPlayerFour
         Position2D
         Scale
         TextureRect
+        SpriteSheetAnimation
         Player
         Draw
         Life
@@ -1186,4 +1189,17 @@ add_library(system_loginCheck SHARED
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
         ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
         Menus/Login/LoginCheckSystem.cpp
+)
+
+add_library(system_playerDeath SHARED
+    ../Error/AError.cpp
+    Players/Death/PlayerDeathSystem.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Registry.cpp
+    ${CMAKE_SOURCE_DIR}/Engine/Ecs/Src/Events/AEvent.cpp
+)
+
+target_link_libraries(system_playerDeath PRIVATE
+    Player
+    Life
+    Draw
 )

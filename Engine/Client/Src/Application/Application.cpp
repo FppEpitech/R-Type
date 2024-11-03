@@ -143,6 +143,7 @@ void Application::_handleJoinRoomPacket(ABINetwork::UDPPacket packet)
         return;
     }
     _client = room;
+    _eventListener->setNetworkUnit(_client);
     ABINetwork::sendPacketInit(_client);
     ABINetwork::sendPacketInit(_client);
     ABINetwork::sendMessages(_client);

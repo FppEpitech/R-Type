@@ -54,6 +54,11 @@ void EventListener::setSceneManager(std::shared_ptr <SceneManager::ISceneManager
     _sceneManager = sceneManager;
 }
 
+void EventListener::setNetworkUnit(std::shared_ptr <ABINetwork::INetworkUnit> networkUnit)
+{
+    _networkUnit = networkUnit;
+}
+
 bool EventListener::processEvent(std::shared_ptr<IEvent> event)
 {
     if (_eventHandlers.find(event->getEventType()) != _eventHandlers.end()) {

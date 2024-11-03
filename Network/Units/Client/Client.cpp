@@ -15,6 +15,7 @@ namespace ABINetwork
 
 Client::Client()
 {
+    _typeOfNetwork = TypeOfNetwork::TYPE_CLIENT;
     _roomPassword = "";
     _loginState = LoginState::NONE;
     _serverIp = "";
@@ -72,10 +73,9 @@ bool Client::connectToServer(std::string ipServer, int tcp_port)
 
 void Client::disconnectToServer()
 {
-    if (!_io_context)
-        return;
-    _io_context->stop();
-    if (_io_thread->joinable())
+    if (_io_context)
+        _io_context->stop();
+    if (_io_thread && _io_thread->joinable())
         _io_thread->join();
     _roomPassword = "";
     _loginState = LoginState::NONE;
