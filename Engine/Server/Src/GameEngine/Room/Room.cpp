@@ -41,9 +41,20 @@ void GameEngine::Room::run(std::mutex &mutex)
         _numberPlayers = _roomServer->getNumberClient();
         _packetHandler();
         _connectionHandler();
-        _eventListener->listen();
-        _registries->run_systems(-1);
+        _runSystems();
     }
+}
+
+void GameEngine::Room::_runSystems()
+{
+    static std::chrono::high_resolution_clock::time_point lastCall = std::chrono::high_resolution_clock::now();
+    const std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
+    double timeElapsed = std::chrono::duration<double, std::milli>(now - lastCall).count() / 1000;
+    if (timeElapsed < 0.005)
+        return;
+    _eventListener->listen();
+    _registries->run_systems(SERVER);
+    lastCall = std::chrono::high_resolution_clock::now();
 }
 
 void GameEngine::Room::_sendMessages()
