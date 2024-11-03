@@ -11,7 +11,6 @@
 #include "../AButton/AButtonInitSystem.hpp"
 
 #define PATH_JSON "GameData/Scenes/Menus/Buttons/loginButtonSystem.json"
-#define LOGIN "Menus/roomManagementMenu.json"
 
 /**
  * @brief LoginButtonInitSystem class

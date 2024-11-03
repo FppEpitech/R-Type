@@ -27,7 +27,8 @@
         "libeventHandler_FullScreenHandler.so",
         "libeventHandler_UpdateConsumptionHandler.so",
         "libeventHandler_UpdateShaderInfoHandler.so",
-        "libeventHandler_ShaderHandler.so"
+        "libeventHandler_ShaderHandler.so",
+        "libeventHandler_singlePlayer.so"
     ],
     "menus": {
         "keyBinds": [
