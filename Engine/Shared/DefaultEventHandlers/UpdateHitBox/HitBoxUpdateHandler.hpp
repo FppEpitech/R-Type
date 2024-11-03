@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** R-Type
 ** File description:
-** MoveEntityHandler.hpp
+** HitBoxUpdateHandler.hpp
 */
 
 #pragma once
@@ -10,22 +10,22 @@
 #include "AEventHandler.hpp"
 #include "../Error/AError.hpp"
 
-class MoveEntityHandler : public AEventHandler {
+class HitBoxUpdateHandler : public AEventHandler {
 
     public:
 
         /**
-         * @brief Construct a new MoveEntityHandler object
+         * @brief Construct a new HitBoxUpdateHandler object
          *
          * @param eventType Event type
          */
-        MoveEntityHandler(std::string eventType = "");
+        HitBoxUpdateHandler(std::string eventType = "");
 
         /**
-         * @brief Destroy the MoveEntityHandler object
+         * @brief Destroy the HitBoxUpdateHandler object
          *
          */
-        ~MoveEntityHandler() = default;
+        ~HitBoxUpdateHandler() = default;
 
         /**
          * @brief Process the event
@@ -40,14 +40,14 @@ class MoveEntityHandler : public AEventHandler {
         bool processEvent(std::shared_ptr<IEvent> event, std::shared_ptr<SceneManager::ISceneManager> sceneManager, std::shared_ptr<ABINetwork::INetworkUnit> networkUnit, std::shared_ptr<IGraphic> graphicLib) override;
 };
 
-class MoveEntityHandlerError : public AError {
+class HitBoxUpdateHandlerError : public AError {
 
     public:
 
         /**
-         * @brief Construct a new MoveEntityHandlerError object
+         * @brief Construct a new HitBoxUpdateHandlerError object
          *
          * @param message Message
          */
-        MoveEntityHandlerError(std::string message) : AError(message) {}
+        HitBoxUpdateHandlerError(std::string message) : AError(message) {}
 };

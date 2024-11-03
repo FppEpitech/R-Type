@@ -1,0 +1,10 @@
+{
+    "ScaleComponent": 1,
+    "Position3DComponent":
+    {
+        "x": 0,
+        "y": 0,
+        "z": 0
+    },
+    "ObjPathComponent": "./Assets/ground.glb"
+}

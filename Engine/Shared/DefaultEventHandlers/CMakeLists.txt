@@ -100,3 +100,35 @@ add_library(eventHandler_moveEntity SHARED
 )
 
 target_link_libraries(eventHandler_moveEntity PRIVATE r-type_abi_network asio::asio)
+
+add_library(eventHandler_UpdateCamera SHARED
+        UpdateCamera/CameraUpdateHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+target_link_libraries(eventHandler_UpdateCamera PRIVATE asio::asio)
+
+add_library(eventHandler_DrawHitBoxes SHARED
+        DrawHitBoxes/HitBoxesDrawHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+target_link_libraries(eventHandler_DrawHitBoxes PRIVATE
+        HitBox
+        asio::asio
+)
+add_library(eventHandler_UpdateHitBox SHARED
+        UpdateHitBox/HitBoxUpdateHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Shared/DefaultEventHandlers/AEventHandler.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Error/AError.cpp
+)
+
+target_link_libraries(eventHandler_UpdateHitBox PRIVATE
+        HitBox
+        asio::asio
+)

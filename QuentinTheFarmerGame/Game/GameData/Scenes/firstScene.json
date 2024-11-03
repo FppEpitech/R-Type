@@ -1,34 +1,37 @@
 {
     "keyBinds": [
         {
-            "key": "KEY_D",
-            "path" : "libsystem_moveRight.so"
-        },
-        {
-            "key": "KEY_A",
-            "path" : "libsystem_moveLeft.so"
-        },
-        {
-            "key": "KEY_W",
-            "path" : "libsystem_moveUp.so"
-        },
-        {
-            "key": "KEY_S",
-            "path" : "libsystem_moveDown.so"
-        },
-        {
             "key": "KEY_SPACE",
             "path": "libsystem_jump.so"
         }
     ],
     "entities": [
-        "libsystem_initPlayerOne.so"
+        "libsystem_initPlayerOne.so",
+        "libsystem_initGround.so",
+        "libsystem_InitConsumption.so",
+        "libsystem_InitShaderInfo.so"
     ],
     "systems": [
         "libsystem_handleGravity.so",
-        "libsystem_moveEntities.so"
+        "libsystem_moveEntities.so",
+        "libsystem_playSounds.so",
+        "libsystem_UpdateConsumption.so",
+        "libsystem_UpdateShaderInfo.so",
+        "libsystem_Shader.so"
     ],
     "eventHandlers": [
+        "libeventHandler_InitCamera.so",
+        "libeventHandler_UpdateCamera.so",
+        "libeventHandler_InitHitBox.so",
+        "libeventHandler_DrawHitBoxes.so",
+        "libeventHandler_UpdateHitBox.so",
+        "libeventHandler_DefaultPlayMusic.so",
+        "libeventHandler_DefaultPlaySounds.so",
+        "libeventHandler_PlaySounds.so",
+        "libeventHandler_FullScreenHandler.so",
+        "libeventHandler_UpdateConsumptionHandler.so",
+        "libeventHandler_UpdateShaderInfoHandler.so",
+        "libeventHandler_ShaderHandler.so"
     ],
     "networkUpdate": [
     ],
