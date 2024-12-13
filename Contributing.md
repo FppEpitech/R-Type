@@ -32,6 +32,9 @@ The commit body is used to provide additional details about the change. It can c
 
 Example of commit body:
 
+refactor(R-Type): Remove cron CI <- title
+I remove those cron activation because the project is finished<>
+
 Optional commit body, providing additional information about the changes made. It can explain why a certain approach was chosen or provide important technical details.
 
 
